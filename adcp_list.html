@@ -1,0 +1,13 @@
+{{define "content"}}
+  {{template "header"}}
+
+    {{range .Data}}
+      <li>
+        <h1><span class="label label-info">
+          <a href="adcp/update/{{.SerialNumber}}">{{.SerialNumber}}</a>{{.Customer}} {{.OrderNumber}}
+        </span></h1>
+      </li>
+    {{end}}
+
+  {{template "footer"}}
+{{end}}

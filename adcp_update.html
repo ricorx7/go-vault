@@ -1,0 +1,17 @@
+{{define "content"}}
+  {{template "header"}}
+  <style type="text/css">.error {color: red;}</style>
+
+  <strong>SerialNumber: {{.Adcp.SerialNumber}}</strong></br>
+
+  <form action="/adcp/update/{{.Adcp.SerialNumber}}" method="post">
+      Customer:<input type="text" name="Customer" value="{{.Adcp.Customer}}"></br>
+      OrderNumber:<input type="text" name="OrderNumber" value="{{.Adcp.OrderNumber}}"></br>
+      <input type="hidden" name="SerialNumber" value="{{.Adcp.SerialNumber}}">
+      <input type="hidden" name="token" value="{{.Token}}">
+      <input type="submit" value="Update">
+  </form>
+  Token: {{.Token}}</br>
+
+  {{template "footer"}}
+{{end}}
