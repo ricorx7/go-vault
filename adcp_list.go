@@ -22,7 +22,7 @@ func adcpListHandler(w http.ResponseWriter, r *http.Request) {
 		adcpData := &AdcpData{}
 
 		// Get data form DB
-		err := Vault.Mongo.C("adcps").Find(bson.M{}).All(&adcpData.Data)
+		err := Vault.Mongo.C("adcps").Find(bson.M{}).Sort("-created").All(&adcpData.Data)
 		CheckError(err)
 		fmt.Println("Number of ADCPs: ", len(adcpData.Data))
 

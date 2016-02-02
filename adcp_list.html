@@ -1,13 +1,16 @@
 {{define "content"}}
-  {{template "header"}}
+  <h1>ADCPS</h1>
 
+    <ul class="list-group">
     {{range .Data}}
-      <li>
-        <h1><span class="label label-info">
-          <a href="adcp/update/{{.SerialNumber}}">{{.SerialNumber}}</a>{{.Customer}} {{.OrderNumber}}
-        </span></h1>
+      <li class="list-group-item">
+          <h4 class="list-group-item-heading">{{.SerialNumber}}</h4>
+          <p>{{.Customer}}</br>
+          {{.OrderNumber}}</p>
+        <a href="adcp/update/{{.SerialNumber}}" class="btn btn-warning">EDIT</a>
+        <a href="adcp/cert/{{.SerialNumber}}" class="btn btn-info">CERT</a></br>
+        <small>{{.Created}}</small>
       </li>
     {{end}}
-
-  {{template "footer"}}
+  </ul>
 {{end}}

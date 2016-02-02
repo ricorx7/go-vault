@@ -18,21 +18,23 @@ var (
 	addr         = flag.String("addr", ":8989", "http service address")
 	port         = flag.String("port", "", "Serial COM Port")
 	baud         = flag.String("baud", "115200", "Baud Rate")
-	mongoAddr    = flag.String("mongo", "mongodb://localhost:27017/Vault", "mongoDB server address.")
+	mongo        = flag.String("mongo", "mongodb://192.168.0.108:27017/Vault", "mongoDB server address.")
 )
 
 func main() {
 
+	flag.Parse()
 	//go readUDP()
 
 	// Connect to DB
-	go DbConnect(*mongoAddr)
+	go DbConnect(*mongo)
 
 	// Router
 	mux := bone.New()
 	mux.Handle("/libs/", http.StripPrefix("/libs/", http.FileServer(http.Dir("libs")))) // External libs
 	mux.HandleFunc("/adcp", http.HandlerFunc(adcpListHandler))
 	mux.HandleFunc("/adcp/update/:id", http.HandlerFunc(adcpUpdateHandler))
+	mux.HandleFunc("/adcp/cert/:id", http.HandlerFunc(adcpCertHandler))
 	mux.HandleFunc("/adcp/add", http.HandlerFunc(adcpAddHandler))
 
 	// HTTP server

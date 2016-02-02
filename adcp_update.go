@@ -6,8 +6,6 @@ import (
 	"text/template"
 	"time"
 
-	"gopkg.in/mgo.v2/bson"
-
 	"github.com/albrow/forms"
 	"github.com/go-zoo/bone"
 )
@@ -64,61 +62,29 @@ func adcpUpdateHandler(w http.ResponseWriter, r *http.Request) {
 		adcp := getAdcp(formData.Get("SerialNumber"))
 		adcp.Customer = formData.Get("Customer")
 		adcp.OrderNumber = formData.Get("OrderNumber")
+		adcp.Application = formData.Get("Application")
+		adcp.ConnectorType = formData.Get("ConnectorType")
+		adcp.DepthRating = formData.Get("DepthRating")
+		adcp.Firmware = formData.Get("Firmware")
+		adcp.Hardware = formData.Get("Hardware")
+		adcp.HeadType = formData.Get("HeadType")
+		adcp.Modified = time.Now()
+		adcp.PressureSensorPresent = formData.GetBool("PressureSensorPresent")
+		adcp.PressureSensorRating = formData.Get("PressureSensorRating")
+		adcp.RecorderFormated = formData.GetBool("RecorderFormated")
+		adcp.RecorderSize = formData.Get("RecorderSize")
+		adcp.Software = formData.Get("Software")
+		adcp.SystemType = formData.Get("SystemType")
+		adcp.TemperaturePresent = formData.GetBool("TemperaturePresent")
 
 		fmt.Println("Serial: ", adcp.SerialNumber)
 		fmt.Println("Customer: ", adcp.Customer)
 		fmt.Println("OrderNumber: ", adcp.OrderNumber)
 
 		// Save the data to the DB
-		updateAdcp2(adcp)
+		updateAdcp(adcp)
 
 		// Go to the list of ADCP
 		http.Redirect(w, r, "/adcp", http.StatusFound)
-	}
-}
-
-// Find the ADCP from the database
-func getAdcp(serialNum string) *Adcp {
-	fmt.Println("Get ADCP - SerialNum: ", serialNum)
-
-	var data Adcp
-	err := Vault.Mongo.C("adcps").Find(bson.M{"SerialNumber": serialNum}).One(&data)
-	if err != nil {
-		fmt.Printf("Can't find document %v\n", err)
-	}
-	fmt.Println("SerialNum: ", data.SerialNumber)
-	fmt.Println("Customer: ", data.Customer)
-	fmt.Println("ID:", data.ID)
-
-	return &data
-}
-
-// Update the ADCP data
-func updateAdcp(adcp *Adcp) {
-	fmt.Println("ID:", adcp.ID)
-
-	// Update
-	qry := bson.M{"SerialNumber": adcp.SerialNumber}
-	change := bson.M{"$set": bson.M{"Customer": adcp.Customer, "OrderNumber": adcp.OrderNumber, "modified": time.Now()}}
-	err := Vault.Mongo.C("adcps").Update(qry, change)
-	CheckError(err)
-}
-
-// func updateAdcp1(adcp *Adcp) {
-// 	change := mgo.Change{
-// 		Update:    bson.M{"$inc": bson.M{"Customer": adcp.Customer, "OrderNumber": adcp.OrderNumber, "modified": time.Now()}},
-// 		ReturnNew: true,
-// 	}
-// 	info, err := Vault.Mongo.C("adcps").Find(bson.M{"_id": adcp._id}).Apply(change, &doc)
-// 	fmt.Println(doc.N)
-// }
-
-func updateAdcp2(adcp *Adcp) {
-	fmt.Println("UpdateAdcp2 - ID", adcp.ID)
-
-	//err := Vault.Mongo.C("adcps").Update(bson.M{"_id": adcp._id}, bson.M{"$inc": bson.M{"Customer": adcp.Customer}})
-	err := Vault.Mongo.C("adcps").Update(bson.M{"_id": adcp.ID}, bson.M{"$set": bson.M{"Customer": adcp.Customer, "OrderNumber": adcp.OrderNumber}})
-	if err != nil {
-		fmt.Printf("Can't update document %v\n", err)
 	}
 }

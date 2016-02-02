@@ -1,17 +1,122 @@
 {{define "content"}}
-  {{template "header"}}
   <style type="text/css">.error {color: red;}</style>
 
   <strong>SerialNumber: {{.Adcp.SerialNumber}}</strong></br>
 
-  <form action="/adcp/update/{{.Adcp.SerialNumber}}" method="post">
-      Customer:<input type="text" name="Customer" value="{{.Adcp.Customer}}"></br>
-      OrderNumber:<input type="text" name="OrderNumber" value="{{.Adcp.OrderNumber}}"></br>
+  <form action="/adcp/update/{{.Adcp.SerialNumber}}" method="post" class="form-horizontal" role="form">
+
+    <div class="form-group">
+      <label class="control-label col-sm-2" for="Customer">Customer:</label>
+      <div class="col-sm-6">
+        <input type="text" class="form-control" name="Customer" value="{{.Adcp.Customer}}">
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label class="control-label col-sm-2" for="OrderNumber">Order Number:</label>
+      <div class="col-sm-6">
+        <input type="text" class="form-control" name="OrderNumber" value="{{.Adcp.OrderNumber}}">
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label class="control-label col-sm-2" for="SystemType">System Type:</label>
+      <div class="col-sm-6">
+        <input type="text" class="form-control" name="SystemType" value="{{.Adcp.SystemType}}">
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label class="control-label col-sm-2" for="Application">Application:</label>
+      <div class="col-sm-6">
+        <input type="text" class="form-control" name="Application" value="{{.Adcp.Application}}">
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label class="control-label col-sm-2" for="DepthRating">Depth Rating:</label>
+      <div class="col-sm-6">
+        <input type="text" class="form-control" name="DepthRating" value="{{.Adcp.DepthRating}}">
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label class="control-label col-sm-2" for="HeadType">Head Type:</label>
+      <div class="col-sm-6">
+        <input type="text" class="form-control" name="HeadType" value="{{.Adcp.HeadType}}">
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label class="control-label col-sm-2" for="Hardware">Hardware:</label>
+      <div class="col-sm-6">
+        <input type="text" class="form-control" name="Hardware" value="{{.Adcp.Hardware}}">
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label class="control-label col-sm-2" for="ConnectorType">Connector Type:</label>
+      <div class="col-sm-6">
+        <input type="text" class="form-control" name="ConnectorType" value="{{.Adcp.ConnectorType}}">
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label class="control-label col-sm-2" for="Firmware">Firmware:</label>
+      <div class="col-sm-6">
+        <input type="text" class="form-control" name="Firmware" value="{{.Adcp.Firmware}}">
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label class="control-label col-sm-2" for="Software">Software:</label>
+      <div class="col-sm-6">
+        <input type="text" class="form-control" name="Software" value="{{.Adcp.Software}}">
+      </div>
+    </div>
+
+    <div class="form-group">
+      <div class="col-sm-offset-2 col-sm-10">
+        <div class="checkbox">
+          <label><input type="checkbox" name="RecorderFormated" value={{.Adcp.RecorderFormated}}> Recorder Formatted:</label>
+        </div>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label class="control-label col-sm-2" for="RecorderSize">Recorder Size:</label>
+      <div class="col-sm-6">
+        <input type="text" class="form-control" name="RecorderSize" value="{{.Adcp.RecorderSize}}">
+      </div>
+    </div>
+
+    <div class="form-group">
+      <div class="col-sm-offset-2 col-sm-10">
+        <div class="checkbox">
+          <label><input type="checkbox" name="TemperaturePresent" value={{.Adcp.TemperaturePresent}}> Temperature Present</label>
+        </div>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <div class="col-sm-offset-2 col-sm-10">
+        <div class="checkbox">
+          <label><input type="checkbox" name="PressureSensorPresent" value={{.Adcp.PressureSensorPresent}}> Pressure Sensor Present</label>
+        </div>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label class="control-label col-sm-2" for="PressureSensorRating">Pressure Sensor Rating:</label>
+      <div class="col-sm-6">
+        <input type="text" class="form-control" name="PressureSensorRating" value="{{.Adcp.PressureSensorRating}}">
+      </div>
+    </div>
+
       <input type="hidden" name="SerialNumber" value="{{.Adcp.SerialNumber}}">
       <input type="hidden" name="token" value="{{.Token}}">
       <input type="submit" value="Update">
   </form>
   Token: {{.Token}}</br>
 
-  {{template "footer"}}
 {{end}}

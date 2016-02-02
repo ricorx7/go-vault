@@ -1,0 +1,140 @@
+{{define "content"}}
+	<div visible-print-block>
+		<div class="container">
+			<div class="row">
+				<div class="col-xs-2">
+					<img alt="RTI" class="img-responsive text-center" src="companylogo.png" />
+				</div>
+				<div class="col-xs-9">
+					<h2> ADCP/DVL Test Certificate </h2>
+				</div>
+			</div>
+			<div class="row" style="margin-bottom: 20px">
+				<div class="col-xs-5">
+					<dt><strong>Serial Number:</strong></dt><dd>{{.Adcp.SerialNumber}}</dd>
+        </div>
+        <div class="col-xs-3">
+					<dt><strong>Order Number:</strong></dt><dd>{{.Adcp.OrderNumber}}</dd>
+				</div>
+        <div class="col-xs-2">
+          <dt><strong>Customer:</strong></dt><dd>{{.Adcp.Customer}}</dd>
+        </div>
+			</div>
+
+			<div class="row" style="margin-bottom: 20px">
+				<div class="col-xs-9">
+					<dt><strong>System:</strong></dt><dd>{{.Adcp.Frequency}}</dd>
+				</div>
+			</div>
+
+			<div class="row">
+				<!-- Hardware -->
+				<div class="col-xs-3">
+					<table class="table table-condensed" style="margin-bottom: 0px">
+						<tbody>
+							<tr>
+								<td><strong>System Type:</strong></td>
+								<td>{{.Adcp.SystemType}}</td>
+							</tr>
+							<tr>
+								<td><strong>Application:</strong></td>
+								<td>{{.Adcp.Application}}</td>
+							</tr>
+							<tr>
+								<td><strong>Depth Rating:</strong></td>
+								<td>{{.Adcp.DepthRating}}</td>
+							</tr>
+	            <tr style="margin-bottom: 0px">
+	                <td><strong>Head Type:</strong></td>
+	                <td>{{.Adcp.HeadType}}</td>
+	            </tr>
+	            <tr style="margin-bottom: 0px">
+	                <td><strong>Hardware:</strong></td>
+	                <td>{{.Adcp.Hardware}}</td>
+	            </tr>
+	            <tr style="margin-bottom: 0px">
+	                <td><strong>Connector:</strong></td>
+	                <td>{{.Adcp.ConnectorType}}</td>
+	            </tr>
+	            <tr style="margin-bottom: 0px">
+	                <td><strong>Firmware:</strong></td>
+	                <td>{{.Adcp.Firmware}}</td>
+	            </tr>
+	            <tr style="margin-bottom: 0px">
+	                <td><strong>Software:</strong></td>
+	                <td>{{.Adcp.Software}}</td>
+	            </tr>
+	            <tr style="margin-bottom: 0px">
+	                <td><strong>Temperature:</strong></td>
+	                <td class="check-element animate-hide" {{.Adcp.TemperaturePresent}}><i class="glyphicon glyphicon-check"></i></td>
+	            </tr>
+	            <tr style="margin-bottom: 0px">
+	                <td><strong>Pressure Sensor:</strong></td>
+	                <td class="check-element animate-hide" {{.Adcp.PressureSensorPresent}}><i class="glyphicon glyphicon-check"></i></td>
+	            </tr>
+	            <tr style="margin-bottom: 0px">
+	                <td><strong>Recorder Size:</strong></td>
+	                <td>{{.Adcp.RecorderSize}}</td>
+	            </tr>
+	            <tr style="margin-bottom: 0px">
+	                <td><strong>Recorder Formatted:</strong></td>
+	                <td class="check-element animate-hide" {{.Adcp.RecorderFormatted}}><i class="glyphicon glyphicon-check"></i></td>
+	            </tr>
+	        </tbody>
+				</table>
+			</div>
+
+			<!-- Heading, Pitch and Roll -->
+			<div class="col-xs-7" >
+				<dl>
+						<dt>
+							<strong>Compass Calibration - Heading Pitch Roll</strong>
+						</dt>
+						<dd>
+							<table class="table table-bordered table-condensed" style="margin-bottom: 0px">
+								<thead>
+									<tr>
+										<th class="text-center"><h5><strong>Heading</strong></h5></th>
+										<th class="text-center"><h5><strong>Reading (°)</strong></h5></th>
+										<th class="text-center"><h5><strong>Error (°)</strong></h5></th>
+									</tr>
+								</thead>
+
+								<tbody>
+									{{range .CompassCal}}
+									<tr>
+										<td class="text-center"><strong>0°</strong></td>
+										<td class="text-center">{{.Point1PostHdg}}°</td>
+										<td class="text-center">{{.CompasscalBeam1Error}}°</td>
+									</tr>
+									<tr>
+										<td class="text-center"><strong>90°</strong></td>
+										<td class="text-center">{{.Point2PostHdg}}°</td>
+										<td class="text-center">{{.CompasscalBeam2Error}}°</td>
+									</tr>
+									<tr>
+										<td class="text-center"><strong>180°</strong></td>
+										<td class="text-center">{{.Point3PostHdg}}°</td>
+										<td class="text-center"><{{.CompasscalBeam3Error}}°</td>
+									</tr>
+									<tr>
+										<td class="text-center"><strong>270°</strong></td>
+										<td class="text-center">{{.Point4PostHdg}}°</td>
+										<td class="text-center">{{.CompasscalBeam4Error}}°</td>
+									</tr>
+									{{end}}
+								</tbody>
+							</table>
+						</dd>
+
+						<dt>
+							<strong>* ±2° error acceptance criteria</strong>
+						</dt>
+						<dt> <br> </dt>
+					</dl>
+		</div>
+	</div>
+</div>
+</div>
+
+  {{end}}
