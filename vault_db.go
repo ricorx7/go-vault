@@ -37,12 +37,12 @@ type Adcp struct {
 // CompassCal holds the CompassCal information.
 type CompassCal struct {
 	ID                     bson.ObjectId `bson:"_id,omitempty" json:"id"`
-	IsSelected             bool          `bson:"IsSelected" json:"IsSelected"`
+	IsSelected             bool          `json:"IsSelected"`
 	Created                time.Time     `bson:"Created" json:"Created"`
 	UserName               string        `bson:"UserName" json:"UserName"`
 	SerialNumber           string        `bson:"SerialNumber" json:"SerialNumber"`
 	Firmware               string        `bson:"Firmware" json:"Firmware"`
-	CalScoreStdDevErr      float32       `bson:"IsSelected" json:"IsSelected"`
+	CalScoreStdDevErr      float32       `bson:"CalScoreStdDevErr" json:"CalScoreStdDevErr"`
 	CalScoreXCoverage      float32       `bson:"CalScore_xCoverage" json:"CalScore_xCoverage"`
 	CalScoreYCoverage      float32       `bson:"CalScore_yCoverage" json:"CalScore_yCoverage"`
 	CalScoreZCoverage      float32       `bson:"CalScore_zCoverage" json:"CalScore_zCoverage"`
@@ -74,11 +74,74 @@ type CompassCal struct {
 	Point4PostHdg          float32       `bson:"Point4_Post_Hdg" json:"Point4_Post_Hdg"`
 	Point4PostPtch         float32       `bson:"Point4_Post_Ptch" json:"Point4_Post_Ptch"`
 	Point4PostRoll         float32       `bson:"Point4_Post_Roll" json:"Point4_Post_Roll"`
+	LastModified           float32       `bson:"LastModified" json:"LastModified"`
 	CompasscalBeam1Error   float32
 	CompasscalBeam2Error   float32
 	CompasscalBeam3Error   float32
 	CompasscalBeam4Error   float32
-	LastModified           float32 `bson:"LastModified" json:"LastModified"`
+}
+
+// TankTestResults holds the Tank Test information.
+type TankTestResults struct {
+	ID                   bson.ObjectId `bson:"_id,omitempty" json:"id"`
+	IsSelected           bool          `json:"IsSelected"`
+	TankTestType         string        `bson:"TankTestType" json:"TankTestType"`
+	Created              time.Time     `bson:"Created" json:"Created"`
+	UserName             string        `bson:"UserName" json:"UserName"`
+	SerialNumber         string        `bson:"SerialNumber" json:"SerialNumber"`
+	Firmware             string        `bson:"Firmware" json:"Firmware"`
+	SubsystemDescStr     string        `bson:"SubsystemDescStr" json:"SubsystemDescStr"`
+	SubsystemCode        int           `bson:"SubsystemCode" json:"SubsystemCode"`
+	SubsystemCepoIndex   int           `bson:"SubsystemCepoIndex" json:"SubsystemCepoIndex"`
+	SubsystemConfigIndex int           `bson:"SubsystemConfigIndex" json:"SubsystemConfigIndex"`
+	TestOrientation      int           `bson:"TestOrientation" json:"TestOrientation"`
+	Beam0NoiseFloor      float32       `bson:"Beam0NoiseFloor" json:"Beam0NoiseFloor"`
+	Beam1NoiseFloor      float32       `bson:"Beam1NoiseFloor" json:"Beam1NoiseFloor"`
+	Beam2NoiseFloor      float32       `bson:"Beam2NoiseFloor" json:"Beam2NoiseFloor"`
+	Beam3NoiseFloor      float32       `bson:"Beam3NoiseFloor" json:"Beam3NoiseFloor"`
+	Beam0Signal1mTank    float32       `bson:"Beam0Signal1mTank" json:"Beam0Signal1mTank"`
+	Beam1Signal1mTank    float32       `bson:"Beam1Signal1mTank" json:"Beam1Signal1mTank"`
+	Beam2Signal1mTank    float32       `bson:"Beam2Signal1mTank" json:"Beam2Signal1mTank"`
+	Beam3Signal1mTank    float32       `bson:"Beam3Signal1mTank" json:"Beam3Signal1mTank"`
+	Beam0SignalTank      float32       `bson:"Beam0SignalTank" json:"Beam0SignalTank"`
+	Beam1SignalTank      float32       `bson:"Beam1SignalTank" json:"Beam1SignalTank"`
+	Beam2SignalTank      float32       `bson:"Beam2SignalTank" json:"Beam2SignalTank"`
+	Beam3SignalTank      float32       `bson:"Beam3SignalTank" json:"Beam3SignalTank"`
+	Beam0SignalLake      float32       `bson:"Beam0SignalLake" json:"Beam0SignalLake"`
+	Beam1SignalLake      float32       `bson:"Beam1SignalLake" json:"Beam1SignalLake"`
+	Beam2SignalLake      float32       `bson:"Beam2SignalLake" json:"Beam2SignalLake"`
+	Beam3SignalLake      float32       `bson:"Beam3SignalLake" json:"Beam3SignalLake"`
+	Beam0SignalOcean     float32       `bson:"Beam0SignalOcean" json:"Beam0SignalOcean"`
+	Beam1SignalOcean     float32       `bson:"Beam1SignalOcean" json:"Beam1SignalOcean"`
+	Beam2SignalOcean     float32       `bson:"Beam2SignalOcean" json:"Beam2SignalOcean"`
+	Beam3SignalOcean     float32       `bson:"Beam3SignalOcean" json:"Beam3SignalOcean"`
+	Beam0SnrTank         float32       `bson:"Beam0SnrTank" json:"Beam0SnrTank"`
+	Beam1SnrTank         float32       `bson:"Beam1SnrTank" json:"Beam1SnrTank"`
+	Beam2SnrTank         float32       `bson:"Beam2SnrTank" json:"Beam2SnrTank"`
+	Beam3SnrTank         float32       `bson:"Beam3SnrTank" json:"Beam3SnrTank"`
+	Beam0SnrLake         float32       `bson:"Beam0SnrLake" json:"Beam0SnrLake"`
+	Beam1SnrLake         float32       `bson:"Beam1SnrLake" json:"Beam1SnrLake"`
+	Beam2SnrLake         float32       `bson:"Beam2SnrLake" json:"Beam2SnrLake"`
+	Beam3SnrLake         float32       `bson:"Beam3SnrLake" json:"Beam3SnrLake"`
+	Beam0SnrOcean        float32       `bson:"Beam0SnrOcean" json:"Beam0SnrOcean"`
+	Beam1SnrOcean        float32       `bson:"Beam1SnrOcean" json:"Beam1SnrOcean"`
+	Beam2SnrOcean        float32       `bson:"Beam2SnrOcean" json:"Beam2SnrOcean"`
+	Beam3SnrOcean        float32       `bson:"Beam3SnrOcean" json:"Beam3SnrOcean"`
+	GpsDistance          string        `bson:"GpsDistance" json:"GpsDistance"`
+	GpsDirection         string        `bson:"GpsDirection" json:"GpsDirection"`
+	BtDistance           string        `bson:"BtDistance" json:"BtDistance"`
+	BtDirection          string        `bson:"BtDirection" json:"BtDirection"`
+	DistanceError        string        `bson:"DistanceError" json:"DistanceError"`
+	DirectionError       string        `bson:"DirectionError" json:"DirectionError"`
+	ProfileRangeBeam0    float32       `bson:"ProfileRangeBeam0" json:"ProfileRangeBeam0"`
+	ProfileRangeBeam1    float32       `bson:"ProfileRangeBeam1" json:"ProfileRangeBeam1"`
+	ProfileRangeBeam2    float32       `bson:"ProfileRangeBeam2" json:"ProfileRangeBeam2"`
+	ProfileRangeBeam3    float32       `bson:"ProfileRangeBeam3" json:"ProfileRangeBeam3"`
+	GlitchCountBeam0     float32       `bson:"GlitchCountBeam0" json:"GlitchCountBeam0"`
+	GlitchCountBeam1     float32       `bson:"GlitchCountBeam1" json:"GlitchCountBeam1"`
+	GlitchCountBeam2     float32       `bson:"GlitchCountBeam2" json:"GlitchCountBeam2"`
+	GlitchCountBeam3     float32       `bson:"GlitchCountBeam3" json:"GlitchCountBeam3"`
+	PlotReport           string        `bson:"PlotReport" json:"PlotReport"`
 }
 
 // VaultDb holds the vault database.
@@ -155,14 +218,36 @@ func getCompassCal(serialNum string) *[]CompassCal {
 	return &data
 }
 
-// Find the CompassCal from the database
+// Find the CompassCal from the database.  List only the selected.
 func getCompassCalSelected(serialNum string) *[]CompassCal {
 	fmt.Println("getcompassCalSelected", serialNum)
-
 	var data []CompassCal
-	err := Vault.Mongo.C("CompassCalResults").Find(bson.M{"SerialNumber": serialNum}).All(&data)
+	err := Vault.Mongo.C("CompassCalResults").Find(bson.M{"SerialNumber": serialNum, "IsSelected": true}).All(&data)
 	if err != nil {
 		fmt.Printf("Can't find CompassCal data %v\n", err)
 	}
+	fmt.Printf("getCompassCalSelected: %s : Count[%d]\n", serialNum, len(data))
+	return &data
+}
+
+// Find the TankTestResults from the database
+func getTankTestResults(serialNum string) *[]TankTestResults {
+	var data []TankTestResults
+	err := Vault.Mongo.C("TankTestResults").Find(bson.M{"SerialNumber": serialNum}).All(&data)
+	if err != nil {
+		fmt.Printf("Can't find CompassCal data %v\n", err)
+	}
+	return &data
+}
+
+// Find the TankTestResults from the database.  List only the selected.
+func getTankTestResultsSelected(serialNum string) *[]TankTestResults {
+	fmt.Println("getcompassCalSelected", serialNum)
+	var data []TankTestResults
+	err := Vault.Mongo.C("TankTestResults").Find(bson.M{"SerialNumber": serialNum, "IsSelected": true}).All(&data)
+	if err != nil {
+		fmt.Printf("Can't find CompassCal data %v\n", err)
+	}
+	fmt.Printf("getCompassCalSelected: %s : Count[%d]\n", serialNum, len(data))
 	return &data
 }
