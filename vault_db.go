@@ -235,19 +235,31 @@ func getTankTestResults(serialNum string) *[]TankTestResults {
 	var data []TankTestResults
 	err := Vault.Mongo.C("TankTestResults").Find(bson.M{"SerialNumber": serialNum}).All(&data)
 	if err != nil {
-		fmt.Printf("Can't find CompassCal data %v\n", err)
+		fmt.Printf("Can't find TankTest data %v\n", err)
 	}
 	return &data
 }
 
 // Find the TankTestResults from the database.  List only the selected.
 func getTankTestResultsSelected(serialNum string) *[]TankTestResults {
-	fmt.Println("getcompassCalSelected", serialNum)
+	fmt.Println("getTankTestResultsSelected", serialNum)
 	var data []TankTestResults
 	err := Vault.Mongo.C("TankTestResults").Find(bson.M{"SerialNumber": serialNum, "IsSelected": true}).All(&data)
 	if err != nil {
-		fmt.Printf("Can't find CompassCal data %v\n", err)
+		fmt.Printf("Can't find TankTest data %v\n", err)
 	}
-	fmt.Printf("getCompassCalSelected: %s : Count[%d]\n", serialNum, len(data))
+	fmt.Printf("getTankTestResultsSelected: %s : Count[%d]\n", serialNum, len(data))
+	return &data
+}
+
+// Find the TankTestResults from the database.  List only the selected with the given tank test type.
+func getTankTestResultsSelectedType(serialNum string, testType string) *[]TankTestResults {
+	fmt.Println("getTankTestResultsSelected", serialNum)
+	var data []TankTestResults
+	err := Vault.Mongo.C("TankTestResults").Find(bson.M{"SerialNumber": serialNum, "IsSelected": true, "TankTestType": testType}).All(&data)
+	if err != nil {
+		fmt.Printf("Can't find TankTest data %v\n", err)
+	}
+	fmt.Printf("getTankTestResultsSelected: %s : Count[%d]\n", serialNum, len(data))
 	return &data
 }

@@ -10,8 +10,9 @@ import (
 
 // AdcpCert holds the ADCP certificate.
 type AdcpCert struct {
-	Adcp       Adcp
-	CompassCal []CompassCal
+	Adcp       Adcp              // ADCP data
+	CompassCal []CompassCal      // Compass Cal data
+	TankTest   []TankTestResults // Tank Test data
 	Errors     struct {
 		SerialNumber string
 	}
@@ -23,12 +24,13 @@ func adcpCertHandler(w http.ResponseWriter, r *http.Request) {
 
 	if r.Method == "GET" {
 
-		serialNum := bone.GetValue(r, "id")                    // Get the value of the "id" parameters in the URL.
-		adcp := getAdcp(serialNum)                             // Get the ADCP data from the DB
-		adcpCert := &AdcpCert{Adcp: *adcp}                     // Set the ADCP to struct
-		adcpCert.CompassCal = getCompassCalCertData(serialNum) // Get Compass Cal from the DB
+		serialNum := bone.GetValue(r, "id")                      // Get the value of the "id" parameters in the URL.
+		adcp := getAdcp(serialNum)                               // Get the ADCP data from the DB
+		adcpCert := &AdcpCert{Adcp: *adcp}                       // Set the ADCP to struct
+		adcpCert.CompassCal = getCompassCalCertData(serialNum)   // Get Compass Cal from the DB
+		adcpCert.TankTest = getTankTestResultCertData(serialNum) // Get Tank Test from the DB
 
-		t, _ := template.ParseFiles("header.html", "adcp_cert1.html", "footer.html")
+		t, _ := template.ParseFiles("header.html", "adcp_cert.html", "footer.html")
 		t.ExecuteTemplate(w, "header", nil)
 		t.ExecuteTemplate(w, "content", adcpCert)
 		t.ExecuteTemplate(w, "footer", nil)
@@ -47,4 +49,10 @@ func getCompassCalCertData(serialNum string) []CompassCal {
 	}
 
 	return *cc
+}
+
+// Get the tank test data from the DB.
+func getTankTestResultCertData(serialNum string) []TankTestResults {
+	tt := getTankTestResultsSelectedType(serialNum, "Noise")
+	return *tt
 }
