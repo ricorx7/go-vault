@@ -31,7 +31,8 @@ func main() {
 
 	// Router
 	mux := bone.New()
-	mux.Handle("/libs/", http.StripPrefix("/libs/", http.FileServer(http.Dir("libs")))) // External libs
+	mux.Handle("/libs/", http.StripPrefix("/libs/", http.FileServer(http.Dir("libs"))))       // External libs
+	mux.Handle("/images/", http.StripPrefix("/images/", http.FileServer(http.Dir("images")))) // Image folder
 	mux.HandleFunc("/adcp", http.HandlerFunc(adcpListHandler))
 	mux.HandleFunc("/adcp/update/:id", http.HandlerFunc(adcpUpdateHandler))
 	mux.HandleFunc("/adcp/cert/:id", http.HandlerFunc(adcpCertHandler))

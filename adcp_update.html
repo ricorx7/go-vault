@@ -76,10 +76,9 @@
     </div>
 
     <div class="form-group">
-      <div class="col-sm-offset-2 col-sm-10">
-        <div class="checkbox">
-          <label><input type="checkbox" name="RecorderFormated" value={{.Adcp.RecorderFormated}}> Recorder Formatted:</label>
-        </div>
+      <label class="control-label col-sm-2" for="RecorderFormatted">Is Recorder Formatted:</label>
+      <div class="col-sm-6">
+        <input type="text" class="form-control" name="RecorderFormatted" value="{{.Adcp.RecorderFormatted}}">
       </div>
     </div>
 
@@ -91,18 +90,16 @@
     </div>
 
     <div class="form-group">
-      <div class="col-sm-offset-2 col-sm-10">
-        <div class="checkbox">
-          <label><input type="checkbox" name="TemperaturePresent" value={{.Adcp.TemperaturePresent}}> Temperature Present</label>
-        </div>
+      <label class="control-label col-sm-2" for="TemperaturePresent">Is Temperature Present:</label>
+      <div class="col-sm-6">
+        <input type="text" class="form-control" name="TemperaturePresent" value="{{.Adcp.TemperaturePresent}}">
       </div>
     </div>
 
     <div class="form-group">
-      <div class="col-sm-offset-2 col-sm-10">
-        <div class="checkbox">
-          <label><input type="checkbox" name="PressureSensorPresent" value={{.Adcp.PressureSensorPresent}}> Pressure Sensor Present</label>
-        </div>
+      <label class="control-label col-sm-2" for="PressureSensorPresent">Is Pressure Sensor Present:</label>
+      <div class="col-sm-6">
+        <input type="text" class="form-control" name="PressureSensorPresent" value="{{.Adcp.PressureSensorPresent}}">
       </div>
     </div>
 

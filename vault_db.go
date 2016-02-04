@@ -25,7 +25,7 @@ type Adcp struct {
 	PressureSensorPresent bool          `bson:"PressureSensorPresent" json:"PressureSensorPresent"`
 	PressureSensorRating  string        `bson:"PressureSensorRating" json:"PressureSensorRating"`
 	RecorderSize          string        `bson:"RecorderSize" json:"RecorderSize"`
-	RecorderFormated      bool          `bson:"RecorderFormated" json:"RecorderFormated"`
+	RecorderFormatted     bool          `bson:"RecorderFormatted" json:"RecorderFormatted"`
 	SystemType            string        `bson:"SystemType" json:"SystemType"`
 	Application           string        `bson:"Application" json:"Application"`
 	Created               time.Time     `bson:"created"`
@@ -37,7 +37,7 @@ type Adcp struct {
 // CompassCal holds the CompassCal information.
 type CompassCal struct {
 	ID                     bson.ObjectId `bson:"_id,omitempty" json:"id"`
-	IsSelected             bool          `json:"IsSelected"`
+	IsSelected             bool          `bson:"IsSelected" json:"IsSelected"`
 	Created                time.Time     `bson:"Created" json:"Created"`
 	UserName               string        `bson:"UserName" json:"UserName"`
 	SerialNumber           string        `bson:"SerialNumber" json:"SerialNumber"`
@@ -84,7 +84,7 @@ type CompassCal struct {
 // TankTestResults holds the Tank Test information.
 type TankTestResults struct {
 	ID                   bson.ObjectId `bson:"_id,omitempty" json:"id"`
-	IsSelected           bool          `json:"IsSelected"`
+	IsSelected           bool          `bson:"IsSelected" json:"IsSelected"`
 	TankTestType         string        `bson:"TankTestType" json:"TankTestType"`
 	Created              time.Time     `bson:"Created" json:"Created"`
 	UserName             string        `bson:"UserName" json:"UserName"`
@@ -144,6 +144,104 @@ type TankTestResults struct {
 	PlotReport           string        `bson:"PlotReport" json:"PlotReport"`
 }
 
+// WaterTestResults holds the Water Test information.
+type WaterTestResults struct {
+	ID                        bson.ObjectId `bson:"_id,omitempty" json:"id"`
+	IsSelected                bool          `bson:"IsSelected" json:"IsSelected"`
+	Created                   time.Time     `bson:"Created" json:"Created"`
+	UserName                  string        `bson:"UserName" json:"UserName"`
+	SerialNumber              string        `bson:"SerialNumber" json:"SerialNumber"`
+	Firmware                  string        `bson:"Firmware" json:"Firmware"`
+	SubsystemDescStr          string        `bson:"SubsystemDescStr" json:"SubsystemDescStr"`
+	SubsystemCode             int           `bson:"SubsystemCode" json:"SubsystemCode"`
+	SubsystemCepoIndex        int           `bson:"SubsystemCepoIndex" json:"SubsystemCepoIndex"`
+	SubsystemConfigIndex      int           `bson:"SubsystemConfigIndex" json:"SubsystemConfigIndex"`
+	TestOrientation           int           `bson:"TestOrientation" json:"TestOrientation"`
+	Beam0NoiseFloor           float32       `bson:"Beam0NoiseFloor" json:"Beam0NoiseFloor"`
+	Beam1NoiseFloor           float32       `bson:"Beam1NoiseFloor" json:"Beam1NoiseFloor"`
+	Beam2NoiseFloor           float32       `bson:"Beam2NoiseFloor" json:"Beam2NoiseFloor"`
+	Beam3NoiseFloor           float32       `bson:"Beam3NoiseFloor" json:"Beam3NoiseFloor"`
+	Beam0SignalLake           float32       `bson:"Beam0SignalLake" json:"Beam0SignalLake"`
+	Beam1SignalLake           float32       `bson:"Beam1SignalLake" json:"Beam1SignalLake"`
+	Beam2SignalLake           float32       `bson:"Beam2SignalLake" json:"Beam2SignalLake"`
+	Beam3SignalLake           float32       `bson:"Beam3SignalLake" json:"Beam3SignalLake"`
+	Beam0SignalOcean          float32       `bson:"Beam0SignalOcean" json:"Beam0SignalOcean"`
+	Beam1SignalOcean          float32       `bson:"Beam1SignalOcean" json:"Beam1SignalOcean"`
+	Beam2SignalOcean          float32       `bson:"Beam2SignalOcean" json:"Beam2SignalOcean"`
+	Beam3SignalOcean          float32       `bson:"Beam3SignalOcean" json:"Beam3SignalOcean"`
+	Beam0SnrLake              float32       `bson:"Beam0SnrLake" json:"Beam0SnrLake"`
+	Beam1SnrLake              float32       `bson:"Beam1SnrLake" json:"Beam1SnrLake"`
+	Beam2SnrLake              float32       `bson:"Beam2SnrLake" json:"Beam2SnrLake"`
+	Beam3SnrLake              float32       `bson:"Beam3SnrLake" json:"Beam3SnrLake"`
+	Beam0SnrOcean             float32       `bson:"Beam0SnrOcean" json:"Beam0SnrOcean"`
+	Beam1SnrOcean             float32       `bson:"Beam1SnrOcean" json:"Beam1SnrOcean"`
+	Beam2SnrOcean             float32       `bson:"Beam2SnrOcean" json:"Beam2SnrOcean"`
+	Beam3SnrOcean             float32       `bson:"Beam3SnrOcean" json:"Beam3SnrOcean"`
+	GpsDistance               string        `bson:"GpsDistance" json:"GpsDistance"`
+	GpsDirection              string        `bson:"GpsDirection" json:"GpsDirection"`
+	BtDistance                string        `bson:"BtDistance" json:"BtDistance"`
+	BtDirection               string        `bson:"BtDirection" json:"BtDirection"`
+	DistanceError             string        `bson:"DistanceError" json:"DistanceError"`
+	DirectionError            string        `bson:"DirectionError" json:"DirectionError"`
+	ProfileRangeBeam0         float32       `bson:"ProfileRangeBeam0" json:"ProfileRangeBeam0"`
+	ProfileRangeBeam1         float32       `bson:"ProfileRangeBeam1" json:"ProfileRangeBeam1"`
+	ProfileRangeBeam2         float32       `bson:"ProfileRangeBeam2" json:"ProfileRangeBeam2"`
+	ProfileRangeBeam3         float32       `bson:"ProfileRangeBeam3" json:"ProfileRangeBeam3"`
+	GlitchCountBeam0          float32       `bson:"GlitchCountBeam0" json:"GlitchCountBeam0"`
+	GlitchCountBeam1          float32       `bson:"GlitchCountBeam1" json:"GlitchCountBeam1"`
+	GlitchCountBeam2          float32       `bson:"GlitchCountBeam2" json:"GlitchCountBeam2"`
+	GlitchCountBeam3          float32       `bson:"GlitchCountBeam3" json:"GlitchCountBeam3"`
+	BottomTrackAmplitudeBeam0 float32       `bson:"BottomTrackAmplitudeBeam0" json:"BottomTrackAmplitudeBeam0"`
+	BottomTrackAmplitudeBeam1 float32       `bson:"BottomTrackAmplitudeBeam1" json:"BottomTrackAmplitudeBeam1"`
+	BottomTrackAmplitudeBeam2 float32       `bson:"BottomTrackAmplitudeBeam2" json:"BottomTrackAmplitudeBeam2"`
+	BottomTrackAmplitudeBeam3 float32       `bson:"BottomTrackAmplitudeBeam3" json:"BottomTrackAmplitudeBeam3"`
+	PlotReport                string        `bson:"PlotReport" json:"PlotReport"`
+}
+
+// SnrTestResults holds the SNR Test information.
+type SnrTestResults struct {
+	ID                        bson.ObjectId `bson:"_id,omitempty" json:"id"`
+	IsSelected                bool          `bson:"IsSelected" json:"IsSelected"`
+	Created                   time.Time     `bson:"Created" json:"Created"`
+	UserName                  string        `bson:"UserName" json:"UserName"`
+	SerialNumber              string        `bson:"SerialNumber" json:"SerialNumber"`
+	Firmware                  string        `bson:"Firmware" json:"Firmware"`
+	SubsystemDescStr          string        `bson:"SubsystemDescStr" json:"SubsystemDescStr"`
+	SubsystemCode             int           `bson:"SubsystemCode" json:"SubsystemCode"`
+	SubsystemCepoIndex        int           `bson:"SubsystemCepoIndex" json:"SubsystemCepoIndex"`
+	SubsystemConfigIndex      int           `bson:"SubsystemConfigIndex" json:"SubsystemConfigIndex"`
+	TestOrientation           int           `bson:"TestOrientation" json:"TestOrientation"`
+	Beam0NoiseFloor           float32       `bson:"Beam0NoiseFloor" json:"Beam0NoiseFloor"`
+	Beam1NoiseFloor           float32       `bson:"Beam1NoiseFloor" json:"Beam1NoiseFloor"`
+	Beam2NoiseFloor           float32       `bson:"Beam2NoiseFloor" json:"Beam2NoiseFloor"`
+	Beam3NoiseFloor           float32       `bson:"Beam3NoiseFloor" json:"Beam3NoiseFloor"`
+	Beam0SignalLake           float32       `bson:"Beam0SignalLake" json:"Beam0SignalLake"`
+	Beam1SignalLake           float32       `bson:"Beam1SignalLake" json:"Beam1SignalLake"`
+	Beam2SignalLake           float32       `bson:"Beam2SignalLake" json:"Beam2SignalLake"`
+	Beam3SignalLake           float32       `bson:"Beam3SignalLake" json:"Beam3SignalLake"`
+	Beam0SignalOcean          float32       `bson:"Beam0SignalOcean" json:"Beam0SignalOcean"`
+	Beam1SignalOcean          float32       `bson:"Beam1SignalOcean" json:"Beam1SignalOcean"`
+	Beam2SignalOcean          float32       `bson:"Beam2SignalOcean" json:"Beam2SignalOcean"`
+	Beam3SignalOcean          float32       `bson:"Beam3SignalOcean" json:"Beam3SignalOcean"`
+	Beam0SnrLake              float32       `bson:"Beam0SnrLake" json:"Beam0SnrLake"`
+	Beam1SnrLake              float32       `bson:"Beam1SnrLake" json:"Beam1SnrLake"`
+	Beam2SnrLake              float32       `bson:"Beam2SnrLake" json:"Beam2SnrLake"`
+	Beam3SnrLake              float32       `bson:"Beam3SnrLake" json:"Beam3SnrLake"`
+	Beam0SnrOcean             float32       `bson:"Beam0SnrOcean" json:"Beam0SnrOcean"`
+	Beam1SnrOcean             float32       `bson:"Beam1SnrOcean" json:"Beam1SnrOcean"`
+	Beam2SnrOcean             float32       `bson:"Beam2SnrOcean" json:"Beam2SnrOcean"`
+	Beam3SnrOcean             float32       `bson:"Beam3SnrOcean" json:"Beam3SnrOcean"`
+	GlitchCountBeam0          float32       `bson:"GlitchCountBeam0" json:"GlitchCountBeam0"`
+	GlitchCountBeam1          float32       `bson:"GlitchCountBeam1" json:"GlitchCountBeam1"`
+	GlitchCountBeam2          float32       `bson:"GlitchCountBeam2" json:"GlitchCountBeam2"`
+	GlitchCountBeam3          float32       `bson:"GlitchCountBeam3" json:"GlitchCountBeam3"`
+	BottomTrackAmplitudeBeam0 float32       `bson:"BottomTrackAmplitudeBeam0" json:"BottomTrackAmplitudeBeam0"`
+	BottomTrackAmplitudeBeam1 float32       `bson:"BottomTrackAmplitudeBeam1" json:"BottomTrackAmplitudeBeam1"`
+	BottomTrackAmplitudeBeam2 float32       `bson:"BottomTrackAmplitudeBeam2" json:"BottomTrackAmplitudeBeam2"`
+	BottomTrackAmplitudeBeam3 float32       `bson:"BottomTrackAmplitudeBeam3" json:"BottomTrackAmplitudeBeam3"`
+	PlotReport                string        `bson:"PlotReport" json:"PlotReport"`
+}
+
 // VaultDb holds the vault database.
 type VaultDb struct {
 	Mongo *mgo.Database // Mongo DB server connection
@@ -198,7 +296,7 @@ func updateAdcp(adcp *Adcp) {
 		"Modified":              adcp.Modified,
 		"PressureSensorPresent": adcp.PressureSensorPresent,
 		"PressureSensorRating":  adcp.PressureSensorRating,
-		"RecorderFormated":      adcp.RecorderFormated,
+		"RecorderFormatted":     adcp.RecorderFormatted,
 		"RecorderSize":          adcp.RecorderSize,
 		"Software":              adcp.Software,
 		"SystemType":            adcp.SystemType,
@@ -261,5 +359,49 @@ func getTankTestResultsSelectedType(serialNum string, testType string) *[]TankTe
 		fmt.Printf("Can't find TankTest data %v\n", err)
 	}
 	fmt.Printf("getTankTestResultsSelected: %s : Count[%d]\n", serialNum, len(data))
+	return &data
+}
+
+// Find the WaterTestResults from the database
+func getWaterTestResults(serialNum string) *[]WaterTestResults {
+	var data []WaterTestResults
+	err := Vault.Mongo.C("WaterTestResults").Find(bson.M{"SerialNumber": serialNum}).All(&data)
+	if err != nil {
+		fmt.Printf("Can't find WaterTest data %v\n", err)
+	}
+	return &data
+}
+
+// Find the WaterTestResults from the database.  List only the selected.
+func getWaterTestResultsSelected(serialNum string) *[]WaterTestResults {
+	fmt.Println("getWaterTestResultsSelected", serialNum)
+	var data []WaterTestResults
+	err := Vault.Mongo.C("WaterTestResults").Find(bson.M{"SerialNumber": serialNum, "IsSelected": true}).All(&data)
+	if err != nil {
+		fmt.Printf("Can't find WaterTest data %v\n", err)
+	}
+	fmt.Printf("getWaterTestResultsSelected: %s : Count[%d]\n", serialNum, len(data))
+	return &data
+}
+
+// Find the SnrTestResults from the database
+func getSnrTestResults(serialNum string) *[]SnrTestResults {
+	var data []SnrTestResults
+	err := Vault.Mongo.C("SnrTestResults").Find(bson.M{"SerialNumber": serialNum}).All(&data)
+	if err != nil {
+		fmt.Printf("Can't find SnrTest data %v\n", err)
+	}
+	return &data
+}
+
+// Find the SnrTestResults from the database.  List only the selected.
+func getSnrTestResultsSelected(serialNum string) *[]SnrTestResults {
+	fmt.Println("getSnrTestResultsSelected", serialNum)
+	var data []SnrTestResults
+	err := Vault.Mongo.C("SnrTestResults").Find(bson.M{"SerialNumber": serialNum, "IsSelected": true}).All(&data)
+	if err != nil {
+		fmt.Printf("Can't find SnrTest data %v\n", err)
+	}
+	fmt.Printf("getSnrTestResultsSelected: %s : Count[%d]\n", serialNum, len(data))
 	return &data
 }

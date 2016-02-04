@@ -71,7 +71,7 @@ func adcpUpdateHandler(w http.ResponseWriter, r *http.Request) {
 		adcp.Modified = time.Now()
 		adcp.PressureSensorPresent = formData.GetBool("PressureSensorPresent")
 		adcp.PressureSensorRating = formData.Get("PressureSensorRating")
-		adcp.RecorderFormated = formData.GetBool("RecorderFormated")
+		adcp.RecorderFormatted = formData.GetBool("RecorderFormatted")
 		adcp.RecorderSize = formData.Get("RecorderSize")
 		adcp.Software = formData.Get("Software")
 		adcp.SystemType = formData.Get("SystemType")
