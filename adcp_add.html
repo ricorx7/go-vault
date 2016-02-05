@@ -1,5 +1,4 @@
 {{define "content"}}
-  {{template "header"}}
   <style type="text/css">.error {color: red;}</style>
 
   <form action="/adcp/add" method="post">
@@ -16,6 +15,4 @@
   SerialNumber: {{.Adcp.SerialNumber}}</br>
   Desc: {{.Adcp.Customer}}</br>
   Token: {{.Token}}</br>
-
-  {{template "footer"}}
 {{end}}

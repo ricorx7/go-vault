@@ -272,13 +272,24 @@ func getAdcp(serialNum string) *Adcp {
 	var data Adcp
 	err := Vault.Mongo.C("adcps").Find(bson.M{"SerialNumber": serialNum}).One(&data)
 	if err != nil {
-		fmt.Printf("Can't find document %v\n", err)
+		fmt.Printf("Can't find ADCP %v\n", err)
 	}
 	fmt.Println("SerialNum: ", data.SerialNumber)
 	fmt.Println("Customer: ", data.Customer)
 	fmt.Println("ID:", data.ID)
 
 	return &data
+}
+
+// Find all the ADCPs with the serial number partial given.  This will filter the ADCPs down.
+func getAdcpContain(serialNumPartial string) *[]Adcp {
+	var adcps []Adcp
+	err := Vault.Mongo.C("adcps").Find(bson.M{"SerialNumber": bson.M{"$regex": serialNumPartial}}).Sort("-created").All(&adcps)
+	if err != nil {
+		fmt.Printf("Can't find ADCP Partials %v\n", err)
+	}
+
+	return &adcps
 }
 
 func updateAdcp(adcp *Adcp) {
@@ -302,7 +313,7 @@ func updateAdcp(adcp *Adcp) {
 		"SystemType":            adcp.SystemType,
 		"TemperaturePresent":    adcp.TemperaturePresent}})
 	if err != nil {
-		fmt.Printf("Can't update document %v\n", err)
+		fmt.Printf("Can't update ADCP %v\n", err)
 	}
 }
 

@@ -1,0 +1,328 @@
+
+{{define "content"}}
+  <div visible-print-block>
+		<div class="row">
+			<div class="col-xs-2">
+				<img alt="RTI" class="img-responsive text-center" src="/images/companylogo.png" />
+			</div>
+			<div>
+				<h2> ADCP/DVL Test Certificate </h2>
+			</div>
+		</div>
+		<div class="row" style="margin-bottom: 20px">
+            <div class="col-xs-5">
+                <dt><strong>Serial Number:</strong></dt><dd>{{.Adcp.SerialNumber}}</dd>
+            </div>
+            <div class="col-xs-3">
+				<dt><strong>Order Number:</strong></dt><dd>{{.Adcp.OrderNumber}}</dd>
+			</div>
+            <div class="col-xs-2">
+                <dt><strong>Customer:</strong></dt><dd>{{.Adcp.Customer}}</dd>
+            </div>
+		</div>
+
+		<div class="row" style="margin-bottom: 20px">
+			<div class="col-xs-9">
+					<dt><strong>System:</strong></dt><dd>{{.Adcp.Frequency}}</dd>
+			</div>
+		</div>
+
+		<div class="row-fluid">
+			<!-- Hardware -->
+			<div class="col-xs-3">
+				<table class="table table-condensed" style="margin-bottom: 0px">
+					<tbody>
+						<tr>
+							<td><strong>System Type:</strong></td>
+							<td>{{.Adcp.SystemType}}</td>
+						</tr>
+						<tr>
+							<td><strong>Application:</strong></td>
+							<td>{{.Adcp.Application}}</td>
+						</tr>
+						<tr>
+							<td><strong>Depth Rating:</strong></td>
+							<td>{{.Adcp.DepthRating}}</td>
+						</tr>
+            <tr style="margin-bottom: 0px">
+                <td><strong>Head Type:</strong></td>
+                <td>{{.Adcp.HeadType}}</td>
+            </tr>
+            <tr style="margin-bottom: 0px">
+                <td><strong>Hardware:</strong></td>
+                <td>{{.Adcp.Hardware}}</td>
+            </tr>
+            <tr style="margin-bottom: 0px">
+                <td><strong>Connector:</strong></td>
+                <td>{{.Adcp.ConnectorType}}</td>
+            </tr>
+            <tr style="margin-bottom: 0px">
+                <td><strong>Firmware:</strong></td>
+                <td>{{.Adcp.Firmware}}</td>
+            </tr>
+            <tr style="margin-bottom: 0px">
+                <td><strong>Software:</strong></td>
+                <td>{{.Adcp.Software}}</td>
+            </tr>
+            <tr style="margin-bottom: 0px">
+                <td><strong>Recorder Size:</strong></td>
+                <td>{{.Adcp.RecorderSize}}</td>
+            </tr>
+            <tr style="margin-bottom: 0px">
+                <td><strong>Recorder Formatted:</strong></td>
+                {{if .Adcp.RecorderFormatted}}
+                <td><i class="glyphicon glyphicon-check" aria-hidden="true"></i></td>
+                {{end}}
+            </tr>
+            <tr style="margin-bottom: 0px">
+                <td><strong>Temperature:</strong></td>
+                {{if .Adcp.TemperaturePresent}}
+                <td><span class="glyphicon glyphicon-check" aria-hidden="true"></span></td>
+                {{end}}
+            </tr>
+            <tr style="margin-bottom: 0px">
+                <td><strong>Pressure Sensor:</strong></td>
+                {{if .Adcp.PressureSensorPresent}}
+                <td><i class="glyphicon glyphicon-check" aria-hidden="true"></i></td>
+                {{end}}
+            </tr>
+        </tbody>
+    </table>
+	</div>
+
+	<!-- Heading, Pitch and Roll -->
+	<div class="col-xs-7" >
+		<dl>
+				<dt>
+					<strong>Compass Calibration - Heading Pitch Roll</strong>
+				</dt>
+				<dd>
+					<table class="table table-bordered table-condensed" style="margin-bottom: 0px">
+						<thead>
+							<tr>
+								<th class="text-center"><h5><strong>Heading</strong></h5></th>
+								<th class="text-center"><h5><strong>Reading (°)</strong></h5></th>
+								<th class="text-center"><h5><strong>Error (°)</strong></h5></th>
+							</tr>
+						</thead>
+
+						<tbody>
+              {{range .CompassCal}}
+							<tr>
+								<td class="text-center"><strong>0°</strong></td>
+								<td class="text-center">{{.Point1PostHdg}}°</td>
+								<td class="text-center">{{.CompasscalBeam1Error}}°</td>
+							</tr>
+							<tr>
+								<td class="text-center"><strong>90°</strong></td>
+								<td class="text-center">{{.Point2PostHdg}}°</td>
+								<td class="text-center">{{.CompasscalBeam2Error}}°</td>
+							</tr>
+							<tr>
+								<td class="text-center"><strong>180°</strong></td>
+								<td class="text-center">{{.Point3PostHdg}}°</td>
+								<td class="text-center">{{.CompasscalBeam3Error}}°</td>
+							</tr>
+							<tr>
+								<td class="text-center"><strong>270°</strong></td>
+								<td class="text-center">{{.Point4PostHdg}}°</td>
+								<td class="text-center">{{.CompasscalBeam4Error}}°</td>
+							</tr>
+              {{end}}
+						</tbody>
+					</table>
+				</dd>
+
+				<dt>
+					<strong>* ±2° error acceptance criteria</strong>
+				</dt>
+				<dt> <br> </dt>
+
+				<!-- Beam Check -->
+				<dt><strong>Beam Check - Tank Test</strong></dt>
+				<dd>
+					<table class="table table-bordered table-condensed">
+						<thead>
+							<tr>
+								<th></th>
+								<th class="text-center"><h5><strong>Correct Order</strong></h5></th>
+								<th class="text-center"><h5><strong>Noise Floor</strong></h5></th>
+								<th class="text-center"><h5><strong>Amplitude Tank</strong></h5></th>
+								<th class="text-center"><h5><strong>Range OK</strong></h5></th>
+							</tr>
+						</thead>
+
+						<tbody>
+              {{range .TankTest}}
+              <tr bgcolor="lightgray">
+								<td class="tex-center" colspan="5">{{.SubsystemDescStr}}</td>
+							</tr>
+							<tr>
+								<td><strong>Beam 0</strong></td>
+								<td class="text-center"><i class="glyphicon glyphicon-check"></i></td>
+                <td class="text-center">{{.Beam0NoiseFloor}}</td>
+								<td class="text-center">{{.Beam0SignalTank}}</td>
+								<td class="text-center"><i class="glyphicon glyphicon-check"></i></td>
+							</tr>
+							<tr>
+								<td><strong>Beam 1</strong></td>
+								<td class="text-center"><i class="glyphicon glyphicon-check"></i></td>
+                <td class="text-center">{{.Beam1NoiseFloor}}</td>
+								<td class="text-center">{{.Beam1SignalTank}}</td>
+								<td class="text-center"><i class="glyphicon glyphicon-check"></i></td>
+							</tr>
+							<tr>
+								<td><strong>Beam 2</strong></td>
+								<td class="text-center"><i class="glyphicon glyphicon-check"></i></td>
+                <td class="text-center">{{.Beam2NoiseFloor}}</td>
+								<td class="text-center">{{.Beam2SignalTank}}</td>
+								<td class="text-center"><i class="glyphicon glyphicon-check"></i></td>
+							</tr>
+							<tr>
+								<td><strong>Beam 3</strong></td>
+								<td class="text-center"><i class="glyphicon glyphicon-check"></i></td>
+								<td class="text-center">{{.Beam3NoiseFloor}}</td>
+								<td class="text-center">{{.Beam3SignalTank}}</td>
+								<td class="text-center"><i class="glyphicon glyphicon-check"></i></td>
+							</tr>
+              {{end}}
+						</tbody>
+					</table>
+				</dd>
+
+				<!-- Signal to Noise -->
+				<dt><strong>Signal to Noise Ratio</strong></dt>
+				<dd>
+					<table class="table table-bordered table-condensed">
+						<thead>
+							<tr>
+								<th></th>
+								<th class="text-center"><h5><strong>Beam 0</strong></h5></th>
+								<th class="text-center"><h5><strong>Beam 1</strong></h5></th>
+								<th class="text-center"><h5><strong>Beam 2</strong></h5></th>
+								<th class="text-center"><h5><strong>Beam 3</strong></h5></th>
+							</tr>
+						</thead>
+
+						<tbody>
+              {{range .SnrTest}}
+							<tr bgcolor="lightgray">
+								<td class="tex-center" colspan="5">{{.SubsystemDescStr}}</td>
+							</tr>
+							<tr>
+								<td class="text"><strong>Signal</strong></td>
+								<td class="text-center">{{.Beam0SignalLake}}</td>
+								<td class="text-center">{{.Beam1SignalLake}}</td>
+								<td class="text-center">{{.Beam2SignalLake}}</td>
+								<td class="text-center">{{.Beam3SignalLake}}</td>
+							</tr>
+							<tr>
+								<td class="text"><strong>Noise</strong></td>
+								<td class="text-center">{{.Beam0NoiseFloor}}</td>
+								<td class="text-center">{{.Beam1NoiseFloor}}</td>
+								<td class="text-center">{{.Beam2NoiseFloor}}</td>
+								<td class="text-center">{{.Beam3NoiseFloor}}</td>
+							</tr>
+							<tr>
+								<td class="text"><strong>SNR</strong></td>
+								<td class="text-center"><b>{{.Beam0SnrLake}}</b></td>
+								<td class="text-center"><b>{{.Beam1SnrLake}}</b></td>
+								<td class="text-center"><b>{{.Beam2SnrLake}}</b></td>
+								<td class="text-center"><b>{{.Beam3SnrLake}}</b></td>
+							</tr>
+              {{end}}
+						</tbody>
+					</table>
+				</dd>
+
+			</dl>
+		</div>
+	</div>
+
+<!-- DMG Run 1 -->
+<div class="row-fluid">
+  <div class="col-xs-10">
+    <dl>
+      <dt>
+        <strong>Distance Made Good</strong>
+      </dt>
+      <dd>
+        <table class="table table-bordered table-condensed" style="margin-bottom: 0px">
+          <thead>
+            <tr>
+              <th class="text-center">
+                <h5><strong></strong></h5></th>
+              <th class="text-center">
+                <h5><strong>Distance (m)</strong></h5></th>
+              <th class="text-center">
+                <h5><strong>Direction (°)</strong></h5></th>
+              <th class="text-center">
+                <h5><strong>Distance Error (%)</strong></h5></th>
+              <th class="text-center">
+                <h5><strong>Direction Error (%)</strong></h5></th>
+            </tr>
+          </thead>
+
+          <tbody>
+            {{range .WaterTest}}
+            <tr bgcolor="lightgray">
+              <td><strong>Beam Forward: {{.TestOrientation}}</strong></td>
+              <td colspan="4">{{.SubsystemDescStr}}</td>
+            </tr>
+            <tr>
+              <td><strong>GPS</strong></td>
+              <td class="text-center">{{.GpsDistance}}</td>
+              <td class="text-center">{{.GpsDirection}}</td>
+              <td class="text-center"></td>
+              <td class="text-center"></td>
+            </tr>
+            <tr>
+              <td><strong>BT ENU</strong></td>
+              <td class="text-center">{{.BtDistance}}</td>
+              <td class="text-center">{{.BtDirection}}</td>
+              <td class="text-center">{{.DistanceError}}</td>
+              <td class="text-center">{{.DirectionError}}</td>
+            </tr>
+            {{end}}
+          </tbody>
+        </table>
+      </dd>
+    </dl>
+  </div>
+</div>
+
+		<!-- Tech Signature -->
+		<div class="row-fluid" style="margin-left: 5px">
+			<div class="col-xs-7" style="border: 1px solid black; margin-top: 5px">
+					<h5>Tech Signature:</h5>
+			</div>
+
+			<div class="col-xs-3" style="border: 1px solid black; margin-top: 5px">
+					<h5>Date:</h5>
+			</div>
+
+		</div>
+
+		<!-- QA/QC Signature -->
+		<div class="row-fluid" style="margin-left: 5px">
+			<div class="col-xs-7" style="border: 1px solid black; margin-top: 5px">
+					<h5>QA/QC Signature:</h5>
+			</div>
+
+			<div class="col-xs-3" style="border: 1px solid black; margin-top: 5px">
+					<h5>Date:</h5>
+			</div>
+
+		</div>
+
+		<!--Company Info-->
+		<div class="row-fluid" style="margin: 5px">
+			<div class="col-xs-9">
+		    <small>
+		    <b>Rowe Technology, Inc.</b> | 12655 Danielson Ct., Suite 306, Poway, California, USA<br>
+		    http://www.rowetechinc.com | service@rowetechinc.com | +1 858 842 3020<br>
+		    </small>
+			</div>
+	  </div>
+	</div>
+{{end}}
