@@ -1,0 +1,22 @@
+{{define "content"}}
+  <h1>SalesOrders</h1>
+
+    <ul class="list-group">
+      <form action="/adcp" method="post" role="form" class="navbar-form">
+        <div class="form-group">
+          <input type="text" class="form-control" name="PartialSalesOrderNumber" placeholder="filter SalesOrder">
+        </div>
+        <button type="submit" class="btn btn-default">Submit</button>
+      </form>
+
+    {{range .SO}}
+      <li class="list-group-item">
+          <h4 class="list-group-item-heading">{{.SalesOrderNumber}}</h4>
+          <p>{{.DueDate}}</br>
+          {{.TotalPrice}}</p>
+        <a href="so/update/{{.SalesOrderNumber}}" class="btn btn-warning">EDIT</a>
+        <small>{{.Created}}</small>
+      </li>
+    {{end}}
+  </ul>
+{{end}}

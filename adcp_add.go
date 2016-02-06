@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"html/template"
 	"net/http"
+	"time"
 
 	"gopkg.in/mgo.v2/bson"
 
@@ -41,8 +42,25 @@ func adcpAddHandler(w http.ResponseWriter, r *http.Request) {
 
 		// Use data to create a user object
 		adcp := &Adcp{
-			SerialNumber: formData.Get("SerialNumber"),
-			Frequency:    formData.Get("Frequency"),
+			SerialNumber:          formData.Get("SerialNumber"),
+			Frequency:             formData.Get("Frequency"),
+			Customer:              formData.Get("Customer"),
+			OrderNumber:           formData.Get("OrderNumber"),
+			Application:           formData.Get("Application"),
+			ConnectorType:         formData.Get("ConnectorType"),
+			DepthRating:           formData.Get("DepthRating"),
+			Firmware:              formData.Get("Firmware"),
+			Hardware:              formData.Get("Hardware"),
+			HeadType:              formData.Get("HeadType"),
+			Modified:              time.Now(),
+			Created:               time.Now(),
+			PressureSensorPresent: formData.GetBool("PressureSensorPresent"),
+			PressureSensorRating:  formData.Get("PressureSensorRating"),
+			RecorderFormatted:     formData.GetBool("RecorderFormatted"),
+			RecorderSize:          formData.Get("RecorderSize"),
+			Software:              formData.Get("Software"),
+			SystemType:            formData.Get("SystemType"),
+			TemperaturePresent:    formData.GetBool("TemperaturePresent"),
 		}
 		adcpData := &AdcpDataUpdate{
 			Adcp: *adcp,

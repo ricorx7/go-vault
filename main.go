@@ -37,6 +37,9 @@ func main() {
 	mux.HandleFunc("/adcp/update/:id", http.HandlerFunc(adcpUpdateHandler))
 	mux.HandleFunc("/adcp/cert/:id", http.HandlerFunc(adcpCertHandler))
 	mux.HandleFunc("/adcp/add", http.HandlerFunc(adcpAddHandler))
+	mux.HandleFunc("/so", http.HandlerFunc(salesOrderHandler))
+	mux.HandleFunc("/so/add", http.HandlerFunc(salesOrderAddHandler))
+	mux.HandleFunc("/so/update/:id", http.HandlerFunc(salesOrderUpdateHandler))
 
 	// HTTP server
 	// http.Handle("/libs/", http.StripPrefix("/libs/", http.FileServer(http.Dir("libs")))) // External libs

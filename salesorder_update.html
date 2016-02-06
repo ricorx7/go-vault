@@ -1,0 +1,358 @@
+
+{{define "content"}}
+<div class="page-header" style="margin: 20px">
+  <h1>Edit Salesorder</h1>
+</div>
+
+<div class="form-group" style="margin: 5px">
+  <!--Sales-->
+
+  <div class="row">
+    <div class="panel panel-primary" style="margin: 20px">
+      <div class="panel-heading">
+        Sales
+      </div>
+
+      <div class="panel-body">
+        <div class="row">
+          <div class="col-md-3">
+            <label class="control-label" for="SalesOrderNumber">Sales Order Number</label>
+            <input class="form-control" data-ng-model="salesorder.SalesOrderNumber" id="SalesOrderNumber" placeholder="Sales Order Number" required="" type="text">
+          </div>
+
+          <div class="col-md-4">
+            <label class="control-label" for="Customer">Customer</label>
+            <br>
+            <select ng-options="customer.companyName for customer in customers track by customer._id" ng-model="salesorder.CustomerID"></select>
+          </div>
+
+          <div class="col-md-3">
+            <label class="control-label" for="SalesPerson">Sales Person</label>
+            <input class="form-control" data-ng-model="salesorder.SalesPerson" id="SalesPerson" placeholder="Sales Person" type="text">
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-md-3">
+            <label class="control-label" for="POReference">PO Reference</label>
+            <input class="form-control" data-ng-model="salesorder.POReference" id="POReference" placeholder="PO Reference" type="text">
+          </div>
+
+          <div class="col-md-4">
+            <label class="control-label" for="PODateIssued">PO Date Issued</label>
+            <input type="text" class="form-control" id="my-datepicker2" data-ng-model="salesorder.PODateIssued">
+            <script type="text/javascript">
+              $(function() {
+                $('#my-datepicker2').datepicker({
+                  autoclose: true,
+                  todayHighlight: true
+                });
+              });
+            </script>
+          </div>
+
+          <div class="col-md-4">
+            <label class="control-label" for="PODateReceived">PO Date Received</label>
+            <input type="text" class="form-control" id="my-datepicker3" data-ng-model="salesorder.PODateReceived">
+            <script type="text/javascript">
+              $(function() {
+                $('#my-datepicker3').datepicker({
+                  autoclose: true,
+                  todayHighlight: true
+                });
+              });
+            </script>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-md-3">
+            <label class="control-label" for="DueDate">Due Date</label>
+            <input type="text" class="form-control" id="my-datepicker4" data-ng-model="salesorder.DueDate">
+            <script type="text/javascript">
+              $(function() {
+                $('#my-datepicker4').datepicker({
+                  autoclose: true,
+                  todayHighlight: true
+                });
+              });
+            </script>
+          </div>
+
+          <div class="col-md-4">
+            <label class="control-label" for="EstShipDate">Estimated Ship Date</label>
+            <input type="text" class="form-control" id="my-datepicker5" data-ng-model="salesorder.EstShipDate">
+            <script type="text/javascript">
+              $(function() {
+                $('#my-datepicker5').datepicker({
+                  autoclose: true,
+                  todayHighlight: true
+                });
+              });
+            </script>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-md-9">
+            <label class="control-label" for="product">Product</label>
+            <br>
+            <table class="table table-striped table-condensed">
+              <thead>
+                <td>Index</td>
+                <td>Part Number</td>
+                <td>Serial Number</td>
+              </thead>
+              <tbody>
+                <tr data-ng-repeat="bs in buildStatus">
+                  <td>{{$index}}</td>
+                  <td><span data-ng-bind="bs.ProductID.partnumber"></span></td>
+                  <td><span data-ng-bind="bs.SerialNumber"></span></td>
+                  <td><a class="btn btn-warning" href="buildstatus/{{bs._id._str}}/edit">Edit</a></td>
+                  <td>
+                    <button class="btn btn-danger" ng-click="removeProduct(bs)">Remove</button>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-md-6">
+            <h3><label class="control-label">Quantity: <span data-ng-bind="quantity"></span></label></h3>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-md-6">
+            <div class="panel panel-default">
+              <div class="panel-heading">
+                Add Product
+              </div>
+              <select ng-options="product.partnumber for product in products track by product._id" ng-model="salesorder.ProductID"></select>
+              <button class="btn btn-primary" ng-click="addProduct(salesorder.ProductID)" style="margin-left: 10px">Add</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-md-3">
+            <label class="control-label" for="UnitPrice">Unit Price</label>
+
+            <form class="form-inline">
+              <div class="form-group">
+                <div class="input-group">
+                  <div class="input-group-addon">
+                    $
+                  </div>
+                  <input class="form-control" data-ng-model="salesorder.UnitPrice" id="UnitPrice" placeholder="Unit Price" type="text">
+                </div>
+              </div>
+            </form>
+          </div>
+
+
+
+          <div class="col-md-3">
+            <label class="control-label" for="TotalPrice">Total Price</label>
+
+            <form class="form-inline">
+              <div class="form-group">
+                <div class="input-group">
+                  <div class="input-group-addon">
+                    $
+                  </div>
+                  <input class="form-control" data-ng-model="salesorder.TotalPrice" id="TotalPrice" placeholder="Total Price" type="text">
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+
+        <div class="row" style="margin-top: 20px">
+          <div class="col-md-3">
+            <label class="control-label" for="EUS">End User Statement</label>
+            <select data-ng-model="salesorder.EndUserAgreement">
+              <option id="EndUserAgreement">N/A</option>
+              <option id="EndUserAgreement">YES</option>
+              <option id="EndUserAgreement">NO</option>
+            </select>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!--Build Status-->
+    <div class="row" style="margin: 20px">
+      <div class="panel panel-success">
+        <div class="panel-heading">
+          Build Status
+        </div>
+
+        <div class="panel-body">
+
+          <ul class="nav nav-tabs">
+            <li ng-repeat="bs in buildStatus">
+              <a data-toggle="tab" href="#tab{{$index}}">{{bs.ProductID.partnumber}}</a>
+            </li>
+          </ul>
+          <div class="tab-content">
+            <div ng-repeat="bs in buildStatus" id="tab{{$index}}" class="tab-pane active">
+              <h2>{{bs.ProductID.partnumber}}</h2>
+              <h3>SN: {{bs.SerialNumber}}</h3>
+              <div class="col-md-3">
+                <h4>Purchasing</h4>
+                <label class="control-label" for="BuildStatusPurchase">Progress
+                  <select data-ng-model="bs.PurchaseStatus">
+                    <option id="BuildStatusPurchase">Not Started</option>
+                    <option id="BuildStatusPurchase">In Progress</option>
+                    <option id="BuildStatusPurchase">Completed</option>
+                  </select>
+                </label>
+                <textarea class="form-control" data-ng-model="bs.PurchaseNotes" id="BuildStatusPurchaseNotes" placeholder="Purchasing Build Status" rows="3"></textarea>
+              </div>
+
+              <div class="col-md-3">
+                <h4>XDCR</h4>
+                <label class="control-label" for="BuildStatusXdcr">Progress
+                  <select data-ng-model="bs.XdcrStatus">
+                    <option id="BuildStatusXdcr">Not Started</option>
+                    <option id="BuildStatusXdcr">In Progress</option>
+                    <option id="BuildStatusXdcr">Completed</option>
+                  </select>
+                </label>
+                <textarea class="form-control" data-ng-model="bs.XdcrNotes" id="BuildStatusPurchaseNotes" placeholder="XDCR Build Status" rows="3"></textarea>
+              </div>
+
+              <div class="col-md-3">
+                <h4>Assembly</h4>
+                <label class="control-label" for="BuildStatusAssembly">Progress
+                  <select data-ng-model="bs.AssemblyStatus">
+                    <option id="BuildStatusAssembly">Not Started</option>
+                    <option id="BuildStatusAssembly">In Progress</option>
+                    <option id="BuildStatusAssembly">Completed</option>
+                  </select>
+                </label>
+                <textarea class="form-control" data-ng-model="bs.AssemblyNotes" id="BuildStatusAssemblyNotes" placeholder="Assembly Build Status" rows="3"></textarea>
+              </div>
+
+              <div class="col-md-3">
+                <h4>Testing</h4>
+                <label class="control-label" for="BuildStatusTesting">Progress
+                  <select data-ng-model="bs.TestingStatus">
+                    <option id="BuildStatusTesting">Not Started</option>
+                    <option id="BuildStatusTesting">In Progress</option>
+                    <option id="BuildStatusTesting">Completed</option>
+                  </select>
+                </label>
+                <textarea class="form-control" data-ng-model="bs.TestingNotes" id="BuildStatusTestingNotes" placeholder="Testing Build Status" rows="3"></textarea>
+              </div>
+
+            </div>
+          </div>
+
+
+        </div>
+      </div>
+    </div>
+
+    <!--Marketing-->
+    <div class="panel panel-info" style="margin: 20px">
+      <div class="panel-heading">
+        Marketing
+      </div>
+
+      <div class="panel-body">
+        <div class="row">
+          <div class="col-md-3">
+            <label class="control-label" for="DateShiped">Date Shipped</label>
+            <input type="text" class="form-control" id="my-datepicker" data-ng-model="salesorder.DateShipped">
+            <script type="text/javascript">
+              $(function() {
+                $('#my-datepicker').datepicker({
+                  autoclose: true,
+                  todayHighlight: true
+                });
+              });
+            </script>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-md-3">
+            <label class="control-label" for="DeliveryDate">Delivery Date</label>
+            <input type="text" class="form-control" id="my-datepicker1" data-ng-model="salesorder.DeliveryDate">
+            <script type="text/javascript">
+              $(function() {
+                $('#my-datepicker1').datepicker({
+                  autoclose: true,
+                  todayHighlight: true
+                });
+              });
+            </script>
+          </div>
+
+          <div class="col-md-3">
+            <label class="control-label" for="Region">Region</label>
+            <input class="form-control" data-ng-model="salesorder.Region" id="Region" placeholder="Region" type="text">
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!--Misc-->
+    <div class="panel panel-warning" style="margin: 20px">
+      <div class="panel-heading">
+        Misc
+      </div>
+
+      <div class="panel-body">
+        <div class="row">
+          <div class="col-md-3">
+            <label class="control-label" for="UtilityVersion">Utility Version</label>
+            <input class="form-control" data-ng-model="salesorder.UtilityVersion" id="UtilityVersion" placeholder="Utility Version" type="text">
+          </div>
+
+          <div class="col-md-3">
+            <label class="control-label" for="PulseVersion">Pulse Version</label>
+            <input class="form-control" data-ng-model="salesorder.PulseVersion" id="PulseVersion" placeholder="Pulse Version" type="text">
+          </div>
+
+          <div class="col-md-3">
+            <label class="control-label" for="UserVersion">User Guide Version</label>
+            <input class="form-control" data-ng-model="salesorder.UserVersion" id="UserVersion" placeholder="User Guide Version" type="text">
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-md-3">
+            <label class="control-label" for="ThirdParty">Third Party</label>
+            <input class="form-control" data-ng-model="salesorder.ThirdParty" id="ThirdParty" placeholder="Third Party" type="text">
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!--Notes-->
+    <div class="panel panel-info" style="margin: 20px">
+      <div class="panel-heading">
+        Notes
+      </div>
+
+      <div class="panel-body">
+        <div class="row">
+          <div class="col-md-5">
+            <label class="control-label" for="Notes">Notes</label>
+            <textarea class="form-control" data-ng-model="salesorder.Notes" id="Notes" placeholder="Notes" rows="5"></textarea>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <input type="hidden" name="token" value="{{.Token}}">
+  <input type="submit" class="btn btn-default">
+</div>
+{{end}}
