@@ -59,7 +59,7 @@ func salesOrderHandler(w http.ResponseWriter, r *http.Request) {
 // Find all the ADCPs with the serial number partial given.  This will filter the ADCPs down.
 func getSalesOrderContain(soPartial string) *[]SalesOrder {
 	var so []SalesOrder
-	err := Vault.Mongo.C("SalesOrder").Find(bson.M{"SalesOrderNumber": bson.M{"$regex": soPartial}}).Sort("-created").All(&so)
+	err := Vault.Mongo.C("SalesOrders").Find(bson.M{"SalesOrderNumber": bson.M{"$regex": soPartial}}).Sort("-created").All(&so)
 	if err != nil {
 		fmt.Printf("Can't find SalesOrder Partials %v\n", err)
 	}
