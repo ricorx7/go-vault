@@ -89,10 +89,11 @@ func salesOrderAddHandler(w http.ResponseWriter, r *http.Request) {
 
 		// Use data to create a user object
 		so := &SalesOrder{
-			IsSelected:  formData.GetBool("IsSelected"),
-			UserName:    formData.Get("UserName"),
-			SalesPerson: formData.Get("SalesPerson"),
-			POReference: formData.Get("POReference"),
+			SalesOrderNumber: formData.Get("SalesOrderNumber"),
+			IsSelected:       formData.GetBool("IsSelected"),
+			UserName:         formData.Get("UserName"),
+			SalesPerson:      formData.Get("SalesPerson"),
+			POReference:      formData.Get("POReference"),
 			//PODateIssued:             formData.get("PODateIssued"),
 			//PODateReceived:           formData.Get("PODateReceived"),
 			//DueDate:                  formData.Get("DueDate"),
@@ -129,7 +130,7 @@ func salesOrderAddHandler(w http.ResponseWriter, r *http.Request) {
 		}
 
 		// Add the SalesOrders to the DB
-		err = Vault.Mongo.C("SalesOrder").Insert(so)
+		err = Vault.Mongo.C("SalesOrders").Insert(so)
 		CheckError(err)
 
 		// Go to the list of SalesOrders
