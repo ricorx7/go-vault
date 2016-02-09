@@ -13,47 +13,47 @@ import (
 
 // SalesOrder will keep track of the sales order information.
 type SalesOrder struct {
-	ID               bson.ObjectId `bson:"_id,omitempty" json:"id"`
-	IsSelected       bool          `bson:"IsSelected" json:"IsSelected"`
-	Created          time.Time     `bson:"Created" json:"Created"`
-	UserName         string        `bson:"UserName" json:"UserName"`
-	SalesOrderNumber string        `bson:"SalesOrderNumber" json:"SalesOrderNumber"`
-	//CustomerID               bson.ObjectId
-	SalesPerson              string    `bson:"SalesPerson" json:"SalesPerson"`
-	POReference              string    `bson:"POReference" json:"POReference"`
-	PODateIssued             time.Time `bson:"PODateIssued" json:"PODateIssued"`
-	PODateReceived           time.Time `bson:"PODateReceived" json:"PODateReceived"`
-	DueDate                  time.Time `bson:"DueDate" json:"DueDate"`
-	EstShipDate              time.Time `bson:"EstShipDate" json:"EstShipDate"`
-	Qty                      int       `bson:"Qty" json:"Qty"`
-	UnitPrice                string    `bson:"UnitPrice" json:"UnitPrice"`
-	TotalPrice               string    `bson:"TotalPrice" json:"TotalPrice"`
-	EUS                      string    `bson:"EUS" json:"EUS"`
-	BuildStatusPurchase      string    `bson:"BuildStatusPurchase" json:"BuildStatusPurchase"`
-	BuildStatusPurchaseNotes string    `bson:"BuildStatusPurchaseNotes" json:"BuildStatusPurchaseNotes"`
-	BuildStatusXdcr          string    `bson:"BuildStatusXdcr" json:"BuildStatusXdcr"`
-	BuildStatusXdcrNotes     string    `bson:"BuildStatusXdcrNotes" json:"BuildStatusXdcrNotes"`
-	BuildStatusAssembly      string    `bson:"BuildStatusAssembly" json:"BuildStatusAssembly"`
-	BuildStatusAssemblyNotes string    `bson:"BuildStatusAssemblyNotes" json:"BuildStatusAssemblyNotes"`
-	BuildStatusTesting       string    `bson:"BuildStatusTesting" json:"BuildStatusTesting"`
-	BuildStatusTestingNotes  string    `bson:"BuildStatusTestingNotes" json:"BuildStatusTestingNotes"`
-	DateShiped               time.Time `bson:"DateShiped" json:"DateShiped"`
-	SerialNumber             string    `bson:"SerialNumber" json:"SerialNumber"`
-	DeliveryDate             time.Time `bson:"DeliveryDate" json:"DeliveryDate"`
-	Region                   string    `bson:"Region" json:"Region"`
-	BeamAngle                string    `bson:"BeamAngle" json:"BeamAngle"`
-	ElectronicsType          string    `bson:"ElectronicsType" json:"ElectronicsType"`
-	BatteryType              string    `bson:"BatteryType" json:"BatteryType"`
-	NumBattery               int       `bson:"NumBattery" json:"NumBattery"`
-	ExternalBatteryPack      string    `bson:"ExternalBatteryPack" json:"ExternalBatteryPack"`
-	CableLength              string    `bson:"CableLength" json:"CableLength"`
-	InternalMemory           string    `bson:"InternalMemory" json:"InternalMemory"`
-	InternalCompass          string    `bson:"InternalCompass" json:"InternalCompass"`
-	DeckBox                  string    `bson:"DeckBox" json:"DeckBox"`
-	PulseVersion             string    `bson:"PulseVersion" json:"PulseVersion"`
-	UserVersion              string    `bson:"UserVersion" json:"UserVersion"`
-	ThirdParty               string    `bson:"ThirdParty" json:"ThirdParty"`
-	Notes                    string    `bson:"Notes" json:"Notes"`
+	ID                       bson.ObjectId `bson:"_id,omitempty" json:"id"`
+	IsSelected               bool          `bson:"IsSelected" json:"IsSelected"`
+	Created                  time.Time     `bson:"Created" json:"Created"`
+	UserName                 string        `bson:"UserName" json:"UserName"`
+	SalesOrderNumber         string        `bson:"SalesOrderNumber" json:"SalesOrderNumber"`
+	CustomerID               bson.ObjectId `bson:"CustomerID,omitempty" json:"CustomerID"`
+	SalesPerson              string        `bson:"SalesPerson" json:"SalesPerson"`
+	POReference              string        `bson:"POReference" json:"POReference"`
+	PODateIssued             time.Time     `bson:"PODateIssued" json:"PODateIssued"`
+	PODateReceived           time.Time     `bson:"PODateReceived" json:"PODateReceived"`
+	DueDate                  time.Time     `bson:"DueDate" json:"DueDate"`
+	EstShipDate              time.Time     `bson:"EstShipDate" json:"EstShipDate"`
+	Qty                      int           `bson:"Qty" json:"Qty"`
+	UnitPrice                string        `bson:"UnitPrice" json:"UnitPrice"`
+	TotalPrice               string        `bson:"TotalPrice" json:"TotalPrice"`
+	EUS                      string        `bson:"EUS" json:"EUS"`
+	BuildStatusPurchase      string        `bson:"BuildStatusPurchase" json:"BuildStatusPurchase"`
+	BuildStatusPurchaseNotes string        `bson:"BuildStatusPurchaseNotes" json:"BuildStatusPurchaseNotes"`
+	BuildStatusXdcr          string        `bson:"BuildStatusXdcr" json:"BuildStatusXdcr"`
+	BuildStatusXdcrNotes     string        `bson:"BuildStatusXdcrNotes" json:"BuildStatusXdcrNotes"`
+	BuildStatusAssembly      string        `bson:"BuildStatusAssembly" json:"BuildStatusAssembly"`
+	BuildStatusAssemblyNotes string        `bson:"BuildStatusAssemblyNotes" json:"BuildStatusAssemblyNotes"`
+	BuildStatusTesting       string        `bson:"BuildStatusTesting" json:"BuildStatusTesting"`
+	BuildStatusTestingNotes  string        `bson:"BuildStatusTestingNotes" json:"BuildStatusTestingNotes"`
+	DateShiped               time.Time     `bson:"DateShiped" json:"DateShiped"`
+	SerialNumber             string        `bson:"SerialNumber" json:"SerialNumber"`
+	DeliveryDate             time.Time     `bson:"DeliveryDate" json:"DeliveryDate"`
+	Region                   string        `bson:"Region" json:"Region"`
+	BeamAngle                string        `bson:"BeamAngle" json:"BeamAngle"`
+	ElectronicsType          string        `bson:"ElectronicsType" json:"ElectronicsType"`
+	BatteryType              string        `bson:"BatteryType" json:"BatteryType"`
+	NumBattery               int           `bson:"NumBattery" json:"NumBattery"`
+	ExternalBatteryPack      string        `bson:"ExternalBatteryPack" json:"ExternalBatteryPack"`
+	CableLength              string        `bson:"CableLength" json:"CableLength"`
+	InternalMemory           string        `bson:"InternalMemory" json:"InternalMemory"`
+	InternalCompass          string        `bson:"InternalCompass" json:"InternalCompass"`
+	DeckBox                  string        `bson:"DeckBox" json:"DeckBox"`
+	PulseVersion             string        `bson:"PulseVersion" json:"PulseVersion"`
+	UserVersion              string        `bson:"UserVersion" json:"UserVersion"`
+	ThirdParty               string        `bson:"ThirdParty" json:"ThirdParty"`
+	Notes                    string        `bson:"Notes" json:"Notes"`
 }
 
 // SalesOrderUpdate will contain the sales order data.
@@ -127,6 +127,7 @@ func salesOrderAddHandler(w http.ResponseWriter, r *http.Request) {
 			UserVersion:         formData.Get("UserVersion"),
 			ThirdParty:          formData.Get("ThirdParty"),
 			Notes:               formData.Get("Notes"),
+			Created:             time.Now().Local(),
 		}
 
 		// Add the SalesOrders to the DB

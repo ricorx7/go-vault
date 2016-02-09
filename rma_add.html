@@ -1,0 +1,246 @@
+{{define "content"}}
+<div class="page-header">
+  <h1>New RMA</h1>
+</div>
+<form action="/rma/add" method="post">
+
+  <!--RMA-->
+  <div class="row" style="margin: 5px">
+    <div class="panel panel-info">
+      <div class="panel-heading">RMA Information</div>
+      <div class="panel-body">
+        <div class="row" style="margin: 5px">
+          <div class="col-md-2">
+            <h4><label class="control-label" for="RmaNumber">RMA Number</label></h4>
+          </div>
+          <div class="col-md-9">
+            <input type="text" name="RmaNumber" value="{{.RMA.RmaNumber}}" class="form-control" placeholder="RmaNumber" required>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!--Customer-->
+  <div class="row" style="margin: 5px">
+    <div class="panel panel-primary">
+      <div class="panel-heading">Customer Contact Information</div>
+      <div class="panel-body">
+        <div class="row">
+          <div class="col-md-2">
+            <label class="control-label" for="Company">Company</label>
+          </div>
+          <div class="col-md-9">
+            <input type="text" name="Company" value="{{.RMA.Company}}" class="form-control" placeholder="Company" required>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-2">
+            <label class="control-label" for="ContactName">Contact Name</label>
+          </div>
+          <div class="col-md-9">
+            <input type="text" name="ContactName" value="{{.RMA.ContactName}}" class="form-control" placeholder="Contact Name" required>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-2">
+            <label class="control-label" for="ContactEmail">Contact Email</label>
+          </div>
+          <div class="col-md-9">
+            <input type="text" name="ContactEmail" value="{{.RMA.ContactEmail}}" class="form-control" placeholder="Contact Email" required>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-2">
+            <label class="control-label" for="ContactPhone">Contact Phone</label>
+          </div>
+          <div class="col-md-9">
+            <input type="text" name="ContactPhone" value="{{.RMA.ContactPhone}}" class="form-control" placeholder="Contact Phone" required>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-2">
+            <label class="control-label" for="ProductDesc">Product Name</label>
+          </div>
+          <div class="col-md-9">
+            <input type="text" name="ProductDesc" value="{{.RMA.ProductDesc}}" class="form-control" placeholder="Product Name" required>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-2">
+            <label class="control-label" for="SerialNumber">Product S/N</label>
+          </div>
+          <div class="col-md-9">
+            <input type="text" name="SerialNumber" value="{{.RMA.SerialNumber}}" class="form-control" placeholder="Product SerialNumber" required>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-2">
+            <label class="control-label" for="ReasonReturn">Reason for Return</label>
+          </div>
+          <div class="col-md-9">
+            <textarea name="ReasonReturn" value="{{.RMA.ReasonReturn}}" class="form-control" rows="3" placeholder="Reason for returning"></textarea>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!--Receive Info-->
+  <div class="row" style="margin: 5px">
+    <div class="panel panel-info">
+      <div class="panel-heading">Receive Information</div>
+      <div class="panel-body">
+        <div class="row">
+          <div class="col-md-2">
+            <label class="control-label" for="ReceiveDate">Date Received</label>
+          </div>
+          <div class="col-md-9">
+            <input type="text" name="ReceiveDate" value="{{.RMA.ReceiveDate}}" class="form-control" placeholder="Date Received">
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-2">
+            <label class="control-label" for="ReceiveUser">Received by</label>
+          </div>
+          <div class="col-md-9">
+            <input type="text" name="ReceiveUser" value="{{.RMA.ReceiveUser}}" class="form-control" placeholder="Received By" >
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-2">
+            <label class="control-label" for="ReceiveInfo">Receive Info</label>
+          </div>
+          <div class="col-md-9">
+            <textarea name="ReceiveInfo" value="{{.RMA.ReceiveInfo}}" class="form-control" rows="3" placeholder="Receive Information"></textarea>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-2">
+            <label class="control-label" for="ReceiveDate">Receive Date</label>
+          </div>
+          <div class="col-md-9">
+            <div id="datetimepicker2" class="input-append">
+              <input data-format="MM/dd/yyyy HH:mm:ss PP" type="text"></input>
+              <span class="add-on">
+                <i data-time-icon="icon-time" data-date-icon="icon-calendar"></i>
+              </span>
+            </div>
+            <script type="text/javascript">
+              $(function() {
+                $('#datetimepicker2').datetimepicker({
+                  language: 'en',
+                  pick12HourFormat: true
+                });
+              });
+            </script>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!--Inspection Info-->
+  <div class="row" style="margin: 5px">
+    <div class="panel panel-success">
+      <div class="panel-heading">Inspection Information</div>
+      <div class="panel-body">
+        <div class="row">
+          <div class="col-md-2">
+            <label class="control-label" for="InspectionDate">Date Inspected</label>
+          </div>
+          <div class="col-md-9">
+            <input type="text" name="InspectionDate" value="{{.RMA.InspectionDate}}" class="form-control" placeholder="Date Inspected">
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-2">
+            <label class="control-label" for="InspectionUser">Inspected by</label>
+          </div>
+          <div class="col-md-9">
+            <input type="text" name="InspectionUser" value="{{.RMA.InspectionUser}}" class="form-control" placeholder="Inspected By" >
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-2">
+            <label class="control-label" for="InspectionInfo">Inspection Info</label>
+          </div>
+          <div class="col-md-9">
+            <textarea name="InspectionInfo" value="{{.RMA.InspectionInfo}}" class="form-control" rows="3" placeholder="Inspection Information"></textarea>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!--Repair Info-->
+  <div class="row" style="margin: 5px">
+    <div class="panel panel-danger">
+      <div class="panel-heading">Repair Information</div>
+      <div class="panel-body">
+        <div class="row">
+          <div class="col-md-2">
+            <label class="control-label" for="RepairDate">Date Repaired</label>
+          </div>
+          <div class="col-md-9">
+            <input type="text" name="RepairDate" value="{{.RMA.RepairDate}}" class="form-control" placeholder="Date Repaired">
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-2">
+            <label class="control-label" for="RepairUser">Repaired by</label>
+          </div>
+          <div class="col-md-9">
+            <input type="text" name="RepairUser" value="{{.RMA.RepairUser}}" class="form-control" placeholder="Repaired By" >
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-2">
+            <label class="control-label" for="RepairInfo">Repair Info</label>
+          </div>
+          <div class="col-md-9">
+            <textarea name="RepairInfo" value="{{.RMA.RepairInfo}}" class="form-control" rows="3" placeholder="Repair Information"></textarea>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-2">
+            <label class="control-label" for="RepairEstHours">Est. Repair Hours</label>
+          </div>
+          <div class="col-md-9">
+            <input type="text" name="RepairEstHours" value="{{.RMA.RepairEstHours}}" class="form-control" placeholder="Estimated Repair Hours" >
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-2">
+            <label class="control-label" for="RepairMaterial">Repair Materials</label>
+          </div>
+          <div class="col-md-9">
+            <textarea name="RepairMaterial" value="{{.RMA.RepairMaterial}}" class="form-control" rows="3" placeholder="Repair materials"></textarea>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-2">
+            <label class="control-label" for="Billable">Billable</label>
+          </div>
+          <div class="col-md-9">
+            <input type="text" name="Billable" value="{{.RMA.Billable}}" class="form-control" placeholder="Billable" >
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-2">
+            <label class="control-label" for="QuoteNum">Quote Number</label>
+          </div>
+          <div class="col-md-9">
+            <input type="text" name="QuoteNum" value="{{.RMA.QuoteNum}}" class="form-control" placeholder="Quote Number" >
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <input type="hidden" name="token" value="{{.Token}}">
+    <input type="submit" class="btn btn-default">
+  </div>
+</form>
+{{end}}

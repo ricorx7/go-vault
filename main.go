@@ -40,6 +40,9 @@ func main() {
 	mux.HandleFunc("/so", http.HandlerFunc(salesOrderHandler))
 	mux.HandleFunc("/so/add", http.HandlerFunc(salesOrderAddHandler))
 	mux.HandleFunc("/so/update/:id", http.HandlerFunc(salesOrderUpdateHandler))
+	mux.HandleFunc("/rma", http.HandlerFunc(rmaHandler))
+	mux.HandleFunc("/rma/add", http.HandlerFunc(rmaAddHandler))
+	mux.HandleFunc("/rma/update/:id", http.HandlerFunc(rmaUpdateHandler))
 
 	// HTTP server
 	// http.Handle("/libs/", http.StripPrefix("/libs/", http.FileServer(http.Dir("libs")))) // External libs
