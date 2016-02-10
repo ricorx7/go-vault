@@ -14,7 +14,7 @@
             <h4><label class="control-label" for="RmaNumber">RMA Number</label></h4>
           </div>
           <div class="col-md-9">
-            <input type="text" name="RmaNumber" value="{{.RMA.RmaNumber}}" class="form-control" placeholder="RmaNumber" required>
+            <input type="text" name="RmaNumber" value="{{.RMA.RmaNumber}}" class="form-control" placeholder="RMA Number" required>
           </div>
         </div>
       </div>
@@ -39,7 +39,7 @@
             <label class="control-label" for="ContactName">Contact Name</label>
           </div>
           <div class="col-md-9">
-            <input type="text" name="ContactName" value="{{.RMA.ContactName}}" class="form-control" placeholder="Contact Name" required>
+            <input type="text" name="ContactName" value="{{.RMA.ContactName}}" class="form-control" placeholder="Contact Name" >
           </div>
         </div>
         <div class="row">
@@ -47,7 +47,7 @@
             <label class="control-label" for="ContactEmail">Contact Email</label>
           </div>
           <div class="col-md-9">
-            <input type="text" name="ContactEmail" value="{{.RMA.ContactEmail}}" class="form-control" placeholder="Contact Email" required>
+            <input type="text" name="ContactEmail" value="{{.RMA.ContactEmail}}" class="form-control" placeholder="Contact Email" >
           </div>
         </div>
         <div class="row">
@@ -55,7 +55,7 @@
             <label class="control-label" for="ContactPhone">Contact Phone</label>
           </div>
           <div class="col-md-9">
-            <input type="text" name="ContactPhone" value="{{.RMA.ContactPhone}}" class="form-control" placeholder="Contact Phone" required>
+            <input type="text" name="ContactPhone" value="{{.RMA.ContactPhone}}" class="form-control" placeholder="Contact Phone" >
           </div>
         </div>
         <div class="row">
@@ -63,7 +63,7 @@
             <label class="control-label" for="ProductDesc">Product Name</label>
           </div>
           <div class="col-md-9">
-            <input type="text" name="ProductDesc" value="{{.RMA.ProductDesc}}" class="form-control" placeholder="Product Name" required>
+            <input type="text" name="ProductDesc" value="{{.RMA.ProductDesc}}" class="form-control" placeholder="Product Name" >
           </div>
         </div>
         <div class="row">
@@ -71,7 +71,7 @@
             <label class="control-label" for="SerialNumber">Product S/N</label>
           </div>
           <div class="col-md-9">
-            <input type="text" name="SerialNumber" value="{{.RMA.SerialNumber}}" class="form-control" placeholder="Product SerialNumber" required>
+            <input type="text" name="SerialNumber" value="{{.RMA.SerialNumber}}" class="form-control" placeholder="Product SerialNumber" >
           </div>
         </div>
         <div class="row">
@@ -79,7 +79,7 @@
             <label class="control-label" for="ReasonReturn">Reason for Return</label>
           </div>
           <div class="col-md-9">
-            <textarea name="ReasonReturn" value="{{.RMA.ReasonReturn}}" class="form-control" rows="3" placeholder="Reason for returning"></textarea>
+            <textarea name="ReasonReturn" value="{{.RMA.ReasonReturn}}" class="form-control" rows="3" placeholder="Reason for returning">{{.RMA.ReasonReturn}}</textarea>
           </div>
         </div>
       </div>
@@ -112,29 +112,39 @@
             <label class="control-label" for="ReceiveInfo">Receive Info</label>
           </div>
           <div class="col-md-9">
-            <textarea name="ReceiveInfo" value="{{.RMA.ReceiveInfo}}" class="form-control" rows="3" placeholder="Receive Information"></textarea>
+            <textarea name="ReceiveInfo" value="{{.RMA.ReceiveInfo}}" class="form-control" rows="3" placeholder="Receive Information">{{.RMA.ReceiveInfo}}</textarea>
           </div>
         </div>
-        <div class="row">
-          <div class="col-md-2">
-            <label class="control-label" for="ReceiveDate">Receive Date</label>
-          </div>
-          <div class="col-md-9">
-            <div id="datetimepicker2" class="input-append">
-              <input data-format="MM/dd/yyyy HH:mm:ss PP" type="text"></input>
-              <span class="add-on">
-                <i data-time-icon="icon-time" data-date-icon="icon-calendar"></i>
-              </span>
+        <div class="row" style="margin: 5px">
+          <table class="table table-bordered table-condensed" style="margin-bottom: 0px">
+            <thead>
+              <tr>
+                <th class="text-center"><h5><strong>Qty</strong></h5></th>
+                <th class="text-center"><h5><strong>Part Number</strong></h5></th>
+                <th class="text-center"><h5><strong>Serial Number</strong></h5></th>
+              </tr>
+            </thead>
+
+            <tbody>
+              {{range .RMA.Products}}
+              <tr>
+                <td class="text-center">{{.Qty}}</td>
+              </tr>
+              <tr>
+                <td class="text-center">{{.ProductID}}</td>
+              </tr>
+              <tr>
+                <td class="text-center">{{.SerialNumber}}</td>
+              </tr>
+              {{end}}
+            </tbody>
+          </table>
+        </div>
+        <div class="row" style="margin: 5px">
+            <div class="form-group col-md-5">
+              <input type="text" class="form-control" name="AddProduct" placeholder="Product">
             </div>
-            <script type="text/javascript">
-              $(function() {
-                $('#datetimepicker2').datetimepicker({
-                  language: 'en',
-                  pick12HourFormat: true
-                });
-              });
-            </script>
-          </div>
+            <button type="submit" class="btn btn-default">Add</button>
         </div>
       </div>
     </div>
@@ -166,7 +176,7 @@
             <label class="control-label" for="InspectionInfo">Inspection Info</label>
           </div>
           <div class="col-md-9">
-            <textarea name="InspectionInfo" value="{{.RMA.InspectionInfo}}" class="form-control" rows="3" placeholder="Inspection Information"></textarea>
+            <textarea name="InspectionInfo" value="{{.RMA.InspectionInfo}}" class="form-control" rows="3" placeholder="Inspection Information">{{.RMA.InspectionInfo}}</textarea>
           </div>
         </div>
       </div>
@@ -215,7 +225,7 @@
             <label class="control-label" for="RepairMaterial">Repair Materials</label>
           </div>
           <div class="col-md-9">
-            <textarea name="RepairMaterial" value="{{.RMA.RepairMaterial}}" class="form-control" rows="3" placeholder="Repair materials"></textarea>
+            <textarea name="RepairMaterial" value="{{.RMA.RepairMaterial}}" class="form-control" rows="3" placeholder="Repair materials">{{.RMA.RepairMaterial}}</textarea>
           </div>
         </div>
         <div class="row">

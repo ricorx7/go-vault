@@ -3,7 +3,9 @@ package main
 import (
 	"fmt"
 	"net/http"
+	"strconv"
 	"text/template"
+	"time"
 
 	"gopkg.in/mgo.v2/bson"
 
@@ -20,12 +22,19 @@ func rmaUpdateHandler(w http.ResponseWriter, r *http.Request) {
 		rma := getRma(rmaNum)
 		rmaData := &RmaUpdate{}
 		rmaData.RMA = *rma
+		rmaData.ProductList = *getProductList()
 
 		displayRmaUpdateTemplate(w, rmaData)
 	} else {
+		fmt.Printf("Request: %v", r)
+
 		// Parse the form
 		formData, err := forms.Parse(r)
 		CheckError(err)
+
+		fmt.Printf("Button clicked: %s\n", formData.Get("SubmitButton"))
+		fmt.Printf("Selected Product: %s\n", bson.ObjectId(formData.Get("AddProduct")))
+		//fmt.Printf("Selected Product: %s\n", formData.Get("AddProduct"))
 
 		// Check token
 		token := r.Form.Get("token")
@@ -40,10 +49,13 @@ func rmaUpdateHandler(w http.ResponseWriter, r *http.Request) {
 		// Validate data
 		val := formData.Validator()
 		val.Require("RmaNumber")
+		val.TypeInt("AddProductQty")
+
+		fmt.Printf("FormData %v\n", formData)
 
 		// Use data to create a user object
 		rma := getRma(formData.Get("RmaNumber"))
-		rma.RmaNumber = formData.Get("RmaNumber")
+		//rma.RmaNumber = formData.Get("RmaNumber")
 		rma.Company = formData.Get("Company")
 		rma.ContactName = formData.Get("ContactName")
 		rma.ContactEmail = formData.Get("ContactEmail")
@@ -62,14 +74,50 @@ func rmaUpdateHandler(w http.ResponseWriter, r *http.Request) {
 		rma.OriginalRmaNum = formData.Get("OriginalRmaNum")
 		rma.SerialNumber = formData.Get("SerialNumber")
 		rma.Notes = formData.Get("Notes")
+		rma.Modified = time.Now().Local()
 
-		fmt.Printf("RMA Update: %s\n", rma.RmaNumber)
+		// Accumulate the Products
+		for i := range rma.Products {
+			rma.Products[i].PartNumber = r.Form["ProductPartNumber"][i]
+			rma.Products[i].SerialNumber = r.Form["ProductSerialNumber"][i]
 
-		// Update the RMA in DB
-		updateRma(rma)
+			qty, err := strconv.Atoi(r.Form["ProductQty"][i])
+			if err == nil {
+				rma.Products[i].Qty = qty
+			}
+		}
 
-		// Go to the list of ADCP
-		http.Redirect(w, r, "/rma", http.StatusFound)
+		// Add the new product to the RMA
+		if formData.Get("SubmitButton") == "ADD" {
+			if !val.HasErrors() {
+				fmt.Printf("Add product to RMA: %s\n", rma.RmaNumber)
+
+				// Add the product to the list
+				rmaProduct := &RmaProduct{}
+				rmaProduct.PartNumber = formData.Get("AddProductPartNumber")
+				rmaProduct.Qty = formData.GetInt("AddProductQty")
+				rmaProduct.SerialNumber = formData.Get("AddProductSerialNumber")
+				product := getProductPartNumber(rmaProduct.PartNumber)
+				if product != nil {
+					rma.Products = append(rma.Products, *rmaProduct)
+				}
+				// Update the RMA in DB
+				updateRma(rma)
+			} else {
+				fmt.Println("Error with values entered")
+			}
+
+			// Go back to the update page
+			http.Redirect(w, r, "/rma/update/"+rma.RmaNumber, http.StatusFound)
+		} else {
+			fmt.Printf("RMA Update: %s\n", rma.RmaNumber)
+
+			// Update the RMA in DB
+			updateRma(rma)
+
+			// Go to the list of RMA
+			http.Redirect(w, r, "/rma", http.StatusFound)
+		}
 	}
 }
 
@@ -104,8 +152,10 @@ func getRma(rmaNum string) *RMA {
 	return &data
 }
 
+// Update the RMA data.
 func updateRma(rma *RMA) {
 	fmt.Println("updateRMA - ID", rma.ID)
+	fmt.Printf("Products: %v\n", rma.Products)
 
 	//err := Vault.Mongo.C("adcps").Update(bson.M{"_id": adcp._id}, bson.M{"$inc": bson.M{"Customer": adcp.Customer}})
 	err := Vault.Mongo.C("RMAs").Update(bson.M{"_id": rma.ID}, bson.M{"$set": bson.M{
@@ -127,7 +177,9 @@ func updateRma(rma *RMA) {
 		"QuoteNum":       rma.QuoteNum,
 		"OriginalRmaNum": rma.OriginalRmaNum,
 		"SerialNumber":   rma.SerialNumber,
-		"Notes":          rma.Notes}})
+		"Products":       rma.Products,
+		"Notes":          rma.Notes,
+		"Modified":       rma.Modified}})
 	if err != nil {
 		fmt.Printf("Can't update RMA %v\n", err)
 	}

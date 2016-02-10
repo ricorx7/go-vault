@@ -54,6 +54,7 @@ type SalesOrder struct {
 	UserVersion              string        `bson:"UserVersion" json:"UserVersion"`
 	ThirdParty               string        `bson:"ThirdParty" json:"ThirdParty"`
 	Notes                    string        `bson:"Notes" json:"Notes"`
+	Modified                 time.Time     `bson:"Modified" json:"Modified"`
 }
 
 // SalesOrderUpdate will contain the sales order data.

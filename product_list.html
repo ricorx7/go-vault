@@ -1,0 +1,21 @@
+{{define "content"}}
+  <h1>Products</h1>
+
+    <ul class="list-group">
+      <form action="/product" method="post" role="form" class="navbar-form">
+        <div class="form-group">
+          <input type="text" class="form-control" name="PartialProduct" placeholder="filter Products">
+        </div>
+        <button type="submit" class="btn btn-default">Submit</button>
+      </form>
+
+    {{range .Products}}
+      <li class="list-group-item">
+          <h4 class="list-group-item-heading">{{.PartNumber}}</h4>
+          <p>{{.Desc}}</p>
+        <a href="product/update/{{.PartNumber}}" class="btn btn-warning">EDIT</a>
+        <small>{{.Created}}</small>
+      </li>
+    {{end}}
+  </ul>
+{{end}}

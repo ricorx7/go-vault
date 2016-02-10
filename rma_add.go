@@ -11,6 +11,13 @@ import (
 	"gopkg.in/mgo.v2/bson"
 )
 
+// RmaProduct will store a product for RMA.
+type RmaProduct struct {
+	PartNumber   string `bson:"PartNumber" json:"PartNumber"`
+	Qty          int    `bson:"Qty" json:"Qty"`
+	SerialNumber string `bson:"SerialNumber" json:"SerialNumber"`
+}
+
 // RMA will keep track of the sales order information.
 type RMA struct {
 	ID               bson.ObjectId   `bson:"_id,omitempty" json:"id"`
@@ -23,6 +30,7 @@ type RMA struct {
 	ContactPhone     string          `bson:"ContactPhone" json:"ContactPhone"`
 	ProductDesc      string          `bson:"ProductDesc" json:"ProductDesc"`
 	ProductID        bson.ObjectId   `bson:"ProductID,omitempty" json:"ProductID"`
+	Products         []RmaProduct    `bson:"Products" json:"Products"`
 	SerialNumber     string          `bson:"SerialNumber" json:"SerialNumber"`
 	ReasonReturn     string          `bson:"ReasonReturn" json:"ReasonReturn"`
 	ReceiveDate      time.Time       `bson:"ReceiveDate" json:"ReceiveDate"`
@@ -42,12 +50,15 @@ type RMA struct {
 	OriginalRmaNum   string          `bson:"OriginalRmaNum" json:"OriginalRmaNum"`
 	Notes            string          `bson:"Notes" json:"Notes"`
 	Created          time.Time       `bson:"Created" json:"Created"`
+	Modified         time.Time       `bson:"Modified" json:"Modified"`
 }
 
 // RmaUpdate will contain the RMA data.
 type RmaUpdate struct {
-	RMA   RMA
-	Token string
+	RMA         RMA
+	AddProduct  bson.ObjectId
+	ProductList []Product
+	Token       string
 }
 
 // Add the RMA.
@@ -55,6 +66,8 @@ func rmaAddHandler(w http.ResponseWriter, r *http.Request) {
 	if r.Method == "GET" {
 		// Display blank form
 		rmaData := &RmaUpdate{}
+		rmaData.ProductList = *getProductList()
+
 		displayRmaTemplate(w, rmaData)
 	} else {
 		// Parse the form

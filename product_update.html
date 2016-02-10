@@ -1,0 +1,94 @@
+{{define "content"}}
+<div class="page-header">
+  <h1>New Product</h1>
+</div>
+<form action="/product/update/{{.Product.PartNumber}}" method="post">
+
+  <!--Product Info-->
+  <div class="row" style="margin: 5px">
+    <div class="panel panel-info">
+      <div class="panel-heading">Product Information</div>
+      <div class="panel-body">
+        <div class="row">
+          <div class="col-md-2">
+            <label class="control-label" for="PartNumber">Part Number</label>
+          </div>
+          <div class="col-md-9">
+            <input type="text" name="PartNumber" value="{{.Product.PartNumber}}" class="form-control" placeholder="Part Number">
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-2">
+            <label class="control-label" for="Desc">Description</label>
+          </div>
+          <div class="col-md-9">
+            <textarea name="Desc" value="{{.Product.Desc}}" class="form-control" rows="3" placeholder="Description">{{.Product.Desc}}</textarea>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-2">
+            <label class="control-label" for="ReferenceDes">Reference Designator</label>
+          </div>
+          <div class="col-md-9">
+            <input type="text" name="ReferenceDes" value="{{.Product.ReferenceDes}}" class="form-control" placeholder="Reference Designator">
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-2">
+            <label class="control-label" for="UnitPrice">Unit Price</label>
+          </div>
+          <div class="col-md-9">
+            <input type="text" name="UnitPrice" value="{{.Product.UnitPrice}}" class="form-control" placeholder="Unit Price">
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-2">
+            <label class="control-label" for="ListPrice">List Price</label>
+          </div>
+          <div class="col-md-9">
+            <input type="text" name="ListPrice" value="{{.Product.ListPrice}}" class="form-control" placeholder="List Price">
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-2">
+            <label class="control-label" for="Type">Type</label>
+          </div>
+          <div class="col-md-9">
+            <input type="text" name="Type" value="{{.Product.Type}}" class="form-control" placeholder="Type">
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-2">
+            <label class="control-label" for="Qty">Quantity</label>
+          </div>
+          <div class="col-md-9">
+            <input type="text" name="Qty" value="{{.Product.Qty}}" class="form-control" placeholder="Qty">
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-2">
+            <label class="control-label" for="UnitOfMeasure">Unit Of Measure</label>
+          </div>
+          <div class="col-md-9">
+            <input type="text" name="UnitOfMeasure" value="{{.Product.UnitOfMeasure}}" class="form-control" placeholder="Unit Of Measure">
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-2">
+            <label class="control-label" for="Cost">Cost</label>
+          </div>
+          <div class="col-md-9">
+            <input type="text" name="Cost" value="{{.Product.Cost}}" class="form-control" placeholder="Cost">
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <input type="hidden" name="PartNumber" value="{{.Product.PartNumber}}">
+    <input type="hidden" name="token" value="{{.Token}}">
+    <input type="submit" class="btn btn-default">
+  </div>
+</form>
+{{end}}

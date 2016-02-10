@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"net/http"
 	"text/template"
+	"time"
 
 	"gopkg.in/mgo.v2/bson"
 
@@ -80,6 +81,7 @@ func salesOrderUpdateHandler(w http.ResponseWriter, r *http.Request) {
 		so.UserVersion = formData.Get("UserVersion")
 		so.ThirdParty = formData.Get("ThirdParty")
 		so.Notes = formData.Get("Notes")
+		so.Modified = time.Now().Local()
 
 		fmt.Printf("Sales Order Update: %s\n", so.SalesOrderNumber)
 
@@ -163,7 +165,8 @@ func updateSalesOrder(so *SalesOrder) {
 		"PulseVersion":        so.PulseVersion,
 		"UserVersion":         so.UserVersion,
 		"ThirdParty":          so.ThirdParty,
-		"Notes":               so.Notes}})
+		"Notes":               so.Notes,
+		"Modified":            so.Modified}})
 	if err != nil {
 		fmt.Printf("Can't update SalesOrder %v\n", err)
 	}
