@@ -1,0 +1,99 @@
+{{define "content"}}
+
+
+
+  <style type="text/css">
+    .error {color: red;}
+
+    tr:nth-child(even) {
+        background-color: #d5d5d5;
+    }
+
+    </style>
+    <script>
+      $(function() { $( "#datepicker" ).datepicker(); });
+      $(function() { $( "#datepicker1" ).datepicker(); });
+      $(function() { $( "#datepicker2" ).datepicker(); });
+      $(function() { $( "#datepicker3" ).datepicker(); });
+    </script>
+
+  <div class="page-header">
+    <h1>New ADCP Checklist</h1>
+  </div>
+
+  <form action="/adcp_checklist/add" method="post">
+      <div class="row" style="margin: 5px">
+        <div class="col-sm-2">
+          SerialNumber:<input type="text" name="SerialNumber" value="{{.ADCP.SerialNumber}}">
+        </div>
+      </div>
+
+      <div class="row" style="margin: 5px">
+        <table class="table table-bordered table-condensed">
+          <thead>
+            <tr>
+              <th class="text-center"><h5><strong>Desc</strong></h5></th>
+              <th class="text-center"><h5><strong>Status</strong></h5></th>
+              <th class="text-center"><h5><strong>User</strong></h5></th>
+              <th class="text-center"><h5><strong>User</strong></h5></th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Urethane Check:</td>
+              <td>
+                <select name="UrethaneStatus">
+                  <option value="Not Checked">Not Checked</option>
+                  <option value="Completed">Completed</option>
+                  <option value="N/A">N/A</option>
+                </select>
+              </td>
+              <td><input type="text" name="UrethaneUser" value="{{.ADCP.Urethane.User}}" placeholder="User"></td>
+              <td><input type="text" name="UrethaneDate" value="{{.ADCP.Urethane.Date}}" id="datepicker" placeholder="Date"></td>
+            </tr>
+            <tr>
+              <td>O-Ring Check:</td>
+              <td>
+                <select name="OringStatus">
+                  <option value="Not Checked">Not Checked</option>
+                  <option value="Completed">Completed</option>
+                  <option value="N/A">N/A</option>
+                </select>
+              </td>
+              <td><input type="text" name="OringUser" value="{{.ADCP.Oring.User}}" placeholder="User"></td>
+              <td><input type="text" name="OringDate" value="{{.ADCP.Oring.Date}}" id="datepicker1" placeholder="Date"></td>
+            </tr>
+            <tr>
+              <td>Standoff Check:</td>
+              <td>
+                <select name="StandoffsStatus">
+                  <option value="Not Checked">Not Checked</option>
+                  <option value="Completed">Completed</option>
+                  <option value="N/A">N/A</option>
+                </select>
+              </td>
+              <td><input type="text" name="StandoffsUser" value="{{.ADCP.Standoffs.User}}" placeholder="User"></td>
+              <td><input type="text" name="StandoffsDate" value="{{.ADCP.Standoffs.Date}}" id="datepicker2" placeholder="Date"></td>
+            </tr>
+            <tr>
+              <td>Screws Check:</td>
+              <td>
+                <select name="ScrewsStatus">
+                  <option value="Not Checked">Not Checked</option>
+                  <option value="Completed">Completed</option>
+                  <option value="N/A">N/A</option>
+                </select>
+              </td>
+              <td><input type="text" name="ScrewsUser" value="{{.ADCP.Screws.User}}" placeholder="User"></td>
+              <td><input type="text" name="ScrewsDate" value="{{.ADCP.Screws.Date}}" id="datepicker3" placeholder="Date"></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="row" style="margin: 5px">
+        <input type="hidden" name="token" value="{{.Token}}">
+        <input type="submit" value="Update">
+      </div>
+  </form>
+{{end}}
