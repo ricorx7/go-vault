@@ -55,11 +55,12 @@ func rmaUpdateHandler(w http.ResponseWriter, r *http.Request) {
 
 		// Use data to create a user object
 		rma := getRma(formData.Get("RmaNumber"))
-		//rma.RmaNumber = formData.Get("RmaNumber")
+		rma.OrigSalesOrder = formData.Get("OrigSalesOrder")
 		rma.Company = formData.Get("Company")
 		rma.ContactName = formData.Get("ContactName")
 		rma.ContactEmail = formData.Get("ContactEmail")
 		rma.ContactPhone = formData.Get("ContactPhone")
+		rma.ContactAddress = formData.Get("ContactAddress")
 		rma.ProductDesc = formData.Get("ProductDesc")
 		rma.ReasonReturn = formData.Get("ReasonReturn")
 		rma.ReceiveInfo = formData.Get("ReceiveInfo")
@@ -75,6 +76,12 @@ func rmaUpdateHandler(w http.ResponseWriter, r *http.Request) {
 		rma.SerialNumber = formData.Get("SerialNumber")
 		rma.Notes = formData.Get("Notes")
 		rma.Modified = time.Now().Local()
+		rma.InspectionDate = formData.Get("InspectionDate")
+		rma.ReceiveDate = formData.Get("ReceiveDate")
+		rma.RepairDate = formData.Get("RepairDate")
+		rma.RmaDate = formData.Get("RmaDate")
+		rma.ShipDate = formData.Get("ShipDate")
+		rma.Status = formData.Get("Status")
 
 		// Accumulate the Products
 		for i := range rma.Products {
@@ -160,18 +167,24 @@ func updateRma(rma *RMA) {
 	//err := Vault.Mongo.C("adcps").Update(bson.M{"_id": adcp._id}, bson.M{"$inc": bson.M{"Customer": adcp.Customer}})
 	err := Vault.Mongo.C("RMAs").Update(bson.M{"_id": rma.ID}, bson.M{"$set": bson.M{
 		"RmaNumber":      rma.RmaNumber,
+		"RmaDate":        rma.RmaDate,
+		"OrigSalesOrder": rma.OrigSalesOrder,
 		"Company":        rma.Company,
 		"ContactName":    rma.ContactName,
 		"ContactEmail":   rma.ContactEmail,
 		"ContactPhone":   rma.ContactPhone,
+		"ContactAddress": rma.ContactAddress,
 		"ProductDesc":    rma.ProductDesc,
 		"ReasonReturn":   rma.ReasonReturn,
 		"ReceiveInfo":    rma.ReceiveInfo,
 		"ReceiveUser":    rma.ReceiveUser,
+		"ReceiveDate":    rma.ReceiveDate,
 		"InspectionInfo": rma.InspectionInfo,
 		"InspectionUser": rma.InspectionUser,
+		"InspectionDate": rma.InspectionDate,
 		"RepairInfo":     rma.RepairInfo,
 		"RepairUser":     rma.RepairUser,
+		"RepairDate":     rma.RepairDate,
 		"RepairEstHours": rma.RepairEstHours,
 		"Billable":       rma.Billable,
 		"QuoteNum":       rma.QuoteNum,
@@ -179,7 +192,9 @@ func updateRma(rma *RMA) {
 		"SerialNumber":   rma.SerialNumber,
 		"Products":       rma.Products,
 		"Notes":          rma.Notes,
-		"Modified":       rma.Modified}})
+		"ShipDate":       rma.ShipDate,
+		"Modified":       rma.Modified,
+		"Status":         rma.Status}})
 	if err != nil {
 		fmt.Printf("Can't update RMA %v\n", err)
 	}

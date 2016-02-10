@@ -25,7 +25,7 @@ func rmaHandler(w http.ResponseWriter, r *http.Request) {
 		rmaData := &RmaData{}
 
 		// Get data form DB
-		err := Vault.Mongo.C("RMAs").Find(bson.M{}).Sort("-created").All(&rmaData.RMA)
+		err := Vault.Mongo.C("RMAs").Find(bson.M{}).Sort("-Modified").All(&rmaData.RMA)
 		CheckError(err)
 		fmt.Println("Number of RMAs: ", len(rmaData.RMA))
 

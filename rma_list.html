@@ -11,11 +11,32 @@
 
     {{range .RMA}}
       <li class="list-group-item">
-          <h4 class="list-group-item-heading">{{.RmaNumber}}</h4>
-          <p>{{.Company}}</br>
-          {{.RmaDate}}</p>
-        <a href="rma/update/{{.RmaNumber}}" class="btn btn-warning">EDIT</a>
-        <small>{{.Created}}</small>
+        <div class="row">
+          <div class="col-md-4">
+            <h4 class="list-group-item-heading">{{.RmaNumber}}</h4>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-2">
+            {{.Company}}
+          </div>
+          <div class="col-md-2">
+            {{.RmaDate}}
+          </div>
+          <div class="col-md-2">
+            <h4>{{.Status}}</h4>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-4">
+            <a href="rma/update/{{.RmaNumber}}" class="btn btn-warning">EDIT</a>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-4">
+            <small>{{.Modified}}</small>
+          </div>
+        </div>
       </li>
     {{end}}
   </ul>

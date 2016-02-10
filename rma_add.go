@@ -3,6 +3,7 @@ package main
 import (
 	"fmt"
 	"net/http"
+	"strconv"
 	"text/template"
 	"time"
 
@@ -21,11 +22,12 @@ type RmaProduct struct {
 // RMA will keep track of the sales order information.
 type RMA struct {
 	ID               bson.ObjectId   `bson:"_id,omitempty" json:"id"`
-	SalesOrderID     bson.ObjectId   `bson:"SalesOrderID,omitempty" json:"SalesOrderID"`
-	RmaDate          time.Time       `bson:"RmaDate" json:"RmaDate"`
+	OrigSalesOrder   string          `bson:"OrigSalesOrder,omitempty" json:"OrigSalesOrder"`
+	RmaDate          string          `bson:"RmaDate" json:"RmaDate"`
 	RmaNumber        string          `bson:"RmaNumber" json:"RmaNumber"`
 	Company          string          `bson:"Company" json:"Company"`
 	ContactName      string          `bson:"ContactName" json:"ContactName"`
+	ContactAddress   string          `bson:"ContactAddress" json:"ContactAddress"`
 	ContactEmail     string          `bson:"ContactEmail" json:"ContactEmail"`
 	ContactPhone     string          `bson:"ContactPhone" json:"ContactPhone"`
 	ProductDesc      string          `bson:"ProductDesc" json:"ProductDesc"`
@@ -33,13 +35,13 @@ type RMA struct {
 	Products         []RmaProduct    `bson:"Products" json:"Products"`
 	SerialNumber     string          `bson:"SerialNumber" json:"SerialNumber"`
 	ReasonReturn     string          `bson:"ReasonReturn" json:"ReasonReturn"`
-	ReceiveDate      time.Time       `bson:"ReceiveDate" json:"ReceiveDate"`
+	ReceiveDate      string          `bson:"ReceiveDate" json:"ReceiveDate"`
 	ReceiveInfo      string          `bson:"ReceiveInfo" json:"ReceiveInfo"`
 	ReceiveUser      string          `bson:"ReceiveUser" json:"ReceiveUser"`
-	InspectionDate   time.Time       `bson:"InspectionDate" json:"InspectionDate"`
+	InspectionDate   string          `bson:"InspectionDate" json:"InspectionDate"`
 	InspectionInfo   string          `bson:"InspectionInfo" json:"InspectionInfo"`
 	InspectionUser   string          `bson:"InspectionUser" json:"InspectionUser"`
-	RepairDate       time.Time       `bson:"RepairDate" json:"RepairDate"`
+	RepairDate       string          `bson:"RepairDate" json:"RepairDate"`
 	RepairInfo       string          `bson:"RepairInfo" json:"RepairInfo"`
 	RepairUser       string          `bson:"RepairUser" json:"RepairUser"`
 	RepairEstHours   int             `bson:"RepairEstHours" json:"RepairEstHours"`
@@ -49,6 +51,8 @@ type RMA struct {
 	QuoteNum         string          `bson:"QuoteNum" json:"QuoteNum"`
 	OriginalRmaNum   string          `bson:"OriginalRmaNum" json:"OriginalRmaNum"`
 	Notes            string          `bson:"Notes" json:"Notes"`
+	Status           string          `bson:"Status" json:"Status"`
+	ShipDate         string          `bson:"ShipDate" json:"ShipDate"`
 	Created          time.Time       `bson:"Created" json:"Created"`
 	Modified         time.Time       `bson:"Modified" json:"Modified"`
 }
@@ -84,22 +88,24 @@ func rmaAddHandler(w http.ResponseWriter, r *http.Request) {
 			fmt.Println("Bad token")
 		}
 
-		// Validate data
-		val := formData.Validator()
-		val.Require("Company")
-		val.Require("ContactName")
-		val.Require("ContactEmail")
-		val.Require("ContactPhone")
-		val.Require("SerialNumber")
-		val.Require("ReasonReturn")
+		// // Validate data
+		// val := formData.Validator()
+		// val.Require("Company")
+		// val.Require("ContactName")
+		// val.Require("ContactEmail")
+		// val.Require("ContactPhone")
+		// val.Require("SerialNumber")
+		// val.Require("ReasonReturn")
 
 		// Use data to create a user object
 		rma := &RMA{
 			RmaNumber:      formData.Get("RmaNumber"),
+			OrigSalesOrder: formData.Get("OrigSalesOrder"),
 			Company:        formData.Get("Company"),
 			ContactName:    formData.Get("ContactName"),
 			ContactEmail:   formData.Get("ContactEmail"),
 			ContactPhone:   formData.Get("ContactPhone"),
+			ContactAddress: formData.Get("ContactAddress"),
 			ProductDesc:    formData.Get("ProductDesc"),
 			ReasonReturn:   formData.Get("ReasonReturn"),
 			ReceiveInfo:    formData.Get("ReceiveInfo"),
@@ -114,22 +120,63 @@ func rmaAddHandler(w http.ResponseWriter, r *http.Request) {
 			OriginalRmaNum: formData.Get("OriginalRmaNum"),
 			SerialNumber:   formData.Get("SerialNumber"),
 			Notes:          formData.Get("Notes"),
-			RmaDate:        time.Now().Local(),
+			RmaDate:        formData.Get("RmaDate"),
 			Created:        time.Now().Local(),
-			//InspectionDate: formData.Get("InspectionDate"),
-			//ReceiveDate:             formData.get("ReceiveDate"),
-			//RepairDate:           formData.Get("RepairDate"),
-			//DueDate:                  formData.Get("DueDate"),
-			//EstShipDate:              formData.Get("EstShipDate"),
-
+			Modified:       time.Now().Local(),
+			InspectionDate: formData.Get("InspectionDate"),
+			ReceiveDate:    formData.Get("ReceiveDate"),
+			RepairDate:     formData.Get("RepairDate"),
+			ShipDate:       formData.Get("ShipDate"),
+			Status:         formData.Get("Status"),
 		}
 
-		// Add the RMAs to the DB
-		err = Vault.Mongo.C("RMAs").Insert(rma)
-		CheckError(err)
+		fmt.Printf("Submit Button: %s\n", formData.Get("SubmitButton"))
 
-		// Go to the list of SalesOrders
-		http.Redirect(w, r, "/rma", http.StatusFound)
+		// Add the new product to the RMA
+		if formData.Get("SubmitButton") == "ADD" {
+			//if !val.HasErrors() {
+			fmt.Printf("Add product to RMA: %s\n", rma.RmaNumber)
+
+			// Add the product to the list
+			rmaProduct := &RmaProduct{}
+			rmaProduct.PartNumber = formData.Get("AddProductPartNumber")
+			rmaProduct.Qty = formData.GetInt("AddProductQty")
+			rmaProduct.SerialNumber = formData.Get("AddProductSerialNumber")
+			product := getProductPartNumber(rmaProduct.PartNumber)
+			if product != nil {
+				rma.Products = append(rma.Products, *rmaProduct)
+			}
+			// Update the RMA in DB
+			//updateRma(rma)
+			// } else {
+			// 	fmt.Println("Error with values entered")
+			// }
+			rmaData := &RmaUpdate{}
+			rmaData.ProductList = *getProductList()
+			rmaData.RMA = *rma
+
+			displayRmaTemplate(w, rmaData)
+		} else {
+			fmt.Printf("RMA Add: %s\n", rma.RmaNumber)
+
+			// Accumulate the Products
+			for i := range rma.Products {
+				rma.Products[i].PartNumber = r.Form["ProductPartNumber"][i]
+				rma.Products[i].SerialNumber = r.Form["ProductSerialNumber"][i]
+
+				qty, err := strconv.Atoi(r.Form["ProductQty"][i])
+				if err == nil {
+					rma.Products[i].Qty = qty
+				}
+			}
+
+			// Add the RMAs to the DB
+			err = Vault.Mongo.C("RMAs").Insert(rma)
+			CheckError(err)
+
+			// Go to the list of RMAs
+			http.Redirect(w, r, "/rma", http.StatusFound)
+		}
 	}
 }
 

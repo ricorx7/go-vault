@@ -1,4 +1,13 @@
 {{define "content"}}
+
+<script>
+  $(function() { $( "#datepicker" ).datepicker(); });
+  $(function() { $( "#datepicker1" ).datepicker(); });
+  $(function() { $( "#datepicker2" ).datepicker(); });
+  $(function() { $( "#datepicker3" ).datepicker(); });
+  $(function() { $( "#datepicker4" ).datepicker(); });
+</script>
+
 <div class="page-header">
   <h1>Update RMA</h1>
 </div>
@@ -11,10 +20,41 @@
       <div class="panel-body">
         <div class="row" style="margin: 5px">
           <div class="col-md-2">
-            <h4><label class="control-label" for="RmaNumber">RMA Number</label></h4>
+            <label class="control-label" for="RmaNumber">RMA Number</label>
           </div>
           <div class="col-md-9">
-            <h3>{{.RMA.RmaNumber}}</h3>
+            {{.RMA.RmaNumber}}
+          </div>
+        </div>
+        <div class="row" sytle="margin: 5px">
+          <div class="col-md-2">
+            <label class="control-label" for="RmaDate">Date</label>
+          </div>
+          <div class="col-md-9">
+            <input type="text" name="RmaDate" value="{{.RMA.RmaDate}}" id="datepicker3" class="form-control" placeholder="RMA Date" >
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-2">
+            <label class="control-label" for="Status">Status</label>
+          </div>
+          <div class="col-md-2">
+            <select name="Status">
+              <option value="Reported">Reported</option>
+              <option value="Received">Received</option>
+              <option value="Inspected">Inspected</option>
+              <option value="Repaired">Repaired</option>
+              <option value="Returned">Returned</option>
+              <option value="Completed">Completed</option>
+            </select>
+          </div>
+        </div>
+        <div class="row" sytle="margin: 5px">
+          <div class="col-md-2">
+            <label class="control-label" for="OrigSalesOrder">Original Sales Order</label>
+          </div>
+          <div class="col-md-9">
+            <input type="text" name="OrigSalesOrder" value="{{.RMA.OrigSalesOrder}}" class="form-control" placeholder="Original SalesOrder" >
           </div>
         </div>
       </div>
@@ -40,6 +80,14 @@
           </div>
           <div class="col-md-9">
             <input type="text" name="ContactName" value="{{.RMA.ContactName}}" class="form-control" placeholder="Contact Name" >
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-2">
+            <label class="control-label" for="ContactAddress">Contact Address</label>
+          </div>
+          <div class="col-md-9">
+            <input type="text" name="ContactAddress" value="{{.RMA.ContactAddress}}" class="form-control" placeholder="Contact Address" >
           </div>
         </div>
         <div class="row">
@@ -96,7 +144,7 @@
             <label class="control-label" for="ReceiveDate">Date Received</label>
           </div>
           <div class="col-md-9">
-            <input type="text" name="ReceiveDate" value="{{.RMA.ReceiveDate}}" class="form-control" placeholder="Date Received">
+            <input type="text" name="ReceiveDate" id="datepicker" value="{{.RMA.ReceiveDate}}" class="form-control" placeholder="Date Received">
           </div>
         </div>
         <div class="row">
@@ -141,15 +189,15 @@
           <div class="panel panel-info">
             <div class="panel-heading">Add Product</div>
             <div class="panel-body">
-              <div class="col-md-1">
-                <input type="text" name="AddProductQty" class="form-control" placeholder="Qty" >
-              </div>
-              <div class="form-group col-md-4">
+              <div class="form-group col-md-3">
                 <select name="AddProductPartNumber">
                   {{range .ProductList}}
                   <option value="{{.PartNumber}}">{{.PartNumber}}</option>
                   {{end}}
                 </select>
+              </div>
+              <div class="col-md-1">
+                <input type="text" name="AddProductQty" class="form-control" placeholder="Qty" >
               </div>
               <div class="col-md-2">
                 <input type="text" name="AddProductSerialNumber" class="form-control" placeholder="Serial Number" >
@@ -174,7 +222,7 @@
             <label class="control-label" for="InspectionDate">Date Inspected</label>
           </div>
           <div class="col-md-9">
-            <input type="text" name="InspectionDate" value="{{.RMA.InspectionDate}}" class="form-control" placeholder="Date Inspected">
+            <input type="text" name="InspectionDate" id="datepicker1" value="{{.RMA.InspectionDate}}" class="form-control" placeholder="Date Inspected">
           </div>
         </div>
         <div class="row">
@@ -207,7 +255,7 @@
             <label class="control-label" for="RepairDate">Date Repaired</label>
           </div>
           <div class="col-md-9">
-            <input type="text" name="RepairDate" value="{{.RMA.RepairDate}}" class="form-control" placeholder="Date Repaired">
+            <input type="text" name="RepairDate"  id="datepicker2" value="{{.RMA.RepairDate}}" class="form-control" placeholder="Date Repaired">
           </div>
         </div>
         <div class="row">
@@ -247,7 +295,11 @@
             <label class="control-label" for="Billable">Billable</label>
           </div>
           <div class="col-md-9">
-            <input type="text" name="Billable" value="{{.RMA.Billable}}" class="form-control" placeholder="Billable" >
+            <select name="Billable">
+              <option value="Billable">Billable</option>
+              <option value="Warranty">Warranty</option>
+              <option value="N/A">N/A</option>
+            </select>
           </div>
         </div>
         <div class="row">
@@ -256,6 +308,40 @@
           </div>
           <div class="col-md-9">
             <input type="text" name="QuoteNum" value="{{.RMA.QuoteNum}}" class="form-control" placeholder="Quote Number" >
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!--Ship Date-->
+  <div class="row" style="margin: 5px">
+    <div class="panel panel-primary">
+      <div class="panel-heading">Shipment</div>
+      <div class="panel-body">
+        <div class="row">
+          <div class="col-md-2">
+            <label class="control-label" for="ShipDate">Ship Date</label>
+          </div>
+          <div class="col-md-9">
+            <input type="text" name="ShipDate"  id="datepicker4" value="{{.RMA.ShipDate}}" class="form-control" placeholder="Ship Date">
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!--Notes-->
+  <div class="row" style="margin: 5px">
+    <div class="panel panel-primary">
+      <div class="panel-heading">Notes</div>
+      <div class="panel-body">
+        <div class="row">
+          <div class="col-md-2">
+            <label class="control-label" for="Notes">Notes</label>
+          </div>
+          <div class="col-md-9">
+            <textarea name="Notes" value="{{.RMA.Notes}}" class="form-control" rows="3" placeholder="Notes">{{.RMA.Notes}}</textarea>
           </div>
         </div>
       </div>
