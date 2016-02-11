@@ -62,6 +62,7 @@ type RmaUpdate struct {
 	RMA         RMA
 	AddProduct  bson.ObjectId
 	ProductList []Product
+	StatusList  []OptionItem
 	Token       string
 }
 
@@ -71,6 +72,7 @@ func rmaAddHandler(w http.ResponseWriter, r *http.Request) {
 		// Display blank form
 		rmaData := &RmaUpdate{}
 		rmaData.ProductList = *getProductList()
+		rmaData.StatusList = getStatusList("Reported")
 
 		displayRmaTemplate(w, rmaData)
 	} else {
@@ -153,6 +155,7 @@ func rmaAddHandler(w http.ResponseWriter, r *http.Request) {
 			// }
 			rmaData := &RmaUpdate{}
 			rmaData.ProductList = *getProductList()
+			rmaData.StatusList = getStatusList(rma.Status)
 			rmaData.RMA = *rma
 
 			displayRmaTemplate(w, rmaData)
@@ -190,4 +193,26 @@ func displayRmaTemplate(w http.ResponseWriter, rmaData *RmaUpdate) {
 	t.ExecuteTemplate(w, "content", rmaData)
 	t.ExecuteTemplate(w, "footer", nil)
 	t.Execute(w, rmaData)
+}
+
+// Create a Status slice.  Then set the selected flag
+// based off the status value given.
+func getStatusList(status string) []OptionItem {
+	options := []OptionItem{
+		OptionItem{"Reported", "Reported", false},
+		OptionItem{"Received", "Received", false},
+		OptionItem{"Inspected", "Inspected", false},
+		OptionItem{"Repaired", "Repaired", false},
+		OptionItem{"Returned", "Returned", false},
+		OptionItem{"Completed", "Completed", false},
+	}
+
+	// Set the selected value based off the status given
+	for i := range options {
+		if options[i].Value == status {
+			options[i].Selected = true
+		}
+	}
+
+	return options
 }
