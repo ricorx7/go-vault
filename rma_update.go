@@ -23,6 +23,9 @@ func rmaUpdateHandler(w http.ResponseWriter, r *http.Request) {
 		rmaData := &RmaUpdate{}
 		rmaData.RMA = *rma
 		rmaData.ProductList = *getProductList()
+		rmaData.StatusList = getStatusList(rma.Status)
+
+		fmt.Printf("StatusList %v\n", rmaData.StatusList)
 
 		displayRmaUpdateTemplate(w, rmaData)
 	} else {

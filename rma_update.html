@@ -40,12 +40,9 @@
           </div>
           <div class="col-md-2">
             <select name="Status">
-              <option value="Reported">Reported</option>
-              <option value="Received">Received</option>
-              <option value="Inspected">Inspected</option>
-              <option value="Repaired">Repaired</option>
-              <option value="Returned">Returned</option>
-              <option value="Completed">Completed</option>
+              {{range .StatusList}}
+                <option value="{{.Value}}" {{if eq .Selected true}}selected="selected"{{end}}>{{.Text}}</option>
+              {{end}}
             </select>
           </div>
         </div>
