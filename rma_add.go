@@ -59,11 +59,12 @@ type RMA struct {
 
 // RmaUpdate will contain the RMA data.
 type RmaUpdate struct {
-	RMA         RMA
-	AddProduct  bson.ObjectId
-	ProductList []Product
-	StatusList  []OptionItem
-	Token       string
+	RMA          RMA
+	AddProduct   bson.ObjectId
+	ProductList  []Product
+	StatusList   []OptionItem
+	BillableList []OptionItem
+	Token        string
 }
 
 // Add the RMA.
@@ -73,6 +74,7 @@ func rmaAddHandler(w http.ResponseWriter, r *http.Request) {
 		rmaData := &RmaUpdate{}
 		rmaData.ProductList = *getProductList()
 		rmaData.StatusList = getStatusList("Reported")
+		rmaData.BillableList = getBillableList("Billable")
 
 		displayRmaTemplate(w, rmaData)
 	} else {
@@ -156,6 +158,7 @@ func rmaAddHandler(w http.ResponseWriter, r *http.Request) {
 			rmaData := &RmaUpdate{}
 			rmaData.ProductList = *getProductList()
 			rmaData.StatusList = getStatusList(rma.Status)
+			rmaData.BillableList = getBillableList(rma.Billable)
 			rmaData.RMA = *rma
 
 			displayRmaTemplate(w, rmaData)
@@ -210,6 +213,25 @@ func getStatusList(status string) []OptionItem {
 	// Set the selected value based off the status given
 	for i := range options {
 		if options[i].Value == status {
+			options[i].Selected = true
+		}
+	}
+
+	return options
+}
+
+// Create a Billable slice.  Then set the selected flag
+// based off the billable value given.
+func getBillableList(billable string) []OptionItem {
+	options := []OptionItem{
+		OptionItem{"Billable", "Billable", false},
+		OptionItem{"Warranty", "Warranty", false},
+		OptionItem{"N/A", "N/A", false},
+	}
+
+	// Set the selected value based off the string given
+	for i := range options {
+		if options[i].Value == billable {
 			options[i].Selected = true
 		}
 	}

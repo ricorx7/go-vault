@@ -24,6 +24,7 @@ func rmaUpdateHandler(w http.ResponseWriter, r *http.Request) {
 		rmaData.RMA = *rma
 		rmaData.ProductList = *getProductList()
 		rmaData.StatusList = getStatusList(rma.Status)
+		rmaData.BillableList = getBillableList(rma.Billable)
 
 		fmt.Printf("StatusList %v\n", rmaData.StatusList)
 

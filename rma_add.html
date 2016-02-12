@@ -277,9 +277,9 @@
           </div>
           <div class="col-md-9">
             <select name="Billable">
-              <option value="Billable">Billable</option>
-              <option value="Warranty">Warranty</option>
-              <option value="N/A">N/A</option>
+              {{range .BillableList}}
+                <option value="{{.Value}}" {{if eq .Selected true}}selected="selected"{{end}}>{{.Text}}</option>
+              {{end}}
             </select>
           </div>
         </div>
