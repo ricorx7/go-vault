@@ -24,10 +24,7 @@ func rmaUpdateHandler(w http.ResponseWriter, r *http.Request) {
 		rmaData.RMA = *rma
 		rmaData.ProductList = *getProductList()
 		rmaData.StatusList = getStatusList(rma.Status)
-<<<<<<< HEAD
 		rmaData.BillableList = getBillableList(rma.Billable)
-=======
->>>>>>> 748ed8acfcc3d7ae2c2901f6e9bd93d330491997
 
 		fmt.Printf("StatusList %v\n", rmaData.StatusList)
 

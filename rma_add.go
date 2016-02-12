@@ -59,20 +59,12 @@ type RMA struct {
 
 // RmaUpdate will contain the RMA data.
 type RmaUpdate struct {
-<<<<<<< HEAD
 	RMA          RMA
 	AddProduct   bson.ObjectId
 	ProductList  []Product
 	StatusList   []OptionItem
 	BillableList []OptionItem
 	Token        string
-=======
-	RMA         RMA
-	AddProduct  bson.ObjectId
-	ProductList []Product
-	StatusList  []OptionItem
-	Token       string
->>>>>>> 748ed8acfcc3d7ae2c2901f6e9bd93d330491997
 }
 
 // Add the RMA.
@@ -82,10 +74,7 @@ func rmaAddHandler(w http.ResponseWriter, r *http.Request) {
 		rmaData := &RmaUpdate{}
 		rmaData.ProductList = *getProductList()
 		rmaData.StatusList = getStatusList("Reported")
-<<<<<<< HEAD
 		rmaData.BillableList = getBillableList("Billable")
-=======
->>>>>>> 748ed8acfcc3d7ae2c2901f6e9bd93d330491997
 
 		displayRmaTemplate(w, rmaData)
 	} else {
@@ -169,10 +158,7 @@ func rmaAddHandler(w http.ResponseWriter, r *http.Request) {
 			rmaData := &RmaUpdate{}
 			rmaData.ProductList = *getProductList()
 			rmaData.StatusList = getStatusList(rma.Status)
-<<<<<<< HEAD
 			rmaData.BillableList = getBillableList(rma.Billable)
-=======
->>>>>>> 748ed8acfcc3d7ae2c2901f6e9bd93d330491997
 			rmaData.RMA = *rma
 
 			displayRmaTemplate(w, rmaData)
@@ -233,7 +219,6 @@ func getStatusList(status string) []OptionItem {
 
 	return options
 }
-<<<<<<< HEAD
 
 // Create a Billable slice.  Then set the selected flag
 // based off the billable value given.
@@ -253,5 +238,3 @@ func getBillableList(billable string) []OptionItem {
 
 	return options
 }
-=======
->>>>>>> 748ed8acfcc3d7ae2c2901f6e9bd93d330491997
