@@ -21,40 +21,52 @@ type RmaProduct struct {
 
 // RMA will keep track of the sales order information.
 type RMA struct {
-	ID               bson.ObjectId   `bson:"_id,omitempty" json:"id"`
-	OrigSalesOrder   string          `bson:"OrigSalesOrder,omitempty" json:"OrigSalesOrder"`
-	RmaDate          string          `bson:"RmaDate" json:"RmaDate"`
-	RmaNumber        string          `bson:"RmaNumber" json:"RmaNumber"`
-	Company          string          `bson:"Company" json:"Company"`
-	ContactName      string          `bson:"ContactName" json:"ContactName"`
-	ContactAddress   string          `bson:"ContactAddress" json:"ContactAddress"`
-	ContactEmail     string          `bson:"ContactEmail" json:"ContactEmail"`
-	ContactPhone     string          `bson:"ContactPhone" json:"ContactPhone"`
-	ProductDesc      string          `bson:"ProductDesc" json:"ProductDesc"`
-	ProductID        bson.ObjectId   `bson:"ProductID,omitempty" json:"ProductID"`
-	Products         []RmaProduct    `bson:"Products" json:"Products"`
-	SerialNumber     string          `bson:"SerialNumber" json:"SerialNumber"`
-	ReasonReturn     string          `bson:"ReasonReturn" json:"ReasonReturn"`
-	ReceiveDate      string          `bson:"ReceiveDate" json:"ReceiveDate"`
-	ReceiveInfo      string          `bson:"ReceiveInfo" json:"ReceiveInfo"`
-	ReceiveUser      string          `bson:"ReceiveUser" json:"ReceiveUser"`
-	InspectionDate   string          `bson:"InspectionDate" json:"InspectionDate"`
-	InspectionInfo   string          `bson:"InspectionInfo" json:"InspectionInfo"`
-	InspectionUser   string          `bson:"InspectionUser" json:"InspectionUser"`
-	RepairDate       string          `bson:"RepairDate" json:"RepairDate"`
-	RepairInfo       string          `bson:"RepairInfo" json:"RepairInfo"`
-	RepairUser       string          `bson:"RepairUser" json:"RepairUser"`
-	RepairEstHours   int             `bson:"RepairEstHours" json:"RepairEstHours"`
-	RepairMaterial   []string        `bson:"RepairMaterial" json:"RepairMaterial"`
-	RepairMaterialID []bson.ObjectId `bson:"RepairMaterialID,omitempty" json:"RepairMaterialID"`
-	Billable         string          `bson:"Billable" json:"Billable"`
-	QuoteNum         string          `bson:"QuoteNum" json:"QuoteNum"`
-	OriginalRmaNum   string          `bson:"OriginalRmaNum" json:"OriginalRmaNum"`
-	Notes            string          `bson:"Notes" json:"Notes"`
-	Status           string          `bson:"Status" json:"Status"`
-	ShipDate         string          `bson:"ShipDate" json:"ShipDate"`
-	Created          time.Time       `bson:"Created" json:"Created"`
-	Modified         time.Time       `bson:"Modified" json:"Modified"`
+	ID                         bson.ObjectId   `bson:"_id,omitempty" json:"id"`
+	OrigSalesOrder             string          `bson:"OrigSalesOrder,omitempty" json:"OrigSalesOrder"`
+	RmaDate                    string          `bson:"RmaDate" json:"RmaDate"`
+	RmaNumber                  string          `bson:"RmaNumber" json:"RmaNumber"`
+	Company                    string          `bson:"Company" json:"Company"`
+	ContactName                string          `bson:"ContactName" json:"ContactName"`
+	ContactAddress             string          `bson:"ContactAddress" json:"ContactAddress"`
+	ContactAddress2            string          `bson:"ContactAddress2" json:"ContactAddress2"`
+	ContactAddressCityStateZip string          `bson:"ContactAddressCityStateZip" json:"ContactAddressCityStateZip"`
+	ContactAddressCountry      string          `bson:"ContactAddressCountry" json:"ContactAddressCountry"`
+	ContactEmail               string          `bson:"ContactEmail" json:"ContactEmail"`
+	ContactPhone               string          `bson:"ContactPhone" json:"ContactPhone"`
+	ProductDesc                string          `bson:"ProductDesc" json:"ProductDesc"`
+	ProductID                  bson.ObjectId   `bson:"ProductID,omitempty" json:"ProductID"`
+	Products                   []RmaProduct    `bson:"Products" json:"Products"`
+	SerialNumber               string          `bson:"SerialNumber" json:"SerialNumber"`
+	ReasonReturn               string          `bson:"ReasonReturn" json:"ReasonReturn"`
+	ReturnCompany              string          `bson:"ReturnCompany" json:"ReturnCompany"`
+	ReturnContact              string          `bson:"ReturnContact" json:"ReturnContact"`
+	ReturnAddress              string          `bson:"ReturnAddress" json:"ReturnAddress"`
+	ReturnAddressCont          string          `bson:"ReturnAddressCont" json:"ReturnAddressCont"`
+	ReturnAddressCityStateZip  string          `bson:"ReturnAddressCityStateZip" json:"ReturnAddressCityStateZip"`
+	ReturnAddressCountry       string          `bson:"ReturnAddressCountry" json:"ReturnAddressCountry"`
+	ReturnPhone                string          `bson:"ReturnPhone" json:"ReturnPhone"`
+	ReturnEmail                string          `bson:"ReturnEmail" json:"ReturnEmail"`
+	ReceiveDate                string          `bson:"ReceiveDate" json:"ReceiveDate"`
+	ReceiveInfo                string          `bson:"ReceiveInfo" json:"ReceiveInfo"`
+	ReceiveUser                string          `bson:"ReceiveUser" json:"ReceiveUser"`
+	InspectionDate             string          `bson:"InspectionDate" json:"InspectionDate"`
+	InspectionInfo             string          `bson:"InspectionInfo" json:"InspectionInfo"`
+	InspectionUser             string          `bson:"InspectionUser" json:"InspectionUser"`
+	RepairDate                 string          `bson:"RepairDate" json:"RepairDate"`
+	RepairInfo                 string          `bson:"RepairInfo" json:"RepairInfo"`
+	RepairUser                 string          `bson:"RepairUser" json:"RepairUser"`
+	RepairEstHours             int             `bson:"RepairEstHours" json:"RepairEstHours"`
+	RepairMaterial             []string        `bson:"RepairMaterial" json:"RepairMaterial"`
+	RepairMaterialID           []bson.ObjectId `bson:"RepairMaterialID,omitempty" json:"RepairMaterialID"`
+	RepairProducts             []RmaProduct    `bson:"RepairProducts" json:"RepairProducts"`
+	Billable                   string          `bson:"Billable" json:"Billable"`
+	QuoteNum                   string          `bson:"QuoteNum" json:"QuoteNum"`
+	OriginalRmaNum             string          `bson:"OriginalRmaNum" json:"OriginalRmaNum"`
+	Notes                      string          `bson:"Notes" json:"Notes"`
+	Status                     string          `bson:"Status" json:"Status"`
+	ShipDate                   string          `bson:"ShipDate" json:"ShipDate"`
+	Created                    time.Time       `bson:"Created" json:"Created"`
+	Modified                   time.Time       `bson:"Modified" json:"Modified"`
 }
 
 // RmaUpdate will contain the RMA data.
@@ -103,35 +115,46 @@ func rmaAddHandler(w http.ResponseWriter, r *http.Request) {
 
 		// Use data to create a user object
 		rma := &RMA{
-			RmaNumber:      formData.Get("RmaNumber"),
-			OrigSalesOrder: formData.Get("OrigSalesOrder"),
-			Company:        formData.Get("Company"),
-			ContactName:    formData.Get("ContactName"),
-			ContactEmail:   formData.Get("ContactEmail"),
-			ContactPhone:   formData.Get("ContactPhone"),
-			ContactAddress: formData.Get("ContactAddress"),
-			ProductDesc:    formData.Get("ProductDesc"),
-			ReasonReturn:   formData.Get("ReasonReturn"),
-			ReceiveInfo:    formData.Get("ReceiveInfo"),
-			ReceiveUser:    formData.Get("ReceiveUser"),
-			InspectionInfo: formData.Get("InspectionInfo"),
-			InspectionUser: formData.Get("InspectionUser"),
-			RepairInfo:     formData.Get("RepairInfo"),
-			RepairUser:     formData.Get("RepairUser"),
-			RepairEstHours: formData.GetInt("RepairEstHours"),
-			Billable:       formData.Get("Billable"),
-			QuoteNum:       formData.Get("QuoteNum"),
-			OriginalRmaNum: formData.Get("OriginalRmaNum"),
-			SerialNumber:   formData.Get("SerialNumber"),
-			Notes:          formData.Get("Notes"),
-			RmaDate:        formData.Get("RmaDate"),
-			Created:        time.Now().Local(),
-			Modified:       time.Now().Local(),
-			InspectionDate: formData.Get("InspectionDate"),
-			ReceiveDate:    formData.Get("ReceiveDate"),
-			RepairDate:     formData.Get("RepairDate"),
-			ShipDate:       formData.Get("ShipDate"),
-			Status:         formData.Get("Status"),
+			RmaNumber:                  formData.Get("RmaNumber"),
+			OrigSalesOrder:             formData.Get("OrigSalesOrder"),
+			Company:                    formData.Get("Company"),
+			ContactName:                formData.Get("ContactName"),
+			ContactEmail:               formData.Get("ContactEmail"),
+			ContactPhone:               formData.Get("ContactPhone"),
+			ContactAddress:             formData.Get("ContactAddress"),
+			ContactAddress2:            formData.Get("ContactAddress2"),
+			ContactAddressCityStateZip: formData.Get("ContactAddressCityStateZip"),
+			ContactAddressCountry:      formData.Get("ContactAddressCountry"),
+			ProductDesc:                formData.Get("ProductDesc"),
+			ReasonReturn:               formData.Get("ReasonReturn"),
+			ReturnCompany:              formData.Get("ReturnCompany"),
+			ReturnContact:              formData.Get("ReturnContact"),
+			ReturnAddress:              formData.Get("ReturnAddress"),
+			ReturnAddressCont:          formData.Get("ReturnAddressCont"),
+			ReturnAddressCityStateZip:  formData.Get("ReturnAddressCityStateZip"),
+			ReturnAddressCountry:       formData.Get("ReturnAddressCountry"),
+			ReturnPhone:                formData.Get("ReturnPhone"),
+			ReturnEmail:                formData.Get("ReturnEmail"),
+			ReceiveInfo:                formData.Get("ReceiveInfo"),
+			ReceiveUser:                formData.Get("ReceiveUser"),
+			InspectionInfo:             formData.Get("InspectionInfo"),
+			InspectionUser:             formData.Get("InspectionUser"),
+			RepairInfo:                 formData.Get("RepairInfo"),
+			RepairUser:                 formData.Get("RepairUser"),
+			RepairEstHours:             formData.GetInt("RepairEstHours"),
+			Billable:                   formData.Get("Billable"),
+			QuoteNum:                   formData.Get("QuoteNum"),
+			OriginalRmaNum:             formData.Get("OriginalRmaNum"),
+			SerialNumber:               formData.Get("SerialNumber"),
+			Notes:                      formData.Get("Notes"),
+			RmaDate:                    formData.Get("RmaDate"),
+			Created:                    time.Now().Local(),
+			Modified:                   time.Now().Local(),
+			InspectionDate:             formData.Get("InspectionDate"),
+			ReceiveDate:                formData.Get("ReceiveDate"),
+			RepairDate:                 formData.Get("RepairDate"),
+			ShipDate:                   formData.Get("ShipDate"),
+			Status:                     formData.Get("Status"),
 		}
 
 		fmt.Printf("Submit Button: %s\n", formData.Get("SubmitButton"))
@@ -150,11 +173,28 @@ func rmaAddHandler(w http.ResponseWriter, r *http.Request) {
 			if product != nil {
 				rma.Products = append(rma.Products, *rmaProduct)
 			}
-			// Update the RMA in DB
-			//updateRma(rma)
-			// } else {
-			// 	fmt.Println("Error with values entered")
-			// }
+
+			rmaData := &RmaUpdate{}
+			rmaData.ProductList = *getProductList()
+			rmaData.StatusList = getStatusList(rma.Status)
+			rmaData.BillableList = getBillableList(rma.Billable)
+			rmaData.RMA = *rma
+
+			displayRmaTemplate(w, rmaData)
+		} else if formData.Get("SubmitButton") == "ADD REPAIR" {
+			//if !val.HasErrors() {
+			fmt.Printf("Add repair product to RMA: %s\n", rma.RmaNumber)
+
+			// Add the product to the repair list
+			rmaProduct := &RmaProduct{}
+			rmaProduct.PartNumber = formData.Get("AddRepairProductPartNumber")
+			rmaProduct.Qty = formData.GetInt("AddRepairProductQty")
+			rmaProduct.SerialNumber = formData.Get("AddRepairProductSerialNumber")
+			product := getProductPartNumber(rmaProduct.PartNumber)
+			if product != nil {
+				rma.RepairProducts = append(rma.Products, *rmaProduct)
+			}
+
 			rmaData := &RmaUpdate{}
 			rmaData.ProductList = *getProductList()
 			rmaData.StatusList = getStatusList(rma.Status)
@@ -173,6 +213,17 @@ func rmaAddHandler(w http.ResponseWriter, r *http.Request) {
 				qty, err := strconv.Atoi(r.Form["ProductQty"][i])
 				if err == nil {
 					rma.Products[i].Qty = qty
+				}
+			}
+
+			// Accumulate the Repair Products
+			for i := range rma.RepairProducts {
+				rma.RepairProducts[i].PartNumber = r.Form["RepairProductPartNumber"][i]
+				rma.RepairProducts[i].SerialNumber = r.Form["RepairProductSerialNumber"][i]
+
+				qty, err := strconv.Atoi(r.Form["RepairProductQty"][i])
+				if err == nil {
+					rma.RepairProducts[i].Qty = qty
 				}
 			}
 

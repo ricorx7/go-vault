@@ -45,6 +45,7 @@ func main() {
 	mux.HandleFunc("/rma", http.HandlerFunc(rmaHandler))
 	mux.HandleFunc("/rma/add", http.HandlerFunc(rmaAddHandler))
 	mux.HandleFunc("/rma/update/:id", http.HandlerFunc(rmaUpdateHandler))
+	mux.HandleFunc("/rma/report/:id", http.HandlerFunc(rmaReportHandler))
 	mux.HandleFunc("/product", http.HandlerFunc(productListHandler))
 	mux.HandleFunc("/product/add", http.HandlerFunc(productAddHandler))
 	mux.HandleFunc("/product/update/:id", http.HandlerFunc(productUpdateHandler))

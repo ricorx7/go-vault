@@ -23,7 +23,7 @@
             <label class="control-label" for="RmaNumber">RMA Number</label>
           </div>
           <div class="col-md-9">
-            {{.RMA.RmaNumber}}
+            <input type="text" name="RmaNumber" value="{{.RMA.RmaNumber}}" class="form-control" placeholder="RMA Number" required>
           </div>
         </div>
         <div class="row" sytle="margin: 5px">
@@ -81,10 +81,34 @@
         </div>
         <div class="row">
           <div class="col-md-2">
-            <label class="control-label" for="ContactAddress">Contact Address</label>
+            <label class="control-label" for="ContactAddress">Contact Address 1</label>
           </div>
           <div class="col-md-9">
-            <input type="text" name="ContactAddress" value="{{.RMA.ContactAddress}}" class="form-control" placeholder="Contact Address" >
+            <input type="text" name="ContactAddress" value="{{.RMA.ContactAddress}}" class="form-control" placeholder="Contact Address 1" >
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-2">
+            <label class="control-label" for="ContactAddress2">Contact Address 2</label>
+          </div>
+          <div class="col-md-9">
+            <input type="text" name="ContactAddress2" value="{{.RMA.ContactAddress2}}" class="form-control" placeholder="Contact Address 2" >
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-2">
+            <label class="control-label" for="ContactAddressCityStateZip">City, State, Zip</label>
+          </div>
+          <div class="col-md-9">
+            <input type="text" name="ContactAddressCityStateZip" value="{{.RMA.ContactAddressCityStateZip}}" class="form-control" placeholder="City, State, Zip" >
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-2">
+            <label class="control-label" for="ContactAddressCountry">Country</label>
+          </div>
+          <div class="col-md-9">
+            <input type="text" name="ContactAddressCountry" value="{{.RMA.ContactAddressCountry}}" class="form-control" placeholder="Country" >
           </div>
         </div>
         <div class="row">
@@ -125,6 +149,79 @@
           </div>
           <div class="col-md-9">
             <textarea name="ReasonReturn" value="{{.RMA.ReasonReturn}}" class="form-control" rows="3" placeholder="Reason for returning">{{.RMA.ReasonReturn}}</textarea>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!--Return Shipping-->
+  <div class="row" style="margin: 5px">
+    <div class="panel panel-primary">
+      <div class="panel-heading">Return Shipping Information</div>
+      <div class="panel-body">
+        <div class="row">
+          <div class="col-md-2">
+            <label class="control-label" for="ReturnCompany">Company</label>
+          </div>
+          <div class="col-md-9">
+            <input type="text" name="ReturnCompany" value="{{.RMA.ReturnCompany}}" class="form-control" placeholder="Company">
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-2">
+            <label class="control-label" for="ReturnContact">Contact Name</label>
+          </div>
+          <div class="col-md-9">
+            <input type="text" name="ReturnContact" value="{{.RMA.ReturnContact}}" class="form-control" placeholder="Contact Name" >
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-2">
+            <label class="control-label" for="ReturnAddress">Contact Address 1</label>
+          </div>
+          <div class="col-md-9">
+            <input type="text" name="ReturnAddress" value="{{.RMA.ReturnAddress}}" class="form-control" placeholder="Contact Address 1" >
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-2">
+            <label class="control-label" for="ReturnAddressCont">Contact Address 2</label>
+          </div>
+          <div class="col-md-9">
+            <input type="text" name="ReturnAddressCont" value="{{.RMA.ReturnAddressCont}}" class="form-control" placeholder="Contact Address 2" >
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-2">
+            <label class="control-label" for="ReturnAddressCityStateZip">City, State, Zip</label>
+          </div>
+          <div class="col-md-9">
+            <input type="text" name="ReturnAddressCityStateZip" value="{{.RMA.ReturnAddressCityStateZip}}" class="form-control" placeholder="City, State, Zip" >
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-2">
+            <label class="control-label" for="ReturnAddressCountry">Country</label>
+          </div>
+          <div class="col-md-9">
+            <input type="text" name="ReturnAddressCountry" value="{{.RMA.ReturnAddressCountry}}" class="form-control" placeholder="Country" >
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-2">
+            <label class="control-label" for="ReturnEmail">Contact Email</label>
+          </div>
+          <div class="col-md-9">
+            <input type="text" name="ReturnEmail" value="{{.RMA.ReturnEmail}}" class="form-control" placeholder="Contact Email" >
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-2">
+            <label class="control-label" for="ReturnPhone">Contact Phone</label>
+          </div>
+          <div class="col-md-9">
+            <input type="text" name="ReturnPhone" value="{{.RMA.ReturnPhone}}" class="form-control" placeholder="Contact Phone" >
           </div>
         </div>
       </div>
@@ -281,14 +378,6 @@
         </div>
         <div class="row">
           <div class="col-md-2">
-            <label class="control-label" for="RepairMaterial">Repair Materials</label>
-          </div>
-          <div class="col-md-9">
-            <textarea name="RepairMaterial" value="{{.RMA.RepairMaterial}}" class="form-control" rows="3" placeholder="Repair materials">{{.RMA.RepairMaterial}}</textarea>
-          </div>
-        </div>
-        <div class="row">
-          <div class="col-md-2">
             <label class="control-label" for="Billable">Billable</label>
           </div>
           <div class="col-md-9">
@@ -305,6 +394,50 @@
           </div>
           <div class="col-md-9">
             <input type="text" name="QuoteNum" value="{{.RMA.QuoteNum}}" class="form-control" placeholder="Quote Number" >
+          </div>
+        </div>
+        <div class="row" style="margin: 5px">
+          <table class="table table-bordered table-condensed" style="margin-bottom: 0px">
+            <thead>
+              <tr>
+                <th class="text-center"><h5><strong>Qty</strong></h5></th>
+                <th class="text-center"><h5><strong>Part Number</strong></h5></th>
+                <th class="text-center"><h5><strong>Serial Number</strong></h5></th>
+              </tr>
+            </thead>
+
+            <tbody>
+              {{range .RMA.RepairProducts}}
+              <tr>
+                <td><input type="text" name="ProductQty" value="{{.Qty}}" class="form-control" placeholder="Qty" ></td>
+                <td><input type="text" name="ProductPartNumber" value="{{.PartNumber}}" class="form-control" placeholder="Part Number" ></td>
+                <td><input type="text" name="ProductSerialNumber" value="{{.SerialNumber}}" class="form-control" placeholder="Serial Number" ></td>
+              </tr>
+              {{end}}
+            </tbody>
+          </table>
+        </div>
+        <div class="row" style="margin: 5px">
+          <div class="panel panel-info">
+            <div class="panel-heading">Add Replaced Products</div>
+            <div class="panel-body">
+              <div class="form-group col-md-3">
+                <select name="AddRepairProductPartNumber">
+                  {{range .ProductList}}
+                  <option value="{{.PartNumber}}">{{.PartNumber}}</option>
+                  {{end}}
+                </select>
+              </div>
+              <div class="col-md-1">
+                <input type="text" name="AddRepairProductQty" class="form-control" placeholder="Qty" >
+              </div>
+              <div class="col-md-2">
+                <input type="text" name="AddRepairProductSerialNumber" class="form-control" placeholder="Serial Number" >
+              </div>
+              <div class="col-md-2">
+                <input type="submit" class="btn btn-default" name="SubmitButton" Value="ADD REPAIR">
+              </div>
+            </div>
           </div>
         </div>
       </div>
@@ -346,7 +479,7 @@
   </div>
 
   <div class="form-group">
-    <input type="hidden" name="RmaNumber" value="{{.RMA.RmaNumber}}">
+    <input type="hidden" name="OriginalRmaNumber" value="{{.RMA.RmaNumber}}">
     <input type="hidden" name="token" value="{{.Token}}">
     <!--input type="submit" name="SubmitButton" value="UpdateButtonClicked" class="btn btn-default"-->
     <input type="submit" class="btn btn-default" name="SubmitButton" Value="Update">

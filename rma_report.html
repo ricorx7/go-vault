@@ -1,0 +1,214 @@
+{{define "content"}}
+  <div visible-print-block style="margin: 10px">
+    <div class="row">
+			<div class="col-xs-3">
+				<img alt="RTI" class="img-responsive text-center" src="/images/companylogo.png" />
+			</div>
+			<div>
+				<h3>Return Material Authorization (RMA) Form</h3>
+			</div>
+		</div>
+
+    <div class="row">
+      <div class="col-xs-5">
+        Date: {{.RMA.RmaDate}}
+      </div>
+      <div class="col-xs-5">
+        RMA Number: <strong>{{.RMA.RmaNumber}}</strong>
+      </div>
+    </div>
+
+    <!--Address-->
+    <div class="row" style="margin: 5px">
+      <!--Received-->
+      <div class="col-xs-2">
+        <strong>Received From Address:</strong>
+      </div>
+      <div class="col-xs-4">
+        <div class="row">
+          {{.RMA.Company}}
+        </div>
+        <div class="row">
+          {{.RMA.ContactName}}
+        </div>
+        <div class="row">
+          {{.RMA.ContactAddress}}
+        </div>
+        <div class="row">
+          {{.RMA.ContactAddress2}}
+        </div>
+        <div class="row">
+          {{.RMA.ContactAddressCityStateZip}}
+        </div>
+        <div class="row">
+          {{.RMA.ContactAddressCountry}}
+        </div>
+      </div>
+
+      <!--Return-->
+      <div class="col-xs-2">
+        <strong>Ship To Address:</strong>
+      </div>
+      <div class="col-xs-4">
+        <div class="row">
+          {{.RMA.ReturnCompany}}
+        </div>
+        <div class="row">
+          {{.RMA.ReturnContact}}
+        </div>
+        <div class="row">
+          {{.RMA.ReturnAddress}}
+        </div>
+        <div class="row">
+          {{.RMA.ReturnAddressCont}}
+        </div>
+        <div class="row">
+          {{.RMA.ReturnAddressCityStateZip}}
+        </div>
+        <div class="row">
+          {{.RMA.ReturnAddressCountry}}
+        </div>
+      </div>
+    </div>
+
+    <!--Reason for Returning-->
+    <div class="row">
+      <div class="col-xs-12">
+        <table class="table table-bordered table-condensed" style="margin-bottom: 0px">
+          <thead>
+            <tr bgcolor="lightgray">
+              <th class="text-center">
+                <strong>Reason For Returning:</strong>
+              </th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>
+                {{.RMA.ReasonReturn}}
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="row"><p></p></div>
+
+    <!--Received Items-->
+    <div class="row">
+      <div class="col-xs-12">
+        <table class="table table-bordered table-condensed" style="margin-bottom: 0px">
+          <thead>
+            <tr bgcolor="lightgray">
+              <th class="text-center" colspan="2">
+                <strong>Received Item:</strong>
+              </th>
+            </tr>
+            <tr bgcolor="lightgray">
+              <th class="text-center">
+                PartNumber
+              </th>
+              <th class="text-center">
+                Serial Number
+              </th>
+            </tr>
+          </thead>
+          <tbody>
+            {{range .RMA.Products}}
+              <tr>
+                <td>
+                  {{.PartNumber}}
+                </td>
+                <td>
+                  {{.SerialNumber}}
+                </td>
+              </tr>
+            {{end}}
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-xs-12">
+        <dd>
+          <strong>Receive Date:</strong> {{.RMA.ReceiveDate}}
+        </dd>
+      </div>
+    </div>
+
+    <div class="row"><p></p></div>
+
+    <!--Inspection-->
+    <div class="row">
+      <div class="col-xs-12">
+        <table class="table table-bordered table-condensed" style="margin-bottom: 0px">
+          <thead>
+            <tr bgcolor="lightgray">
+              <th class="text-center">
+                <strong>Inspection Info:</strong>
+              </th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>
+                {{.RMA.InspectionInfo}}
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-xs-12">
+        <dd>
+          <strong>Inspection Date:</strong> {{.RMA.InspectionDate}}
+        </dd>
+      </div>
+    </div>
+
+    <div class="row"><p></p></div>
+
+    <!--Repair-->
+    <div class="row">
+      <div class="col-xs-12">
+        <table class="table table-bordered table-condensed" style="margin-bottom: 0px">
+          <thead>
+            <tr bgcolor="lightgray">
+              <th class="text-center">
+                <strong>Repair Info:</strong>
+              </th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>
+                {{.RMA.RepairInfo}}
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-xs-12">
+        <dd>
+          <strong>Repair Date:</strong> {{.RMA.RepairDate}}
+        </dd>
+      </div>
+    </div>
+
+
+    <!--Company Info-->
+		<div class="row-fluid" style="margin: 5px">
+			<div class="col-xs-12" align="center">
+		    <small>
+		    <b>Rowe Technology, Inc.</b> | 12655 Danielson Ct., Suite 306, Poway, California, USA<br>
+		    http://www.rowetechinc.com | service@rowetechinc.com | +1 858 842 3020<br>
+		    </small>
+			</div>
+	  </div>
+
+  </div>
+{{end}}

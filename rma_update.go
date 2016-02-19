@@ -26,8 +26,6 @@ func rmaUpdateHandler(w http.ResponseWriter, r *http.Request) {
 		rmaData.StatusList = getStatusList(rma.Status)
 		rmaData.BillableList = getBillableList(rma.Billable)
 
-		fmt.Printf("StatusList %v\n", rmaData.StatusList)
-
 		displayRmaUpdateTemplate(w, rmaData)
 	} else {
 		fmt.Printf("Request: %v", r)
@@ -53,20 +51,32 @@ func rmaUpdateHandler(w http.ResponseWriter, r *http.Request) {
 		// Validate data
 		val := formData.Validator()
 		val.Require("RmaNumber")
-		val.TypeInt("AddProductQty")
 
 		fmt.Printf("FormData %v\n", formData)
 
 		// Use data to create a user object
-		rma := getRma(formData.Get("RmaNumber"))
+		rma := getRma(formData.Get("OriginalRmaNumber"))
+		fmt.Printf("Set RMA %s Orignal RMA Num %s\n", formData.Get("RmaNumber"), formData.Get("OriginalRmaNumber"))
+		rma.RmaNumber = formData.Get("RmaNumber")
 		rma.OrigSalesOrder = formData.Get("OrigSalesOrder")
 		rma.Company = formData.Get("Company")
 		rma.ContactName = formData.Get("ContactName")
 		rma.ContactEmail = formData.Get("ContactEmail")
 		rma.ContactPhone = formData.Get("ContactPhone")
 		rma.ContactAddress = formData.Get("ContactAddress")
+		rma.ContactAddress2 = formData.Get("ContactAddress2")
+		rma.ContactAddressCityStateZip = formData.Get("ContactAddressCityStateZip")
+		rma.ContactAddressCountry = formData.Get("ContactAddressCountry")
 		rma.ProductDesc = formData.Get("ProductDesc")
 		rma.ReasonReturn = formData.Get("ReasonReturn")
+		rma.ReturnCompany = formData.Get("ReturnCompany")
+		rma.ReturnContact = formData.Get("ReturnContact")
+		rma.ReturnAddress = formData.Get("ReturnAddress")
+		rma.ReturnAddressCont = formData.Get("ReturnAddressCont")
+		rma.ReturnAddressCityStateZip = formData.Get("ReturnAddressCityStateZip")
+		rma.ReturnAddressCountry = formData.Get("ReturnAddressCountry")
+		rma.ReturnPhone = formData.Get("ReturnPhone")
+		rma.ReturnEmail = formData.Get("ReturnEmail")
 		rma.ReceiveInfo = formData.Get("ReceiveInfo")
 		rma.ReceiveUser = formData.Get("ReceiveUser")
 		rma.InspectionInfo = formData.Get("InspectionInfo")
@@ -98,29 +108,63 @@ func rmaUpdateHandler(w http.ResponseWriter, r *http.Request) {
 			}
 		}
 
+		// Accumulate the RepairProducts
+		for i := range rma.RepairProducts {
+			rma.RepairProducts[i].PartNumber = r.Form["ProductPartNumber"][i]
+			rma.RepairProducts[i].SerialNumber = r.Form["ProductSerialNumber"][i]
+
+			qty, err := strconv.Atoi(r.Form["ProductQty"][i])
+			if err == nil {
+				rma.RepairProducts[i].Qty = qty
+			}
+		}
+
 		// Add the new product to the RMA
 		if formData.Get("SubmitButton") == "ADD" {
-			if !val.HasErrors() {
-				fmt.Printf("Add product to RMA: %s\n", rma.RmaNumber)
+			// fmt.Printf("Add product to RMA: %s\n", rma.RmaNumber)
+			//
+			// // Add the product to the list
+			// rmaProduct := &RmaProduct{}
+			// rmaProduct.PartNumber = formData.Get("AddProductPartNumber")
+			// rmaProduct.Qty = formData.GetInt("AddProductQty")
+			// rmaProduct.SerialNumber = formData.Get("AddProductSerialNumber")
+			// product := getProductPartNumber(rmaProduct.PartNumber)
+			// if product != nil {
+			// 	rma.Products = append(rma.Products, *rmaProduct)
+			// }
+			// // Update the RMA in DB
+			// updateRma(rma)
+			addRmaProduct(formData.Get("AddProductPartNumber"),
+				formData.GetInt("AddProductQty"),
+				formData.Get("AddProductSerialNumber"),
+				rma)
 
-				// Add the product to the list
-				rmaProduct := &RmaProduct{}
-				rmaProduct.PartNumber = formData.Get("AddProductPartNumber")
-				rmaProduct.Qty = formData.GetInt("AddProductQty")
-				rmaProduct.SerialNumber = formData.Get("AddProductSerialNumber")
-				product := getProductPartNumber(rmaProduct.PartNumber)
-				if product != nil {
-					rma.Products = append(rma.Products, *rmaProduct)
-				}
-				// Update the RMA in DB
-				updateRma(rma)
-			} else {
-				fmt.Println("Error with values entered")
-			}
+			// Go back to the update page
+			http.Redirect(w, r, "/rma/update/"+rma.RmaNumber, http.StatusFound)
+		} else if formData.Get("SubmitButton") == "ADD REPAIR" {
+			// fmt.Printf("Add Repair product to RMA: %s\n", rma.RmaNumber)
+			//
+			// // Add the product to the list
+			// rmaProduct := &RmaProduct{}
+			// rmaProduct.PartNumber = formData.Get("AddRepairProductPartNumber")
+			// rmaProduct.Qty = formData.GetInt("AddRepairProductQty")
+			// rmaProduct.SerialNumber = formData.Get("AddRepairProductSerialNumber")
+			// product := getProductPartNumber(rmaProduct.PartNumber)
+			// if product != nil {
+			// 	rma.RepairProducts = append(rma.RepairProducts, *rmaProduct)
+			// }
+			// // Update the RMA in DB
+			// updateRma(rma)
+
+			addRmaRepairProduct(formData.Get("AddRepairProductPartNumber"),
+				formData.GetInt("AddRepairProductQty"),
+				formData.Get("AddRepairProductSerialNumber"),
+				rma)
 
 			// Go back to the update page
 			http.Redirect(w, r, "/rma/update/"+rma.RmaNumber, http.StatusFound)
 		} else {
+
 			fmt.Printf("RMA Update: %s\n", rma.RmaNumber)
 
 			// Update the RMA in DB
@@ -129,7 +173,45 @@ func rmaUpdateHandler(w http.ResponseWriter, r *http.Request) {
 			// Go to the list of RMA
 			http.Redirect(w, r, "/rma", http.StatusFound)
 		}
+
 	}
+}
+
+// Add a product to the RMA Repair list.
+func addRmaRepairProduct(partNum string, qty int, serialNum string, rma *RMA) {
+	fmt.Printf("Add Repair product to RMA: %s\n", rma.RmaNumber)
+
+	// Add the product to the list
+	rmaProduct := &RmaProduct{}
+	rmaProduct.PartNumber = partNum
+	rmaProduct.Qty = qty
+	rmaProduct.SerialNumber = serialNum
+	product := getProductPartNumber(rmaProduct.PartNumber)
+	if product != nil {
+		rma.RepairProducts = append(rma.RepairProducts, *rmaProduct)
+	}
+
+	fmt.Printf("RMA %v\n", rma.RepairProducts)
+
+	// Update the RMA in DB
+	updateRma(rma)
+}
+
+// Add a product to the received parts list.
+func addRmaProduct(partNum string, qty int, serialNum string, rma *RMA) {
+	fmt.Printf("Add product to RMA: %s\n", rma.RmaNumber)
+
+	// Add the product to the list
+	rmaProduct := &RmaProduct{}
+	rmaProduct.PartNumber = partNum
+	rmaProduct.Qty = qty
+	rmaProduct.SerialNumber = serialNum
+	product := getProductPartNumber(rmaProduct.PartNumber)
+	if product != nil {
+		rma.Products = append(rma.Products, *rmaProduct)
+	}
+	// Update the RMA in DB
+	updateRma(rma)
 }
 
 // Display the template
@@ -152,7 +234,7 @@ func getRma(rmaNum string) *RMA {
 	var data RMA
 	err := Vault.Mongo.C("RMAs").Find(bson.M{"RmaNumber": rmaNum}).One(&data)
 	if err != nil {
-		fmt.Printf("Can't find SalesOrder %v\n", err)
+		fmt.Printf("Can't find RMA %v\n", err)
 	}
 
 	fmt.Println("RMA: ", data.RmaNumber)
@@ -170,35 +252,47 @@ func updateRma(rma *RMA) {
 
 	//err := Vault.Mongo.C("adcps").Update(bson.M{"_id": adcp._id}, bson.M{"$inc": bson.M{"Customer": adcp.Customer}})
 	err := Vault.Mongo.C("RMAs").Update(bson.M{"_id": rma.ID}, bson.M{"$set": bson.M{
-		"RmaNumber":      rma.RmaNumber,
-		"RmaDate":        rma.RmaDate,
-		"OrigSalesOrder": rma.OrigSalesOrder,
-		"Company":        rma.Company,
-		"ContactName":    rma.ContactName,
-		"ContactEmail":   rma.ContactEmail,
-		"ContactPhone":   rma.ContactPhone,
-		"ContactAddress": rma.ContactAddress,
-		"ProductDesc":    rma.ProductDesc,
-		"ReasonReturn":   rma.ReasonReturn,
-		"ReceiveInfo":    rma.ReceiveInfo,
-		"ReceiveUser":    rma.ReceiveUser,
-		"ReceiveDate":    rma.ReceiveDate,
-		"InspectionInfo": rma.InspectionInfo,
-		"InspectionUser": rma.InspectionUser,
-		"InspectionDate": rma.InspectionDate,
-		"RepairInfo":     rma.RepairInfo,
-		"RepairUser":     rma.RepairUser,
-		"RepairDate":     rma.RepairDate,
-		"RepairEstHours": rma.RepairEstHours,
-		"Billable":       rma.Billable,
-		"QuoteNum":       rma.QuoteNum,
-		"OriginalRmaNum": rma.OriginalRmaNum,
-		"SerialNumber":   rma.SerialNumber,
-		"Products":       rma.Products,
-		"Notes":          rma.Notes,
-		"ShipDate":       rma.ShipDate,
-		"Modified":       rma.Modified,
-		"Status":         rma.Status}})
+		"RmaNumber":                  rma.RmaNumber,
+		"RmaDate":                    rma.RmaDate,
+		"OrigSalesOrder":             rma.OrigSalesOrder,
+		"Company":                    rma.Company,
+		"ContactName":                rma.ContactName,
+		"ContactEmail":               rma.ContactEmail,
+		"ContactPhone":               rma.ContactPhone,
+		"ContactAddress":             rma.ContactAddress,
+		"ContactAddress2":            rma.ContactAddress2,
+		"ContactAddressCityStateZip": rma.ContactAddressCityStateZip,
+		"ContactAddressCountry":      rma.ContactAddressCountry,
+		"ProductDesc":                rma.ProductDesc,
+		"ReasonReturn":               rma.ReasonReturn,
+		"ReturnCompany":              rma.ReturnCompany,
+		"ReturnContact":              rma.ReturnContact,
+		"ReturnAddress":              rma.ReturnAddress,
+		"ReturnAddressCont":          rma.ReturnAddressCont,
+		"ReturnAddressCityStateZip":  rma.ReturnAddressCityStateZip,
+		"ReturnAddressCountry":       rma.ReturnAddressCountry,
+		"ReturnPhone":                rma.ReturnPhone,
+		"ReturnEmail":                rma.ReturnEmail,
+		"ReceiveInfo":                rma.ReceiveInfo,
+		"ReceiveUser":                rma.ReceiveUser,
+		"ReceiveDate":                rma.ReceiveDate,
+		"InspectionInfo":             rma.InspectionInfo,
+		"InspectionUser":             rma.InspectionUser,
+		"InspectionDate":             rma.InspectionDate,
+		"RepairInfo":                 rma.RepairInfo,
+		"RepairUser":                 rma.RepairUser,
+		"RepairDate":                 rma.RepairDate,
+		"RepairEstHours":             rma.RepairEstHours,
+		"RepairProducts":             rma.RepairProducts,
+		"Billable":                   rma.Billable,
+		"QuoteNum":                   rma.QuoteNum,
+		"OriginalRmaNum":             rma.OriginalRmaNum,
+		"SerialNumber":               rma.SerialNumber,
+		"Products":                   rma.Products,
+		"Notes":                      rma.Notes,
+		"ShipDate":                   rma.ShipDate,
+		"Modified":                   rma.Modified,
+		"Status":                     rma.Status}})
 	if err != nil {
 		fmt.Printf("Can't update RMA %v\n", err)
 	}
