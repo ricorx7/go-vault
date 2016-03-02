@@ -18,7 +18,7 @@ var (
 	addr         = flag.String("addr", ":8989", "http service address")
 	port         = flag.String("port", "", "Serial COM Port")
 	baud         = flag.String("baud", "115200", "Baud Rate")
-	mongo        = flag.String("mongo", "mongodb://192.168.0.108:27017/Vault", "mongoDB server address.")
+	mongo        = flag.String("mongo", "mongodb://RTI:32768/Vault", "mongoDB server address.")
 )
 
 func main() {
@@ -26,7 +26,9 @@ func main() {
 	flag.Parse()
 	//go readUDP()
 
-	fmt.Printf("Webserver: ")
+	ip, _ := GetLocalIP()
+	fmt.Printf("Webserver: %s:%s\n", ip, *addr)
+	fmt.Printf("Exerntal IP: %s\n", GetExternalIP())
 
 	// Connect to DB
 	go DbConnect(*mongo)
