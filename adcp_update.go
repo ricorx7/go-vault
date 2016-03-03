@@ -58,7 +58,7 @@ func adcpUpdateHandler(w http.ResponseWriter, r *http.Request) {
 			fmt.Println("Bad token")
 		}
 
-		// Use data to create a user object
+		// Use data to create a adcp object
 		adcp := getAdcp(formData.Get("SerialNumber"))
 		adcp.Customer = formData.Get("Customer")
 		adcp.OrderNumber = formData.Get("OrderNumber")
@@ -83,6 +83,9 @@ func adcpUpdateHandler(w http.ResponseWriter, r *http.Request) {
 
 		// Save the data to the DB
 		updateAdcp(adcp)
+
+		// Add the ADCP checklist to the DB if it does not exist
+		CheckAdcpChecklist(adcp.SerialNumber)
 
 		// Go to the list of ADCP
 		http.Redirect(w, r, "/adcp", http.StatusFound)

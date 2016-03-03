@@ -5,6 +5,7 @@ import (
 	"errors"
 	"fmt"
 	"io"
+	"math"
 	"net"
 	"strconv"
 	"time"
@@ -86,4 +87,32 @@ func GetLocalIP() (string, error) {
 		}
 	}
 	return "", errors.New("are you connected to the network?")
+}
+
+// Round will round the data.
+func Round(input float64) float64 {
+	if input < 0 {
+		return math.Ceil(input - 0.5)
+	}
+	return math.Floor(input + 0.5)
+}
+
+// RoundUp will round the data up to the given place.
+func RoundUp(input float64, places int) (newVal float64) {
+	var round float64
+	pow := math.Pow(10, float64(places))
+	digit := pow * input
+	round = math.Ceil(digit)
+	newVal = round / pow
+	return
+}
+
+// RoundDown will round the data down to the given place.
+func RoundDown(input float64, places int) (newVal float64) {
+	var round float64
+	pow := math.Pow(10, float64(places))
+	digit := pow * input
+	round = math.Floor(digit)
+	newVal = round / pow
+	return
 }

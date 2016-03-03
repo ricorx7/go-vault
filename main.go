@@ -52,6 +52,7 @@ func main() {
 	mux.HandleFunc("/product/add", http.HandlerFunc(productAddHandler))
 	mux.HandleFunc("/product/update/:id", http.HandlerFunc(productUpdateHandler))
 	mux.HandleFunc("/adcp_checklist/add", http.HandlerFunc(adcpChecklistAddHandler))
+	mux.HandleFunc("/adcp_checklist/update/:id", http.HandlerFunc(adcpChecklistUpdateHandler))
 
 	// HTTP server
 	if err := http.ListenAndServe(*addr, mux); err != nil {

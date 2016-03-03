@@ -43,12 +43,15 @@ type AdcpChecklist struct {
 	CompassCal           CheckListItem `bson:"CompassCal" json:"CompassCal"`
 	BeamOrientation      CheckListItem `bson:"BeamOrientation" json:"BeamOrientation"`
 	Modified             time.Time     `bson:"Modified" json:"Modified"`
+	Created              time.Time     `bson:"Created" json:"Created"`
 }
 
 // AdcpChecklistUpdate will contain the RMA data.
 type AdcpChecklistUpdate struct {
-	ADCP  AdcpChecklist
-	Token string
+	ADCP               AdcpChecklist
+	OringStatusList    []OptionItem
+	UrethaneStatusList []OptionItem
+	Token              string
 }
 
 // Add the Product.
@@ -80,6 +83,7 @@ func adcpChecklistAddHandler(w http.ResponseWriter, r *http.Request) {
 		adcp := &AdcpChecklist{
 			SerialNumber: formData.Get("SerialNumber"),
 			Modified:     time.Now().Local(),
+			Created:      time.Now().Local(),
 		}
 		oring := &CheckListItem{
 			Status: formData.Get("OringStatus"),
@@ -131,4 +135,23 @@ func displayAdcpChecklistAddTemplate(w http.ResponseWriter, data *AdcpChecklistU
 	t.ExecuteTemplate(w, "content", data)
 	t.ExecuteTemplate(w, "footer", nil)
 	t.Execute(w, data)
+}
+
+// GetChecklistStatusList will create a Status slice.  Then set the selected flag
+// based off the status value given.
+func GetChecklistStatusList(status string) []OptionItem {
+	options := []OptionItem{
+		OptionItem{"Not Checked", "Not Checked", false},
+		OptionItem{"Completed", "Completed", false},
+		OptionItem{"N/A", "N/A", false},
+	}
+
+	// Set the selected value based off the status given
+	for i := range options {
+		if options[i].Value == status {
+			options[i].Selected = true
+		}
+	}
+
+	return options
 }

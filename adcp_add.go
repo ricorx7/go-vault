@@ -93,6 +93,15 @@ func adcpAddHandler(w http.ResponseWriter, r *http.Request) {
 			err := Vault.Mongo.C("adcps").Insert(adcpData.Adcp)
 			CheckError(err)
 
+			// Add the ADCP checklist to the DB
+			checklist := &AdcpChecklist{
+				SerialNumber: adcpData.Adcp.SerialNumber,
+				Modified:     time.Now(),
+				Created:      time.Now(),
+			}
+			err = Vault.Mongo.C("AdcpChecklists").Insert(checklist)
+			CheckError(err)
+
 			// Go to the list of ADCP
 			http.Redirect(w, r, "/adcp", http.StatusFound)
 		}
