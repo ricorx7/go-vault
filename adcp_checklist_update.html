@@ -1,0 +1,436 @@
+{{define "content"}}
+
+  <style type="text/css">
+    .error {color: red;}
+
+    tr:nth-child(even) {
+        background-color: #d5d5d5;
+    }
+
+    </style>
+    <script>
+      $(function() { $( "#datepicker" ).datepicker(); });
+      $(function() { $( "#datepicker1" ).datepicker(); });
+      $(function() { $( "#datepicker2" ).datepicker(); });
+      $(function() { $( "#datepicker3" ).datepicker(); });
+      $(function() { $( "#datepicker4" ).datepicker(); });
+      $(function() { $( "#datepicker5" ).datepicker(); });
+      $(function() { $( "#datepicker6" ).datepicker(); });
+      $(function() { $( "#datepicker7" ).datepicker(); });
+      $(function() { $( "#datepicker8" ).datepicker(); });
+      $(function() { $( "#datepicker9" ).datepicker(); });
+      $(function() { $( "#datepicker10" ).datepicker(); });
+      $(function() { $( "#datepicker11" ).datepicker(); });
+      $(function() { $( "#datepicker12" ).datepicker(); });
+      $(function() { $( "#datepicker13" ).datepicker(); });
+      $(function() { $( "#datepicker14" ).datepicker(); });
+      $(function() { $( "#datepicker15" ).datepicker(); });
+      $(function() { $( "#datepicker16" ).datepicker(); });
+      $(function() { $( "#datepicker17" ).datepicker(); });
+      $(function() { $( "#datepicker18" ).datepicker(); });
+      $(function() { $( "#datepicker19" ).datepicker(); });
+      $(function() { $( "#datepicker20" ).datepicker(); });
+      $(function() { $( "#datepicker21" ).datepicker(); });
+      $(function() { $( "#datepicker22" ).datepicker(); });
+      $(function() { $( "#datepicker23" ).datepicker(); });
+      $(function() { $( "#datepicker24" ).datepicker(); });
+      $(function() { $( "#datepicker25" ).datepicker(); });
+    </script>
+
+  <div class="page-header">
+    <h1>ADCP Checklist</h1>
+  </div>
+
+  <form action="/adcp_checklist/update/{{.ADCP.SerialNumber}}" method="post">
+      <div class="row" style="margin: 5px">
+        <div class="col-sm-2">
+          SerialNumber: {{.ADCP.SerialNumber}}
+        </div>
+      </div>
+
+      <!--XDCR Build-->
+      <div class="row" style="margin: 5px">
+        <h3>XDCR Configuration</h3>
+      </div>
+      <div class="row" style="margin: 5px">
+        <table class="table table-bordered table-condensed">
+          <thead>
+            <tr>
+              <th class="text-center"><h5><strong>Desc</strong></h5></th>
+              <th class="text-center"><h5><strong>Status</strong></h5></th>
+              <th class="text-center"><h5><strong>User</strong></h5></th>
+              <th class="text-center"><h5><strong>Date</strong></h5></th>
+              <th class="text-center"><h5><strong>Misc</strong></h5></th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Urethane Check:</td>
+              <td>
+                <select name="UrethaneStatus" selected="{{.ADCP.Urethane.Status}}">
+                  {{range .UrethaneStatusList}}
+                    <option value="{{.Value}}" {{if eq .Selected true}}selected="selected"{{end}}>{{.Text}}</option>
+                  {{end}}
+                </select>
+              </td>
+              <td><input type="text" name="UrethaneUser" value="{{.ADCP.Urethane.User}}" placeholder="User"></td>
+              <td><input type="text" name="UrethaneDate" value="{{.ADCP.Urethane.Date}}" id="datepicker" placeholder="Date"></td>
+            </tr>
+            <tr>
+              <td>O-Ring Check:</td>
+              <td>
+                <select name="OringStatus" selected="{{.ADCP.Oring.Status}}">
+                  {{range .OringStatusList}}
+                    <option value="{{.Value}}" {{if eq .Selected true}}selected="selected"{{end}}>{{.Text}}</option>
+                  {{end}}
+                </select>
+              </td>
+              <td><input type="text" name="OringUser" value="{{.ADCP.Oring.User}}" placeholder="User"></td>
+              <td><input type="text" name="OringDate" value="{{.ADCP.Oring.Date}}" id="datepicker1" placeholder="Date"></td>
+            </tr>
+            <tr>
+              <td>Standoff Check:</td>
+              <td>
+                <select name="StandoffsStatus" selected="{{.ADCP.Standoffs.Status}}">
+                  {{range .StandoffsStatusList}}
+                    <option value="{{.Value}}" {{if eq .Selected true}}selected="selected"{{end}}>{{.Text}}</option>
+                  {{end}}
+                </select>
+              </td>
+              <td><input type="text" name="StandoffsUser" value="{{.ADCP.Standoffs.User}}" placeholder="User"></td>
+              <td><input type="text" name="StandoffsDate" value="{{.ADCP.Standoffs.Date}}" id="datepicker2" placeholder="Date"></td>
+            </tr>
+            <tr>
+              <td>Screws Check:</td>
+              <td>
+                <select name="ScrewsStatus" selected="{{.ADCP.Screws.Status}}">
+                  {{range .ScrewsStatusList}}
+                    <option value="{{.Value}}" {{if eq .Selected true}}selected="selected"{{end}}>{{.Text}}</option>
+                  {{end}}
+                </select>
+              </td>
+              <td><input type="text" name="ScrewsUser" value="{{.ADCP.Screws.User}}" placeholder="User"></td>
+              <td><input type="text" name="ScrewsDate" value="{{.ADCP.Screws.Date}}" id="datepicker3" placeholder="Date"></td>
+            </tr>
+            <tr>
+              <td>Notch Check:</td>
+              <td>
+                <select name="NotchStatus" selected="{{.ADCP.Notch.Status}}">
+                  {{range .NotchStatusList}}
+                    <option value="{{.Value}}" {{if eq .Selected true}}selected="selected"{{end}}>{{.Text}}</option>
+                  {{end}}
+                </select>
+              </td>
+              <td><input type="text" name="NotchUser" value="{{.ADCP.Notch.User}}" placeholder="User"></td>
+              <td><input type="text" name="NotchDate" value="{{.ADCP.Notch.Date}}" id="datepicker4" placeholder="Date"></td>
+            </tr>
+            <tr>
+              <td>Beam Orientation:</td>
+              <td>
+                <select name="BeamOrientationStatus" selected="{{.ADCP.BeamOrientation.Status}}">
+                  {{range .BeamOrientationStatusList}}
+                    <option value="{{.Value}}" {{if eq .Selected true}}selected="selected"{{end}}>{{.Text}}</option>
+                  {{end}}
+                </select>
+              </td>
+              <td><input type="text" name="BeamOrientationUser" value="{{.ADCP.BeamOrientation.User}}" placeholder="User"></td>
+              <td><input type="text" name="BeamOrientationDate" value="{{.ADCP.BeamOrientation.Date}}" id="datepicker22" placeholder="Date"></td>
+            </tr>
+            <tr>
+              <td>Beam Wire Check:</td>
+              <td>
+                <select name="BeamWiresStatus" selected="{{.ADCP.BeamWires.Status}}">
+                  {{range .BeamWiresStatusList}}
+                    <option value="{{.Value}}" {{if eq .Selected true}}selected="selected"{{end}}>{{.Text}}</option>
+                  {{end}}
+                </select>
+              </td>
+              <td><input type="text" name="BeamWiresUser" value="{{.ADCP.BeamWires.User}}" placeholder="User"></td>
+              <td><input type="text" name="BeamWiresDate" value="{{.ADCP.BeamWires.Date}}" id="datepicker6" placeholder="Date"></td>
+            </tr>
+            <tr>
+              <td>Thermisotor Stranded Wires Check:</td>
+              <td>
+                <select name="ThermistorStrandedStatus" selected="{{.ADCP.ThermistorStranded.Status}}">
+                  {{range .ThermistorStrandedStatusList}}
+                    <option value="{{.Value}}" {{if eq .Selected true}}selected="selected"{{end}}>{{.Text}}</option>
+                  {{end}}
+                </select>
+              </td>
+              <td><input type="text" name="ThermistorStrandedUser" value="{{.ADCP.ThermistorStranded.User}}" placeholder="User"></td>
+              <td><input type="text" name="ThermistorStrandedDate" value="{{.ADCP.ThermistorStranded.Date}}" id="datepicker7" placeholder="Date"></td>
+            </tr>
+            <tr>
+              <td>Vaccum Test Check:</td>
+              <td>
+                <select name="VaccumTestStatus" selected="{{.ADCP.VaccumTest.Status}}">
+                  {{range .VaccumTestStatusList}}
+                    <option value="{{.Value}}" {{if eq .Selected true}}selected="selected"{{end}}>{{.Text}}</option>
+                  {{end}}
+                </select>
+              </td>
+              <td><input type="text" name="VaccumTestUser" value="{{.ADCP.VaccumTest.User}}" placeholder="User"></td>
+              <td><input type="text" name="VaccumTestDate" value="{{.ADCP.VaccumTest.Date}}" id="datepicker11" placeholder="Date"></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <!--System Config-->
+      <div class="row" style="margin: 5px">
+        <h3>System Configuration</h3>
+      </div>
+      <div class="row" style="margin: 5px">
+        <table class="table table-bordered table-condensed">
+          <thead>
+            <tr>
+              <th class="text-center"><h5><strong>Desc</strong></h5></th>
+              <th class="text-center"><h5><strong>Status</strong></h5></th>
+              <th class="text-center"><h5><strong>User</strong></h5></th>
+              <th class="text-center"><h5><strong>Date</strong></h5></th>
+              <th class="text-center"><h5><strong>Misc</strong></h5></th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Firmware Check:</td>
+              <td>
+                <select name="FirmwareStatus" selected="{{.ADCP.Firmware.Status}}">
+                  {{range .FirmwareStatusList}}
+                    <option value="{{.Value}}" {{if eq .Selected true}}selected="selected"{{end}}>{{.Text}}</option>
+                  {{end}}
+                </select>
+              </td>
+              <td><input type="text" name="FirmwareUser" value="{{.ADCP.Firmware.User}}" placeholder="User"></td>
+              <td><input type="text" name="FirmwareDate" value="{{.ADCP.Firmware.Date}}" id="datepicker8" placeholder="Date"></td>
+              <td><input type="text" name="FirmwareVersion" value="{{.ADCP.FirmwareVersion}}" placeholder="Firmware Version"></td>
+            </tr>
+            <tr>
+              <td>Verify Temperature:</td>
+              <td>
+                <select name="TemperatureStatus" selected="{{.ADCP.Temperature.Status}}">
+                  {{range .TemperatureStatusList}}
+                    <option value="{{.Value}}" {{if eq .Selected true}}selected="selected"{{end}}>{{.Text}}</option>
+                  {{end}}
+                </select>
+              </td>
+              <td><input type="text" name="TemperatureUser" value="{{.ADCP.Temperature.User}}" placeholder="User"></td>
+              <td><input type="text" name="TemperatureDate" value="{{.ADCP.Temperature.Date}}" id="datepicker9" placeholder="Date"></td>
+            </tr>
+            <tr>
+              <td>Accuracy Short Check:</td>
+              <td>
+                <select name="AccuracyShortStatus" selected="{{.ADCP.AccuracyShort.Status}}">
+                  {{range .AccuracyShortStatusList}}
+                    <option value="{{.Value}}" {{if eq .Selected true}}selected="selected"{{end}}>{{.Text}}</option>
+                  {{end}}
+                </select>
+              </td>
+              <td><input type="text" name="AccuracyShortUser" value="{{.ADCP.AccuracyShort.User}}" placeholder="User"></td>
+              <td><input type="text" name="AccuracyShortDate" value="{{.ADCP.AccuracyShort.Date}}" id="datepicker19" placeholder="Date"></td>
+            </tr>
+            <tr>
+              <td>Accuracy Jumper Check:</td>
+              <td>
+                <select name="AccuracyJumperStatus" selected="{{.ADCP.AccuracyJumper.Status}}">
+                  {{range .AccuracyJumperStatusList}}
+                    <option value="{{.Value}}" {{if eq .Selected true}}selected="selected"{{end}}>{{.Text}}</option>
+                  {{end}}
+                </select>
+              </td>
+              <td><input type="text" name="AccuracyJumperUser" value="{{.ADCP.AccuracyJumper.User}}" placeholder="User"></td>
+              <td><input type="text" name="AccuracyJumperDate" value="{{.ADCP.AccuracyJumper.Date}}" id="datepicker20" placeholder="Date"></td>
+            </tr>
+            <tr>
+              <td>Pressure Sensor Check:</td>
+              <td>
+                <select name="PressureStatus" selected="{{.ADCP.Pressure.Status}}">
+                  {{range .PressureStatusList}}
+                    <option value="{{.Value}}" {{if eq .Selected true}}selected="selected"{{end}}>{{.Text}}</option>
+                  {{end}}
+                </select>
+              </td>
+              <td><input type="text" name="PressureUser" value="{{.ADCP.Pressure.User}}" placeholder="User"></td>
+              <td><input type="text" name="PressureDate" value="{{.ADCP.Pressure.Date}}" id="datepicker10" placeholder="Date"></td>
+              <td><input type="text" name="PressureSensorSize" value="{{.ADCP.PressureSensorSize}}" placeholder="Pressure Sensor Size"></td>
+            </tr>
+            <tr>
+              <td>Burn-In Board Stack Test:</td>
+              <td>
+                <select name="BurnInTestBoardStackStatus" selected="{{.ADCP.BurnInTestBoardStack.Status}}">
+                  {{range .BurnInTestBoardStackStatusList}}
+                    <option value="{{.Value}}" {{if eq .Selected true}}selected="selected"{{end}}>{{.Text}}</option>
+                  {{end}}
+                </select>
+              </td>
+              <td><input type="text" name="BurnInTestBoardStackUser" value="{{.ADCP.BurnInTestBoardStack.User}}" placeholder="User"></td>
+              <td><input type="text" name="BurnInTestBoardStackDate" value="{{.ADCP.BurnInTestBoardStack.Date}}" id="datepicker16" placeholder="Date"></td>
+            </tr>
+            <tr>
+              <td>Compass Calibration:</td>
+              <td>
+                <select name="CompassCalStatus" selected="{{.ADCP.CompassCal.Status}}">
+                  {{range .CompassCalStatusList}}
+                    <option value="{{.Value}}" {{if eq .Selected true}}selected="selected"{{end}}>{{.Text}}</option>
+                  {{end}}
+                </select>
+              </td>
+              <td><input type="text" name="CompassCalUser" value="{{.ADCP.CompassCal.User}}" placeholder="User"></td>
+              <td><input type="text" name="CompassCalDate" value="{{.ADCP.CompassCal.Date}}" id="datepicker21" placeholder="Date"></td>
+            </tr>
+            <tr>
+              <td>Tank Test:</td>
+              <td>
+                <select name="TankTestStatus" selected="{{.ADCP.TankTest.Status}}">
+                  {{range .TankTestStatusList}}
+                    <option value="{{.Value}}" {{if eq .Selected true}}selected="selected"{{end}}>{{.Text}}</option>
+                  {{end}}
+                </select>
+              </td>
+              <td><input type="text" name="TankTestUser" value="{{.ADCP.TankTest.User}}" placeholder="User"></td>
+              <td><input type="text" name="TankTestDate" value="{{.ADCP.TankTest.Date}}" id="datepicker18" placeholder="Date"></td>
+            </tr>
+            <tr>
+              <td>Burn-In System Test:</td>
+              <td>
+                <select name="BurnInTestSystemStatus" selected="{{.ADCP.BurnInTestSystem.Status}}">
+                  {{range .BurnInTestSystemStatusList}}
+                    <option value="{{.Value}}" {{if eq .Selected true}}selected="selected"{{end}}>{{.Text}}</option>
+                  {{end}}
+                </select>
+              </td>
+              <td><input type="text" name="BurnInTestSystemUser" value="{{.ADCP.BurnInTestSystem.User}}" placeholder="User"></td>
+              <td><input type="text" name="BurnInTestSystemDate" value="{{.ADCP.BurnInTestSystem.Date}}" id="datepicker17" placeholder="Date"></td>
+            </tr>
+            <tr>
+              <td>Final Check Lake Test:</td>
+              <td>
+                <select name="FinalCheckLakeStatus" selected="{{.ADCP.FinalCheckLake.Status}}">
+                  {{range .FinalCheckLakeStatusList}}
+                    <option value="{{.Value}}" {{if eq .Selected true}}selected="selected"{{end}}>{{.Text}}</option>
+                  {{end}}
+                </select>
+              </td>
+              <td><input type="text" name="FinalCheckLakeUser" value="{{.ADCP.FinalCheckLake.User}}" placeholder="User"></td>
+              <td><input type="text" name="FinalCheckLakeDate" value="{{.ADCP.FinalCheckLake.Date}}" id="datepicker13" placeholder="Date"></td>
+            </tr>
+            <tr>
+              <td>Lake Test:</td>
+              <td>
+                <select name="LakeTestStatus" selected="{{.ADCP.LakeTest.Status}}">
+                  {{range .LakeTestStatusList}}
+                    <option value="{{.Value}}" {{if eq .Selected true}}selected="selected"{{end}}>{{.Text}}</option>
+                  {{end}}
+                </select>
+              </td>
+              <td><input type="text" name="LakeTestUser" value="{{.ADCP.LakeTest.User}}" placeholder="User"></td>
+              <td><input type="text" name="LakeTestDate" value="{{.ADCP.LakeTest.Date}}" id="datepicker15" placeholder="Date"></td>
+            </tr>
+            <tr>
+              <td>Vibe Test:</td>
+              <td>
+                <select name="VibeTestStatus" selected="{{.ADCP.VibeTest.Status}}">
+                  {{range .VibeTestStatusList}}
+                    <option value="{{.Value}}" {{if eq .Selected true}}selected="selected"{{end}}>{{.Text}}</option>
+                  {{end}}
+                </select>
+              </td>
+              <td><input type="text" name="VibeTestUser" value="{{.ADCP.VibeTest.User}}" placeholder="User"></td>
+              <td><input type="text" name="VibeTestDate" value="{{.ADCP.VibeTest.Date}}" id="datepicker12" placeholder="Date"></td>
+            </tr>
+            <tr>
+              <td>Pressure Test System:</td>
+              <td>
+                <select name="PressureTestSystemStatus" selected="{{.ADCP.PressureTestSystem.Status}}">
+                  {{range .PressureTestSystemStatusList}}
+                    <option value="{{.Value}}" {{if eq .Selected true}}selected="selected"{{end}}>{{.Text}}</option>
+                  {{end}}
+                </select>
+              </td>
+              <td><input type="text" name="PressureTestSystemUser" value="{{.ADCP.PressureTestSystem.User}}" placeholder="User"></td>
+              <td><input type="text" name="PressureTestSystemDate" value="{{.ADCP.PressureTestSystem.Date}}" id="datepicker25" placeholder="Date"></td>
+            </tr>
+            <tr>
+              <td>Final Check Shipping Test:</td>
+              <td>
+                <select name="FinalCheckShippingStatus" selected="{{.ADCP.FinalCheckShipping.Status}}">
+                  {{range .FinalCheckShippingStatusList}}
+                    <option value="{{.Value}}" {{if eq .Selected true}}selected="selected"{{end}}>{{.Text}}</option>
+                  {{end}}
+                </select>
+              </td>
+              <td><input type="text" name="FinalCheckShippingUser" value="{{.ADCP.FinalCheckShipping.User}}" placeholder="User"></td>
+              <td><input type="text" name="FinalCheckShippingDate" value="{{.ADCP.FinalCheckShipping.Date}}" id="datepicker14" placeholder="Date"></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <!--Batteries-->
+      <div class="row" style="margin: 5px">
+        <h3>Batteries</h3>
+      </div>
+      <div class="row" style="margin: 5px">
+        <table class="table table-bordered table-condensed">
+          <thead>
+            <tr>
+              <th class="text-center"><h5><strong>Desc</strong></h5></th>
+              <th class="text-center"><h5><strong>Status</strong></h5></th>
+              <th class="text-center"><h5><strong>User</strong></h5></th>
+              <th class="text-center"><h5><strong>Date</strong></h5></th>
+              <th class="text-center"><h5><strong>Voltage</strong></h5></th>
+              <th class="text-center"><h5><strong>Load Voltage</strong></h5></th>
+              <th class="text-center"><h5><strong>Serial Number</strong></h5></th>
+              <th class="text-center"><h5><strong>Part Number</strong></h5></th>
+              <th class="text-center"><h5><strong>Lot Number</strong></h5></th>
+              <th class="text-center"><h5><strong>Rev</strong></h5></th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Battery 1:</td>
+              <td>
+                <select name="Battery1Status" selected="{{.ADCP.Battery1.Status}}">
+                  {{range .Battery1StatusList}}
+                    <option value="{{.Value}}" {{if eq .Selected true}}selected="selected"{{end}}>{{.Text}}</option>
+                  {{end}}
+                </select>
+              </td>
+              <td><input type="text" name="Battery1User" value="{{.ADCP.Battery1.User}}" placeholder="User"></td>
+              <td><input type="text" name="Battery1Date" value="{{.ADCP.Battery1.Date}}" id="datepicker24" placeholder="Date"></td>
+              <td><input type="text" name="Battery1Voltage" value="{{.ADCP.Battery1Voltage}}" placeholder="Voltage"></td>
+              <td><input type="text" name="Battery1LoadVoltage" value="{{.ADCP.Battery1LoadVoltage}}" placeholder="Load Voltage"></td>
+              <td><input type="text" name="Battery1SerialNumber" value="{{.ADCP.Battery1SerialNumber}}" placeholder="Serial Number"></td>
+              <td><input type="text" name="Battery1PartNum" value="{{.ADCP.Battery1PartNum}}" placeholder="Part Number"></td>
+              <td><input type="text" name="Battery1LotNum" value="{{.ADCP.Battery1LotNum}}" placeholder="Lot Number"></td>
+              <td><input type="text" name="Battery1Rev" value="{{.ADCP.Battery1Rev}}" placeholder="Rev"></td>
+            </tr>
+            <tr>
+              <td>Battery 2:</td>
+              <td>
+                <select name="Battery2Status" selected="{{.ADCP.Battery2.Status}}">
+                  {{range .Battery2StatusList}}
+                    <option value="{{.Value}}" {{if eq .Selected true}}selected="selected"{{end}}>{{.Text}}</option>
+                  {{end}}
+                </select>
+              </td>
+              <td><input type="text" name="Battery2User" value="{{.ADCP.Battery2.User}}" placeholder="User"></td>
+              <td><input type="text" name="Battery2Date" value="{{.ADCP.Battery2.Date}}" id="datepicker23" placeholder="Date"></td>
+              <td><input type="text" name="Battery2Voltage" value="{{.ADCP.Battery2Voltage}}" placeholder="Voltage"></td>
+              <td><input type="text" name="Battery2LoadVoltage" value="{{.ADCP.Battery2LoadVoltage}}" placeholder="Load Voltage"></td>
+              <td><input type="text" name="Battery2SerialNumber" value="{{.ADCP.Battery2SerialNumber}}" placeholder="Serial Number"></td>
+              <td><input type="text" name="Battery2PartNum" value="{{.ADCP.Battery2PartNum}}" placeholder="Part Number"></td>
+              <td><input type="text" name="Battery2LotNum" value="{{.ADCP.Battery2LotNum}}" placeholder="Lot Number"></td>
+              <td><input type="text" name="Battery2Rev" value="{{.ADCP.Battery2Rev}}" placeholder="Rev"></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="row" style="margin: 5px">
+        <input type="hidden" name="SerialNumber" value="{{.ADCP.SerialNumber}}">
+        <input type="hidden" name="token" value="{{.Token}}">
+        <input type="submit" value="Update">
+      </div>
+  </form>
+{{end}}
