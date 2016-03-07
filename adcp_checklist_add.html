@@ -315,6 +315,19 @@
               <td><input type="text" name="FinalCheckLakeDate" value="{{.ADCP.FinalCheckLake.Date}}" id="datepicker13" placeholder="Date"></td>
             </tr>
             <tr>
+              <td>Review Tank Test Data:</td>
+              <td>
+                <select name="ReviewTankTestDataStatus" selected="{{.ADCP.ReviewTankTestData.Status}}">
+                  {{range .ReviewTankTestDataStatusList}}
+                    <option value="{{.Value}}" {{if eq .Selected true}}selected="selected"{{end}}>{{.Text}}</option>
+                  {{end}}
+                </select>
+              </td>
+              <td><input type="text" name="ReviewTankTestDataUser" value="{{.ADCP.ReviewTankTestData.User}}" placeholder="User"></td>
+              <td><input type="text" name="ReviewTankTestDataDate" value="{{.ADCP.ReviewTankTestData.Date}}" id="datepicker27" placeholder="Date"></td>
+              <td><input type="text" name="ReviewTankTestNotes" value="{{.ADCP.ReviewTankTestNotes}}" placeholder="Notes"></td>
+            </tr>
+            <tr>
               <td>Lake Test:</td>
               <td>
                 <select name="LakeTestStatus" selected="{{.ADCP.LakeTest.Status}}">
@@ -325,6 +338,19 @@
               </td>
               <td><input type="text" name="LakeTestUser" value="{{.ADCP.LakeTest.User}}" placeholder="User"></td>
               <td><input type="text" name="LakeTestDate" value="{{.ADCP.LakeTest.Date}}" id="datepicker15" placeholder="Date"></td>
+            </tr>
+            <tr>
+              <td>Review Lake Test Data:</td>
+              <td>
+                <select name="ReviewLakeTestDataStatus" selected="{{.ADCP.ReviewLakeTestData.Status}}">
+                  {{range .ReviewLakeTestDataStatusList}}
+                    <option value="{{.Value}}" {{if eq .Selected true}}selected="selected"{{end}}>{{.Text}}</option>
+                  {{end}}
+                </select>
+              </td>
+              <td><input type="text" name="ReviewLakeTestDataUser" value="{{.ADCP.ReviewLakeTestData.User}}" placeholder="User"></td>
+              <td><input type="text" name="ReviewLakeTestDataDate" value="{{.ADCP.ReviewLakeTestData.Date}}" id="datepicker26" placeholder="Date"></td>
+              <td><input type="text" name="ReviewLakeTestNotes" value="{{.ADCP.ReviewLakeTestNotes}}" placeholder="Notes"></td>
             </tr>
             <tr>
               <td>Vibe Test:</td>

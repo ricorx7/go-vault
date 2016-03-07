@@ -38,7 +38,11 @@ type AdcpChecklist struct {
 	PressureSensorSize   string        `bson:"PressureSensorSize" json:"PressureSensorSize"`
 	VaccumTest           CheckListItem `bson:"VaccumTest" json:"VaccumTest"`
 	VibeTest             CheckListItem `bson:"VibeTest" json:"VibeTest"`
+	ReviewTankTestData   CheckListItem `bson:"ReviewTankTestData" json:"ReviewTankTestData"`
+	ReviewTankTestNotes  string        `bson:"ReviewTankTestNotes" json:"ReviewTankTestNotes"`
 	LakeTest             CheckListItem `bson:"LakeTest" json:"LakeTest"`
+	ReviewLakeTestData   CheckListItem `bson:"ReviewLakeTestData" json:"ReviewLakeTestData"`
+	ReviewLakeTestNotes  string        `bson:"ReviewLakeTestNotes" json:"ReviewLakeTestNotes"`
 	TankTest             CheckListItem `bson:"TankTest" json:"TankTest"`
 	BurnInTestBoardStack CheckListItem `bson:"BurnInTestBoardStack" json:"BurnInTestBoardStack"`
 	BurnInTestSystem     CheckListItem `bson:"BurnInTestSystem" json:"BurnInTestSystem"`
@@ -83,7 +87,9 @@ type AdcpChecklistUpdate struct {
 	VaccumTestStatusList           []OptionItem
 	VibeTestStatusList             []OptionItem
 	LakeTestStatusList             []OptionItem
+	ReviewLakeTestDataStatusList   []OptionItem
 	TankTestStatusList             []OptionItem
+	ReviewTankTestDataStatusList   []OptionItem
 	BurnInTestBoardStackStatusList []OptionItem
 	BurnInTestSystemStatusList     []OptionItem
 	AccuracyShortStatusList        []OptionItem
@@ -234,12 +240,28 @@ func adcpChecklistAddHandler(w http.ResponseWriter, r *http.Request) {
 		}
 		adcp.LakeTest = *lakeTest
 
+		reviewLakeTestData := &CheckListItem{
+			Status: formData.Get("ReviewLakeTestDataStatus"),
+			Date:   formData.Get("ReviewLakeTestDataDate"),
+			User:   formData.Get("ReviewLakeTestDataUser"),
+		}
+		adcp.ReviewLakeTestData = *reviewLakeTestData
+		adcp.ReviewLakeTestNotes = formData.Get("ReviewLakeTestNotes")
+
 		tankTest := &CheckListItem{
 			Status: formData.Get("TankTestStatus"),
 			Date:   formData.Get("TankTestDate"),
 			User:   formData.Get("TankTestUser"),
 		}
 		adcp.TankTest = *tankTest
+
+		reviewTankTestData := &CheckListItem{
+			Status: formData.Get("ReviewTankTestDataStatus"),
+			Date:   formData.Get("ReviewTankTestDataDate"),
+			User:   formData.Get("ReviewTankTestDataUser"),
+		}
+		adcp.ReviewTankTestData = *reviewTankTestData
+		adcp.ReviewTankTestNotes = formData.Get("ReviewTankTestNotes")
 
 		burnInTestBoardStack := &CheckListItem{
 			Status: formData.Get("BurnInTestBoardStackStatus"),

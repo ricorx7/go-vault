@@ -46,7 +46,9 @@ func adcpChecklistUpdateHandler(w http.ResponseWriter, r *http.Request) {
 		adcpChecklist.VaccumTestStatusList = getChecklistStatusList(checklist.VaccumTest.Status)
 		adcpChecklist.VibeTestStatusList = getChecklistStatusList(checklist.VibeTest.Status)
 		adcpChecklist.LakeTestStatusList = getChecklistStatusList(checklist.LakeTest.Status)
+		adcpChecklist.ReviewLakeTestDataStatusList = getChecklistStatusList(checklist.ReviewLakeTestData.Status)
 		adcpChecklist.TankTestStatusList = getChecklistStatusList(checklist.TankTest.Status)
+		adcpChecklist.ReviewTankTestDataStatusList = getChecklistStatusList(checklist.ReviewTankTestData.Status)
 		adcpChecklist.BurnInTestBoardStackStatusList = getChecklistStatusList(checklist.BurnInTestBoardStack.Status)
 		adcpChecklist.BurnInTestSystemStatusList = getChecklistStatusList(checklist.BurnInTestSystem.Status)
 		adcpChecklist.AccuracyJumperStatusList = getChecklistStatusList(checklist.AccuracyJumper.Status)
@@ -140,9 +142,17 @@ func updateAdcpChecklistForm(formData *forms.Data) int {
 	cl.LakeTest.Status = formData.Get("LakeTestStatus")
 	cl.LakeTest.Date = formData.Get("LakeTestDate")
 	cl.LakeTest.User = formData.Get("LakeTestUser")
+	cl.ReviewLakeTestData.Status = formData.Get("ReviewLakeTestDataStatus")
+	cl.ReviewLakeTestData.Date = formData.Get("ReviewLakeTestDataDate")
+	cl.ReviewLakeTestData.User = formData.Get("ReviewLakeTestDataUser")
+	cl.ReviewLakeTestNotes = formData.Get("ReviewLakeTestNotes")
 	cl.TankTest.Status = formData.Get("TankTestStatus")
 	cl.TankTest.Date = formData.Get("TankTestDate")
 	cl.TankTest.User = formData.Get("TankTestUser")
+	cl.ReviewTankTestData.Status = formData.Get("ReviewTankTestDataStatus")
+	cl.ReviewTankTestData.Date = formData.Get("ReviewTankTestDataDate")
+	cl.ReviewTankTestData.User = formData.Get("ReviewTankTestDataUser")
+	cl.ReviewTankTestNotes = formData.Get("ReviewTankTestNotes")
 	cl.BurnInTestBoardStack.Status = formData.Get("BurnInTestBoardStackStatus")
 	cl.BurnInTestBoardStack.Date = formData.Get("BurnInTestBoardStackDate")
 	cl.BurnInTestBoardStack.User = formData.Get("BurnInTestBoardStackUser")
@@ -232,7 +242,11 @@ func updateAdcpChecklist(data *AdcpChecklist) {
 		"VaccumTest":           data.VaccumTest,
 		"VibeTest":             data.VibeTest,
 		"LakeTest":             data.LakeTest,
+		"ReviewLakeTestData":   data.ReviewLakeTestData,
+		"ReviewLakeTestNotes":  data.ReviewLakeTestNotes,
 		"TankTest":             data.TankTest,
+		"ReviewTankTestData":   data.ReviewTankTestData,
+		"ReviewTankTestNotes":  data.ReviewTankTestNotes,
 		"BurnInTestBoardStack": data.BurnInTestBoardStack,
 		"BurnInTestSystem":     data.BurnInTestSystem,
 		"AccuracyShort":        data.AccuracyShort,
