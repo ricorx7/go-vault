@@ -28,6 +28,7 @@ type AdcpChecklist struct {
 	Standoffs            CheckListItem `bson:"Standoffs" json:"Standoffs"`
 	Notch                CheckListItem `bson:"Notch" json:"Notch"`
 	Firmware             CheckListItem `bson:"Firmware" json:"Firmware"`
+	PhotoBoardStack      CheckListItem `bson:"PhotoBoardStack" json:"PhotoBoardStack"`
 	FirmwareVersion      string        `bson:"FirmwareVersion" json:"FirmwareVersion"`
 	FinalCheckLake       CheckListItem `bson:"FinalCheckLake" json:"FinalCheckLake"`
 	FinalCheckShipping   CheckListItem `bson:"FinalCheckShipping" json:"FinalCheckShipping"`
@@ -77,6 +78,7 @@ type AdcpChecklistUpdate struct {
 	StandoffsStatusList            []OptionItem
 	ScrewsStatusList               []OptionItem
 	NotchStatusList                []OptionItem
+	PhotoBoardStackStatusList      []OptionItem
 	FirmwareStatusList             []OptionItem
 	FinalCheckLakeStatusList       []OptionItem
 	FinalCheckShippingStatusList   []OptionItem
@@ -167,6 +169,13 @@ func adcpChecklistAddHandler(w http.ResponseWriter, r *http.Request) {
 			User:   formData.Get("NotchUser"),
 		}
 		adcp.Notch = *notch
+
+		photoBoardStack := &CheckListItem{
+			Status: formData.Get("PhotoBoardStackStatus"),
+			Date:   formData.Get("PhotoBoardStackDate"),
+			User:   formData.Get("PhotoBoardStackUser"),
+		}
+		adcp.PhotoBoardStack = *photoBoardStack
 
 		firmware := &CheckListItem{
 			Status: formData.Get("FirmwareStatus"),

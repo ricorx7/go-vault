@@ -36,6 +36,7 @@ func adcpChecklistUpdateHandler(w http.ResponseWriter, r *http.Request) {
 		adcpChecklist.StandoffsStatusList = getChecklistStatusList(checklist.Standoffs.Status)
 		adcpChecklist.ScrewsStatusList = getChecklistStatusList(checklist.Standoffs.Status)
 		adcpChecklist.NotchStatusList = getChecklistStatusList(checklist.Notch.Status)
+		adcpChecklist.PhotoBoardStackStatusList = getChecklistStatusList(checklist.PhotoBoardStack.Status)
 		adcpChecklist.FirmwareStatusList = getChecklistStatusList(checklist.Firmware.Status)
 		adcpChecklist.FinalCheckLakeStatusList = getChecklistStatusList(checklist.FinalCheckLake.Status)
 		adcpChecklist.FinalCheckShippingStatusList = getChecklistStatusList(checklist.FinalCheckShipping.Status)
@@ -110,6 +111,9 @@ func updateAdcpChecklistForm(formData *forms.Data) int {
 	cl.Notch.Status = formData.Get("NotchStatus")
 	cl.Notch.Date = formData.Get("NotchDate")
 	cl.Notch.User = formData.Get("NotchUser")
+	cl.PhotoBoardStack.Status = formData.Get("PhotoBoardStackStatus")
+	cl.PhotoBoardStack.Date = formData.Get("PhotoBoardStackDate")
+	cl.PhotoBoardStack.User = formData.Get("PhotoBoardStackUser")
 	cl.Firmware.Status = formData.Get("FirmwareStatus")
 	cl.Firmware.Date = formData.Get("FirmwareDate")
 	cl.Firmware.User = formData.Get("FirmwareUser")
@@ -230,6 +234,7 @@ func updateAdcpChecklist(data *AdcpChecklist) {
 		"Screws":               data.Screws,
 		"Standoffs":            data.Standoffs,
 		"Notch":                data.Notch,
+		"PhotoBoardStack":      data.PhotoBoardStack,
 		"Firmware":             data.Firmware,
 		"FirmwareVersion":      data.FirmwareVersion,
 		"FinalCheckLake":       data.FinalCheckLake,

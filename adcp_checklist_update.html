@@ -37,6 +37,7 @@
       $(function() { $( "#datepicker25" ).datepicker(); });
       $(function() { $( "#datepicker26" ).datepicker(); });
       $(function() { $( "#datepicker27" ).datepicker(); });
+      $(function() { $( "#datepicker28" ).datepicker(); });
     </script>
 
   <div class="page-header">
@@ -242,6 +243,18 @@
               </td>
               <td><input type="text" name="AccuracyJumperUser" value="{{.ADCP.AccuracyJumper.User}}" placeholder="User"></td>
               <td><input type="text" name="AccuracyJumperDate" value="{{.ADCP.AccuracyJumper.Date}}" id="datepicker20" placeholder="Date"></td>
+            </tr>
+            <tr>
+              <td>Photograph Board Stack:</td>
+              <td>
+                <select name="PhotoBoardStackStatus" selected="{{.ADCP.PhotoBoardStack.Status}}">
+                  {{range .PhotoBoardStackStatusList}}
+                    <option value="{{.Value}}" {{if eq .Selected true}}selected="selected"{{end}}>{{.Text}}</option>
+                  {{end}}
+                </select>
+              </td>
+              <td><input type="text" name="PhotoBoardStackUser" value="{{.ADCP.PhotoBoardStack.User}}" placeholder="User"></td>
+              <td><input type="text" name="PhotoBoardStackDate" value="{{.ADCP.PhotoBoardStack.Date}}" id="datepicker28" placeholder="Date"></td>
             </tr>
             <tr>
               <td>Pressure Sensor Check:</td>
