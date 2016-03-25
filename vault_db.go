@@ -42,43 +42,43 @@ type CompassCal struct {
 	UserName               string        `bson:"UserName" json:"UserName"`
 	SerialNumber           string        `bson:"SerialNumber" json:"SerialNumber"`
 	Firmware               string        `bson:"Firmware" json:"Firmware"`
-	CalScoreStdDevErr      float32       `bson:"CalScoreStdDevErr" json:"CalScoreStdDevErr"`
-	CalScoreXCoverage      float32       `bson:"CalScore_xCoverage" json:"CalScore_xCoverage"`
-	CalScoreYCoverage      float32       `bson:"CalScore_yCoverage" json:"CalScore_yCoverage"`
-	CalScoreZCoverage      float32       `bson:"CalScore_zCoverage" json:"CalScore_zCoverage"`
-	CalScoreAccelStdDevErr float32       `bson:"CalScore_accelStdDevErr" json:"CalScore_accelStdDevErr"`
-	CalScoreXAccelCoverage float32       `bson:"CalScore_xAccelCoverage" json:"CalScore_xAccelCoverage"`
-	CalScoreYAccelCoverage float32       `bson:"CalScore_yAccelCoverage" json:"CalScore_yAccelCoverage"`
-	CalScoreZAccelCoverage float32       `bson:"CalScore_zAccelCoverage" json:"CalScore_zAccelCoverage"`
-	Point1PreHdg           float32       `bson:"Point1_Pre_Hdg" json:"Point1_Pre_Hdg"`
-	Point1PrePtch          float32       `bson:"Point1_Pre_Ptch" json:"Point1_Pre_Ptch"`
-	Point1PreRoll          float32       `bson:"Point1_Pre_Roll" json:"Point1_Pre_Roll"`
-	Point2PreHdg           float32       `bson:"Point2_Pre_Hdg" json:"Point2_Pre_Hdg"`
-	Point2PrePtch          float32       `bson:"Point2_Pre_Ptch" json:"Point2_Pre_Ptch"`
-	Point2PreRoll          float32       `bson:"Point2_Pre_Roll" json:"Point2_Pre_Roll"`
-	Point3PreHdg           float32       `bson:"Point3_Pre_Hdg" json:"Point3_Pre_Hdg"`
-	Point3PrePtch          float32       `bson:"Point3_Pre_Ptch" json:"Point3_Pre_Ptch"`
-	Point3PreRoll          float32       `bson:"Point3_Pre_Roll" json:"Point3_Pre_Roll"`
-	Point4PreHdg           float32       `bson:"Point4_Pre_Hdg" json:"Point4_Pre_Hdg"`
-	Point4PrePtch          float32       `bson:"Point4_Pre_Ptch" json:"Point4_Pre_Ptch"`
-	Point4PreRoll          float32       `bson:"Point4_Pre_Roll" json:"Point4_Pre_Roll"`
-	Point1PostHdg          float32       `bson:"Point1_Post_Hdg" json:"Point1_Post_Hdg"`
-	Point1PostPtch         float32       `bson:"Point1_Post_Ptch" json:"Point1_Post_Ptch"`
-	Point1PostRoll         float32       `bson:"Point1_Post_Roll" json:"Point1_Post_Roll"`
-	Point2PostHdg          float32       `bson:"Point2_Post_Hdg" json:"Point2_Post_Hdg"`
-	Point2PostPtch         float32       `bson:"Point2_Post_Ptch" json:"Point2_Post_Ptch"`
-	Point2PostRoll         float32       `bson:"Point2_Post_Roll" json:"Point2_Post_Roll"`
-	Point3PostHdg          float32       `bson:"Point3_Post_Hdg" json:"Point3_Post_Hdg"`
-	Point3PostPtch         float32       `bson:"Point3_Post_Ptch" json:"Point3_Post_Ptch"`
-	Point3PostRoll         float32       `bson:"Point3_Post_Roll" json:"Point3_Post_Roll"`
-	Point4PostHdg          float32       `bson:"Point4_Post_Hdg" json:"Point4_Post_Hdg"`
-	Point4PostPtch         float32       `bson:"Point4_Post_Ptch" json:"Point4_Post_Ptch"`
-	Point4PostRoll         float32       `bson:"Point4_Post_Roll" json:"Point4_Post_Roll"`
-	LastModified           float32       `bson:"LastModified" json:"LastModified"`
-	CompasscalBeam1Error   float32
-	CompasscalBeam2Error   float32
-	CompasscalBeam3Error   float32
-	CompasscalBeam4Error   float32
+	CalScoreStdDevErr      float64       `bson:"CalScoreStdDevErr" json:"CalScoreStdDevErr"`
+	CalScoreXCoverage      float64       `bson:"CalScore_xCoverage" json:"CalScore_xCoverage"`
+	CalScoreYCoverage      float64       `bson:"CalScore_yCoverage" json:"CalScore_yCoverage"`
+	CalScoreZCoverage      float64       `bson:"CalScore_zCoverage" json:"CalScore_zCoverage"`
+	CalScoreAccelStdDevErr float64       `bson:"CalScore_accelStdDevErr" json:"CalScore_accelStdDevErr"`
+	CalScoreXAccelCoverage float64       `bson:"CalScore_xAccelCoverage" json:"CalScore_xAccelCoverage"`
+	CalScoreYAccelCoverage float64       `bson:"CalScore_yAccelCoverage" json:"CalScore_yAccelCoverage"`
+	CalScoreZAccelCoverage float64       `bson:"CalScore_zAccelCoverage" json:"CalScore_zAccelCoverage"`
+	Point1PreHdg           float64       `bson:"Point1_Pre_Hdg" json:"Point1_Pre_Hdg"`
+	Point1PrePtch          float64       `bson:"Point1_Pre_Ptch" json:"Point1_Pre_Ptch"`
+	Point1PreRoll          float64       `bson:"Point1_Pre_Roll" json:"Point1_Pre_Roll"`
+	Point2PreHdg           float64       `bson:"Point2_Pre_Hdg" json:"Point2_Pre_Hdg"`
+	Point2PrePtch          float64       `bson:"Point2_Pre_Ptch" json:"Point2_Pre_Ptch"`
+	Point2PreRoll          float64       `bson:"Point2_Pre_Roll" json:"Point2_Pre_Roll"`
+	Point3PreHdg           float64       `bson:"Point3_Pre_Hdg" json:"Point3_Pre_Hdg"`
+	Point3PrePtch          float64       `bson:"Point3_Pre_Ptch" json:"Point3_Pre_Ptch"`
+	Point3PreRoll          float64       `bson:"Point3_Pre_Roll" json:"Point3_Pre_Roll"`
+	Point4PreHdg           float64       `bson:"Point4_Pre_Hdg" json:"Point4_Pre_Hdg"`
+	Point4PrePtch          float64       `bson:"Point4_Pre_Ptch" json:"Point4_Pre_Ptch"`
+	Point4PreRoll          float64       `bson:"Point4_Pre_Roll" json:"Point4_Pre_Roll"`
+	Point1PostHdg          float64       `bson:"Point1_Post_Hdg" json:"Point1_Post_Hdg"`
+	Point1PostPtch         float64       `bson:"Point1_Post_Ptch" json:"Point1_Post_Ptch"`
+	Point1PostRoll         float64       `bson:"Point1_Post_Roll" json:"Point1_Post_Roll"`
+	Point2PostHdg          float64       `bson:"Point2_Post_Hdg" json:"Point2_Post_Hdg"`
+	Point2PostPtch         float64       `bson:"Point2_Post_Ptch" json:"Point2_Post_Ptch"`
+	Point2PostRoll         float64       `bson:"Point2_Post_Roll" json:"Point2_Post_Roll"`
+	Point3PostHdg          float64       `bson:"Point3_Post_Hdg" json:"Point3_Post_Hdg"`
+	Point3PostPtch         float64       `bson:"Point3_Post_Ptch" json:"Point3_Post_Ptch"`
+	Point3PostRoll         float64       `bson:"Point3_Post_Roll" json:"Point3_Post_Roll"`
+	Point4PostHdg          float64       `bson:"Point4_Post_Hdg" json:"Point4_Post_Hdg"`
+	Point4PostPtch         float64       `bson:"Point4_Post_Ptch" json:"Point4_Post_Ptch"`
+	Point4PostRoll         float64       `bson:"Point4_Post_Roll" json:"Point4_Post_Roll"`
+	LastModified           float64       `bson:"LastModified" json:"LastModified"`
+	CompasscalBeam1Error   float64
+	CompasscalBeam2Error   float64
+	CompasscalBeam3Error   float64
+	CompasscalBeam4Error   float64
 }
 
 // TankTestResults holds the Tank Test information.
@@ -95,52 +95,52 @@ type TankTestResults struct {
 	SubsystemCepoIndex   int           `bson:"SubsystemCepoIndex" json:"SubsystemCepoIndex"`
 	SubsystemConfigIndex int           `bson:"SubsystemConfigIndex" json:"SubsystemConfigIndex"`
 	TestOrientation      int           `bson:"TestOrientation" json:"TestOrientation"`
-	Beam0NoiseFloor      float32       `bson:"Beam0NoiseFloor" json:"Beam0NoiseFloor"`
-	Beam1NoiseFloor      float32       `bson:"Beam1NoiseFloor" json:"Beam1NoiseFloor"`
-	Beam2NoiseFloor      float32       `bson:"Beam2NoiseFloor" json:"Beam2NoiseFloor"`
-	Beam3NoiseFloor      float32       `bson:"Beam3NoiseFloor" json:"Beam3NoiseFloor"`
-	Beam0Signal1mTank    float32       `bson:"Beam0Signal1mTank" json:"Beam0Signal1mTank"`
-	Beam1Signal1mTank    float32       `bson:"Beam1Signal1mTank" json:"Beam1Signal1mTank"`
-	Beam2Signal1mTank    float32       `bson:"Beam2Signal1mTank" json:"Beam2Signal1mTank"`
-	Beam3Signal1mTank    float32       `bson:"Beam3Signal1mTank" json:"Beam3Signal1mTank"`
-	Beam0SignalTank      float32       `bson:"Beam0SignalTank" json:"Beam0SignalTank"`
-	Beam1SignalTank      float32       `bson:"Beam1SignalTank" json:"Beam1SignalTank"`
-	Beam2SignalTank      float32       `bson:"Beam2SignalTank" json:"Beam2SignalTank"`
-	Beam3SignalTank      float32       `bson:"Beam3SignalTank" json:"Beam3SignalTank"`
-	Beam0SignalLake      float32       `bson:"Beam0SignalLake" json:"Beam0SignalLake"`
-	Beam1SignalLake      float32       `bson:"Beam1SignalLake" json:"Beam1SignalLake"`
-	Beam2SignalLake      float32       `bson:"Beam2SignalLake" json:"Beam2SignalLake"`
-	Beam3SignalLake      float32       `bson:"Beam3SignalLake" json:"Beam3SignalLake"`
-	Beam0SignalOcean     float32       `bson:"Beam0SignalOcean" json:"Beam0SignalOcean"`
-	Beam1SignalOcean     float32       `bson:"Beam1SignalOcean" json:"Beam1SignalOcean"`
-	Beam2SignalOcean     float32       `bson:"Beam2SignalOcean" json:"Beam2SignalOcean"`
-	Beam3SignalOcean     float32       `bson:"Beam3SignalOcean" json:"Beam3SignalOcean"`
-	Beam0SnrTank         float32       `bson:"Beam0SnrTank" json:"Beam0SnrTank"`
-	Beam1SnrTank         float32       `bson:"Beam1SnrTank" json:"Beam1SnrTank"`
-	Beam2SnrTank         float32       `bson:"Beam2SnrTank" json:"Beam2SnrTank"`
-	Beam3SnrTank         float32       `bson:"Beam3SnrTank" json:"Beam3SnrTank"`
-	Beam0SnrLake         float32       `bson:"Beam0SnrLake" json:"Beam0SnrLake"`
-	Beam1SnrLake         float32       `bson:"Beam1SnrLake" json:"Beam1SnrLake"`
-	Beam2SnrLake         float32       `bson:"Beam2SnrLake" json:"Beam2SnrLake"`
-	Beam3SnrLake         float32       `bson:"Beam3SnrLake" json:"Beam3SnrLake"`
-	Beam0SnrOcean        float32       `bson:"Beam0SnrOcean" json:"Beam0SnrOcean"`
-	Beam1SnrOcean        float32       `bson:"Beam1SnrOcean" json:"Beam1SnrOcean"`
-	Beam2SnrOcean        float32       `bson:"Beam2SnrOcean" json:"Beam2SnrOcean"`
-	Beam3SnrOcean        float32       `bson:"Beam3SnrOcean" json:"Beam3SnrOcean"`
+	Beam0NoiseFloor      float64       `bson:"Beam0NoiseFloor" json:"Beam0NoiseFloor"`
+	Beam1NoiseFloor      float64       `bson:"Beam1NoiseFloor" json:"Beam1NoiseFloor"`
+	Beam2NoiseFloor      float64       `bson:"Beam2NoiseFloor" json:"Beam2NoiseFloor"`
+	Beam3NoiseFloor      float64       `bson:"Beam3NoiseFloor" json:"Beam3NoiseFloor"`
+	Beam0Signal1mTank    float64       `bson:"Beam0Signal1mTank" json:"Beam0Signal1mTank"`
+	Beam1Signal1mTank    float64       `bson:"Beam1Signal1mTank" json:"Beam1Signal1mTank"`
+	Beam2Signal1mTank    float64       `bson:"Beam2Signal1mTank" json:"Beam2Signal1mTank"`
+	Beam3Signal1mTank    float64       `bson:"Beam3Signal1mTank" json:"Beam3Signal1mTank"`
+	Beam0SignalTank      float64       `bson:"Beam0SignalTank" json:"Beam0SignalTank"`
+	Beam1SignalTank      float64       `bson:"Beam1SignalTank" json:"Beam1SignalTank"`
+	Beam2SignalTank      float64       `bson:"Beam2SignalTank" json:"Beam2SignalTank"`
+	Beam3SignalTank      float64       `bson:"Beam3SignalTank" json:"Beam3SignalTank"`
+	Beam0SignalLake      float64       `bson:"Beam0SignalLake" json:"Beam0SignalLake"`
+	Beam1SignalLake      float64       `bson:"Beam1SignalLake" json:"Beam1SignalLake"`
+	Beam2SignalLake      float64       `bson:"Beam2SignalLake" json:"Beam2SignalLake"`
+	Beam3SignalLake      float64       `bson:"Beam3SignalLake" json:"Beam3SignalLake"`
+	Beam0SignalOcean     float64       `bson:"Beam0SignalOcean" json:"Beam0SignalOcean"`
+	Beam1SignalOcean     float64       `bson:"Beam1SignalOcean" json:"Beam1SignalOcean"`
+	Beam2SignalOcean     float64       `bson:"Beam2SignalOcean" json:"Beam2SignalOcean"`
+	Beam3SignalOcean     float64       `bson:"Beam3SignalOcean" json:"Beam3SignalOcean"`
+	Beam0SnrTank         float64       `bson:"Beam0SnrTank" json:"Beam0SnrTank"`
+	Beam1SnrTank         float64       `bson:"Beam1SnrTank" json:"Beam1SnrTank"`
+	Beam2SnrTank         float64       `bson:"Beam2SnrTank" json:"Beam2SnrTank"`
+	Beam3SnrTank         float64       `bson:"Beam3SnrTank" json:"Beam3SnrTank"`
+	Beam0SnrLake         float64       `bson:"Beam0SnrLake" json:"Beam0SnrLake"`
+	Beam1SnrLake         float64       `bson:"Beam1SnrLake" json:"Beam1SnrLake"`
+	Beam2SnrLake         float64       `bson:"Beam2SnrLake" json:"Beam2SnrLake"`
+	Beam3SnrLake         float64       `bson:"Beam3SnrLake" json:"Beam3SnrLake"`
+	Beam0SnrOcean        float64       `bson:"Beam0SnrOcean" json:"Beam0SnrOcean"`
+	Beam1SnrOcean        float64       `bson:"Beam1SnrOcean" json:"Beam1SnrOcean"`
+	Beam2SnrOcean        float64       `bson:"Beam2SnrOcean" json:"Beam2SnrOcean"`
+	Beam3SnrOcean        float64       `bson:"Beam3SnrOcean" json:"Beam3SnrOcean"`
 	GpsDistance          string        `bson:"GpsDistance" json:"GpsDistance"`
 	GpsDirection         string        `bson:"GpsDirection" json:"GpsDirection"`
 	BtDistance           string        `bson:"BtDistance" json:"BtDistance"`
 	BtDirection          string        `bson:"BtDirection" json:"BtDirection"`
 	DistanceError        string        `bson:"DistanceError" json:"DistanceError"`
 	DirectionError       string        `bson:"DirectionError" json:"DirectionError"`
-	ProfileRangeBeam0    float32       `bson:"ProfileRangeBeam0" json:"ProfileRangeBeam0"`
-	ProfileRangeBeam1    float32       `bson:"ProfileRangeBeam1" json:"ProfileRangeBeam1"`
-	ProfileRangeBeam2    float32       `bson:"ProfileRangeBeam2" json:"ProfileRangeBeam2"`
-	ProfileRangeBeam3    float32       `bson:"ProfileRangeBeam3" json:"ProfileRangeBeam3"`
-	GlitchCountBeam0     float32       `bson:"GlitchCountBeam0" json:"GlitchCountBeam0"`
-	GlitchCountBeam1     float32       `bson:"GlitchCountBeam1" json:"GlitchCountBeam1"`
-	GlitchCountBeam2     float32       `bson:"GlitchCountBeam2" json:"GlitchCountBeam2"`
-	GlitchCountBeam3     float32       `bson:"GlitchCountBeam3" json:"GlitchCountBeam3"`
+	ProfileRangeBeam0    float64       `bson:"ProfileRangeBeam0" json:"ProfileRangeBeam0"`
+	ProfileRangeBeam1    float64       `bson:"ProfileRangeBeam1" json:"ProfileRangeBeam1"`
+	ProfileRangeBeam2    float64       `bson:"ProfileRangeBeam2" json:"ProfileRangeBeam2"`
+	ProfileRangeBeam3    float64       `bson:"ProfileRangeBeam3" json:"ProfileRangeBeam3"`
+	GlitchCountBeam0     float64       `bson:"GlitchCountBeam0" json:"GlitchCountBeam0"`
+	GlitchCountBeam1     float64       `bson:"GlitchCountBeam1" json:"GlitchCountBeam1"`
+	GlitchCountBeam2     float64       `bson:"GlitchCountBeam2" json:"GlitchCountBeam2"`
+	GlitchCountBeam3     float64       `bson:"GlitchCountBeam3" json:"GlitchCountBeam3"`
 	PlotReport           string        `bson:"PlotReport" json:"PlotReport"`
 }
 
@@ -149,6 +149,7 @@ type WaterTestResults struct {
 	ID                        bson.ObjectId `bson:"_id,omitempty" json:"id"`
 	IsSelected                bool          `bson:"IsSelected" json:"IsSelected"`
 	Created                   time.Time     `bson:"Created" json:"Created"`
+	Modified                  time.Time     `bson:"Modified" json:"Modified"`
 	UserName                  string        `bson:"UserName" json:"UserName"`
 	SerialNumber              string        `bson:"SerialNumber" json:"SerialNumber"`
 	Firmware                  string        `bson:"Firmware" json:"Firmware"`
@@ -157,45 +158,46 @@ type WaterTestResults struct {
 	SubsystemCepoIndex        int           `bson:"SubsystemCepoIndex" json:"SubsystemCepoIndex"`
 	SubsystemConfigIndex      int           `bson:"SubsystemConfigIndex" json:"SubsystemConfigIndex"`
 	TestOrientation           int           `bson:"TestOrientation" json:"TestOrientation"`
-	Beam0NoiseFloor           float32       `bson:"Beam0NoiseFloor" json:"Beam0NoiseFloor"`
-	Beam1NoiseFloor           float32       `bson:"Beam1NoiseFloor" json:"Beam1NoiseFloor"`
-	Beam2NoiseFloor           float32       `bson:"Beam2NoiseFloor" json:"Beam2NoiseFloor"`
-	Beam3NoiseFloor           float32       `bson:"Beam3NoiseFloor" json:"Beam3NoiseFloor"`
-	Beam0SignalLake           float32       `bson:"Beam0SignalLake" json:"Beam0SignalLake"`
-	Beam1SignalLake           float32       `bson:"Beam1SignalLake" json:"Beam1SignalLake"`
-	Beam2SignalLake           float32       `bson:"Beam2SignalLake" json:"Beam2SignalLake"`
-	Beam3SignalLake           float32       `bson:"Beam3SignalLake" json:"Beam3SignalLake"`
-	Beam0SignalOcean          float32       `bson:"Beam0SignalOcean" json:"Beam0SignalOcean"`
-	Beam1SignalOcean          float32       `bson:"Beam1SignalOcean" json:"Beam1SignalOcean"`
-	Beam2SignalOcean          float32       `bson:"Beam2SignalOcean" json:"Beam2SignalOcean"`
-	Beam3SignalOcean          float32       `bson:"Beam3SignalOcean" json:"Beam3SignalOcean"`
-	Beam0SnrLake              float32       `bson:"Beam0SnrLake" json:"Beam0SnrLake"`
-	Beam1SnrLake              float32       `bson:"Beam1SnrLake" json:"Beam1SnrLake"`
-	Beam2SnrLake              float32       `bson:"Beam2SnrLake" json:"Beam2SnrLake"`
-	Beam3SnrLake              float32       `bson:"Beam3SnrLake" json:"Beam3SnrLake"`
-	Beam0SnrOcean             float32       `bson:"Beam0SnrOcean" json:"Beam0SnrOcean"`
-	Beam1SnrOcean             float32       `bson:"Beam1SnrOcean" json:"Beam1SnrOcean"`
-	Beam2SnrOcean             float32       `bson:"Beam2SnrOcean" json:"Beam2SnrOcean"`
-	Beam3SnrOcean             float32       `bson:"Beam3SnrOcean" json:"Beam3SnrOcean"`
+	Beam0NoiseFloor           float64       `bson:"Beam0NoiseFloor" json:"Beam0NoiseFloor"`
+	Beam1NoiseFloor           float64       `bson:"Beam1NoiseFloor" json:"Beam1NoiseFloor"`
+	Beam2NoiseFloor           float64       `bson:"Beam2NoiseFloor" json:"Beam2NoiseFloor"`
+	Beam3NoiseFloor           float64       `bson:"Beam3NoiseFloor" json:"Beam3NoiseFloor"`
+	Beam0SignalLake           float64       `bson:"Beam0SignalLake" json:"Beam0SignalLake"`
+	Beam1SignalLake           float64       `bson:"Beam1SignalLake" json:"Beam1SignalLake"`
+	Beam2SignalLake           float64       `bson:"Beam2SignalLake" json:"Beam2SignalLake"`
+	Beam3SignalLake           float64       `bson:"Beam3SignalLake" json:"Beam3SignalLake"`
+	Beam0SignalOcean          float64       `bson:"Beam0SignalOcean" json:"Beam0SignalOcean"`
+	Beam1SignalOcean          float64       `bson:"Beam1SignalOcean" json:"Beam1SignalOcean"`
+	Beam2SignalOcean          float64       `bson:"Beam2SignalOcean" json:"Beam2SignalOcean"`
+	Beam3SignalOcean          float64       `bson:"Beam3SignalOcean" json:"Beam3SignalOcean"`
+	Beam0SnrLake              float64       `bson:"Beam0SnrLake" json:"Beam0SnrLake"`
+	Beam1SnrLake              float64       `bson:"Beam1SnrLake" json:"Beam1SnrLake"`
+	Beam2SnrLake              float64       `bson:"Beam2SnrLake" json:"Beam2SnrLake"`
+	Beam3SnrLake              float64       `bson:"Beam3SnrLake" json:"Beam3SnrLake"`
+	Beam0SnrOcean             float64       `bson:"Beam0SnrOcean" json:"Beam0SnrOcean"`
+	Beam1SnrOcean             float64       `bson:"Beam1SnrOcean" json:"Beam1SnrOcean"`
+	Beam2SnrOcean             float64       `bson:"Beam2SnrOcean" json:"Beam2SnrOcean"`
+	Beam3SnrOcean             float64       `bson:"Beam3SnrOcean" json:"Beam3SnrOcean"`
 	GpsDistance               string        `bson:"GpsDistance" json:"GpsDistance"`
 	GpsDirection              string        `bson:"GpsDirection" json:"GpsDirection"`
 	BtDistance                string        `bson:"BtDistance" json:"BtDistance"`
 	BtDirection               string        `bson:"BtDirection" json:"BtDirection"`
 	DistanceError             string        `bson:"DistanceError" json:"DistanceError"`
 	DirectionError            string        `bson:"DirectionError" json:"DirectionError"`
-	ProfileRangeBeam0         float32       `bson:"ProfileRangeBeam0" json:"ProfileRangeBeam0"`
-	ProfileRangeBeam1         float32       `bson:"ProfileRangeBeam1" json:"ProfileRangeBeam1"`
-	ProfileRangeBeam2         float32       `bson:"ProfileRangeBeam2" json:"ProfileRangeBeam2"`
-	ProfileRangeBeam3         float32       `bson:"ProfileRangeBeam3" json:"ProfileRangeBeam3"`
-	GlitchCountBeam0          float32       `bson:"GlitchCountBeam0" json:"GlitchCountBeam0"`
-	GlitchCountBeam1          float32       `bson:"GlitchCountBeam1" json:"GlitchCountBeam1"`
-	GlitchCountBeam2          float32       `bson:"GlitchCountBeam2" json:"GlitchCountBeam2"`
-	GlitchCountBeam3          float32       `bson:"GlitchCountBeam3" json:"GlitchCountBeam3"`
-	BottomTrackAmplitudeBeam0 float32       `bson:"BottomTrackAmplitudeBeam0" json:"BottomTrackAmplitudeBeam0"`
-	BottomTrackAmplitudeBeam1 float32       `bson:"BottomTrackAmplitudeBeam1" json:"BottomTrackAmplitudeBeam1"`
-	BottomTrackAmplitudeBeam2 float32       `bson:"BottomTrackAmplitudeBeam2" json:"BottomTrackAmplitudeBeam2"`
-	BottomTrackAmplitudeBeam3 float32       `bson:"BottomTrackAmplitudeBeam3" json:"BottomTrackAmplitudeBeam3"`
+	ProfileRangeBeam0         float64       `bson:"ProfileRangeBeam0" json:"ProfileRangeBeam0"`
+	ProfileRangeBeam1         float64       `bson:"ProfileRangeBeam1" json:"ProfileRangeBeam1"`
+	ProfileRangeBeam2         float64       `bson:"ProfileRangeBeam2" json:"ProfileRangeBeam2"`
+	ProfileRangeBeam3         float64       `bson:"ProfileRangeBeam3" json:"ProfileRangeBeam3"`
+	GlitchCountBeam0          float64       `bson:"GlitchCountBeam0" json:"GlitchCountBeam0"`
+	GlitchCountBeam1          float64       `bson:"GlitchCountBeam1" json:"GlitchCountBeam1"`
+	GlitchCountBeam2          float64       `bson:"GlitchCountBeam2" json:"GlitchCountBeam2"`
+	GlitchCountBeam3          float64       `bson:"GlitchCountBeam3" json:"GlitchCountBeam3"`
+	BottomTrackAmplitudeBeam0 float64       `bson:"BottomTrackAmplitudeBeam0" json:"BottomTrackAmplitudeBeam0"`
+	BottomTrackAmplitudeBeam1 float64       `bson:"BottomTrackAmplitudeBeam1" json:"BottomTrackAmplitudeBeam1"`
+	BottomTrackAmplitudeBeam2 float64       `bson:"BottomTrackAmplitudeBeam2" json:"BottomTrackAmplitudeBeam2"`
+	BottomTrackAmplitudeBeam3 float64       `bson:"BottomTrackAmplitudeBeam3" json:"BottomTrackAmplitudeBeam3"`
 	PlotReport                string        `bson:"PlotReport" json:"PlotReport"`
+	Notes                     string        `bson:"Notes" json:"Notes"`
 }
 
 // SnrTestResults holds the SNR Test information.
@@ -211,34 +213,34 @@ type SnrTestResults struct {
 	SubsystemCepoIndex        int           `bson:"SubsystemCepoIndex" json:"SubsystemCepoIndex"`
 	SubsystemConfigIndex      int           `bson:"SubsystemConfigIndex" json:"SubsystemConfigIndex"`
 	TestOrientation           int           `bson:"TestOrientation" json:"TestOrientation"`
-	Beam0NoiseFloor           float32       `bson:"Beam0NoiseFloor" json:"Beam0NoiseFloor"`
-	Beam1NoiseFloor           float32       `bson:"Beam1NoiseFloor" json:"Beam1NoiseFloor"`
-	Beam2NoiseFloor           float32       `bson:"Beam2NoiseFloor" json:"Beam2NoiseFloor"`
-	Beam3NoiseFloor           float32       `bson:"Beam3NoiseFloor" json:"Beam3NoiseFloor"`
-	Beam0SignalLake           float32       `bson:"Beam0SignalLake" json:"Beam0SignalLake"`
-	Beam1SignalLake           float32       `bson:"Beam1SignalLake" json:"Beam1SignalLake"`
-	Beam2SignalLake           float32       `bson:"Beam2SignalLake" json:"Beam2SignalLake"`
-	Beam3SignalLake           float32       `bson:"Beam3SignalLake" json:"Beam3SignalLake"`
-	Beam0SignalOcean          float32       `bson:"Beam0SignalOcean" json:"Beam0SignalOcean"`
-	Beam1SignalOcean          float32       `bson:"Beam1SignalOcean" json:"Beam1SignalOcean"`
-	Beam2SignalOcean          float32       `bson:"Beam2SignalOcean" json:"Beam2SignalOcean"`
-	Beam3SignalOcean          float32       `bson:"Beam3SignalOcean" json:"Beam3SignalOcean"`
-	Beam0SnrLake              float32       `bson:"Beam0SnrLake" json:"Beam0SnrLake"`
-	Beam1SnrLake              float32       `bson:"Beam1SnrLake" json:"Beam1SnrLake"`
-	Beam2SnrLake              float32       `bson:"Beam2SnrLake" json:"Beam2SnrLake"`
-	Beam3SnrLake              float32       `bson:"Beam3SnrLake" json:"Beam3SnrLake"`
-	Beam0SnrOcean             float32       `bson:"Beam0SnrOcean" json:"Beam0SnrOcean"`
-	Beam1SnrOcean             float32       `bson:"Beam1SnrOcean" json:"Beam1SnrOcean"`
-	Beam2SnrOcean             float32       `bson:"Beam2SnrOcean" json:"Beam2SnrOcean"`
-	Beam3SnrOcean             float32       `bson:"Beam3SnrOcean" json:"Beam3SnrOcean"`
-	GlitchCountBeam0          float32       `bson:"GlitchCountBeam0" json:"GlitchCountBeam0"`
-	GlitchCountBeam1          float32       `bson:"GlitchCountBeam1" json:"GlitchCountBeam1"`
-	GlitchCountBeam2          float32       `bson:"GlitchCountBeam2" json:"GlitchCountBeam2"`
-	GlitchCountBeam3          float32       `bson:"GlitchCountBeam3" json:"GlitchCountBeam3"`
-	BottomTrackAmplitudeBeam0 float32       `bson:"BottomTrackAmplitudeBeam0" json:"BottomTrackAmplitudeBeam0"`
-	BottomTrackAmplitudeBeam1 float32       `bson:"BottomTrackAmplitudeBeam1" json:"BottomTrackAmplitudeBeam1"`
-	BottomTrackAmplitudeBeam2 float32       `bson:"BottomTrackAmplitudeBeam2" json:"BottomTrackAmplitudeBeam2"`
-	BottomTrackAmplitudeBeam3 float32       `bson:"BottomTrackAmplitudeBeam3" json:"BottomTrackAmplitudeBeam3"`
+	Beam0NoiseFloor           float64       `bson:"Beam0NoiseFloor" json:"Beam0NoiseFloor"`
+	Beam1NoiseFloor           float64       `bson:"Beam1NoiseFloor" json:"Beam1NoiseFloor"`
+	Beam2NoiseFloor           float64       `bson:"Beam2NoiseFloor" json:"Beam2NoiseFloor"`
+	Beam3NoiseFloor           float64       `bson:"Beam3NoiseFloor" json:"Beam3NoiseFloor"`
+	Beam0SignalLake           float64       `bson:"Beam0SignalLake" json:"Beam0SignalLake"`
+	Beam1SignalLake           float64       `bson:"Beam1SignalLake" json:"Beam1SignalLake"`
+	Beam2SignalLake           float64       `bson:"Beam2SignalLake" json:"Beam2SignalLake"`
+	Beam3SignalLake           float64       `bson:"Beam3SignalLake" json:"Beam3SignalLake"`
+	Beam0SignalOcean          float64       `bson:"Beam0SignalOcean" json:"Beam0SignalOcean"`
+	Beam1SignalOcean          float64       `bson:"Beam1SignalOcean" json:"Beam1SignalOcean"`
+	Beam2SignalOcean          float64       `bson:"Beam2SignalOcean" json:"Beam2SignalOcean"`
+	Beam3SignalOcean          float64       `bson:"Beam3SignalOcean" json:"Beam3SignalOcean"`
+	Beam0SnrLake              float64       `bson:"Beam0SnrLake" json:"Beam0SnrLake"`
+	Beam1SnrLake              float64       `bson:"Beam1SnrLake" json:"Beam1SnrLake"`
+	Beam2SnrLake              float64       `bson:"Beam2SnrLake" json:"Beam2SnrLake"`
+	Beam3SnrLake              float64       `bson:"Beam3SnrLake" json:"Beam3SnrLake"`
+	Beam0SnrOcean             float64       `bson:"Beam0SnrOcean" json:"Beam0SnrOcean"`
+	Beam1SnrOcean             float64       `bson:"Beam1SnrOcean" json:"Beam1SnrOcean"`
+	Beam2SnrOcean             float64       `bson:"Beam2SnrOcean" json:"Beam2SnrOcean"`
+	Beam3SnrOcean             float64       `bson:"Beam3SnrOcean" json:"Beam3SnrOcean"`
+	GlitchCountBeam0          float64       `bson:"GlitchCountBeam0" json:"GlitchCountBeam0"`
+	GlitchCountBeam1          float64       `bson:"GlitchCountBeam1" json:"GlitchCountBeam1"`
+	GlitchCountBeam2          float64       `bson:"GlitchCountBeam2" json:"GlitchCountBeam2"`
+	GlitchCountBeam3          float64       `bson:"GlitchCountBeam3" json:"GlitchCountBeam3"`
+	BottomTrackAmplitudeBeam0 float64       `bson:"BottomTrackAmplitudeBeam0" json:"BottomTrackAmplitudeBeam0"`
+	BottomTrackAmplitudeBeam1 float64       `bson:"BottomTrackAmplitudeBeam1" json:"BottomTrackAmplitudeBeam1"`
+	BottomTrackAmplitudeBeam2 float64       `bson:"BottomTrackAmplitudeBeam2" json:"BottomTrackAmplitudeBeam2"`
+	BottomTrackAmplitudeBeam3 float64       `bson:"BottomTrackAmplitudeBeam3" json:"BottomTrackAmplitudeBeam3"`
 	PlotReport                string        `bson:"PlotReport" json:"PlotReport"`
 }
 
@@ -373,6 +375,16 @@ func getTankTestResultsSelectedType(serialNum string, testType string) *[]TankTe
 	return &data
 }
 
+// Find the WaterTestResults from the database based off the ID
+func getWaterTestResultsID(id bson.ObjectId) *WaterTestResults {
+	var data WaterTestResults
+	err := Vault.Mongo.C("WaterTestResults").Find(bson.M{"_id": id}).One(&data)
+	if err != nil {
+		fmt.Printf("Can't find from ID WaterTest data %v\n", err)
+	}
+	return &data
+}
+
 // Find the WaterTestResults from the database
 func getWaterTestResults(serialNum string) *[]WaterTestResults {
 	var data []WaterTestResults
@@ -393,6 +405,17 @@ func getWaterTestResultsSelected(serialNum string) *[]WaterTestResults {
 	}
 	fmt.Printf("getWaterTestResultsSelected: %s : Count[%d]\n", serialNum, len(data))
 	return &data
+}
+
+// Find all the Water Tests with the serial number partial given.  This will filter the Water Tests down.
+func getWaterTestContain(serialNumPartial string) *[]WaterTestResults {
+	var waterTests []WaterTestResults
+	err := Vault.Mongo.C("WaterTestResults").Find(bson.M{"SerialNumber": bson.M{"$regex": serialNumPartial}}).Sort("-Created").All(&waterTests)
+	if err != nil {
+		fmt.Printf("Can't find Water Test Partials %v\n", err)
+	}
+
+	return &waterTests
 }
 
 // Find the SnrTestResults from the database
