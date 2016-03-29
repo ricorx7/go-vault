@@ -3,8 +3,8 @@ package main
 import (
 	"fmt"
 	"net/http"
+	"path/filepath"
 	"text/template"
-  "path/filepath"
 
 	"github.com/albrow/forms"
 
@@ -30,11 +30,10 @@ func watertestListHandler(w http.ResponseWriter, r *http.Request) {
 		CheckError(err)
 		fmt.Println("Number of WaterTests: ", len(waterTestData.WaterTests))
 
-    // Get the path to the PlotModel
-    for index,element := range waterTestData.WaterTests {
-      plotReport := getWaterTestPlotModelPath(element.PlotReport, element.SerialNumber)
-      waterTestData.WaterTests[index].PlotReport = plotReport
-    }
+		// Get the path to the PlotModel
+		for index, element := range waterTestData.WaterTests {
+			waterTestData.WaterTests[index].PlotReport = getWaterTestPlotModelPath(element.PlotReport, element.SerialNumber)
+		}
 
 		// Display data to page
 		t, _ := template.ParseFiles("header.html", "watertest_list.html", "footer.html")
@@ -54,6 +53,11 @@ func watertestListHandler(w http.ResponseWriter, r *http.Request) {
 		waterTestData.WaterTests = *getWaterTestContain(partialSerial)
 		fmt.Println("Number of WaterTests: ", len(waterTestData.WaterTests))
 
+		// Get the path to the PlotModel
+		for index, element := range waterTestData.WaterTests {
+			waterTestData.WaterTests[index].PlotReport = getWaterTestPlotModelPath(element.PlotReport, element.SerialNumber)
+		}
+
 		// Display data to page
 		t, _ := template.ParseFiles("header.html", "watertest_list.html", "footer.html")
 		t.ExecuteTemplate(w, "header", nil)
@@ -66,10 +70,10 @@ func watertestListHandler(w http.ResponseWriter, r *http.Request) {
 // Append the file name and the vault drive, to give the link to the
 // actual file.
 func getWaterTestPlotModelPath(path string, serialNum string) string {
-      _, file := filepath.Split(path)
-      vault := "\\\\Vault\\Vault\\"
+	_, file := filepath.Split(path)
+	vault := "\\\\Vault\\Vault\\"
 
-      filePath := vault + serialNum + "\\"  + file
+	filePath := vault + serialNum + "\\" + file
 
-      return filePath
+	return filePath
 }
