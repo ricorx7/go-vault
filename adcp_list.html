@@ -17,7 +17,14 @@
         <a href="adcp/update/{{.SerialNumber}}" class="btn btn-warning">EDIT</a>
         <a href="adcp_checklist/update/{{.SerialNumber}}" class="btn btn-warning">CHECKLIST</a>
         <a href="adcp/cert/{{.SerialNumber}}" class="btn btn-info">CERT</a></br>
-        <a href="adcp/wt/{{.SerialNumber}}" class="btn btn-info">Water Test</a></br>
+
+        <form action="/adcp/wt" method="post" role="form" class="navbar-form">
+          <div class="form-group">
+            <input type="hidden" class="form-control" value="{{.SerialNumber}}" name="PartialSerialNumber" placeholder="filter SerialNumber">
+          </div>
+          <button type="submit" class="btn btn-primary">Lake Test</button>
+        </form>
+
         <small>{{.Created}}</small>
       </li>
     {{end}}

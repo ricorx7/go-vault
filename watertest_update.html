@@ -11,7 +11,7 @@
     <div class="col-xs-5">
       <select name="IsSelected" selected="{{.IsSelected}}">
         {{range .IsSelectedList}}
-          <option value="{{.Value}}" {{if eq .Selected true}}selected="selected"{{end}}>{{.Text}}</option>
+        <option value="{{.Value}}" {{if eq .Selected true}}selected="selected" {{end}}>{{.Text}}</option>
         {{end}}
       </select>
     </div>
@@ -22,7 +22,7 @@
       Serial Number:
       <br> (Ex: 01200000000000000000000000000387)
       <br>
-      <input type="text" name="SerialNumber" value="{{.WaterTest.SerialNumber}}" size="33" placeholder="SerialNumber" >
+      <input type="text" name="SerialNumber" value="{{.WaterTest.SerialNumber}}" size="33" placeholder="SerialNumber">
     </div>
   </div>
 

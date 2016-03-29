@@ -43,7 +43,7 @@ func main() {
 	mux.HandleFunc("/adcp/cert/:id", http.HandlerFunc(adcpCertHandler))
 	mux.HandleFunc("/adcp/add", http.HandlerFunc(adcpAddHandler))
 	mux.HandleFunc("/adcp/wt", http.HandlerFunc(watertestListHandler))
-	mux.HandleFunc("/adcp/wt/:id", http.HandlerFunc(watertestUpdateHandler))
+	mux.HandleFunc("/adcp/wt/update/:id", http.HandlerFunc(watertestUpdateHandler))
 	mux.HandleFunc("/adcp/wt/add", http.HandlerFunc(watertestAddHandler))
 	mux.HandleFunc("/so", http.HandlerFunc(salesOrderHandler))
 	mux.HandleFunc("/so/add", http.HandlerFunc(salesOrderAddHandler))

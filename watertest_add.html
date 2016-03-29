@@ -1,175 +1,252 @@
 {{define "content"}}
 
-<form action="/watertest/add" method="post">
+<form action="/adcp/wt/add" method="post">
+
+  <div class="page-header">
+    <h1>Lake Test</h1>
+  </div>
 
   <div class="row">
-  <div class="col-md-5">
-    Serial Number:<br>
-    (Ex: 01200000000000000000000000000387)<br>
-    <input type="text" name="SerialNumber" value="{{.WaterTest.SerialNumber}}" placeholder="SerialNumber">
+    <div class="col-xs-5">
+      <select name="IsSelected" selected="{{.IsSelected}}">
+        {{range .IsSelectedList}}
+        <option value="{{.Value}}" {{if eq .Selected true}}selected="selected" {{end}}>{{.Text}}</option>
+        {{end}}
+      </select>
+    </div>
   </div>
-</div>
 
-<!--div class="row">
-<div class="col-xs-5">
-  <input type="checkbox" data-ng-model="watertest.IsSelected" >
-</div>
-<div class="col-xs-7">
-  <span data-ng-bind="watertest.SubsystemDescStr"></span>
-</div>
-</div-->
+  <div class="row">
+    <div class="col-xs-5">
+      Serial Number:
+      <br> (Ex: 01200000000000000000000000000387)
+      <br>
+      <input type="text" name="SerialNumber" value="{{.WaterTest.SerialNumber}}" size="33" placeholder="SerialNumber">
+    </div>
+  </div>
 
-<div class="row">
-<div class="col-xs-3">
-  <label class="control-label" for="Orientation">Orientation:</label>
-  <select value="{{.WaterTest.TestOrientation}}">
-    <option id="Orientation">0</option>
-    <option id="Orientation">3</option>
-  </select>
-  <input class="form-control" type="text" name="TestOrientation" value="{{.WaterTest.TestOrientation}}" placeholder="Test Orientation">
-</div>
-</div>
+  <div class="row">
+    <div class="col-xs-3">
+      <label class="control-label" for="Orientation">Orientation:</label>
+      <select value="{{.WaterTest.TestOrientation}}">
+        <option id="Orientation">0</option>
+        <option id="Orientation">3</option>
+      </select>
+    </div>
+  </div>
 
-<div class="row">
-<div class="col-xs-2">
-  <h2>GPS</h2>
-</div>
-</div>
+  <div class="row">
+    <div class="col-xs-2">
+      <h2>GPS</h2>
+    </div>
+  </div>
 
-<div class="row">
-<div class="col-xs-2">
-  Distance Traveled:
-</div>
-<div class="col-xs-4">
-  <strong><input type="text" name="GpsDistance" value="{{.WaterTest.GpsDistance}}" placeholder="Gps Distance"></strong>
-</div>
-<div class="col-xs-2">
-  Direction Traveled:
-</div>
-<div class="col-xs-4">
-  <strong><input type="text" name="GpsDirection" value="{{.WaterTest.GpsDirection}}" placeholder="Gps Direction"></strong>
-</div>
-</div>
+  <div class="row">
+    <div class="col-xs-2">
+      Distance Traveled:
+    </div>
+    <div class="col-xs-4">
+      <strong><input type="text" name="GpsDistance" value="{{.WaterTest.GpsDistance}}" placeholder="Gps Distance"></strong>
+    </div>
+    <div class="col-xs-2">
+      Direction Traveled:
+    </div>
+    <div class="col-xs-4">
+      <strong><input type="text" name="GpsDirection" value="{{.WaterTest.GpsDirection}}" placeholder="Gps Direction"></strong>
+    </div>
+  </div>
 
-<div class="row">
-<div class="col-xs-2">
-  <h2>ADCP</h2>
-</div>
-</div>
+  <div class="row">
+    <div class="col-xs-2">
+      <h2>ADCP</h2>
+    </div>
+  </div>
 
-<div class="row">
-<div class="col-xs-2">
-  Distance Traveled:
-</div>
-<div class="col-xs-4">
-  <strong><input type="text" name="BtDistance" value="{{.WaterTest.BtDistance}}" placeholder="BT Distance"></strong>
-</div>
-<div class="col-xs-2">
-  Direction Traveled:
-</div>
-<div class="col-xs-4">
-  <strong><input type="text" name="BtDirection" value="{{.WaterTest.BtDirection}}" placeholder="BT Direction"></strong>
-</div>
-</div>
+  <div class="row">
+    <div class="col-xs-2">
+      Distance Traveled:
+    </div>
+    <div class="col-xs-4">
+      <strong><input type="text" name="BtDistance" value="{{.WaterTest.BtDistance}}" placeholder="BT Distance"></strong>
+    </div>
+    <div class="col-xs-2">
+      Direction Traveled:
+    </div>
+    <div class="col-xs-4">
+      <strong><input type="text" name="BtDirection" value="{{.WaterTest.BtDirection}}" placeholder="BT Direction"></strong>
+    </div>
+  </div>
 
-<div class="row">
-<div class="col-xs-2">
-  Distance Error:
-</div>
-<div class="col-xs-4">
-  <strong><input type="text" name="DistanceError" value="{{.WaterTest.DistanceError}}" placeholder="Distance Error"></strong>
-</div>
-<div class="col-xs-2">
-  Direction Error:
-</div>
-<div class="col-xs-4">
-  <strong><input type="text" name="DirectionError" value="{{.WaterTest.DirectionError}}" placeholder="Direction Error"></strong>
-</div>
-</div>
+  <div class="row">
+    <div class="col-xs-2">
+      Distance Error:
+    </div>
+    <div class="col-xs-4">
+      <strong><input type="text" name="DistanceError" value="{{.WaterTest.DistanceError}}" placeholder="Distance Error"></strong>
+    </div>
+    <div class="col-xs-2">
+      Direction Error:
+    </div>
+    <div class="col-xs-4">
+      <strong><input type="text" name="DirectionError" value="{{.WaterTest.DirectionError}}" placeholder="Direction Error"></strong>
+    </div>
+  </div>
+
+  <div class="row" style="margin: 20px">
+    <table class="table table-bordered table-condensed" style="border: 1px">
+      <thead bgcolor="lightgray">
+        <th></th>
+        <th class="text-center">
+          <h5><strong>Beam 0</strong></h5></th>
+        <th class="text-center">
+          <h5><strong>Beam 1</strong></h5></th>
+        <th class="text-center">
+          <h5><strong>Beam 2</strong></h5></th>
+        <th class="text-center">
+          <h5><strong>Beam 3</strong></h5></th>
+      </thead>
+
+      <tbody>
+        <tr>
+          <td class="text"><strong>Signal Lake</strong></td>
+          <td class="text-center">
+            <input type="text" name="Beam0SignalLake" value="{{.WaterTest.Beam0SignalLake}}" placeholder="Beam0 Signal Lake">
+          </td>
+          <td class="text-center">
+            <input type="text" name="Beam1SignalLake" value="{{.WaterTest.Beam1SignalLake}}" placeholder="Beam1 Signal Lake">
+          </td>
+          <td class="text-center">
+            <input type="text" name="Beam2SignalLake" value="{{.WaterTest.Beam2SignalLake}}" placeholder="Beam2 Signal Lake">
+          </td>
+          <td class="text-center">
+            <input type="text" name="Beam3SignalLake" value="{{.WaterTest.Beam3SignalLake}}" placeholder="Beam3 Signal Lake">
+          </td>
+        </tr>
+        <tr>
+          <td class="text"><strong>Signal Ocean</strong></td>
+          <td class="text-center">
+            <input type="text" name="Beam0SignalOcean" value="{{.WaterTest.Beam0SignalOcean}}" placeholder="Beam0 Signal Ocean">
+          </td>
+          <td class="text-center">
+            <input type="text" name="Beam1SignalOcean" value="{{.WaterTest.Beam1SignalOcean}}" placeholder="Beam1 Signal Ocean">
+          </td>
+          <td class="text-center">
+            <input type="text" name="Beam2SignalOcean" value="{{.WaterTest.Beam2SignalOcean}}" placeholder="Beam2 Signal Ocean">
+          </td>
+          <td class="text-center">
+            <input type="text" name="Beam3SignalOcean" value="{{.WaterTest.Beam3SignalOcean}}" placeholder="Beam3 Signal Ocean">
+          </td>
+        </tr>
+        <tr>
+          <td class="text"><strong>Noise</strong></td>
+          <td class="text-center">
+            <input type="text" name="Beam0NoiseFloor" value="{{.WaterTest.Beam0NoiseFloor}}" placeholder="Beam0 Noise Floor">
+          </td>
+          <td class="text-center">
+            <input type="text" name="Beam1NoiseFloor" value="{{.WaterTest.Beam1NoiseFloor}}" placeholder="Beam1 Noise Floor">
+          </td>
+          <td class="text-center">
+            <input type="text" name="Beam2NoiseFloor" value="{{.WaterTest.Beam2NoiseFloor}}" placeholder="Beam2 Noise Floor">
+          </td>
+          <td class="text-center">
+            <input type="text" name="Beam3NoiseFloor" value="{{.WaterTest.Beam3NoiseFloor}}" placeholder="Beam3 Noise Floor">
+          </td>
+        </tr>
+        <tr>
+          <td class="text"><strong>SNR Lake</strong></td>
+          <td class="text-center">
+            <input type="text" name="Beam0SnrLake" value="{{.WaterTest.Beam0SnrLake}}" placeholder="Beam0 SNR Lake">
+          </td>
+          <td class="text-center">
+            <input type="text" name="Beam1SnrLake" value="{{.WaterTest.Beam1SnrLake}}" placeholder="Beam1 SNR Lake">
+          </td>
+          <td class="text-center">
+            <input type="text" name="Beam2SnrLake" value="{{.WaterTest.Beam2SnrLake}}" placeholder="Beam2 SNR Lake">
+          </td>
+          <td class="text-center">
+            <input type="text" name="Beam3SnrLake" value="{{.WaterTest.Beam3SnrLake}}" placeholder="Beam3 SNR Lake">
+          </td>
+        </tr>
+        <tr>
+          <td class="text"><strong>SNR Ocean</strong></td>
+          <td class="text-center">
+            <input type="text" name="Beam0SnrOcean" value="{{.WaterTest.Beam0SnrOcean}}" placeholder="Beam0 SNR Ocean">
+          </td>
+          <td class="text-center">
+            <input type="text" name="Beam1SnrOcean" value="{{.WaterTest.Beam1SnrOcean}}" placeholder="Beam1 SNR Ocean">
+          </td>
+          <td class="text-center">
+            <input type="text" name="Beam2SnrOcean" value="{{.WaterTest.Beam2SnrOcean}}" placeholder="Beam2 SNR Ocean">
+          </td>
+          <td class="text-center">
+            <input type="text" name="Beam3SnrOcean" value="{{.WaterTest.Beam3SnrOcean}}" placeholder="Beam3 SNR Ocean">
+          </td>
+        </tr>
+        <tr>
+          <td class="text"><strong>Profile Range</strong></td>
+          <td class="text-center">
+            <input type="text" name="ProfileRangeBeam0" value="{{.WaterTest.ProfileRangeBeam0}}" placeholder="Profile Range Beam0">
+          </td>
+          <td class="text-center">
+            <input type="text" name="ProfileRangeBeam1" value="{{.WaterTest.ProfileRangeBeam1}}" placeholder="Profile Range Beam1">
+          </td>
+          <td class="text-center">
+            <input type="text" name="ProfileRangeBeam2" value="{{.WaterTest.ProfileRangeBeam2}}" placeholder="Profile Range Beam2">
+          </td>
+          <td class="text-center">
+            <input type="text" name="ProfileRangeBeam3" value="{{.WaterTest.ProfileRangeBeam3}}" placeholder="Profile Range Beam3">
+          </td>
+        </tr>
+        <tr>
+          <td class="text"><strong>Glitch Count</strong></td>
+          <td class="text-center">
+            <input type="text" name="GlitchCountBeam0" value="{{.WaterTest.GlitchCountBeam0}}" placeholder="Glitch Count Beam0">
+          </td>
+          <td class="text-center">
+            <input type="text" name="GlitchCountBeam1" value="{{.WaterTest.GlitchCountBeam1}}" placeholder="Glitch Count Beam1">
+          </td>
+          <td class="text-center">
+            <input type="text" name="GlitchCountBeam2" value="{{.WaterTest.GlitchCountBeam2}}" placeholder="Glitch Count Beam2">
+          </td>
+          <td class="text-center">
+            <input type="text" name="GlitchCountBeam3" value="{{.WaterTest.GlitchCountBeam3}}" placeholder="Glitch Count Beam3">
+          </td>
+        </tr>
+        <tr>
+          <td class="text"><strong>BT Amp</strong></td>
+          <td class="text-center">
+            <input type="text" name="BottomTrackAmplitudeBeam0" value="{{.WaterTest.BottomTrackAmplitudeBeam0}}" placeholder="BottomTrack Amplitude Beam0">
+          </td>
+          <td class="text-center">
+            <input type="text" name="BottomTrackAmplitudeBeam1" value="{{.WaterTest.BottomTrackAmplitudeBeam1}}" placeholder="BottomTrack Amplitude Beam1">
+          </td>
+          <td class="text-center">
+            <input type="text" name="BottomTrackAmplitudeBeam2" value="{{.WaterTest.BottomTrackAmplitudeBeam2}}" placeholder="BottomTrack Amplitude Beam2">
+          </td>
+          <td class="text-center">
+            <input type="text" name="BottomTrackAmplitudeBeam3" value="{{.WaterTest.BottomTrackAmplitudeBeam3}}" placeholder="BottomTrack Amplitude Beam3">
+          </td>
+        </tr>
+
+      </tbody>
+    </table>
+  </div>
+
+  <div class="row">
+    <div class="col-md-4">
+      <textarea name="Notes" value="{{.WaterTest.Notes}}" class="form-control" rows="3" placeholder="Notes"></textarea>
+    </div>
+  </div>
+
+  <div class="row" style="margin: 5px">
+    <input type="hidden" name="SerialNumber" value="{{.WaterTest.SerialNumber}}">
+    <input type="hidden" name="ID" value="{{.WaterTest.ID.Hex}}">
+    <input type="hidden" name="token" value="{{.Token}}">
+    <input type="submit" value="Update">
+  </div>
 
 
-<div class="row" style="margin: 20px">
-<table class="table table-bordered table-condensed" style="border: 1px">
-  <thead bgcolor="lightgray">
-          <th></th>
-          <th class="text-center"><h5><strong>Beam 0</strong></h5></th>
-          <th class="text-center"><h5><strong>Beam 1</strong></h5></th>
-          <th class="text-center"><h5><strong>Beam 2</strong></h5></th>
-          <th class="text-center"><h5><strong>Beam 3</strong></h5></th>
-  </thead>
-
-  <tbody>
-  <tr>
-      <td class="text"><strong>Signal Lake</strong></td>
-      <td class="text-center"><input type="text" name="Beam0SignalLake" value="{{.WaterTest.Beam0SignalLake}}" placeholder="Beam0 Signal Lake"></td>
-      <td class="text-center"><input type="text" name="Beam1SignalLake" value="{{.WaterTest.Beam1SignalLake}}" placeholder="Beam1 Signal Lake"></td>
-      <td class="text-center"><input type="text" name="Beam2SignalLake" value="{{.WaterTest.Beam2SignalLake}}" placeholder="Beam2 Signal Lake"></td>
-      <td class="text-center"><input type="text" name="Beam3SignalLake" value="{{.WaterTest.Beam3SignalLake}}" placeholder="Beam3 Signal Lake"></td>
-  </tr>
-  <tr>
-      <td class="text"><strong>Signal Ocean</strong></td>
-      <td class="text-center"><input type="text" name="Beam0SignalOcean" value="{{.WaterTest.Beam0SignalOcean}}" placeholder="Beam0 Signal Ocean"></td>
-      <td class="text-center"><input type="text" name="Beam1SignalOcean" value="{{.WaterTest.Beam1SignalOcean}}" placeholder="Beam1 Signal Ocean"></td>
-      <td class="text-center"><input type="text" name="Beam2SignalOcean" value="{{.WaterTest.Beam2SignalOcean}}" placeholder="Beam2 Signal Ocean"></td>
-      <td class="text-center"><input type="text" name="Beam3SignalOcean" value="{{.WaterTest.Beam3SignalOcean}}" placeholder="Beam3 Signal Ocean"></td>
-  </tr>
-  <tr>
-      <td class="text"><strong>Noise</strong></td>
-      <td class="text-center"><input type="text" name="Beam0NoiseFloor" value="{{.WaterTest.Beam0NoiseFloor}}" placeholder="Beam0 Noise Floor"></td>
-      <td class="text-center"><input type="text" name="Beam1NoiseFloor" value="{{.WaterTest.Beam1NoiseFloor}}" placeholder="Beam1 Noise Floor"></td>
-      <td class="text-center"><input type="text" name="Beam2NoiseFloor" value="{{.WaterTest.Beam2NoiseFloor}}" placeholder="Beam2 Noise Floor"></td>
-      <td class="text-center"><input type="text" name="Beam3NoiseFloor" value="{{.WaterTest.Beam3NoiseFloor}}" placeholder="Beam3 Noise Floor"></td>
-  </tr>
-  <tr>
-      <td class="text"><strong>SNR Lake</strong></td>
-      <td class="text-center"><input type="text" name="Beam0SnrLake" value="{{.WaterTest.Beam0SnrLake}}" placeholder="Beam0 SNR Lake"></td>
-      <td class="text-center"><input type="text" name="Beam1SnrLake" value="{{.WaterTest.Beam1SnrLake}}" placeholder="Beam1 SNR Lake"></td>
-      <td class="text-center"><input type="text" name="Beam2SnrLake" value="{{.WaterTest.Beam2SnrLake}}" placeholder="Beam2 SNR Lake"></td>
-      <td class="text-center"><input type="text" name="Beam3SnrLake" value="{{.WaterTest.Beam3SnrLake}}" placeholder="Beam3 SNR Lake"></td>
-  </tr>
-  <tr>
-      <td class="text"><strong>SNR Ocean</strong></td>
-      <td class="text-center"><input type="text" name="Beam0SnrOcean" value="{{.WaterTest.Beam0SnrOcean}}" placeholder="Beam0 SNR Ocean"></td>
-      <td class="text-center"><input type="text" name="Beam1SnrOcean" value="{{.WaterTest.Beam1SnrOcean}}" placeholder="Beam1 SNR Ocean"></td>
-      <td class="text-center"><input type="text" name="Beam2SnrOcean" value="{{.WaterTest.Beam2SnrOcean}}" placeholder="Beam2 SNR Ocean"></td>
-      <td class="text-center"><input type="text" name="Beam3SnrOcean" value="{{.WaterTest.Beam3SnrOcean}}" placeholder="Beam3 SNR Ocean"></td>
-  </tr>
-  <tr>
-      <td class="text"><strong>Profile Range</strong></td>
-      <td class="text-center"><input type="text" name="ProfileRangeBeam0" value="{{.WaterTest.ProfileRangeBeam0}}" placeholder="Profile Range Beam0"></td>
-      <td class="text-center"><input type="text" name="ProfileRangeBeam1" value="{{.WaterTest.ProfileRangeBeam1}}" placeholder="Profile Range Beam1"></td>
-      <td class="text-center"><input type="text" name="ProfileRangeBeam2" value="{{.WaterTest.ProfileRangeBeam2}}" placeholder="Profile Range Beam2"></td>
-      <td class="text-center"><input type="text" name="ProfileRangeBeam3" value="{{.WaterTest.ProfileRangeBeam3}}" placeholder="Profile Range Beam3"></td>
-  </tr>
-  <tr>
-      <td class="text"><strong>Glitch Count</strong></td>
-      <td class="text-center"><input type="text" name="GlitchCountBeam0" value="{{.WaterTest.GlitchCountBeam0}}" placeholder="Glitch Count Beam0"></td>
-      <td class="text-center"><input type="text" name="GlitchCountBeam1" value="{{.WaterTest.GlitchCountBeam1}}" placeholder="Glitch Count Beam1"></td>
-      <td class="text-center"><input type="text" name="GlitchCountBeam2" value="{{.WaterTest.GlitchCountBeam2}}" placeholder="Glitch Count Beam2"></td>
-      <td class="text-center"><input type="text" name="GlitchCountBeam3" value="{{.WaterTest.GlitchCountBeam3}}" placeholder="Glitch Count Beam3"></td>
-  </tr>
-  <tr>
-      <td class="text"><strong>BT Amp</strong></td>
-      <td class="text-center"><input type="text" name="BottomTrackAmplitudeBeam0" value="{{.WaterTest.BottomTrackAmplitudeBeam0}}" placeholder="BottomTrack Amplitude Beam0"></td>
-      <td class="text-center"><input type="text" name="BottomTrackAmplitudeBeam1" value="{{.WaterTest.BottomTrackAmplitudeBeam1}}" placeholder="BottomTrack Amplitude Beam1"></td>
-      <td class="text-center"><input type="text" name="BottomTrackAmplitudeBeam2" value="{{.WaterTest.BottomTrackAmplitudeBeam2}}" placeholder="BottomTrack Amplitude Beam2"></td>
-      <td class="text-center"><input type="text" name="BottomTrackAmplitudeBeam3" value="{{.WaterTest.BottomTrackAmplitudeBeam3}}" placeholder="BottomTrack Amplitude Beam3"></td>
-  </tr>
-
-</tbody>
-</table>
-</div>
-
-<div class="row">
-<div class="col-md-4">
-  <textarea name="Notes" value="{{.WaterTest.Notes}}" class="form-control" rows="3" placeholder="Notes"></textarea>
-</div>
-</div>
-
-<div class="form-group">
-  <input type="hidden" name="token" value="{{.Token}}">
-  <input type="submit" class="btn btn-default">
-</div>
 </form>
+
 
 {{end}}

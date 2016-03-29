@@ -50,7 +50,7 @@ func watertestUpdateHandler(w http.ResponseWriter, r *http.Request) {
 		val.Require("SerialNumber")
 		val.Require("ID")
 
-		fmt.Printf("ID: %s\n", formData.Get("ID") )
+		fmt.Printf("ID: %s\n", formData.Get("ID"))
 
 		//wt := getWaterTestResultsID(bson.ObjectId(formData.Get("ID")))
 		wt := getWaterTestResultsID(formData.Get("ID"))
@@ -193,13 +193,13 @@ func getSelectedList(isSelected bool) []OptionItem {
 	}
 
 	// Set the selected value based off the status given
-		if isSelected {
-			options[0].Selected = false
-			options[1].Selected = true
-		} else {
-			options[0].Selected = true
-			options[1].Selected = false
-		}
+	if isSelected {
+		options[0].Selected = false
+		options[1].Selected = true
+	} else {
+		options[0].Selected = true
+		options[1].Selected = false
+	}
 
 	return options
 }
