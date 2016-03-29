@@ -1,0 +1,87 @@
+{{define "content"}}
+
+<style type="text/css">
+  .error {
+    color: red;
+  }
+
+  tr:nth-child(even) {
+    background-color: #d5d5d5;
+  }
+
+</style>
+
+<header>
+  <h1>Water Tests</h1>
+</header>
+
+<form action="/adcp/wt" method="post" role="form" class="navbar-form">
+  <div class="form-group">
+    <input type="text" class="form-control" name="PartialSerialNumber" placeholder="filter SerialNumber">
+  </div>
+  <button type="submit" class="btn btn-default">Submit</button>
+</form>
+
+<div class="list-group">
+  {{range .WaterTests}}
+  <li class="list-group-item" style="margin: 5px">
+    <div class="row">
+      <div class="col-xs-5">
+        <!--input type="checkbox" data-ng-model="{{.IsSelected}}"-->
+        <span>{{.SerialNumber}}</span>
+      </div>
+      <div class="col-xs-4">
+        <span>{{.SubsystemDescStr}}</span>
+      </div>
+      <div class="col-xs-3">
+        <a href="wt/{{.ID.Hex}}" class="btn btn-info">Edit</a></br>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-xs-5">
+        <strong> Beam <span>{{.TestOrientation}}</span> Forward</strong>
+      </div>
+      <div class="col-xs-5">
+        <strong> Selected: <span>{{.IsSelected}}</span></strong>
+      </div>
+    </div>
+
+    <div class="row" style="margin: 5px">
+      <table class="table table-striped table-condensed">
+        <tbody>
+          <tr>
+            <td><strong>GPS</strong></td>
+            <td class="text-center"><span>{{.GpsDistance}}</span></td>
+            <td class="text-center"><span>{{.GpsDirection}}</span></td>
+            <td class="text-center"><span></span></td>
+            <td class="text-center"><span></span></td>
+          </tr>
+          <tr>
+            <td><strong>DMG</strong></td>
+            <td class="text-center"><span>{{.BtDistance}}</span></td>
+            <td class="text-center"><span>{{.BtDirection}}</span></td>
+            <td class="text-center"><span>{{.DistanceError}}</span></td>
+            <td class="text-center"><span>{{.DirectionError}}</span></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="row" style="margin: 5px">
+      <a href="{{.PlotReport}}" target="_blank" class="btn btn-info">Report</a></br>
+    </div>
+
+    <div class="row">
+      <small class="list-group-item-text">
+        Posted on
+        <span>{{.Created}}</span>
+        by
+        <span>{{.UserName}}</span>
+      </small>
+    </div>
+  </li>
+  {{end}}
+</div>
+
+{{end}}
