@@ -376,9 +376,10 @@ func getTankTestResultsSelectedType(serialNum string, testType string) *[]TankTe
 }
 
 // Find the WaterTestResults from the database based off the ID
-func getWaterTestResultsID(id bson.ObjectId) *WaterTestResults {
+func getWaterTestResultsID(id string) *WaterTestResults {
 	var data WaterTestResults
-	err := Vault.Mongo.C("WaterTestResults").Find(bson.M{"_id": id}).One(&data)
+
+	err := Vault.Mongo.C("WaterTestResults").Find(bson.M{"_id": bson.ObjectIdHex(id)}).One(&data)
 	if err != nil {
 		fmt.Printf("Can't find from ID WaterTest data %v\n", err)
 	}
@@ -410,7 +411,7 @@ func getWaterTestResultsSelected(serialNum string) *[]WaterTestResults {
 // Find all the Water Tests with the serial number partial given.  This will filter the Water Tests down.
 func getWaterTestContain(serialNumPartial string) *[]WaterTestResults {
 	var waterTests []WaterTestResults
-	err := Vault.Mongo.C("WaterTestResults").Find(bson.M{"SerialNumber": bson.M{"$regex": serialNumPartial}}).Sort("-Created").All(&waterTests)
+	err := Vault.Mongo.C("WaterTestResults").Find(bson.M{"SerialNumber": bson.M{"$regex": serialNumPartial}}).Sort("-Created", "IsSelected").All(&waterTests)
 	if err != nil {
 		fmt.Printf("Can't find Water Test Partials %v\n", err)
 	}
