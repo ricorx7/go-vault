@@ -95,7 +95,7 @@ func watertestAddHandler(w http.ResponseWriter, r *http.Request) {
 		CheckError(err)
 
 		// Go to the list of WaterTests
-		http.Redirect(w, r, "/watertest", http.StatusFound)
+		http.Redirect(w, r, "/adcp/wt", http.StatusFound)
 	}
 }
 

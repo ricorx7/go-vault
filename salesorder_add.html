@@ -1,4 +1,41 @@
 {{define "content"}}
+
+<script>
+  $(function() {
+    $("#datepicker").datepicker();
+  });
+  $(function() {
+    $("#datepicker1").datepicker();
+  });
+  $(function() {
+    $("#datepicker2").datepicker();
+  });
+  $(function() {
+    $("#datepicker3").datepicker();
+  });
+  $(function() {
+    $("#datepicker4").datepicker();
+  });
+  $(function() {
+    $("#datepicker5").datepicker();
+  });
+  $(function() {
+    $("#datepicker6").datepicker();
+  });
+  $(function() {
+    $("#datepicker7").datepicker();
+  });
+  $(function() {
+    $("#datepicker8").datepicker();
+  });
+  $(function() {
+    $("#datepicker9").datepicker();
+  });
+  $(function() {
+    $("#datepicker10").datepicker();
+  });
+</script>
+
 <div class="page-header">
   <h1>New Salesorder</h1>
 </div>
@@ -33,22 +70,22 @@
                 <input type="text" name="POReference" value="{{.SO.POReference}}" class="form-control" placeholder="PO Reference">
               </div>
               <div class="col-md-4">
-                <label class="control-label" for="PODateIssued">PO Date Issued (YYYY/MM/DD)</label>
-                <input type="text" name="PODateIssued" value="{{.SO.PODateIssued}}" class="form-control" placeholder="YYYY/MM/DD">
+                <label class="control-label" for="PODateIssued">PO Date Issued</label>
+                <input type="text" name="PODateIssued" value="{{.SO.PODateIssued}}" id="datepicker" placeholder="Date">
                 <div class="col-md-4">
-                  <label class="control-label" for="PODateReceived">PO Date Received (YYYY/MM/DD)</label>
-                  <input type="text" name="PODateReceived" value="{{.SO.PODateReceived}}" class="form-control" placeholder="YYYY/MM/DD">
+                  <label class="control-label" for="PODateReceived">PO Date Received</label>
+                  <input type="text" name="PODateReceived" value="{{.SO.PODateReceived}}" id="datepicker1" placeholder="Date">
                 </div>
               </div>
 
               <div class="row">
                 <div class="col-md-4">
-                  <label class="control-label" for="DueDate">Due Date (YYYY/MM/DD)</label>
-                  <input type="text" name="DueDate" value="{{.SO.DueDate}}" class="form-control" placeholder="YYYY/MM/DD">
+                  <label class="control-label" for="DueDate">Due Date</label>
+                  <input type="text" name="DueDate" value="{{.SO.DueDate}}" id="datepicker2" placeholder="Date">
                 </div>
                 <div class="col-md-4">
-                  <label class="control-label" for="EstShipDate">Estimated Ship Date (YYYY/MM/DD)</label>
-                  <input type="text" name="EstShipDate" value="{{.SO.EstShipDate}}" class="form-control" placeholder="YYYY/MM/DD">
+                  <label class="control-label" for="EstShipDate">Estimated Ship Date</label>
+                  <input type="text" name="EstShipDate" value="{{.SO.EstShipDate}}" id="datepicker3" placeholder="Date">
                 </div>
               </div>
 
@@ -174,8 +211,8 @@
 
           <div class="row">
             <div class="col-md-3">
-              <label class="control-label" for="DateShiped">Date Shipped (YYYY/MM/DD)</label>
-              <input type="text" name="DateShiped" value="{{.SO.DateShiped}}" class="form-control" placeholder="YYYY/MM/DD">
+              <label class="control-label" for="DateShiped">Date Shipped</label>
+              <input type="text" name="DateShiped" value="{{.SO.DateShiped}}" id="datepicker4" placeholder="Date">
             </div>
 
             <div class="col-md-3">
@@ -187,8 +224,8 @@
 
           <div class="row">
             <div class="col-md-3">
-              <label class="control-label" for="DeliveryDate">Delivery Date (YYYY/MM/DD)</label>
-              <input type="text" name="DeliveryDate" value="{{.SO.DeliveryDate}}" class="form-control" placeholder="YYYY/MM/DD">
+              <label class="control-label" for="DeliveryDate">Delivery Date</label>
+              <input type="text" name="DeliveryDate" value="{{.SO.DeliveryDate}}" id="datepicker5" placeholder="Date">
             </div>
 
             <div class="col-md-3">
