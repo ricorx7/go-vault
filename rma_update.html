@@ -1,5 +1,14 @@
 {{define "content"}}
 
+<style type="text/css">
+textarea {
+    min-width: 300px;
+    min-height: 200px;
+    width: 700px;
+    height: 700px
+}
+</style>
+
 <script>
   $(function() { $( "#datepicker" ).datepicker(); });
   $(function() { $( "#datepicker1" ).datepicker(); });
@@ -23,6 +32,11 @@
             <label class="control-label" for="RmaNumber">RMA Number</label>
           </div>
           <div class="col-md-9">
+            <select name="RmaType" selected="{{.RMA.RmaType}}">
+              {{range .RmaTypeList}}
+                <option value="{{.Value}}" {{if eq .Selected true}}selected="selected"{{end}}>{{.Text}}</option>
+              {{end}}
+            </select>
             <input type="text" name="RmaNumber" value="{{.RMA.RmaNumber}}" class="form-control" placeholder="RMA Number" required>
           </div>
         </div>
@@ -471,7 +485,7 @@
             <label class="control-label" for="Notes">Notes</label>
           </div>
           <div class="col-md-9">
-            <textarea name="Notes" value="{{.RMA.Notes}}" class="form-control" rows="3" placeholder="Notes">{{.RMA.Notes}}</textarea>
+            <textarea name="Notes" value="{{.RMA.Notes}}" class="form-control" rows="30" maxlength="50000" placeholder="Notes">{{.RMA.Notes}}</textarea>
           </div>
         </div>
       </div>

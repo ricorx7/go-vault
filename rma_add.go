@@ -20,11 +20,18 @@ type RmaProduct struct {
 }
 
 // RMA will keep track of the sales order information.
+// RMA Type is the first 3 digits
+// RMA Number is the unique number for all RMA.
+// RMA Types:
+// 29 = Warrenty
+// 28 = Billable
+// 259 = Demo Repair
 type RMA struct {
 	ID                         bson.ObjectId   `bson:"_id,omitempty" json:"id"`
 	OrigSalesOrder             string          `bson:"OrigSalesOrder,omitempty" json:"OrigSalesOrder"`
 	RmaDate                    string          `bson:"RmaDate" json:"RmaDate"`
-	RmaNumber                  string          `bson:"RmaNumber" json:"RmaNumber"`
+	RmaType                    string          `bson:"RmaType" json:"RmaType"`
+	RmaNumber                  int             `bson:"RmaNumber" json:"RmaNumber"`
 	Company                    string          `bson:"Company" json:"Company"`
 	ContactName                string          `bson:"ContactName" json:"ContactName"`
 	ContactAddress             string          `bson:"ContactAddress" json:"ContactAddress"`
@@ -76,6 +83,7 @@ type RmaUpdate struct {
 	ProductList  []Product
 	StatusList   []OptionItem
 	BillableList []OptionItem
+	RmaTypeList  []OptionItem
 	Token        string
 }
 
@@ -87,6 +95,8 @@ func rmaAddHandler(w http.ResponseWriter, r *http.Request) {
 		rmaData.ProductList = *getProductList()
 		rmaData.StatusList = getStatusList("Reported")
 		rmaData.BillableList = getBillableList("Billable")
+		rmaData.RmaTypeList = getRmaTypeList("290")
+		rmaData.RMA.RmaNumber = getNewRmaNumber()
 
 		displayRmaTemplate(w, rmaData)
 	} else {
@@ -115,7 +125,8 @@ func rmaAddHandler(w http.ResponseWriter, r *http.Request) {
 
 		// Use data to create a user object
 		rma := &RMA{
-			RmaNumber:                  formData.Get("RmaNumber"),
+			RmaType:                    formData.Get("RmaType"),
+			RmaNumber:                  formData.GetInt("RmaNumber"),
 			OrigSalesOrder:             formData.Get("OrigSalesOrder"),
 			Company:                    formData.Get("Company"),
 			ContactName:                formData.Get("ContactName"),
@@ -162,7 +173,7 @@ func rmaAddHandler(w http.ResponseWriter, r *http.Request) {
 		// Add the new product to the RMA
 		if formData.Get("SubmitButton") == "ADD" {
 			//if !val.HasErrors() {
-			fmt.Printf("Add product to RMA: %s\n", rma.RmaNumber)
+			fmt.Printf("Add product to RMA: %d\n", rma.RmaNumber)
 
 			// Add the product to the list
 			rmaProduct := &RmaProduct{}
@@ -178,12 +189,13 @@ func rmaAddHandler(w http.ResponseWriter, r *http.Request) {
 			rmaData.ProductList = *getProductList()
 			rmaData.StatusList = getStatusList(rma.Status)
 			rmaData.BillableList = getBillableList(rma.Billable)
+			rmaData.RmaTypeList = getRmaTypeList(rma.RmaType)
 			rmaData.RMA = *rma
 
 			displayRmaTemplate(w, rmaData)
 		} else if formData.Get("SubmitButton") == "ADD REPAIR" {
 			//if !val.HasErrors() {
-			fmt.Printf("Add repair product to RMA: %s\n", rma.RmaNumber)
+			fmt.Printf("Add repair product to RMA: %d\n", rma.RmaNumber)
 
 			// Add the product to the repair list
 			rmaProduct := &RmaProduct{}
@@ -199,11 +211,12 @@ func rmaAddHandler(w http.ResponseWriter, r *http.Request) {
 			rmaData.ProductList = *getProductList()
 			rmaData.StatusList = getStatusList(rma.Status)
 			rmaData.BillableList = getBillableList(rma.Billable)
+			rmaData.RmaTypeList = getRmaTypeList(rma.RmaType)
 			rmaData.RMA = *rma
 
 			displayRmaTemplate(w, rmaData)
 		} else {
-			fmt.Printf("RMA Add: %s\n", rma.RmaNumber)
+			fmt.Printf("RMA Add: %d\n", rma.RmaNumber)
 
 			// Accumulate the Products
 			for i := range rma.Products {
@@ -288,4 +301,38 @@ func getBillableList(billable string) []OptionItem {
 	}
 
 	return options
+}
+
+// Create a RmaType slice.  Then set the selected flag
+// based off the RmaType value given.
+func getRmaTypeList(rmaType string) []OptionItem {
+	options := []OptionItem{
+		OptionItem{"280", "280 - Billable", false},
+		OptionItem{"290", "290 - Warranty", false},
+		OptionItem{"259", "259 - Demo Repair", false},
+	}
+
+	// Set the selected value based off the string given
+	for i := range options {
+		if options[i].Value == rmaType {
+			options[i].Selected = true
+		}
+	}
+
+	return options
+}
+
+// Get the next RMA number.  Find the last RMA number
+// and return it plus 1.
+func getNewRmaNumber() int {
+
+	var rma RMA
+	// Get data form DB
+	err := Vault.Mongo.C("RMAs").Find(bson.M{}).Sort("RmaNumber").One(&rma)
+	CheckError(err)
+	//fmt.Println("Number of RMAs: ", len(rma))
+	fmt.Printf("%d\n", rma.RmaNumber)
+	fmt.Printf("%x\n", rma)
+
+	return rma.RmaNumber + 1
 }

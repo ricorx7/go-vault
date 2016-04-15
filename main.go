@@ -57,6 +57,12 @@ func main() {
 	mux.HandleFunc("/product/update/:id", http.HandlerFunc(productUpdateHandler))
 	mux.HandleFunc("/adcp_checklist/add", http.HandlerFunc(adcpChecklistAddHandler))
 	mux.HandleFunc("/adcp_checklist/update/:id", http.HandlerFunc(adcpChecklistUpdateHandler))
+	mux.HandleFunc("/vault/tank", http.HandlerFunc(vaultAPITankHandler))
+	mux.HandleFunc("/vault/tank/:id", http.HandlerFunc(vaultAPITankSerialHandler))
+	mux.HandleFunc("/vault/tank/selected/:id", http.HandlerFunc(vaultAPITankSelectedSerialHandler))
+	mux.HandleFunc("/vault/tank/selected/moving/:id", http.HandlerFunc(vaultAPITankSelectedSerialMovingHandler))
+	mux.HandleFunc("/vault/tank/selected/noise/:id", http.HandlerFunc(vaultAPITankSelectedSerialNoiseHandler))
+	mux.HandleFunc("/vault/tank/selected/ringing/:id", http.HandlerFunc(vaultAPITankSelectedSerialRingingHandler))
 
 	// HTTP server
 	if err := http.ListenAndServe(*addr, mux); err != nil {

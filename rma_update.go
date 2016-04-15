@@ -25,6 +25,11 @@ func rmaUpdateHandler(w http.ResponseWriter, r *http.Request) {
 		rmaData.ProductList = *getProductList()
 		rmaData.StatusList = getStatusList(rma.Status)
 		rmaData.BillableList = getBillableList(rma.Billable)
+		rmaData.RmaTypeList = getRmaTypeList(rma.RmaType)
+
+		if len(rmaData.RMA.Notes) > 50000 {
+			rmaData.RMA.Notes = rmaData.RMA.Notes[0:50000]
+		}
 
 		displayRmaUpdateTemplate(w, rmaData)
 	} else {
@@ -57,7 +62,8 @@ func rmaUpdateHandler(w http.ResponseWriter, r *http.Request) {
 		// Use data to create a user object
 		rma := getRma(formData.Get("OriginalRmaNumber"))
 		fmt.Printf("Set RMA %s Orignal RMA Num %s\n", formData.Get("RmaNumber"), formData.Get("OriginalRmaNumber"))
-		rma.RmaNumber = formData.Get("RmaNumber")
+		rma.RmaNumber = formData.GetInt("RmaNumber")
+		rma.RmaType = formData.Get("RmaType")
 		rma.OrigSalesOrder = formData.Get("OrigSalesOrder")
 		rma.Company = formData.Get("Company")
 		rma.ContactName = formData.Get("ContactName")
@@ -121,7 +127,7 @@ func rmaUpdateHandler(w http.ResponseWriter, r *http.Request) {
 
 		// Add the new product to the RMA
 		if formData.Get("SubmitButton") == "ADD" {
-			// fmt.Printf("Add product to RMA: %s\n", rma.RmaNumber)
+			fmt.Printf("Add product to RMA: %d\n", rma.RmaNumber)
 			//
 			// // Add the product to the list
 			// rmaProduct := &RmaProduct{}
@@ -140,32 +146,21 @@ func rmaUpdateHandler(w http.ResponseWriter, r *http.Request) {
 				rma)
 
 			// Go back to the update page
-			http.Redirect(w, r, "/rma/update/"+rma.RmaNumber, http.StatusFound)
+			http.Redirect(w, r, "/rma/update/"+strconv.Itoa(rma.RmaNumber), http.StatusFound)
 		} else if formData.Get("SubmitButton") == "ADD REPAIR" {
-			// fmt.Printf("Add Repair product to RMA: %s\n", rma.RmaNumber)
+			fmt.Printf("Add Repair product to RMA: %d\n", rma.RmaNumber)
 			//
-			// // Add the product to the list
-			// rmaProduct := &RmaProduct{}
-			// rmaProduct.PartNumber = formData.Get("AddRepairProductPartNumber")
-			// rmaProduct.Qty = formData.GetInt("AddRepairProductQty")
-			// rmaProduct.SerialNumber = formData.Get("AddRepairProductSerialNumber")
-			// product := getProductPartNumber(rmaProduct.PartNumber)
-			// if product != nil {
-			// 	rma.RepairProducts = append(rma.RepairProducts, *rmaProduct)
-			// }
-			// // Update the RMA in DB
-			// updateRma(rma)
-
+			// Add the repair to the list
 			addRmaRepairProduct(formData.Get("AddRepairProductPartNumber"),
 				formData.GetInt("AddRepairProductQty"),
 				formData.Get("AddRepairProductSerialNumber"),
 				rma)
 
 			// Go back to the update page
-			http.Redirect(w, r, "/rma/update/"+rma.RmaNumber, http.StatusFound)
+			http.Redirect(w, r, "/rma/update/"+strconv.Itoa(rma.RmaNumber), http.StatusFound)
 		} else {
 
-			fmt.Printf("RMA Update: %s\n", rma.RmaNumber)
+			fmt.Printf("RMA Update: %d\n", rma.RmaNumber)
 
 			// Update the RMA in DB
 			updateRma(rma)
@@ -179,7 +174,7 @@ func rmaUpdateHandler(w http.ResponseWriter, r *http.Request) {
 
 // Add a product to the RMA Repair list.
 func addRmaRepairProduct(partNum string, qty int, serialNum string, rma *RMA) {
-	fmt.Printf("Add Repair product to RMA: %s\n", rma.RmaNumber)
+	fmt.Printf("Add Repair product to RMA: %d\n", rma.RmaNumber)
 
 	// Add the product to the list
 	rmaProduct := &RmaProduct{}
@@ -199,7 +194,7 @@ func addRmaRepairProduct(partNum string, qty int, serialNum string, rma *RMA) {
 
 // Add a product to the received parts list.
 func addRmaProduct(partNum string, qty int, serialNum string, rma *RMA) {
-	fmt.Printf("Add product to RMA: %s\n", rma.RmaNumber)
+	fmt.Printf("Add product to RMA: %d\n", rma.RmaNumber)
 
 	// Add the product to the list
 	rmaProduct := &RmaProduct{}
@@ -253,6 +248,7 @@ func updateRma(rma *RMA) {
 	//err := Vault.Mongo.C("adcps").Update(bson.M{"_id": adcp._id}, bson.M{"$inc": bson.M{"Customer": adcp.Customer}})
 	err := Vault.Mongo.C("RMAs").Update(bson.M{"_id": rma.ID}, bson.M{"$set": bson.M{
 		"RmaNumber":                  rma.RmaNumber,
+		"RmaType":                    rma.RmaType,
 		"RmaDate":                    rma.RmaDate,
 		"OrigSalesOrder":             rma.OrigSalesOrder,
 		"Company":                    rma.Company,
