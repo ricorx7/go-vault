@@ -27,9 +27,9 @@ textarea {
     <div class="panel panel-info">
       <div class="panel-heading">RMA Information</div>
       <div class="panel-body">
-        <div class="row" style="margin: 5px">
+        <div class="row">
           <div class="col-md-2">
-            <label class="control-label" for="RmaNumber">RMA Number</label>
+            <label class="control-label" for="RmaType">RMA Type</label>
           </div>
           <div class="col-md-9">
             <select name="RmaType" selected="{{.RMA.RmaType}}">
@@ -37,6 +37,13 @@ textarea {
                 <option value="{{.Value}}" {{if eq .Selected true}}selected="selected"{{end}}>{{.Text}}</option>
               {{end}}
             </select>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-2">
+            <label class="control-label" for="RmaType">RMA Number</label>
+          </div>
+          <div class="col-md-9">
             <input type="text" name="RmaNumber" value="{{.RMA.RmaNumber}}" class="form-control" placeholder="RMA Number" required>
           </div>
         </div>

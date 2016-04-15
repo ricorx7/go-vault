@@ -62,7 +62,7 @@ func rmaUpdateHandler(w http.ResponseWriter, r *http.Request) {
 		// Use data to create a user object
 		rma := getRma(formData.Get("OriginalRmaNumber"))
 		fmt.Printf("Set RMA %s Orignal RMA Num %s\n", formData.Get("RmaNumber"), formData.Get("OriginalRmaNumber"))
-		rma.RmaNumber = formData.GetInt("RmaNumber")
+		rma.RmaNumber = formData.Get("RmaNumber")
 		rma.RmaType = formData.Get("RmaType")
 		rma.OrigSalesOrder = formData.Get("OrigSalesOrder")
 		rma.Company = formData.Get("Company")
@@ -127,7 +127,7 @@ func rmaUpdateHandler(w http.ResponseWriter, r *http.Request) {
 
 		// Add the new product to the RMA
 		if formData.Get("SubmitButton") == "ADD" {
-			fmt.Printf("Add product to RMA: %d\n", rma.RmaNumber)
+			fmt.Printf("Add product to RMA: %s\n", rma.RmaNumber)
 			//
 			// // Add the product to the list
 			// rmaProduct := &RmaProduct{}
@@ -146,9 +146,9 @@ func rmaUpdateHandler(w http.ResponseWriter, r *http.Request) {
 				rma)
 
 			// Go back to the update page
-			http.Redirect(w, r, "/rma/update/"+strconv.Itoa(rma.RmaNumber), http.StatusFound)
+			http.Redirect(w, r, "/rma/update/"+rma.RmaNumber, http.StatusFound)
 		} else if formData.Get("SubmitButton") == "ADD REPAIR" {
-			fmt.Printf("Add Repair product to RMA: %d\n", rma.RmaNumber)
+			fmt.Printf("Add Repair product to RMA: %s\n", rma.RmaNumber)
 			//
 			// Add the repair to the list
 			addRmaRepairProduct(formData.Get("AddRepairProductPartNumber"),
@@ -157,10 +157,10 @@ func rmaUpdateHandler(w http.ResponseWriter, r *http.Request) {
 				rma)
 
 			// Go back to the update page
-			http.Redirect(w, r, "/rma/update/"+strconv.Itoa(rma.RmaNumber), http.StatusFound)
+			http.Redirect(w, r, "/rma/update/"+rma.RmaNumber, http.StatusFound)
 		} else {
 
-			fmt.Printf("RMA Update: %d\n", rma.RmaNumber)
+			fmt.Printf("RMA Update: %s\n", rma.RmaNumber)
 
 			// Update the RMA in DB
 			updateRma(rma)
@@ -174,7 +174,7 @@ func rmaUpdateHandler(w http.ResponseWriter, r *http.Request) {
 
 // Add a product to the RMA Repair list.
 func addRmaRepairProduct(partNum string, qty int, serialNum string, rma *RMA) {
-	fmt.Printf("Add Repair product to RMA: %d\n", rma.RmaNumber)
+	fmt.Printf("Add Repair product to RMA: %s\n", rma.RmaNumber)
 
 	// Add the product to the list
 	rmaProduct := &RmaProduct{}
@@ -194,7 +194,7 @@ func addRmaRepairProduct(partNum string, qty int, serialNum string, rma *RMA) {
 
 // Add a product to the received parts list.
 func addRmaProduct(partNum string, qty int, serialNum string, rma *RMA) {
-	fmt.Printf("Add product to RMA: %d\n", rma.RmaNumber)
+	fmt.Printf("Add product to RMA: %s\n", rma.RmaNumber)
 
 	// Add the product to the list
 	rmaProduct := &RmaProduct{}

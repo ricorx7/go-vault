@@ -31,7 +31,7 @@ type RMA struct {
 	OrigSalesOrder             string          `bson:"OrigSalesOrder,omitempty" json:"OrigSalesOrder"`
 	RmaDate                    string          `bson:"RmaDate" json:"RmaDate"`
 	RmaType                    string          `bson:"RmaType" json:"RmaType"`
-	RmaNumber                  int             `bson:"RmaNumber" json:"RmaNumber"`
+	RmaNumber                  string          `bson:"RmaNumber" json:"RmaNumber"`
 	Company                    string          `bson:"Company" json:"Company"`
 	ContactName                string          `bson:"ContactName" json:"ContactName"`
 	ContactAddress             string          `bson:"ContactAddress" json:"ContactAddress"`
@@ -94,7 +94,7 @@ func rmaAddHandler(w http.ResponseWriter, r *http.Request) {
 		rmaData := &RmaUpdate{}
 		rmaData.ProductList = *getProductList()
 		rmaData.StatusList = getStatusList("Reported")
-		rmaData.BillableList = getBillableList("Billable")
+		rmaData.BillableList = getBillableList("Warranty")
 		rmaData.RmaTypeList = getRmaTypeList("290")
 		rmaData.RMA.RmaNumber = getNewRmaNumber()
 
@@ -126,7 +126,7 @@ func rmaAddHandler(w http.ResponseWriter, r *http.Request) {
 		// Use data to create a user object
 		rma := &RMA{
 			RmaType:                    formData.Get("RmaType"),
-			RmaNumber:                  formData.GetInt("RmaNumber"),
+			RmaNumber:                  formData.Get("RmaNumber"),
 			OrigSalesOrder:             formData.Get("OrigSalesOrder"),
 			Company:                    formData.Get("Company"),
 			ContactName:                formData.Get("ContactName"),
@@ -173,7 +173,7 @@ func rmaAddHandler(w http.ResponseWriter, r *http.Request) {
 		// Add the new product to the RMA
 		if formData.Get("SubmitButton") == "ADD" {
 			//if !val.HasErrors() {
-			fmt.Printf("Add product to RMA: %d\n", rma.RmaNumber)
+			fmt.Printf("Add product to RMA: %s\n", rma.RmaNumber)
 
 			// Add the product to the list
 			rmaProduct := &RmaProduct{}
@@ -195,7 +195,7 @@ func rmaAddHandler(w http.ResponseWriter, r *http.Request) {
 			displayRmaTemplate(w, rmaData)
 		} else if formData.Get("SubmitButton") == "ADD REPAIR" {
 			//if !val.HasErrors() {
-			fmt.Printf("Add repair product to RMA: %d\n", rma.RmaNumber)
+			fmt.Printf("Add repair product to RMA: %s\n", rma.RmaNumber)
 
 			// Add the product to the repair list
 			rmaProduct := &RmaProduct{}
@@ -216,15 +216,15 @@ func rmaAddHandler(w http.ResponseWriter, r *http.Request) {
 
 			displayRmaTemplate(w, rmaData)
 		} else {
-			fmt.Printf("RMA Add: %d\n", rma.RmaNumber)
+			fmt.Printf("RMA Add: %s\n", rma.RmaNumber)
 
 			// Accumulate the Products
 			for i := range rma.Products {
 				rma.Products[i].PartNumber = r.Form["ProductPartNumber"][i]
 				rma.Products[i].SerialNumber = r.Form["ProductSerialNumber"][i]
 
-				qty, err := strconv.Atoi(r.Form["ProductQty"][i])
-				if err == nil {
+				qty, err1 := strconv.Atoi(r.Form["ProductQty"][i])
+				if err1 == nil {
 					rma.Products[i].Qty = qty
 				}
 			}
@@ -234,8 +234,8 @@ func rmaAddHandler(w http.ResponseWriter, r *http.Request) {
 				rma.RepairProducts[i].PartNumber = r.Form["RepairProductPartNumber"][i]
 				rma.RepairProducts[i].SerialNumber = r.Form["RepairProductSerialNumber"][i]
 
-				qty, err := strconv.Atoi(r.Form["RepairProductQty"][i])
-				if err == nil {
+				qty, err2 := strconv.Atoi(r.Form["RepairProductQty"][i])
+				if err2 == nil {
 					rma.RepairProducts[i].Qty = qty
 				}
 			}
@@ -324,15 +324,19 @@ func getRmaTypeList(rmaType string) []OptionItem {
 
 // Get the next RMA number.  Find the last RMA number
 // and return it plus 1.
-func getNewRmaNumber() int {
+func getNewRmaNumber() string {
 
+	// Init
 	var rma RMA
-	// Get data form DB
-	err := Vault.Mongo.C("RMAs").Find(bson.M{}).Sort("RmaNumber").One(&rma)
-	CheckError(err)
-	//fmt.Println("Number of RMAs: ", len(rma))
-	fmt.Printf("%d\n", rma.RmaNumber)
-	fmt.Printf("%x\n", rma)
 
-	return rma.RmaNumber + 1
+	// Get data form DB
+	err := Vault.Mongo.C("RMAs").Find(bson.M{}).Sort("-RmaNumber").One(&rma)
+	CheckError(err)
+	fmt.Println("RMA: ", rma.Company)
+	fmt.Println("RMA Number: ", rma.RmaNumber)
+	fmt.Println("RMA Orig Sales Order: ", rma.OrigSalesOrder)
+
+	num, err := strconv.Atoi(rma.RmaNumber)
+
+	return strconv.Itoa(num + 1)
 }
