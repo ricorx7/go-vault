@@ -33,10 +33,19 @@ func main() {
 	// Connect to DB
 	go DbConnect(*mongo)
 
+	//reactServ := http.FileServer(http.Dir("react"))
+	//http.Handle("/react", reactServ)
+
 	// Router
 	mux := bone.New()
 	mux.Handle("/libs/", http.StripPrefix("/libs/", http.FileServer(http.Dir("libs"))))       // External libs
 	mux.Handle("/images/", http.StripPrefix("/images/", http.FileServer(http.Dir("images")))) // Image folder
+
+	//reactServ := http.FileServer(http.Dir("react"))
+	//mux.Handle("/react", reactServ)
+	mux.Handle("/react/", http.StripPrefix("/react/", http.FileServer(http.Dir("react")))) // Image folder
+	mux.HandleFunc("/api", http.HandlerFunc(apiHandler))
+
 	mux.HandleFunc("/", http.HandlerFunc(adcpListHandler))
 	mux.HandleFunc("/adcp", http.HandlerFunc(adcpListHandler))
 	mux.HandleFunc("/adcp/update/:id", http.HandlerFunc(adcpUpdateHandler))
@@ -63,6 +72,7 @@ func main() {
 	mux.HandleFunc("/vault/tank/selected/moving/:id", http.HandlerFunc(vaultAPITankSelectedSerialMovingHandler))
 	mux.HandleFunc("/vault/tank/selected/noise/:id", http.HandlerFunc(vaultAPITankSelectedSerialNoiseHandler))
 	mux.HandleFunc("/vault/tank/selected/ringing/:id", http.HandlerFunc(vaultAPITankSelectedSerialRingingHandler))
+	mux.HandleFunc("/react1", http.HandlerFunc(reactHandler))
 
 	// HTTP server
 	if err := http.ListenAndServe(*addr, mux); err != nil {
