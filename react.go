@@ -1,11 +1,9 @@
 package main
 
 import (
-	"encoding/json"
 	"fmt"
 	"html/template"
 	"net/http"
-	"time"
 
 	"gopkg.in/mgo.v2/bson"
 )
@@ -34,27 +32,4 @@ func reactHandler(w http.ResponseWriter, r *http.Request) {
 		t.ExecuteTemplate(w, "footer", nil)
 		t.Execute(w, waterTestData)
 	}
-}
-
-type response struct {
-	CurrentTime time.Time `json:"currentTime"`
-	Healthy     bool      `json:"healthy"`
-	UpdateCount int       `json:"updateCount"`
-}
-
-func apiHandler(w http.ResponseWriter, r *http.Request) {
-	returnedResponse := response{
-		CurrentTime: time.Now(),
-		Healthy:     true,
-		UpdateCount: 0,
-	}
-
-	js, err := json.Marshal(returnedResponse)
-	if err != nil {
-		http.Error(w, err.Error(), http.StatusInternalServerError)
-		return
-	}
-
-	w.Header().Set("Content-Type", "application/json")
-	w.Write(js)
 }

@@ -10,6 +10,25 @@ import (
 	"gopkg.in/mgo.v2/bson"
 )
 
+// Get the ADCP data from the Vault.
+func vaultAPIAdcpGet(w http.ResponseWriter, r *http.Request) {
+	// Init
+	adcpData := &AdcpData{}
+
+	// Get data form DB
+	err := Vault.Mongo.C("adcps").Find(bson.M{}).Sort("-created").All(&adcpData.Adcps)
+	CheckError(err)
+	fmt.Println("Number of ADCPs: ", len(adcpData.Adcps))
+
+	// Set data type and OK status
+	w.Header().Set("Content-Type", "application/json; charset=UTF-8")
+	w.WriteHeader(http.StatusOK)
+
+	if err := json.NewEncoder(w).Encode(adcpData); err != nil {
+		panic(err)
+	}
+}
+
 // Get the Tank Test data from the Vault.
 func vaultAPITankHandler(w http.ResponseWriter, r *http.Request) {
 	// Init
