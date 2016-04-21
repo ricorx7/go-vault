@@ -11,7 +11,7 @@ import (
 )
 
 // Get the ADCP data from the Vault.
-func vaultAPIAdcpGet(w http.ResponseWriter, r *http.Request) {
+func vaultAPIAdcpGetHandler(w http.ResponseWriter, r *http.Request) {
 	// Init
 	adcpData := &AdcpData{}
 
@@ -114,6 +114,30 @@ func vaultAPITankSelectedSerialRingingHandler(w http.ResponseWriter, r *http.Req
 	w.WriteHeader(http.StatusOK)
 
 	if err := json.NewEncoder(w).Encode(getTankTestResultsSelectedType(serial, "Ringing")); err != nil {
+		panic(err)
+	}
+}
+
+// Get the Water Test data from the vault.
+func vaultAPIWaterTestGetHandler(w http.ResponseWriter, r *http.Request) {
+	// Init
+	waterTestData := &WaterTestData{}
+
+	// Get data form DB
+	err := Vault.Mongo.C("WaterTestResults").Find(bson.M{}).Sort("-Created").All(&waterTestData.WaterTests)
+	CheckError(err)
+	fmt.Println("Number of WaterTests: ", len(waterTestData.WaterTests))
+
+	// Get the path to the PlotModel
+	for index, element := range waterTestData.WaterTests {
+		waterTestData.WaterTests[index].PlotReport = getWaterTestPlotModelPath(element.PlotReport, element.SerialNumber)
+	}
+
+	// Set data type and OK status
+	w.Header().Set("Content-Type", "application/json; charset=UTF-8")
+	w.WriteHeader(http.StatusOK)
+
+	if err := json.NewEncoder(w).Encode(waterTestData); err != nil {
 		panic(err)
 	}
 }

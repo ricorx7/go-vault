@@ -1,7 +1,7 @@
 var AdcpRow = React.createClass({
   render: function() {
     return (
-      <li key={this.props.adcp.id} className="list-group-item">
+      <li key={this.props.adcp.id} className="list-group-item-info">
         <h4 class="list-group-item-heading">{this.props.adcp.SerialNumber}</h4>
          <p>{this.props.adcp.Customer}</p>
          <p>{this.props.adcp.OrderNumber}</p>
@@ -26,7 +26,7 @@ var AdcpList = React.createClass({
   render: function() {
     var rows = [];
     var filter = this.props.filterAdcp;
-    
+
     this.props.adcps.forEach(function(adcp) {
       if (adcp.SerialNumber.indexOf(filter) === -1) {
         return true;  // Skip this ADCP
@@ -34,7 +34,7 @@ var AdcpList = React.createClass({
       rows.push(<AdcpRow adcp={adcp} key={adcp.id} />);
     });
     return (
-      <ul>
+      <ul className="list-group">
         {rows}
       </ul>
     );

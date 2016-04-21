@@ -65,7 +65,8 @@ func main() {
 	mux.HandleFunc("/vault/tank/selected/noise/:id", http.HandlerFunc(vaultAPITankSelectedSerialNoiseHandler))
 	mux.HandleFunc("/vault/tank/selected/ringing/:id", http.HandlerFunc(vaultAPITankSelectedSerialRingingHandler))
 	mux.HandleFunc("/react1", http.HandlerFunc(reactHandler))
-	mux.HandleFunc("/vault/adcp", http.HandlerFunc(vaultAPIAdcpGet))
+	mux.HandleFunc("/vault/adcp", http.HandlerFunc(vaultAPIAdcpGetHandler))
+	mux.HandleFunc("/vault/wt", http.HandlerFunc(vaultAPIWaterTestGetHandler))
 
 	// HTTP server
 	if err := http.ListenAndServe(*addr, mux); err != nil {
