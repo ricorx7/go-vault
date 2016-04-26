@@ -67,6 +67,7 @@ func main() {
 	mux.HandleFunc("/react1", http.HandlerFunc(reactHandler))
 	mux.HandleFunc("/vault/adcp", http.HandlerFunc(vaultAPIAdcpGetHandler))
 	mux.HandleFunc("/vault/wt", http.HandlerFunc(vaultAPIWaterTestGetHandler))
+	mux.HandleFunc("/vault/wt/select/:id", http.HandlerFunc(vaultAPIWaterTestSelectGetHandler))
 
 	// HTTP server
 	if err := http.ListenAndServe(*addr, mux); err != nil {
