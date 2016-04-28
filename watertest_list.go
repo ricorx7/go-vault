@@ -71,7 +71,8 @@ func watertestListHandler(w http.ResponseWriter, r *http.Request) {
 // actual file.
 func getWaterTestPlotModelPath(path string, serialNum string) string {
 	_, file := filepath.Split(path)
-	vault := "\\\\Vault\\Vault\\"
+	//vault := "\\\\Vault\\Vault\\"
+	vault := "/vault/"
 
 	filePath := vault + serialNum + "\\" + file
 

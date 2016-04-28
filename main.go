@@ -35,9 +35,10 @@ func main() {
 
 	// Router
 	mux := bone.New()
-	mux.Handle("/libs/", http.StripPrefix("/libs/", http.FileServer(http.Dir("libs"))))       // External libs
-	mux.Handle("/images/", http.StripPrefix("/images/", http.FileServer(http.Dir("images")))) // Image folder
-	mux.Handle("/react/", http.StripPrefix("/react/", http.FileServer(http.Dir("react"))))    // React Frontend folder
+	mux.Handle("/libs/", http.StripPrefix("/libs/", http.FileServer(http.Dir("libs"))))            // External libs
+	mux.Handle("/images/", http.StripPrefix("/images/", http.FileServer(http.Dir("images"))))      // Image folder
+	mux.Handle("/vault/", http.StripPrefix("/vault/", http.FileServer(http.Dir("//vault/vault")))) // Image folder
+	mux.Handle("/react/", http.StripPrefix("/react/", http.FileServer(http.Dir("react"))))         // React Frontend folder
 	mux.HandleFunc("/", http.HandlerFunc(adcpListHandler))
 	mux.HandleFunc("/adcp", http.HandlerFunc(adcpListHandler))
 	mux.HandleFunc("/adcp/update/:id", http.HandlerFunc(adcpUpdateHandler))

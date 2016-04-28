@@ -4,6 +4,7 @@ import (
 	"encoding/json"
 	"fmt"
 	"net/http"
+	"strconv"
 
 	"github.com/go-zoo/bone"
 
@@ -123,10 +124,42 @@ func vaultAPIWaterTestGetHandler(w http.ResponseWriter, r *http.Request) {
 	// Init
 	waterTestData := &WaterTestData{}
 
+	// Get the limit
+	limit := 0
+	if len(r.URL.Query().Get("limit")) > 0 {
+		val, err := strconv.Atoi(r.URL.Query().Get("limit"))
+		if err == nil {
+			limit = val
+		}
+	}
+
+	// Get the offset
+	offset := 0
+	if len(r.URL.Query().Get("offset")) > 0 {
+		val, err := strconv.Atoi(r.URL.Query().Get("offset"))
+		if err == nil {
+			offset = val
+		}
+	}
+
+	// Get the filter
+	filter := ""
+	if len(r.URL.Query().Get("filter")) > 0 {
+		filter = r.URL.Query().Get("filter")
+		err := Vault.Mongo.C("WaterTestResults").Find(bson.M{"SerialNumber": &bson.RegEx{Pattern: filter}}).Sort("-Created").All(&waterTestData.WaterTests)
+		CheckError(err)
+	} else {
+		err := Vault.Mongo.C("WaterTestResults").Find(bson.M{}).Skip(offset).Limit(limit).Sort("-Created").All(&waterTestData.WaterTests)
+		CheckError(err)
+	}
+
 	// Get data form DB
-	err := Vault.Mongo.C("WaterTestResults").Find(bson.M{}).Sort("-Created").All(&waterTestData.WaterTests)
-	CheckError(err)
+	//err := Vault.Mongo.C("WaterTestResults").Find(bson.M{"SerialNumber": filter}).Skip(offset).Limit(limit).Sort("-Created").All(&waterTestData.WaterTests)
+	//CheckError(err)
 	fmt.Println("Number of WaterTests: ", len(waterTestData.WaterTests))
+	fmt.Printf("limit: %s\n", r.URL.Query().Get("limit"))
+	fmt.Printf("offset: %s\n", r.URL.Query().Get("offset"))
+	fmt.Printf("filter: %s\n", r.URL.Query().Get("filter"))
 
 	// Get the path to the PlotModel
 	for index, element := range waterTestData.WaterTests {
@@ -138,6 +171,7 @@ func vaultAPIWaterTestGetHandler(w http.ResponseWriter, r *http.Request) {
 	w.WriteHeader(http.StatusOK)
 
 	if err := json.NewEncoder(w).Encode(waterTestData); err != nil {
+		CheckError(err)
 		panic(err)
 	}
 }
