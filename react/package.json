@@ -24,12 +24,17 @@
     "react-hot-loader": "^1.3.0",
     "transfer-webpack-plugin": "^0.1.4",
     "webpack": "^1.12.9",
-    "webpack-dev-server": "^1.14.0"
+    "webpack-dev-server": "^1.14.0",
+    "material-ui": "^0.15.0-beta.2",
+	"material-design-icons": "",
+    "react": "^0.14.0 || ^15.2.1",
+    "react-dom": "^0.14.0 || ^15.2.1",
+    "react-tap-event-plugin": "^1.0.0",
+	"react-paginate":"",
+	"bootstrap":"",
+	"fixed-data-table": ""
   },
   "dependencies": {
-    "material-ui": "^0.15.0-beta.2",
-    "react": "^15.0.1",
-    "react-dom": "^15.0.1",
-    "react-tap-event-plugin": "^1.0.0"
+
   }
 }
