@@ -29,6 +29,9 @@ func main() {
 	ip, _ := GetLocalIP()
 	fmt.Printf("Webserver: %s:%s\n", ip, *addr)
 	fmt.Printf("Exerntal IP: %s\n", GetExternalIP())
+	fmt.Printf("Mongo Addr: %s\n", *mongo)
+	fmt.Printf("Serial Port: %s\n", *port)
+	fmt.Printf("Serial Baud: %s\n", *baud)
 
 	// Connect to DB
 	go DbConnect(*mongo)

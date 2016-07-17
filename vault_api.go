@@ -181,19 +181,33 @@ func vaultAPIWaterTestSelectGetHandler(w http.ResponseWriter, r *http.Request) {
 	// Get the value of the "id" parameters.
 	id := bone.GetValue(r, "id")
 
-	watertest := getWaterTestResultsID(id)
-	watertest.IsSelected = !watertest.IsSelected // Invert the value
+	switch r.Method {
+	case "GET":
+		{
+			watertest := getWaterTestResultsID(id)
+			watertest.IsSelected = !watertest.IsSelected // Invert the value
 
-	// Pass the data back to the database
-	updateWaterTest(watertest)
+			// Pass the data back to the database
+			updateWaterTest(watertest)
 
-	fmt.Printf("%v\n", watertest)
+			fmt.Printf("%v\n", watertest)
 
-	// Set data type and OK status
-	w.Header().Set("Content-Type", "application/json; charset=UTF-8")
-	w.WriteHeader(http.StatusOK)
+			// Set data type and OK status
+			w.Header().Set("Content-Type", "application/json; charset=UTF-8")
+			w.WriteHeader(http.StatusOK)
 
-	if err := json.NewEncoder(w).Encode(watertest); err != nil {
-		panic(err)
+			if err := json.NewEncoder(w).Encode(watertest); err != nil {
+				panic(err)
+			}
+		}
+	case "POST":
+		{
+
+		}
+	default:
+		{
+
+		}
+
 	}
 }
