@@ -26,15 +26,18 @@
     "webpack": "^1.12.9",
     "webpack-dev-server": "^1.14.0",
     "material-ui": "^0.15.0-beta.2",
-	"material-design-icons": "",
+    "material-design-icons": "",
     "react": "^0.14.0 || ^15.2.1",
     "react-dom": "^0.14.0 || ^15.2.1",
     "react-tap-event-plugin": "^1.0.0",
-	"react-paginate":"",
-	"bootstrap":"",
-	"fixed-data-table": ""
+    "react-paginate": "",
+    "bootstrap": "",
+    "fixed-data-table": "",
+    "react-data-components" : "",
+    "jquery":"",
+    "jquery-ui":""
   },
   "dependencies": {
-
+    "webpack": "^1.13.1"
   }
 }
