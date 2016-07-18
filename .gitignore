@@ -7,10 +7,14 @@
 # Folders
 _obj
 _test
+
+# Project
+.vscode
 react/node_modules
 react/bundle.*.js
 go-vault
 go-vault.exe
+.eslintrc
 
 # Architecture specific extensions/prefixes
 *.[568vq]

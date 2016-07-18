@@ -24,27 +24,27 @@ const styles = {
 };
 
 
-// List all the Water Test using the react-data-components.
-var WaterTestCompList = React.createClass({
+// List all the Tank Test using the react-data-components.
+var TankTestList = React.createClass({
   
   // Set the initial state
   getInitialState: function() {
 
     // Set the STATE
     return {
-      data: {WaterTests:[]},
+      data: {TankTests:[]},
       isSelectedID: "",
     };
   },
 
   // At startup get all the Water Test data
   componentDidMount: function() {
-    this.loadWaterTestFromServer();
+    this.loadTankTestFromServer();
     console.log("data length %i\n", this.state.data.length);
   },
 
-  // Get the Water Test data from the database using AJAX
-  loadWaterTestFromServer: function() {
+  // Get the Tank Test data from the database using AJAX
+  loadTankTestFromServer: function() {
     $.ajax({
       url: this.props.url,
       dataType: 'json',
@@ -111,11 +111,10 @@ var WaterTestCompList = React.createClass({
     { title: 'Selected', render: renderIsSelected},
     { title: 'SerialNumber', prop: 'SerialNumber'},
     { title: 'Subsystem', prop: 'SubsystemDescStr'},
+    { title: 'Type', prop: 'TankTestType'},
     { title: 'Orientation', prop: 'TestOrientation'},
-    { title: 'GpsDistance', prop: 'GpsDistance'},
     { title: 'BT Distance', prop: 'BtDistance'},
     { title: 'Distance Err', prop: 'DistanceError'},
-    { title: 'GpsDirection', prop: 'GpsDirection'},
     { title: 'BT Direction', prop: 'BtDirection'},
     { title: 'Direction Err', prop: 'DirectionError'},
     { title: 'Report', render: renderReport, className: 'text-center' },
@@ -127,7 +126,7 @@ var WaterTestCompList = React.createClass({
         className="container"
         keys="id"
         columns={columns}
-        initialData={this.state.data.WaterTests}
+        initialData={this.state.data.TankTests}
         initialPageLength={20}
         initialSortBy={{ prop: 'Created', order: 'descending' }}
         pageLengthOptions={[ 5, 20, 50 ]}
@@ -139,5 +138,5 @@ var WaterTestCompList = React.createClass({
 
 // Set the table to compTable
 // Use the url PROP to get the Water Test data
-ReactDOM.render((<WaterTestCompList url="/vault/wt" selectedURL="/vault/wt/select/" />), document.getElementById('compTable'));
+ReactDOM.render((<TankTestList url="/vault/tt" selectedURL="/vault/tt/select/" />), document.getElementById('tanktestList'));
 

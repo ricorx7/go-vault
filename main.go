@@ -72,6 +72,8 @@ func main() {
 	mux.HandleFunc("/vault/adcp", http.HandlerFunc(vaultAPIAdcpGetHandler))
 	mux.HandleFunc("/vault/wt", http.HandlerFunc(vaultAPIWaterTestGetHandler))
 	mux.HandleFunc("/vault/wt/select/:id", http.HandlerFunc(vaultAPIWaterTestSelectGetHandler))
+	mux.HandleFunc("/vault/tt", http.HandlerFunc(vaultAPITankTestGetHandler))
+	mux.HandleFunc("/vault/tt/select/:id", http.HandlerFunc(vaultAPITankTestSelectGetHandler))
 
 	// HTTP server
 	if err := http.ListenAndServe(*addr, mux); err != nil {

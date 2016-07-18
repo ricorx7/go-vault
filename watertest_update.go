@@ -178,7 +178,7 @@ func updateWaterTest(wt *WaterTestResults) {
 		"BottomTrackAmplitudeBeam3": wt.BottomTrackAmplitudeBeam3,
 		"PlotReport":                wt.PlotReport,
 		"Notes":                     wt.Notes,
-		"Modified":                  wt.Modified}})
+		"Modified":                  time.Now()}})
 	if err != nil {
 		fmt.Printf("Can't update WaterTest %v\n", err)
 	}

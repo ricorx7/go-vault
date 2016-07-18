@@ -7,7 +7,8 @@ module.exports = {
     listFixed: "./watertestFixedTable.jsx",
     listComp: ["./watertestListComp.jsx", "./header.jsx"],
     listCompTest: ["./watertestListCompTest.jsx", "./header.jsx"],
-    watertest: ["./watertestList.jsx", "./header.jsx"]
+    watertest: ["./watertestList.jsx", "./header.jsx"],
+    tanktest: ["./tanktestList.jsx", "./header.jsx"]
  },
   output: {
     path: __dirname,

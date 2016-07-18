@@ -31,11 +31,19 @@ var Header = React.createClass({
                   </ul>
                 </li>
                 <li className="dropdown">
-                  <a href="/adcp/wt" className="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Lake Tests<span class="caret"></span></a>
+                  <a href="/react/watertestListComp.html" className="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Water Tests<span class="caret"></span></a>
                   <ul className="dropdown-menu">
                     <li><a href="/adcp/wt">List</a></li>
                     <li role="separator" class="divider"></li>
                     <li><a href="/adcp/wt/add">Add</a></li>
+                  </ul>
+                </li>
+                <li className="dropdown">
+                  <a href="/react/tanktestList.html" className="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Tank Tests<span class="caret"></span></a>
+                  <ul className="dropdown-menu">
+                    <li><a href="/react/tanktestList.html">List</a></li>
+                    <li role="separator" class="divider"></li>
+                    <li><a href="/adcp/tt/add">Add</a></li>
                   </ul>
                 </li>
                 <li className="dropdown">

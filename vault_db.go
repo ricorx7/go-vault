@@ -87,6 +87,7 @@ type TankTestResults struct {
 	IsSelected           bool          `bson:"IsSelected" json:"IsSelected"`
 	TankTestType         string        `bson:"TankTestType" json:"TankTestType"`
 	Created              time.Time     `bson:"Created" json:"Created"`
+	Modified             time.Time     `bson:"Modified" json:"Modified"`
 	UserName             string        `bson:"UserName" json:"UserName"`
 	SerialNumber         string        `bson:"SerialNumber" json:"SerialNumber"`
 	Firmware             string        `bson:"Firmware" json:"Firmware"`
@@ -142,6 +143,7 @@ type TankTestResults struct {
 	GlitchCountBeam2     float64       `bson:"GlitchCountBeam2" json:"GlitchCountBeam2"`
 	GlitchCountBeam3     float64       `bson:"GlitchCountBeam3" json:"GlitchCountBeam3"`
 	PlotReport           string        `bson:"PlotReport" json:"PlotReport"`
+	Notes                string        `bson:"Notes" json:"Notes"`
 }
 
 // WaterTestResults holds the Water Test information.
@@ -372,6 +374,17 @@ func getTankTestResultsSelectedType(serialNum string, testType string) *[]TankTe
 		fmt.Printf("Can't find TankTest data %v\n", err)
 	}
 	fmt.Printf("getTankTestResultsSelected: %s : Count[%d]\n", serialNum, len(data))
+	return &data
+}
+
+// Find the TankTestResults from the database based off the ID
+func getTankTestResultsID(id string) *TankTestResults {
+	var data TankTestResults
+
+	err := Vault.Mongo.C("TankTestResults").Find(bson.M{"_id": bson.ObjectIdHex(id)}).One(&data)
+	if err != nil {
+		fmt.Printf("Can't find from ID TankTest data %v\n", err)
+	}
 	return &data
 }
 
