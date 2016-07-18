@@ -8,6 +8,9 @@
 _obj
 _test
 react/node_modules
+react/bundle.*.js
+go-vault
+go-vault.exe
 
 # Architecture specific extensions/prefixes
 *.[568vq]
