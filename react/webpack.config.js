@@ -5,6 +5,7 @@ module.exports = {
   entry:  {
     hello: "./hello.jsx",
     listFixed: "./watertestFixedTable.jsx",
+    listFixedTest: "./watertestFixedTableTest.jsx",
     listComp: ["./watertestListComp.jsx", "./header.jsx"],
     listCompTest: ["./watertestListCompTest.jsx", "./header.jsx"],
     watertest: ["./watertestList.jsx", "./header.jsx"],
