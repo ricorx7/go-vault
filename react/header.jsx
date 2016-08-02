@@ -1,89 +1,91 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import { Nav, Navbar, NavbarCollapse, NavbarBrand, NavbarHeader, NavbarToggle, NavDropdown, NavItem, MenuItem, FormGroup, FormControl, Button } from 'react-bootstrap';
 
+export default class Navigation extends React.Component {
 
-var Header = React.createClass({
-  render: function() {
-    return (
-      <div>
-        <nav className="navbar navbar-inverse">
-          <div className="container-fluid">
+  constructor(props) {
+    super(props);
 
-            <div className="navbar-header">
-              <button type="button" className="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
-                <span className="sr-only">Toggle navigation</span>
-                <span className="icon-bar"></span>
-                <span className="icon-bar"></span>
-                <span className="icon-bar"></span>
-              </button>
-              <a className="navbar-brand" href="/adcp">RoweTech Inc. Vault</a>
-            </div>
-
-            <div className="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-              <ul className="nav navbar-nav">
-                <li className="active"><a href="/adcp">ADCP <span class="sr-only"></span></a></li>
-                <li className="dropdown">
-                  <a href="/adcp" className="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">ADCP<span class="caret"></span></a>
-                  <ul className="dropdown-menu">
-                    <li><a href="/adcp">List</a></li>
-                    <li role="separator" class="divider"></li>
-                    <li><a href="/adcp/add">Add</a></li>
-                  </ul>
-                </li>
-                <li className="dropdown">
-                  <a href="/react/watertestListComp.html" className="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Water Tests<span class="caret"></span></a>
-                  <ul className="dropdown-menu">
-                    <li><a href="/adcp/wt">List</a></li>
-                    <li role="separator" class="divider"></li>
-                    <li><a href="/adcp/wt/add">Add</a></li>
-                  </ul>
-                </li>
-                <li className="dropdown">
-                  <a href="/react/tanktestList.html" className="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Tank Tests<span class="caret"></span></a>
-                  <ul className="dropdown-menu">
-                    <li><a href="/react/tanktestList.html">List</a></li>
-                    <li role="separator" class="divider"></li>
-                    <li><a href="/adcp/tt/add">Add</a></li>
-                  </ul>
-                </li>
-                <li className="dropdown">
-                  <a href="/rma" className="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">RMA<span class="caret"></span></a>
-                  <ul className="dropdown-menu">
-                    <li><a href="/rma">List</a></li>
-                    <li role="separator" class="divider"></li>
-                    <li><a href="/rma/add">Add</a></li>
-                  </ul>
-                </li>
-                <li className="dropdown">
-                  <a href="/so" className="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Sales Order<span class="caret"></span></a>
-                  <ul className="dropdown-menu">
-                    <li><a href="/so">List</a></li>
-                    <li role="separator" class="divider"></li>
-                    <li><a href="/so/add">Add</a></li>
-                  </ul>
-                </li>
-                <li className="dropdown">
-                  <a href="/product" className="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Product<span class="caret"></span></a>
-                  <ul className="dropdown-menu">
-                    <li><a href="/product">List</a></li>
-                    <li role="separator" class="divider"></li>
-                    <li><a href="/product/add">Add</a></li>
-                  </ul>
-                </li>
-              </ul>
-              <ul className="nav navbar-nav navbar-right">
-                <li><a target="_blank" href="http://rowetechinc.co/wiki/index.php?title=Main_Page" Redirect>RoweTech Wiki</a></li>
-              </ul>
-            </div>
-          </div>
-        </nav>
-        </div>
-
-    );
+    this.state = {
+        index: 0
+    };
   }
-});
 
-ReactDOM.render(
-  <Header />,
-  document.getElementById('header')
-);
+handleSelect(eventKey) {
+    console.log(eventKey);
+    switch(eventKey) {
+        case 1.1:
+            console.log("ADCP List");
+            break;
+        case 1.2:
+            console.log("ADCP Add");
+            break;
+        case 2.1:
+            console.log("Water Test Add");
+            break;
+        case 2.2:
+            console.log("Water Test Add");
+            break;
+        case 3.1:
+            console.log("Tank Test Add");
+            break;
+        case 3.2:
+            console.log("Tank Test Add");
+            break;
+        default:
+            break;
+    }
+}
+
+ render() {
+    return (
+    <Navbar inverse>
+        <Navbar.Header>
+            <Navbar.Brand>
+                <a href="#">RoweTech Inc.Vault</a>
+            </Navbar.Brand>
+            <Navbar.Toggle />
+        </Navbar.Header>
+        <Navbar.Collapse>
+            <Nav onSelect={this.handleSelect}>
+                <NavDropdown eventKey={1} title="ADCP" id="basic-nav-dropdown">
+                    <MenuItem eventKey={1.1} href="">List</MenuItem>
+                    <MenuItem eventKey={1.2}>Add</MenuItem>
+                </NavDropdown>
+                <NavDropdown eventKey={2} title="WaterTest" id="basic-nav-dropdown">
+                    <MenuItem eventKey={2.1} href="watertestListComp.html">List</MenuItem>
+                    <MenuItem eventKey={2.2}>Add</MenuItem>
+                </NavDropdown>
+                <NavDropdown eventKey={3} title="TankTest" id="basic-nav-dropdown">
+                    <MenuItem eventKey={3.1} href="tanktestList.html">List</MenuItem>
+                    <MenuItem eventKey={3.2}>Add</MenuItem>
+                </NavDropdown>
+                <NavDropdown eventKey={4} title="SNR Test" id="basic-nav-dropdown">
+                    <MenuItem eventKey={4.1} href="">List</MenuItem>
+                    <MenuItem eventKey={4.2}>Add</MenuItem>
+                </NavDropdown>
+                <NavDropdown eventKey={5} title="RMA" id="basic-nav-dropdown">
+                    <MenuItem eventKey={5.1} href="">List</MenuItem>
+                    <MenuItem eventKey={5.2}>Add</MenuItem>
+                </NavDropdown>
+                <NavDropdown eventKey={6} title="Sales Order" id="basic-nav-dropdown">
+                    <MenuItem eventKey={6.1} href="">List</MenuItem>
+                    <MenuItem eventKey={6.2}>Add</MenuItem>
+                </NavDropdown>
+                <NavDropdown eventKey={7} title="Product" id="basic-nav-dropdown">
+                    <MenuItem eventKey={7.1} href="">List</MenuItem>
+                    <MenuItem eventKey={7.2}>Add</MenuItem>
+                </NavDropdown>
+            </Nav>
+            <Nav pullRight>
+                <NavItem eventKey={1} href="http://rowetechinc.co/wiki/index.php?title=Main_Page">RoweTech Wiki</NavItem>
+            </Nav>
+        </Navbar.Collapse>
+    </Navbar>
+    )}
+
+};
+
+//ReactDOM.render(navbarInstance, mountNode);
+ReactDOM.render(<Navigation />, document.getElementById('header'));

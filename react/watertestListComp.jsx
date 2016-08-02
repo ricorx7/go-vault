@@ -5,6 +5,7 @@ import {blueGrey500} from 'material-ui/styles/colors';
 import getMuiTheme from 'material-ui/styles/getMuiTheme';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import Toggle from 'material-ui/toggle';
+import { Checkbox } from 'react-bootstrap';
 
 // Theme for material-ui toggle
 const muiTheme = getMuiTheme({
@@ -80,6 +81,15 @@ var WaterTestCompList = React.createClass({
     return (val === 'true');
   },
 
+  // Convert bool to checked
+  convertToChecked: function(val) {
+    if(val == 'true') {
+      return 'checked';
+    }
+
+    return '';
+  },
+
   // Selection change for IsSelected Column
   handleIsSelectedChange: function(id) {
     // Set state
@@ -95,7 +105,10 @@ var WaterTestCompList = React.createClass({
     // Report Column
     const renderReport =
       (val, row) =>
-        <a href={`${row['PlotReport']}`}> Report </a>;
+        <div>
+          <a href={`${row['PlotReport']}`} target="_blank"> Report </a>
+          <a href={`${this.props.editURL}` + `${row['id']}`} target="_blank"> Edit </a>
+        </div>;
 
     // IsSelected Column
     const renderIsSelected =
@@ -118,7 +131,8 @@ var WaterTestCompList = React.createClass({
     { title: 'GpsDirection', prop: 'GpsDirection'},
     { title: 'BT Direction', prop: 'BtDirection'},
     { title: 'Direction Err', prop: 'DirectionError'},
-    { title: 'Report', render: renderReport, className: 'text-center' },
+    { title: 'Date', prop: 'Modified'},
+    { title: 'Links', render: renderReport, className: 'text-center' },
   ];
 
     return (
@@ -139,5 +153,5 @@ var WaterTestCompList = React.createClass({
 
 // Set the table to compTable
 // Use the url PROP to get the Water Test data
-ReactDOM.render((<WaterTestCompList url="/vault/wt" selectedURL="/vault/wt/select/" />), document.getElementById('compTable'));
+ReactDOM.render((<WaterTestCompList url="/vault/wt" selectedURL="/vault/wt/select/" editURL="/vault/wt/edit/" />), document.getElementById('compTable'));
 

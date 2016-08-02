@@ -96,6 +96,7 @@ var TankTestList = React.createClass({
     const renderReport =
       (val, row) =>
         <a href={`${row['PlotReport']}`}> Report </a>;
+        
 
     // IsSelected Column
     const renderIsSelected =

@@ -8,8 +8,10 @@ module.exports = {
     listFixedTest: "./watertestFixedTableTest.jsx",
     listComp: ["./watertestListComp.jsx", "./header.jsx"],
     listCompTest: ["./watertestListCompTest.jsx", "./header.jsx"],
-    watertest: ["./watertestList.jsx", "./header.jsx"],
-    tanktest: ["./tanktestList.jsx", "./header.jsx"]
+    watertestList: ["./watertestList.jsx", "./header.jsx"],
+    watertestEdit: ["./watertestEdit.jsx", "./header.jsx"],
+    tanktest: ["./tanktestList.jsx", "./header.jsx"],
+    reactDataGrid: ["./reactDataGrid.jsx", "./header.jsx"]
  },
   output: {
     path: __dirname,
@@ -25,7 +27,7 @@ module.exports = {
         loader: 'babel-loader',
         exclude: /node_modules/,
         query: {
-          presets: ['es2015', 'react']
+          presets: ['es2015', 'react', 'stage-1']
         }
       }
     ]
