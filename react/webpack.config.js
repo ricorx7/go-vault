@@ -1,21 +1,12 @@
+var debug = process.env.NODE_ENV !== "production";
 var path = require('path');
 var webpack = require('webpack');
 
 module.exports = {
-  entry:  {
-    hello: "./hello.jsx",
-    listFixed: "./watertestFixedTable.jsx",
-    listFixedTest: "./watertestFixedTableTest.jsx",
-    listComp: ["./watertestListComp.jsx", "./header.jsx"],
-    listCompTest: ["./watertestListCompTest.jsx", "./header.jsx"],
-    watertestList: ["./watertestList.jsx", "./header.jsx"],
-    watertestEdit: ["./watertestEdit.jsx", "./header.jsx"],
-    tanktest: ["./tanktestList.jsx", "./header.jsx"],
-    reactDataGrid: ["./reactDataGrid.jsx", "./header.jsx"]
- },
+  entry:  "./app.jsx",
   output: {
     path: __dirname,
-    filename: "bundle.[name].js"
+    filename: "bundle.js"
   },
     resolveLoader: {
         root: path.join(__dirname, 'node_modules')

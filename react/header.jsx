@@ -88,4 +88,4 @@ handleSelect(eventKey) {
 };
 
 //ReactDOM.render(navbarInstance, mountNode);
-ReactDOM.render(<Navigation />, document.getElementById('header'));
+//ReactDOM.render(<Navigation />, document.getElementById('header'));

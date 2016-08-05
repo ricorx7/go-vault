@@ -1,11 +1,13 @@
-const React = require('react');
-const ReactDOM = require('react-dom');
-var DataTable = require('react-data-components').DataTable;
+import React from 'react';
+import ReactDOM from 'react-dom';
+import {DataTable} from 'react-data-components';
 import {blueGrey500} from 'material-ui/styles/colors';
 import getMuiTheme from 'material-ui/styles/getMuiTheme';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import Toggle from 'material-ui/toggle';
 import { Checkbox } from 'react-bootstrap';
+import { Router, Route, Link, browserHistory } from 'react-router';
+import WaterTestEdit from './watertestEdit.jsx';
 
 // Theme for material-ui toggle
 const muiTheme = getMuiTheme({
@@ -26,28 +28,27 @@ const styles = {
 
 
 // List all the Water Test using the react-data-components.
-var WaterTestCompList = React.createClass({
+export default class WaterTestCompList extends React.Component {
   
-  // Set the initial state
-  getInitialState: function() {
-
-    // Set the STATE
-    return {
+  constructor(props) {
+    super(props);
+    this.state = {
       data: {WaterTests:[]},
       isSelectedID: "",
-    };
-  },
+    }
+  }
+
 
   // At startup get all the Water Test data
-  componentDidMount: function() {
+  componentDidMount() {
     this.loadWaterTestFromServer();
     console.log("data length %i\n", this.state.data.length);
-  },
+  }
 
   // Get the Water Test data from the database using AJAX
-  loadWaterTestFromServer: function() {
+  loadWaterTestFromServer() {
     $.ajax({
-      url: this.props.url,
+      url: "/vault/wt",
       dataType: 'json',
       cache: false,
       success: function(data) {
@@ -55,13 +56,13 @@ var WaterTestCompList = React.createClass({
         this.setState({data: data});
       }.bind(this),
       error: function(xhr, status, err) {
-        console.error(this.props.url, status, err.toString());
+        console.error("/vault/wt", status, err.toString());
       }.bind(this)
     });
-  },
+  }
 
     // Call API to set IsSelect selection
-    apiSetSelected: function(selectedID) {
+    apiSetSelected(selectedID) {
     var urlSelected = this.props.selectedURL + selectedID;
     $.ajax({
       url: urlSelected,
@@ -74,33 +75,33 @@ var WaterTestCompList = React.createClass({
         console.error(urlSelected, status, err.toString());
       }.bind(this)
     });
-  },
+  }
 
   // Convert to Bool
-  convertToBool: function(val) {
+  convertToBool(val) {
     return (val === 'true');
-  },
+  }
 
   // Convert bool to checked
-  convertToChecked: function(val) {
+  convertToChecked(val) {
     if(val == 'true') {
       return 'checked';
     }
 
     return '';
-  },
+  }
 
   // Selection change for IsSelected Column
-  handleIsSelectedChange: function(id) {
+  handleIsSelectedChange(id) {
     // Set state
     this.setState({isSelectedID: id});
 
     // Call the API
     this.apiSetSelected(id);
-  },
+  }
 
   // Render function
-  render: function() {
+  render() {
 
     // Report Column
     const renderReport =
@@ -108,6 +109,7 @@ var WaterTestCompList = React.createClass({
         <div>
           <a href={`${row['PlotReport']}`} target="_blank"> Report </a>
           <a href={`${this.props.editURL}` + `${row['id']}`} target="_blank"> Edit </a>
+          <Link to={"/watertests/" + `${row['id']}`}> EDIT </Link>
         </div>;
 
     // IsSelected Column
@@ -131,7 +133,8 @@ var WaterTestCompList = React.createClass({
     { title: 'GpsDirection', prop: 'GpsDirection'},
     { title: 'BT Direction', prop: 'BtDirection'},
     { title: 'Direction Err', prop: 'DirectionError'},
-    { title: 'Date', prop: 'Modified'},
+    { title: 'Created', prop: 'Created'},
+    { title: 'Modified', prop: 'Modified'},
     { title: 'Links', render: renderReport, className: 'text-center' },
   ];
 
@@ -149,9 +152,10 @@ var WaterTestCompList = React.createClass({
       </div>
     );
   }
-});
+}
 
 // Set the table to compTable
 // Use the url PROP to get the Water Test data
-ReactDOM.render((<WaterTestCompList url="/vault/wt" selectedURL="/vault/wt/select/" editURL="/vault/wt/edit/" />), document.getElementById('compTable'));
+//ReactDOM.render((<WaterTestCompList url="/vault/wt" selectedURL="/vault/wt/select/" editURL="watertests/" />), document.getElementById('compTable'));
+
 
