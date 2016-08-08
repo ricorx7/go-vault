@@ -60,6 +60,10 @@
 
 	var _header2 = _interopRequireDefault(_header);
 
+	var _adcpList = __webpack_require__(676);
+
+	var _adcpList2 = _interopRequireDefault(_adcpList);
+
 	var _watertestListComp = __webpack_require__(454);
 
 	var _watertestListComp2 = _interopRequireDefault(_watertestListComp);
@@ -84,6 +88,8 @@
 	  _react2.default.createElement(
 	    _reactRouter.Route,
 	    { path: '/', component: _Layout2.default },
+	    _react2.default.createElement(_reactRouter.Route, { path: '/adcps', component: _adcpList2.default }),
+	    _react2.default.createElement(_reactRouter.Route, { path: '/adcps/cert/:id', component: _adcpList2.default }),
 	    _react2.default.createElement(_reactRouter.Route, { path: '/watertests', component: _watertestListComp2.default }),
 	    _react2.default.createElement(_reactRouter.Route, { path: '/watertests/:id', component: _watertestEdit2.default })
 	  )
@@ -27176,8 +27182,12 @@
 	                            { eventKey: 1, title: 'ADCP', id: 'basic-nav-dropdown' },
 	                            _react2.default.createElement(
 	                                _reactBootstrap.MenuItem,
-	                                { eventKey: 1.1, href: '' },
-	                                'List'
+	                                { eventKey: 1.1 },
+	                                _react2.default.createElement(
+	                                    _reactRouter.Link,
+	                                    { to: '/adcps' },
+	                                    'List'
+	                                )
 	                            ),
 	                            _react2.default.createElement(
 	                                _reactBootstrap.MenuItem,
@@ -70277,6 +70287,180 @@
 	}(_react2.default.Component);
 
 	exports.default = Layout;
+
+/***/ },
+/* 675 */,
+/* 676 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/* WEBPACK VAR INJECTION */(function($) {'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+	var _react = __webpack_require__(1);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	var _reactDom = __webpack_require__(35);
+
+	var _reactDom2 = _interopRequireDefault(_reactDom);
+
+	var _reactDataComponents = __webpack_require__(456);
+
+	var _colors = __webpack_require__(490);
+
+	var _getMuiTheme = __webpack_require__(491);
+
+	var _getMuiTheme2 = _interopRequireDefault(_getMuiTheme);
+
+	var _MuiThemeProvider = __webpack_require__(649);
+
+	var _MuiThemeProvider2 = _interopRequireDefault(_MuiThemeProvider);
+
+	var _toggle = __webpack_require__(650);
+
+	var _toggle2 = _interopRequireDefault(_toggle);
+
+	var _reactBootstrap = __webpack_require__(239);
+
+	var _reactRouter = __webpack_require__(175);
+
+	var _watertestEdit = __webpack_require__(673);
+
+	var _watertestEdit2 = _interopRequireDefault(_watertestEdit);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+	// Theme for material-ui toggle
+	var muiTheme = (0, _getMuiTheme2.default)({
+	  palette: {
+	    accent1Color: _colors.blueGrey500
+	  }
+	});
+
+	// Style for material-ui toggle
+	var styles = {
+	  block: {
+	    maxWidth: 150
+	  },
+	  toggle: {
+	    marginBottom: 10
+	  }
+	};
+
+	// List all the ADCP using the react-data-components.
+
+	var AdcpList = function (_React$Component) {
+	  _inherits(AdcpList, _React$Component);
+
+	  function AdcpList(props) {
+	    _classCallCheck(this, AdcpList);
+
+	    var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(AdcpList).call(this, props));
+
+	    _this.state = {
+	      data: { Adcps: [] }
+	    };
+	    return _this;
+	  }
+
+	  // At startup get all the ADCP data
+
+
+	  _createClass(AdcpList, [{
+	    key: 'componentDidMount',
+	    value: function componentDidMount() {
+	      this.loadFromServer();
+	      console.log("data length %i\n", this.state.data.length);
+	    }
+
+	    // Get the ADCP data from the database using AJAX
+
+	  }, {
+	    key: 'loadFromServer',
+	    value: function loadFromServer() {
+	      $.ajax({
+	        url: "/vault/adcp",
+	        dataType: 'json',
+	        cache: false,
+	        success: function (data) {
+	          console.log("data length %i\n", data.length);
+	          this.setState({ data: data });
+	        }.bind(this),
+	        error: function (xhr, status, err) {
+	          console.error("/vault/adcp", status, err.toString());
+	        }.bind(this)
+	      });
+	    }
+
+	    // Render function
+
+	  }, {
+	    key: 'render',
+	    value: function render() {
+
+	      // Report Column
+	      var renderReport = function renderReport(val, row) {
+	        return _react2.default.createElement(
+	          'div',
+	          null,
+	          _react2.default.createElement(
+	            _reactRouter.Link,
+	            { to: "/adcps/" + ('' + row['id']) },
+	            ' EDIT '
+	          ),
+	          _react2.default.createElement(
+	            _reactRouter.Link,
+	            { to: "/adcps/cert/" + ('' + row['id']) },
+	            ' CERT '
+	          ),
+	          _react2.default.createElement(
+	            _reactRouter.Link,
+	            { to: "/adcps/test/" + ('' + row['id']) },
+	            ' TEST '
+	          )
+	        );
+	      };
+
+	      // All Columns
+	      var columns = [{ title: 'SerialNumber', prop: 'SerialNumber' }, { title: 'Created', prop: 'Created' }, { title: 'Modified', prop: 'Modified' }, { title: 'Links', render: renderReport, className: 'text-center' }];
+
+	      return _react2.default.createElement(
+	        'div',
+	        null,
+	        _react2.default.createElement(_reactDataComponents.DataTable, {
+	          className: 'container',
+	          keys: 'id',
+	          columns: columns,
+	          initialData: this.state.data.Adcps,
+	          initialPageLength: 20,
+	          initialSortBy: { prop: 'Created', order: 'descending' },
+	          pageLengthOptions: [5, 20, 50]
+	        })
+	      );
+	    }
+	  }]);
+
+	  return AdcpList;
+	}(_react2.default.Component);
+
+	// Set the table to compTable
+	// Use the url PROP to get the Water Test data
+	//ReactDOM.render((<WaterTestCompList url="/vault/wt" selectedURL="/vault/wt/select/" editURL="watertests/" />), document.getElementById('compTable'));
+
+
+	exports.default = AdcpList;
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(455)))
 
 /***/ }
 /******/ ]);

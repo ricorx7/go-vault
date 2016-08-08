@@ -51,7 +51,7 @@ handleSelect(eventKey) {
         <Navbar.Collapse>
             <Nav onSelect={this.handleSelect}>
                 <NavDropdown eventKey={1} title="ADCP" id="basic-nav-dropdown">
-                    <MenuItem eventKey={1.1} href="">List</MenuItem>
+                    <MenuItem eventKey={1.1} ><Link to="/adcps">List</Link></MenuItem>
                     <MenuItem eventKey={1.2}>Add</MenuItem>
                 </NavDropdown>
                 <NavDropdown eventKey={2} title="WaterTest" id="basic-nav-dropdown">
