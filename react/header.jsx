@@ -1,5 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import { Link } from 'react-router';
 import { Nav, Navbar, NavbarCollapse, NavbarBrand, NavbarHeader, NavbarToggle, NavDropdown, NavItem, MenuItem, FormGroup, FormControl, Button } from 'react-bootstrap';
 
 export default class Navigation extends React.Component {
@@ -54,7 +55,7 @@ handleSelect(eventKey) {
                     <MenuItem eventKey={1.2}>Add</MenuItem>
                 </NavDropdown>
                 <NavDropdown eventKey={2} title="WaterTest" id="basic-nav-dropdown">
-                    <MenuItem eventKey={2.1} href="watertestListComp.html">List</MenuItem>
+                    <MenuItem eventKey={2.1} ><Link to="/watertests">List</Link></MenuItem>
                     <MenuItem eventKey={2.2}>Add</MenuItem>
                 </NavDropdown>
                 <NavDropdown eventKey={3} title="TankTest" id="basic-nav-dropdown">

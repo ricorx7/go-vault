@@ -1,5 +1,5 @@
 import React from "react";
-import { Link } from "react-router";
+
 
 import Navigation from "./header.jsx";
 
@@ -7,7 +7,7 @@ export default class Layout extends React.Component {
   render() {
     const { location } = this.props;
     const containerStyle = {
-      marginTop: "60px"
+      marginTop: "10px"
     };
     console.log("layout");
     return (

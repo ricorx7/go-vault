@@ -63,7 +63,7 @@ export default class WaterTestCompList extends React.Component {
 
     // Call API to set IsSelect selection
     apiSetSelected(selectedID) {
-    var urlSelected = this.props.selectedURL + selectedID;
+    var urlSelected = "/vault/wt/select/" + selectedID;
     $.ajax({
       url: urlSelected,
       dataType: 'json',
@@ -94,7 +94,7 @@ export default class WaterTestCompList extends React.Component {
   // Selection change for IsSelected Column
   handleIsSelectedChange(id) {
     // Set state
-    this.setState({isSelectedID: id});
+    //this.setState({isSelectedID: id});
 
     // Call the API
     this.apiSetSelected(id);
@@ -108,7 +108,6 @@ export default class WaterTestCompList extends React.Component {
       (val, row) =>
         <div>
           <a href={`${row['PlotReport']}`} target="_blank"> Report </a>
-          <a href={`${this.props.editURL}` + `${row['id']}`} target="_blank"> Edit </a>
           <Link to={"/watertests/" + `${row['id']}`}> EDIT </Link>
         </div>;
 
@@ -125,7 +124,7 @@ export default class WaterTestCompList extends React.Component {
     var columns = [
     { title: 'Selected', render: renderIsSelected},
     { title: 'SerialNumber', prop: 'SerialNumber'},
-    { title: 'Subsystem', prop: 'SubsystemDescStr'},
+    { title: 'Subsys', prop: 'SubsystemDescStr'},
     { title: 'Orientation', prop: 'TestOrientation'},
     { title: 'GpsDistance', prop: 'GpsDistance'},
     { title: 'BT Distance', prop: 'BtDistance'},

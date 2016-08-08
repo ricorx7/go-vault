@@ -29,7 +29,7 @@ export default class WaterTestEdit extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-        data: {WaterTests:[]}
+        data: {}
     }
   }
 
@@ -47,7 +47,8 @@ export default class WaterTestEdit extends React.Component {
       dataType: 'json',
       cache: false,
       success: function(data) {
-        console.log("%s\n", urlSelected);
+        console.log("Data gotten from %s\n", urlSelected);
+        console.log("%v\n", data);
         this.setState({data: data});
       }.bind(this),
       error: function(xhr, status, err) {
@@ -61,8 +62,7 @@ export default class WaterTestEdit extends React.Component {
   render() {
     return (
         <div>
-        {this.props.params.id}
-        {this.state.data}
+        <h1>{this.state.data.SerialNumber}</h1>
         </div>
     );
   }

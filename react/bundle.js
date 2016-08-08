@@ -27092,6 +27092,8 @@
 
 	var _reactDom2 = _interopRequireDefault(_reactDom);
 
+	var _reactRouter = __webpack_require__(175);
+
 	var _reactBootstrap = __webpack_require__(239);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
@@ -27188,8 +27190,12 @@
 	                            { eventKey: 2, title: 'WaterTest', id: 'basic-nav-dropdown' },
 	                            _react2.default.createElement(
 	                                _reactBootstrap.MenuItem,
-	                                { eventKey: 2.1, href: 'watertestListComp.html' },
-	                                'List'
+	                                { eventKey: 2.1 },
+	                                _react2.default.createElement(
+	                                    _reactRouter.Link,
+	                                    { to: '/watertests' },
+	                                    'List'
+	                                )
 	                            ),
 	                            _react2.default.createElement(
 	                                _reactBootstrap.MenuItem,
@@ -44426,7 +44432,7 @@
 	  }, {
 	    key: 'apiSetSelected',
 	    value: function apiSetSelected(selectedID) {
-	      var urlSelected = this.props.selectedURL + selectedID;
+	      var urlSelected = "/vault/wt/select/" + selectedID;
 	      $.ajax({
 	        url: urlSelected,
 	        dataType: 'json',
@@ -44466,7 +44472,7 @@
 	    key: 'handleIsSelectedChange',
 	    value: function handleIsSelectedChange(id) {
 	      // Set state
-	      this.setState({ isSelectedID: id });
+	      //this.setState({isSelectedID: id});
 
 	      // Call the API
 	      this.apiSetSelected(id);
@@ -44490,11 +44496,6 @@
 	            ' Report '
 	          ),
 	          _react2.default.createElement(
-	            'a',
-	            { href: '' + _this2.props.editURL + ('' + row['id']), target: '_blank' },
-	            ' Edit '
-	          ),
-	          _react2.default.createElement(
 	            _reactRouter.Link,
 	            { to: "/watertests/" + ('' + row['id']) },
 	            ' EDIT '
@@ -44516,7 +44517,7 @@
 	      };
 
 	      // All Columns
-	      var columns = [{ title: 'Selected', render: renderIsSelected }, { title: 'SerialNumber', prop: 'SerialNumber' }, { title: 'Subsystem', prop: 'SubsystemDescStr' }, { title: 'Orientation', prop: 'TestOrientation' }, { title: 'GpsDistance', prop: 'GpsDistance' }, { title: 'BT Distance', prop: 'BtDistance' }, { title: 'Distance Err', prop: 'DistanceError' }, { title: 'GpsDirection', prop: 'GpsDirection' }, { title: 'BT Direction', prop: 'BtDirection' }, { title: 'Direction Err', prop: 'DirectionError' }, { title: 'Created', prop: 'Created' }, { title: 'Modified', prop: 'Modified' }, { title: 'Links', render: renderReport, className: 'text-center' }];
+	      var columns = [{ title: 'Selected', render: renderIsSelected }, { title: 'SerialNumber', prop: 'SerialNumber' }, { title: 'Subsys', prop: 'SubsystemDescStr' }, { title: 'Orientation', prop: 'TestOrientation' }, { title: 'GpsDistance', prop: 'GpsDistance' }, { title: 'BT Distance', prop: 'BtDistance' }, { title: 'Distance Err', prop: 'DistanceError' }, { title: 'GpsDirection', prop: 'GpsDirection' }, { title: 'BT Direction', prop: 'BtDirection' }, { title: 'Direction Err', prop: 'DirectionError' }, { title: 'Created', prop: 'Created' }, { title: 'Modified', prop: 'Modified' }, { title: 'Links', render: renderReport, className: 'text-center' }];
 
 	      return _react2.default.createElement(
 	        'div',
@@ -70142,7 +70143,7 @@
 	    var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(WaterTestEdit).call(this, props));
 
 	    _this.state = {
-	      data: { WaterTests: [] }
+	      data: {}
 	    };
 	    return _this;
 	  }
@@ -70168,7 +70169,8 @@
 	        dataType: 'json',
 	        cache: false,
 	        success: function (data) {
-	          console.log("%s\n", urlSelected);
+	          console.log("Data gotten from %s\n", urlSelected);
+	          console.log("%v\n", data);
 	          this.setState({ data: data });
 	        }.bind(this),
 	        error: function (xhr, status, err) {
@@ -70185,8 +70187,11 @@
 	      return _react2.default.createElement(
 	        'div',
 	        null,
-	        this.props.params.id,
-	        this.state.data
+	        _react2.default.createElement(
+	          'h1',
+	          null,
+	          this.state.data.SerialNumber
+	        )
 	      );
 	    }
 	  }]);
@@ -70217,8 +70222,6 @@
 
 	var _react2 = _interopRequireDefault(_react);
 
-	var _reactRouter = __webpack_require__(175);
-
 	var _header = __webpack_require__(238);
 
 	var _header2 = _interopRequireDefault(_header);
@@ -70246,7 +70249,7 @@
 	      var location = this.props.location;
 
 	      var containerStyle = {
-	        marginTop: "60px"
+	        marginTop: "10px"
 	      };
 	      console.log("layout");
 	      return _react2.default.createElement(
