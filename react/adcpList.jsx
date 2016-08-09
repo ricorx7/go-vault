@@ -68,13 +68,14 @@ export default class AdcpList extends React.Component {
       (val, row) =>
         <div>
           <Link to={"/adcps/" + `${row['id']}`}> EDIT </Link>
-          <Link to={"/adcps/cert/" + `${row['id']}`}> CERT </Link>
+          <Link to={"/adcps/cert/" + `${row['SerialNumber']}`}> CERT </Link>
           <Link to={"/adcps/test/" + `${row['id']}`}> TEST </Link>
         </div>;
 
     // All Columns
     var columns = [
     { title: 'SerialNumber', prop: 'SerialNumber'},
+    { title: 'Customer', prop: 'Customer'},
     { title: 'Created', prop: 'Created'},
     { title: 'Modified', prop: 'Modified'},
     { title: 'Links', render: renderReport, className: 'text-center' },

@@ -3,8 +3,9 @@ import ReactDOM from 'react-dom';
 import { Router, Route, Link, hashHistory } from 'react-router';
 
 import Navigation from "./header.jsx";
-import AdcpList from "./adcpList.jsx"
-import WaterTestCompList from "./watertestListComp.jsx";
+import AdcpList from "./adcpList.jsx";
+import AdcpCert from "./adcpCert.jsx";
+import WaterTestList from "./watertestList.jsx";
 import WaterTestEdit from "./watertestEdit.jsx";
 import Layout from "./Layout.jsx";
 
@@ -16,8 +17,8 @@ ReactDOM.render((
   <Router history={hashHistory}>
     <Route path="/" component={Layout}>
       <Route path="/adcps" component={AdcpList} />
-      <Route path="/adcps/cert/:id" component={AdcpList} />
-      <Route path="/watertests" component={WaterTestCompList} />
+      <Route path="/adcps/cert/:id" component={AdcpCert} />
+      <Route path="/watertests" component={WaterTestList} />
       <Route path="/watertests/:id" component={WaterTestEdit} />
     </Route>
   </Router>

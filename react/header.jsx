@@ -23,7 +23,7 @@ handleSelect(eventKey) {
             console.log("ADCP Add");
             break;
         case 2.1:
-            console.log("Water Test Add");
+            console.log("Water Test List");
             break;
         case 2.2:
             console.log("Water Test Add");
@@ -65,6 +65,10 @@ handleSelect(eventKey) {
                 <NavDropdown eventKey={4} title="SNR Test" id="basic-nav-dropdown">
                     <MenuItem eventKey={4.1} href="">List</MenuItem>
                     <MenuItem eventKey={4.2}>Add</MenuItem>
+                </NavDropdown>
+                <NavDropdown eventKey={8} title="Compass Cal" id="basic-nav-dropdown">
+                    <MenuItem eventKey={8.1} href="">List</MenuItem>
+                    <MenuItem eventKey={8.2}>Add</MenuItem>
                 </NavDropdown>
                 <NavDropdown eventKey={5} title="RMA" id="basic-nav-dropdown">
                     <MenuItem eventKey={5.1} href="">List</MenuItem>

@@ -60,19 +60,23 @@
 
 	var _header2 = _interopRequireDefault(_header);
 
-	var _adcpList = __webpack_require__(676);
+	var _adcpList = __webpack_require__(454);
 
 	var _adcpList2 = _interopRequireDefault(_adcpList);
 
-	var _watertestListComp = __webpack_require__(454);
+	var _adcpCert = __webpack_require__(674);
 
-	var _watertestListComp2 = _interopRequireDefault(_watertestListComp);
+	var _adcpCert2 = _interopRequireDefault(_adcpCert);
+
+	var _watertestList = __webpack_require__(675);
+
+	var _watertestList2 = _interopRequireDefault(_watertestList);
 
 	var _watertestEdit = __webpack_require__(673);
 
 	var _watertestEdit2 = _interopRequireDefault(_watertestEdit);
 
-	var _Layout = __webpack_require__(674);
+	var _Layout = __webpack_require__(676);
 
 	var _Layout2 = _interopRequireDefault(_Layout);
 
@@ -89,8 +93,8 @@
 	    _reactRouter.Route,
 	    { path: '/', component: _Layout2.default },
 	    _react2.default.createElement(_reactRouter.Route, { path: '/adcps', component: _adcpList2.default }),
-	    _react2.default.createElement(_reactRouter.Route, { path: '/adcps/cert/:id', component: _adcpList2.default }),
-	    _react2.default.createElement(_reactRouter.Route, { path: '/watertests', component: _watertestListComp2.default }),
+	    _react2.default.createElement(_reactRouter.Route, { path: '/adcps/cert/:id', component: _adcpCert2.default }),
+	    _react2.default.createElement(_reactRouter.Route, { path: '/watertests', component: _watertestList2.default }),
 	    _react2.default.createElement(_reactRouter.Route, { path: '/watertests/:id', component: _watertestEdit2.default })
 	  )
 	), document.getElementById('app'));
@@ -27136,7 +27140,7 @@
 	                    console.log("ADCP Add");
 	                    break;
 	                case 2.1:
-	                    console.log("Water Test Add");
+	                    console.log("Water Test List");
 	                    break;
 	                case 2.2:
 	                    console.log("Water Test Add");
@@ -27238,6 +27242,20 @@
 	                            _react2.default.createElement(
 	                                _reactBootstrap.MenuItem,
 	                                { eventKey: 4.2 },
+	                                'Add'
+	                            )
+	                        ),
+	                        _react2.default.createElement(
+	                            _reactBootstrap.NavDropdown,
+	                            { eventKey: 8, title: 'Compass Cal', id: 'basic-nav-dropdown' },
+	                            _react2.default.createElement(
+	                                _reactBootstrap.MenuItem,
+	                                { eventKey: 8.1, href: '' },
+	                                'List'
+	                            ),
+	                            _react2.default.createElement(
+	                                _reactBootstrap.MenuItem,
+	                                { eventKey: 8.2 },
 	                                'Add'
 	                            )
 	                        ),
@@ -44391,40 +44409,39 @@
 	  }
 	};
 
-	// List all the Water Test using the react-data-components.
+	// List all the ADCP using the react-data-components.
 
-	var WaterTestCompList = function (_React$Component) {
-	  _inherits(WaterTestCompList, _React$Component);
+	var AdcpList = function (_React$Component) {
+	  _inherits(AdcpList, _React$Component);
 
-	  function WaterTestCompList(props) {
-	    _classCallCheck(this, WaterTestCompList);
+	  function AdcpList(props) {
+	    _classCallCheck(this, AdcpList);
 
-	    var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(WaterTestCompList).call(this, props));
+	    var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(AdcpList).call(this, props));
 
 	    _this.state = {
-	      data: { WaterTests: [] },
-	      isSelectedID: ""
+	      data: { Adcps: [] }
 	    };
 	    return _this;
 	  }
 
-	  // At startup get all the Water Test data
+	  // At startup get all the ADCP data
 
 
-	  _createClass(WaterTestCompList, [{
+	  _createClass(AdcpList, [{
 	    key: 'componentDidMount',
 	    value: function componentDidMount() {
-	      this.loadWaterTestFromServer();
+	      this.loadFromServer();
 	      console.log("data length %i\n", this.state.data.length);
 	    }
 
-	    // Get the Water Test data from the database using AJAX
+	    // Get the ADCP data from the database using AJAX
 
 	  }, {
-	    key: 'loadWaterTestFromServer',
-	    value: function loadWaterTestFromServer() {
+	    key: 'loadFromServer',
+	    value: function loadFromServer() {
 	      $.ajax({
-	        url: "/vault/wt",
+	        url: "/vault/adcp",
 	        dataType: 'json',
 	        cache: false,
 	        success: function (data) {
@@ -44432,60 +44449,9 @@
 	          this.setState({ data: data });
 	        }.bind(this),
 	        error: function (xhr, status, err) {
-	          console.error("/vault/wt", status, err.toString());
+	          console.error("/vault/adcp", status, err.toString());
 	        }.bind(this)
 	      });
-	    }
-
-	    // Call API to set IsSelect selection
-
-	  }, {
-	    key: 'apiSetSelected',
-	    value: function apiSetSelected(selectedID) {
-	      var urlSelected = "/vault/wt/select/" + selectedID;
-	      $.ajax({
-	        url: urlSelected,
-	        dataType: 'json',
-	        cache: false,
-	        success: function (data) {
-	          console.log("%s %s\n", urlSelected, this.state.isSelectedID);
-	        }.bind(this),
-	        error: function (xhr, status, err) {
-	          console.error(urlSelected, status, err.toString());
-	        }.bind(this)
-	      });
-	    }
-
-	    // Convert to Bool
-
-	  }, {
-	    key: 'convertToBool',
-	    value: function convertToBool(val) {
-	      return val === 'true';
-	    }
-
-	    // Convert bool to checked
-
-	  }, {
-	    key: 'convertToChecked',
-	    value: function convertToChecked(val) {
-	      if (val == 'true') {
-	        return 'checked';
-	      }
-
-	      return '';
-	    }
-
-	    // Selection change for IsSelected Column
-
-	  }, {
-	    key: 'handleIsSelectedChange',
-	    value: function handleIsSelectedChange(id) {
-	      // Set state
-	      //this.setState({isSelectedID: id});
-
-	      // Call the API
-	      this.apiSetSelected(id);
 	    }
 
 	    // Render function
@@ -44493,7 +44459,6 @@
 	  }, {
 	    key: 'render',
 	    value: function render() {
-	      var _this2 = this;
 
 	      // Report Column
 	      var renderReport = function renderReport(val, row) {
@@ -44501,33 +44466,25 @@
 	          'div',
 	          null,
 	          _react2.default.createElement(
-	            'a',
-	            { href: '' + row['PlotReport'], target: '_blank' },
-	            ' Report '
+	            _reactRouter.Link,
+	            { to: "/adcps/" + ('' + row['id']) },
+	            ' EDIT '
 	          ),
 	          _react2.default.createElement(
 	            _reactRouter.Link,
-	            { to: "/watertests/" + ('' + row['id']) },
-	            ' EDIT '
-	          )
-	        );
-	      };
-
-	      // IsSelected Column
-	      var renderIsSelected = function renderIsSelected(val, row) {
-	        return _react2.default.createElement(
-	          _MuiThemeProvider2.default,
-	          { muiTheme: muiTheme },
+	            { to: "/adcps/cert/" + ('' + row['SerialNumber']) },
+	            ' CERT '
+	          ),
 	          _react2.default.createElement(
-	            'div',
-	            { style: styles.block },
-	            _react2.default.createElement(_toggle2.default, { label: '', defaultToggled: _this2.convertToBool('' + row['IsSelected']), onToggle: _this2.handleIsSelectedChange.bind(_this2, '' + row['id']), style: styles.toggle })
+	            _reactRouter.Link,
+	            { to: "/adcps/test/" + ('' + row['id']) },
+	            ' TEST '
 	          )
 	        );
 	      };
 
 	      // All Columns
-	      var columns = [{ title: 'Selected', render: renderIsSelected }, { title: 'SerialNumber', prop: 'SerialNumber' }, { title: 'Subsys', prop: 'SubsystemDescStr' }, { title: 'Orientation', prop: 'TestOrientation' }, { title: 'GpsDistance', prop: 'GpsDistance' }, { title: 'BT Distance', prop: 'BtDistance' }, { title: 'Distance Err', prop: 'DistanceError' }, { title: 'GpsDirection', prop: 'GpsDirection' }, { title: 'BT Direction', prop: 'BtDirection' }, { title: 'Direction Err', prop: 'DirectionError' }, { title: 'Created', prop: 'Created' }, { title: 'Modified', prop: 'Modified' }, { title: 'Links', render: renderReport, className: 'text-center' }];
+	      var columns = [{ title: 'SerialNumber', prop: 'SerialNumber' }, { title: 'Customer', prop: 'Customer' }, { title: 'Created', prop: 'Created' }, { title: 'Modified', prop: 'Modified' }, { title: 'Links', render: renderReport, className: 'text-center' }];
 
 	      return _react2.default.createElement(
 	        'div',
@@ -44536,7 +44493,7 @@
 	          className: 'container',
 	          keys: 'id',
 	          columns: columns,
-	          initialData: this.state.data.WaterTests,
+	          initialData: this.state.data.Adcps,
 	          initialPageLength: 20,
 	          initialSortBy: { prop: 'Created', order: 'descending' },
 	          pageLengthOptions: [5, 20, 50]
@@ -44545,7 +44502,7 @@
 	    }
 	  }]);
 
-	  return WaterTestCompList;
+	  return AdcpList;
 	}(_react2.default.Component);
 
 	// Set the table to compTable
@@ -44553,7 +44510,7 @@
 	//ReactDOM.render((<WaterTestCompList url="/vault/wt" selectedURL="/vault/wt/select/" editURL="watertests/" />), document.getElementById('compTable'));
 
 
-	exports.default = WaterTestCompList;
+	exports.default = AdcpList;
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(455)))
 
 /***/ },
@@ -70220,10 +70177,10 @@
 /* 674 */
 /***/ function(module, exports, __webpack_require__) {
 
-	"use strict";
+	/* WEBPACK VAR INJECTION */(function($) {'use strict';
 
 	Object.defineProperty(exports, "__esModule", {
-	  value: true
+	    value: true
 	});
 
 	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
@@ -70232,9 +70189,29 @@
 
 	var _react2 = _interopRequireDefault(_react);
 
-	var _header = __webpack_require__(238);
+	var _reactDom = __webpack_require__(35);
 
-	var _header2 = _interopRequireDefault(_header);
+	var _reactDom2 = _interopRequireDefault(_reactDom);
+
+	var _reactDataComponents = __webpack_require__(456);
+
+	var _colors = __webpack_require__(490);
+
+	var _getMuiTheme = __webpack_require__(491);
+
+	var _getMuiTheme2 = _interopRequireDefault(_getMuiTheme);
+
+	var _MuiThemeProvider = __webpack_require__(649);
+
+	var _MuiThemeProvider2 = _interopRequireDefault(_MuiThemeProvider);
+
+	var _toggle = __webpack_require__(650);
+
+	var _toggle2 = _interopRequireDefault(_toggle);
+
+	var _reactBootstrap = __webpack_require__(239);
+
+	var _reactRouter = __webpack_require__(175);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -70244,53 +70221,1422 @@
 
 	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-	var Layout = function (_React$Component) {
-	  _inherits(Layout, _React$Component);
-
-	  function Layout() {
-	    _classCallCheck(this, Layout);
-
-	    return _possibleConstructorReturn(this, Object.getPrototypeOf(Layout).apply(this, arguments));
-	  }
-
-	  _createClass(Layout, [{
-	    key: "render",
-	    value: function render() {
-	      var location = this.props.location;
-
-	      var containerStyle = {
-	        marginTop: "10px"
-	      };
-	      console.log("layout");
-	      return _react2.default.createElement(
-	        "div",
-	        null,
-	        _react2.default.createElement(_header2.default, null),
-	        _react2.default.createElement(
-	          "div",
-	          { "class": "container", style: containerStyle },
-	          _react2.default.createElement(
-	            "div",
-	            { "class": "row" },
-	            _react2.default.createElement(
-	              "div",
-	              { "class": "col-lg-12" },
-	              this.props.children
-	            )
-	          )
-	        )
-	      );
+	// Theme for material-ui toggle
+	var muiTheme = (0, _getMuiTheme2.default)({
+	    palette: {
+	        accent1Color: _colors.blueGrey500
 	    }
-	  }]);
+	});
 
-	  return Layout;
+	// Style for material-ui toggle
+	var styles = {
+	    block: {
+	        maxWidth: 150
+	    },
+	    toggle: {
+	        marginBottom: 10
+	    }
+	};
+
+	// List all the ADCP using the react-data-components.
+
+	var AdcpCert = function (_React$Component) {
+	    _inherits(AdcpCert, _React$Component);
+
+	    function AdcpCert(props) {
+	        _classCallCheck(this, AdcpCert);
+
+	        var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(AdcpCert).call(this, props));
+
+	        _this.state = {
+	            data: {},
+	            tankTest: [],
+	            snrTest: [],
+	            waterTest: []
+	        };
+	        return _this;
+	    }
+
+	    // At startup get all the ADCP data
+
+
+	    _createClass(AdcpCert, [{
+	        key: 'componentWillMount',
+	        value: function componentWillMount() {
+	            //this.serverRequest = this.loadAdcpFromServer();
+
+	            var urlSelected = "/vault/adcp/cert/" + this.props.params.id;
+	            $.ajax({
+	                url: urlSelected,
+	                dataType: 'json',
+	                cache: false,
+	                success: function (data) {
+	                    console.log("data length %i\n", data.length);
+	                    this.setState({ data: data });
+	                }.bind(this),
+	                error: function (xhr, status, err) {
+	                    console.error("/vault/adcp", status, err.toString());
+	                }.bind(this)
+	            });
+
+	            console.log("data length: %i\n", this.state.data.length);
+	            console.log("adcp data: %i\n", this.state.data.length);
+	        }
+
+	        // Shutdown the display
+
+	    }, {
+	        key: 'componentWillUnmount',
+	        value: function componentWillUnmount() {
+	            this.serverRequest.abort();
+	        }
+
+	        // Get the ADCP data from the database using AJAX
+
+	    }, {
+	        key: 'loadAdcpFromServer',
+	        value: function loadAdcpFromServer() {
+	            var urlSelected = "/vault/adcp/cert/" + this.props.params.id;
+	            $.ajax({
+	                url: urlSelected,
+	                dataType: 'json',
+	                cache: false,
+	                success: function (data) {
+	                    console.log("data length %i\n", data.length);
+	                    this.setState({ data: data });
+	                }.bind(this),
+	                error: function (xhr, status, err) {
+	                    console.error("/vault/adcp", status, err.toString());
+	                }.bind(this)
+	            });
+	        }
+
+	        // Render function
+
+	    }, {
+	        key: 'render',
+	        value: function render() {
+
+	            if (this.state.data.Adcp == null) {
+	                return _react2.default.createElement('div', null);
+	            }
+
+	            var marginBottom = {
+	                bottomMargin: "20px"
+	            };
+
+	            var noBottom = {
+	                bottomMargin: "0px"
+	            };
+
+	            var marginLeft = {
+	                leftMargin: "5px"
+	            };
+
+	            var sigStyle = {
+	                border: "1px",
+	                solid: "black",
+	                marginTop: "5px"
+	            };
+
+	            var rowHeaderStyle = {
+	                bgcolor: "lightgray"
+	            };
+
+	            if (this.state.data.Adcp != null) {
+	                var pressure;
+	                if (this.state.data.Adcp.PressureSensorPresent) {
+	                    pressure = _react2.default.createElement(
+	                        'td',
+	                        null,
+	                        _react2.default.createElement(_reactBootstrap.Glyphicon, { glyph: 'check', 'aria-hidden': 'true' })
+	                    );
+	                }
+	                var temperature;
+	                if (this.state.data.Adcp.TemperaturePresent) {
+	                    temperature = _react2.default.createElement(
+	                        'td',
+	                        null,
+	                        _react2.default.createElement(_reactBootstrap.Glyphicon, { glyph: 'check', 'aria-hidden': 'true' })
+	                    );
+	                }
+	                var recorderFormatted;
+	                if (this.state.data.Adcp.RecorderFormatted) {
+	                    recorderFormatted = _react2.default.createElement(
+	                        'td',
+	                        null,
+	                        _react2.default.createElement(_reactBootstrap.Glyphicon, { glyph: 'check', 'aria-hidden': 'true' })
+	                    );
+	                }
+	            }
+
+	            // Compass Cal Data
+	            if (this.state.data.CompassCal != null) {
+	                var compassCalData = [];
+	                this.state.data.CompassCal.map(function (cc, i) {
+	                    var pt1 = Math.round(cc.Point1_Post_Hdg * 100) / 100;
+	                    var pt1Diff = Math.round(cc.CompasscalBeam1Error * 100) / 100;
+	                    compassCalData.push(_react2.default.createElement(
+	                        'tr',
+	                        null,
+	                        _react2.default.createElement(
+	                            'td',
+	                            null,
+	                            _react2.default.createElement(
+	                                'strong',
+	                                null,
+	                                '0°'
+	                            )
+	                        ),
+	                        _react2.default.createElement(
+	                            'td',
+	                            null,
+	                            pt1,
+	                            '°'
+	                        ),
+	                        _react2.default.createElement(
+	                            'td',
+	                            null,
+	                            pt1Diff,
+	                            '°'
+	                        )
+	                    ));
+	                    var pt2 = Math.round(cc.Point2_Post_Hdg * 100) / 100;
+	                    var pt2Diff = Math.round(cc.CompasscalBeam2Error * 100) / 100;
+	                    compassCalData.push(_react2.default.createElement(
+	                        'tr',
+	                        null,
+	                        _react2.default.createElement(
+	                            'td',
+	                            null,
+	                            _react2.default.createElement(
+	                                'strong',
+	                                null,
+	                                '90°'
+	                            )
+	                        ),
+	                        _react2.default.createElement(
+	                            'td',
+	                            null,
+	                            pt2,
+	                            '°'
+	                        ),
+	                        _react2.default.createElement(
+	                            'td',
+	                            null,
+	                            pt2Diff,
+	                            '°'
+	                        )
+	                    ));
+	                    var pt3 = Math.round(cc.Point3_Post_Hdg * 100) / 100;
+	                    var pt3Diff = Math.round(cc.CompasscalBeam3Error * 100) / 100;
+	                    compassCalData.push(_react2.default.createElement(
+	                        'tr',
+	                        null,
+	                        _react2.default.createElement(
+	                            'td',
+	                            null,
+	                            _react2.default.createElement(
+	                                'strong',
+	                                null,
+	                                '180°'
+	                            )
+	                        ),
+	                        _react2.default.createElement(
+	                            'td',
+	                            null,
+	                            pt3,
+	                            '°'
+	                        ),
+	                        _react2.default.createElement(
+	                            'td',
+	                            null,
+	                            pt3Diff,
+	                            '°'
+	                        )
+	                    ));
+	                    var pt4 = Math.round(cc.Point4_Post_Hdg * 100) / 100;
+	                    var pt4Diff = Math.round(cc.CompasscalBeam4Error * 100) / 100;
+	                    compassCalData.push(_react2.default.createElement(
+	                        'tr',
+	                        null,
+	                        _react2.default.createElement(
+	                            'td',
+	                            null,
+	                            _react2.default.createElement(
+	                                'strong',
+	                                null,
+	                                '270°'
+	                            )
+	                        ),
+	                        _react2.default.createElement(
+	                            'td',
+	                            null,
+	                            pt4,
+	                            '°'
+	                        ),
+	                        _react2.default.createElement(
+	                            'td',
+	                            null,
+	                            pt4Diff,
+	                            '°'
+	                        )
+	                    ));
+	                });
+	            }
+
+	            // Tank Test
+	            if (this.state.data.TankTest != null) {
+	                var tankTestData = [];
+	                this.state.data.TankTest.map(function (tt, i) {
+	                    tankTestData.push(_react2.default.createElement(
+	                        'tr',
+	                        null,
+	                        _react2.default.createElement(
+	                            'td',
+	                            { colSpan: '5' },
+	                            tt.SubsystemDescStr
+	                        )
+	                    ));
+	                    var b0Noise = Math.round(tt.Beam0NoiseFloor * 100) / 100;
+	                    var b0Sig = Math.round(tt.Beam0SignalTank * 100) / 100;
+	                    tankTestData.push(_react2.default.createElement(
+	                        'tr',
+	                        null,
+	                        _react2.default.createElement(
+	                            'td',
+	                            null,
+	                            _react2.default.createElement(
+	                                'strong',
+	                                null,
+	                                'Beam 0'
+	                            )
+	                        ),
+	                        _react2.default.createElement(
+	                            'td',
+	                            null,
+	                            _react2.default.createElement(_reactBootstrap.Glyphicon, { glyph: 'check' })
+	                        ),
+	                        _react2.default.createElement(
+	                            'td',
+	                            null,
+	                            b0Noise
+	                        ),
+	                        _react2.default.createElement(
+	                            'td',
+	                            null,
+	                            b0Sig
+	                        ),
+	                        _react2.default.createElement(
+	                            'td',
+	                            null,
+	                            _react2.default.createElement(_reactBootstrap.Glyphicon, { glyph: 'check' })
+	                        )
+	                    ));
+	                    var b1Noise = Math.round(tt.Beam1NoiseFloor * 100) / 100;
+	                    var b1Sig = Math.round(tt.Beam1SignalTank * 100) / 100;
+	                    tankTestData.push(_react2.default.createElement(
+	                        'tr',
+	                        null,
+	                        _react2.default.createElement(
+	                            'td',
+	                            null,
+	                            _react2.default.createElement(
+	                                'strong',
+	                                null,
+	                                'Beam 1'
+	                            )
+	                        ),
+	                        _react2.default.createElement(
+	                            'td',
+	                            null,
+	                            _react2.default.createElement(_reactBootstrap.Glyphicon, { glyph: 'check' })
+	                        ),
+	                        _react2.default.createElement(
+	                            'td',
+	                            null,
+	                            b1Noise
+	                        ),
+	                        _react2.default.createElement(
+	                            'td',
+	                            null,
+	                            b1Sig
+	                        ),
+	                        _react2.default.createElement(
+	                            'td',
+	                            null,
+	                            _react2.default.createElement(_reactBootstrap.Glyphicon, { glyph: 'check' })
+	                        )
+	                    ));
+	                    var b2Noise = Math.round(tt.Beam2NoiseFloor * 100) / 100;
+	                    var b2Sig = Math.round(tt.Beam2SignalTank * 100) / 100;
+	                    tankTestData.push(_react2.default.createElement(
+	                        'tr',
+	                        null,
+	                        _react2.default.createElement(
+	                            'td',
+	                            null,
+	                            _react2.default.createElement(
+	                                'strong',
+	                                null,
+	                                'Beam 2'
+	                            )
+	                        ),
+	                        _react2.default.createElement(
+	                            'td',
+	                            null,
+	                            _react2.default.createElement(_reactBootstrap.Glyphicon, { glyph: 'check' })
+	                        ),
+	                        _react2.default.createElement(
+	                            'td',
+	                            null,
+	                            b2Noise
+	                        ),
+	                        _react2.default.createElement(
+	                            'td',
+	                            null,
+	                            b2Sig
+	                        ),
+	                        _react2.default.createElement(
+	                            'td',
+	                            null,
+	                            _react2.default.createElement(_reactBootstrap.Glyphicon, { glyph: 'check' })
+	                        )
+	                    ));
+	                    var b3Noise = Math.round(tt.Beam3NoiseFloor * 100) / 100;
+	                    var b3Sig = Math.round(tt.Beam3SignalTank * 100) / 100;
+	                    tankTestData.push(_react2.default.createElement(
+	                        'tr',
+	                        null,
+	                        _react2.default.createElement(
+	                            'td',
+	                            null,
+	                            _react2.default.createElement(
+	                                'strong',
+	                                null,
+	                                'Beam 3'
+	                            )
+	                        ),
+	                        _react2.default.createElement(
+	                            'td',
+	                            null,
+	                            _react2.default.createElement(_reactBootstrap.Glyphicon, { glyph: 'check' })
+	                        ),
+	                        _react2.default.createElement(
+	                            'td',
+	                            null,
+	                            b3Noise
+	                        ),
+	                        _react2.default.createElement(
+	                            'td',
+	                            null,
+	                            b3Sig
+	                        ),
+	                        _react2.default.createElement(
+	                            'td',
+	                            null,
+	                            _react2.default.createElement(_reactBootstrap.Glyphicon, { glyph: 'check' })
+	                        )
+	                    ));
+	                });
+	            }
+
+	            // SNR test
+	            if (this.state.data.SnrTest != null) {
+	                var snrTestData = [];
+	                this.state.data.SnrTest.map(function (snr, i) {
+	                    snrTestData.push(_react2.default.createElement(
+	                        'tr',
+	                        { style: rowHeaderStyle },
+	                        _react2.default.createElement(
+	                            'td',
+	                            { colSpan: '5' },
+	                            snr.SubsystemDescStr
+	                        )
+	                    ));
+	                    var b0Sig = Math.round(snr.Beam0SignalLake * 100) / 100;
+	                    var b1Sig = Math.round(snr.Beam1SignalLake * 100) / 100;
+	                    var b2Sig = Math.round(snr.Beam2SignalLake * 100) / 100;
+	                    var b3Sig = Math.round(snr.Beam3SignalLake * 100) / 100;
+	                    snrTestData.push(_react2.default.createElement(
+	                        'tr',
+	                        null,
+	                        _react2.default.createElement(
+	                            'td',
+	                            null,
+	                            _react2.default.createElement(
+	                                'strong',
+	                                null,
+	                                'Signal'
+	                            )
+	                        ),
+	                        _react2.default.createElement(
+	                            'td',
+	                            null,
+	                            b0Sig
+	                        ),
+	                        _react2.default.createElement(
+	                            'td',
+	                            null,
+	                            b1Sig
+	                        ),
+	                        _react2.default.createElement(
+	                            'td',
+	                            null,
+	                            b2Sig
+	                        ),
+	                        _react2.default.createElement(
+	                            'td',
+	                            null,
+	                            b3Sig
+	                        )
+	                    ));
+	                    var b0Noise = Math.round(snr.Beam0NoiseFloor * 100) / 100;
+	                    var b1Noise = Math.round(snr.Beam1NoiseFloor * 100) / 100;
+	                    var b2Noise = Math.round(snr.Beam2NoiseFloor * 100) / 100;
+	                    var b3Noise = Math.round(snr.Beam3NoiseFloor * 100) / 100;
+	                    snrTestData.push(_react2.default.createElement(
+	                        'tr',
+	                        null,
+	                        _react2.default.createElement(
+	                            'td',
+	                            null,
+	                            _react2.default.createElement(
+	                                'strong',
+	                                null,
+	                                'Noise'
+	                            )
+	                        ),
+	                        _react2.default.createElement(
+	                            'td',
+	                            null,
+	                            b0Noise
+	                        ),
+	                        _react2.default.createElement(
+	                            'td',
+	                            null,
+	                            b1Noise
+	                        ),
+	                        _react2.default.createElement(
+	                            'td',
+	                            null,
+	                            b2Noise
+	                        ),
+	                        _react2.default.createElement(
+	                            'td',
+	                            null,
+	                            b3Noise
+	                        )
+	                    ));
+	                    var b0Snr = Math.round(snr.Beam0SnrLake * 100) / 100;
+	                    var b1Snr = Math.round(snr.Beam1SnrLake * 100) / 100;
+	                    var b2Snr = Math.round(snr.Beam2SnrLake * 100) / 100;
+	                    var b3Snr = Math.round(snr.Beam3SnrLake * 100) / 100;
+	                    snrTestData.push(_react2.default.createElement(
+	                        'tr',
+	                        null,
+	                        _react2.default.createElement(
+	                            'td',
+	                            null,
+	                            _react2.default.createElement(
+	                                'strong',
+	                                null,
+	                                'SNR'
+	                            )
+	                        ),
+	                        _react2.default.createElement(
+	                            'td',
+	                            null,
+	                            _react2.default.createElement(
+	                                'b',
+	                                null,
+	                                b0Snr
+	                            )
+	                        ),
+	                        _react2.default.createElement(
+	                            'td',
+	                            null,
+	                            _react2.default.createElement(
+	                                'b',
+	                                null,
+	                                b1Snr
+	                            )
+	                        ),
+	                        _react2.default.createElement(
+	                            'td',
+	                            null,
+	                            _react2.default.createElement(
+	                                'b',
+	                                null,
+	                                b2Snr
+	                            )
+	                        ),
+	                        _react2.default.createElement(
+	                            'td',
+	                            null,
+	                            _react2.default.createElement(
+	                                'b',
+	                                null,
+	                                b3Snr
+	                            )
+	                        )
+	                    ));
+	                });
+	            }
+
+	            // DMG Water test
+	            if (this.state.data.WaterTest != null) {
+	                var dmgTestData = [];
+	                this.state.data.WaterTest.map(function (wt, i) {
+	                    dmgTestData.push(_react2.default.createElement(
+	                        'tr',
+	                        null,
+	                        _react2.default.createElement(
+	                            'td',
+	                            null,
+	                            _react2.default.createElement(
+	                                'strong',
+	                                null,
+	                                'Beam Forward: ',
+	                                wt.TestOrientation
+	                            )
+	                        ),
+	                        _react2.default.createElement(
+	                            'td',
+	                            { colSpan: '4' },
+	                            wt.SubsystemDescStr
+	                        )
+	                    ));
+	                    dmgTestData.push(_react2.default.createElement(
+	                        'tr',
+	                        null,
+	                        _react2.default.createElement(
+	                            'td',
+	                            null,
+	                            _react2.default.createElement(
+	                                'strong',
+	                                null,
+	                                'GPS'
+	                            )
+	                        ),
+	                        _react2.default.createElement(
+	                            'td',
+	                            null,
+	                            wt.GpsDistance
+	                        ),
+	                        _react2.default.createElement(
+	                            'td',
+	                            null,
+	                            wt.GpsDirection
+	                        ),
+	                        _react2.default.createElement('td', null),
+	                        _react2.default.createElement('td', null)
+	                    ));
+	                    dmgTestData.push(_react2.default.createElement(
+	                        'tr',
+	                        null,
+	                        _react2.default.createElement(
+	                            'td',
+	                            null,
+	                            _react2.default.createElement(
+	                                'strong',
+	                                null,
+	                                'BT ENU'
+	                            )
+	                        ),
+	                        _react2.default.createElement(
+	                            'td',
+	                            null,
+	                            wt.BtDistance
+	                        ),
+	                        _react2.default.createElement(
+	                            'td',
+	                            null,
+	                            wt.BtDirection
+	                        ),
+	                        _react2.default.createElement(
+	                            'td',
+	                            null,
+	                            wt.DistanceError
+	                        ),
+	                        _react2.default.createElement(
+	                            'td',
+	                            null,
+	                            wt.DirectionError
+	                        )
+	                    ));
+	                });
+	            }
+
+	            return _react2.default.createElement(
+	                'div',
+	                { 'visible-print-block': true },
+	                _react2.default.createElement(
+	                    _reactBootstrap.Row,
+	                    null,
+	                    _react2.default.createElement(
+	                        _reactBootstrap.Col,
+	                        { xs: 3 },
+	                        _react2.default.createElement('img', { alt: 'RTI', 'class': 'img-responsive text-center', src: '/images/companylogo.png' })
+	                    ),
+	                    _react2.default.createElement(
+	                        _reactBootstrap.Col,
+	                        { xs: 8 },
+	                        _react2.default.createElement(
+	                            'h2',
+	                            null,
+	                            ' ADCP/DVL Test Certificate '
+	                        )
+	                    )
+	                ),
+	                _react2.default.createElement(
+	                    _reactBootstrap.Row,
+	                    { style: marginBottom },
+	                    _react2.default.createElement(
+	                        _reactBootstrap.Col,
+	                        { xs: 5 },
+	                        _react2.default.createElement(
+	                            'dt',
+	                            null,
+	                            _react2.default.createElement(
+	                                'strong',
+	                                null,
+	                                'Serial Number:'
+	                            )
+	                        ),
+	                        _react2.default.createElement(
+	                            'dd',
+	                            null,
+	                            this.state.data.Adcp.SerialNumber
+	                        )
+	                    ),
+	                    _react2.default.createElement(
+	                        _reactBootstrap.Col,
+	                        { xs: 3 },
+	                        _react2.default.createElement(
+	                            'dt',
+	                            null,
+	                            _react2.default.createElement(
+	                                'strong',
+	                                null,
+	                                'Order Number:'
+	                            )
+	                        ),
+	                        _react2.default.createElement(
+	                            'dd',
+	                            null,
+	                            this.state.data.Adcp.OrderNumber
+	                        )
+	                    ),
+	                    _react2.default.createElement(
+	                        _reactBootstrap.Col,
+	                        { xs: 2 },
+	                        _react2.default.createElement(
+	                            'dt',
+	                            null,
+	                            _react2.default.createElement(
+	                                'strong',
+	                                null,
+	                                'Customer:'
+	                            )
+	                        ),
+	                        _react2.default.createElement(
+	                            'dd',
+	                            null,
+	                            this.state.data.Adcp.Customer
+	                        )
+	                    )
+	                ),
+	                _react2.default.createElement(
+	                    _reactBootstrap.Row,
+	                    { style: marginBottom },
+	                    _react2.default.createElement(
+	                        _reactBootstrap.Col,
+	                        { xs: 9 },
+	                        _react2.default.createElement(
+	                            'dt',
+	                            null,
+	                            _react2.default.createElement(
+	                                'strong',
+	                                null,
+	                                'System:'
+	                            )
+	                        ),
+	                        _react2.default.createElement(
+	                            'dd',
+	                            null,
+	                            this.state.data.Adcp.Frequency
+	                        )
+	                    )
+	                ),
+	                _react2.default.createElement(
+	                    _reactBootstrap.Row,
+	                    { fluid: true },
+	                    _react2.default.createElement(
+	                        _reactBootstrap.Col,
+	                        { xs: 3 },
+	                        _react2.default.createElement(
+	                            _reactBootstrap.Table,
+	                            { condensed: true, style: noBottom },
+	                            _react2.default.createElement(
+	                                'tbody',
+	                                null,
+	                                _react2.default.createElement(
+	                                    'tr',
+	                                    null,
+	                                    _react2.default.createElement(
+	                                        'td',
+	                                        null,
+	                                        _react2.default.createElement(
+	                                            'strong',
+	                                            null,
+	                                            'System Type:'
+	                                        )
+	                                    ),
+	                                    _react2.default.createElement(
+	                                        'td',
+	                                        null,
+	                                        this.state.data.Adcp.SystemType
+	                                    )
+	                                ),
+	                                _react2.default.createElement(
+	                                    'tr',
+	                                    null,
+	                                    _react2.default.createElement(
+	                                        'td',
+	                                        null,
+	                                        _react2.default.createElement(
+	                                            'strong',
+	                                            null,
+	                                            'Application:'
+	                                        )
+	                                    ),
+	                                    _react2.default.createElement(
+	                                        'td',
+	                                        null,
+	                                        this.state.data.Adcp.Application
+	                                    )
+	                                ),
+	                                _react2.default.createElement(
+	                                    'tr',
+	                                    null,
+	                                    _react2.default.createElement(
+	                                        'td',
+	                                        null,
+	                                        _react2.default.createElement(
+	                                            'strong',
+	                                            null,
+	                                            'Depth Rating:'
+	                                        )
+	                                    ),
+	                                    _react2.default.createElement(
+	                                        'td',
+	                                        null,
+	                                        this.state.data.Adcp.DepthRating
+	                                    )
+	                                ),
+	                                _react2.default.createElement(
+	                                    'tr',
+	                                    { style: noBottom },
+	                                    _react2.default.createElement(
+	                                        'td',
+	                                        null,
+	                                        _react2.default.createElement(
+	                                            'strong',
+	                                            null,
+	                                            'Head Type:'
+	                                        )
+	                                    ),
+	                                    _react2.default.createElement(
+	                                        'td',
+	                                        null,
+	                                        this.state.data.Adcp.HeadType
+	                                    )
+	                                ),
+	                                _react2.default.createElement(
+	                                    'tr',
+	                                    { style: noBottom },
+	                                    _react2.default.createElement(
+	                                        'td',
+	                                        null,
+	                                        _react2.default.createElement(
+	                                            'strong',
+	                                            null,
+	                                            'Hardware:'
+	                                        )
+	                                    ),
+	                                    _react2.default.createElement(
+	                                        'td',
+	                                        null,
+	                                        this.state.data.Adcp.Hardware
+	                                    )
+	                                ),
+	                                _react2.default.createElement(
+	                                    'tr',
+	                                    { style: noBottom },
+	                                    _react2.default.createElement(
+	                                        'td',
+	                                        null,
+	                                        _react2.default.createElement(
+	                                            'strong',
+	                                            null,
+	                                            'Connector:'
+	                                        )
+	                                    ),
+	                                    _react2.default.createElement(
+	                                        'td',
+	                                        null,
+	                                        this.state.data.Adcp.ConnectorType
+	                                    )
+	                                ),
+	                                _react2.default.createElement(
+	                                    'tr',
+	                                    { style: noBottom },
+	                                    _react2.default.createElement(
+	                                        'td',
+	                                        null,
+	                                        _react2.default.createElement(
+	                                            'strong',
+	                                            null,
+	                                            'Firmware:'
+	                                        )
+	                                    ),
+	                                    _react2.default.createElement(
+	                                        'td',
+	                                        null,
+	                                        this.state.data.Adcp.Firmware
+	                                    )
+	                                ),
+	                                _react2.default.createElement(
+	                                    'tr',
+	                                    { style: noBottom },
+	                                    _react2.default.createElement(
+	                                        'td',
+	                                        null,
+	                                        _react2.default.createElement(
+	                                            'strong',
+	                                            null,
+	                                            'Software:'
+	                                        )
+	                                    ),
+	                                    _react2.default.createElement(
+	                                        'td',
+	                                        null,
+	                                        this.state.data.Adcp.Software
+	                                    )
+	                                ),
+	                                _react2.default.createElement(
+	                                    'tr',
+	                                    { style: noBottom },
+	                                    _react2.default.createElement(
+	                                        'td',
+	                                        null,
+	                                        _react2.default.createElement(
+	                                            'strong',
+	                                            null,
+	                                            'Recorder Size:'
+	                                        )
+	                                    ),
+	                                    _react2.default.createElement(
+	                                        'td',
+	                                        null,
+	                                        this.state.data.Adcp.RecorderSize
+	                                    )
+	                                ),
+	                                _react2.default.createElement(
+	                                    'tr',
+	                                    { style: noBottom },
+	                                    _react2.default.createElement(
+	                                        'td',
+	                                        null,
+	                                        _react2.default.createElement(
+	                                            'strong',
+	                                            null,
+	                                            'Recorder Formatted:'
+	                                        )
+	                                    ),
+	                                    recorderFormatted
+	                                ),
+	                                _react2.default.createElement(
+	                                    'tr',
+	                                    { style: noBottom },
+	                                    _react2.default.createElement(
+	                                        'td',
+	                                        null,
+	                                        _react2.default.createElement(
+	                                            'strong',
+	                                            null,
+	                                            'Temperature:'
+	                                        )
+	                                    ),
+	                                    temperature
+	                                ),
+	                                _react2.default.createElement(
+	                                    'tr',
+	                                    { style: noBottom },
+	                                    _react2.default.createElement(
+	                                        'td',
+	                                        null,
+	                                        _react2.default.createElement(
+	                                            'strong',
+	                                            null,
+	                                            'Pressure Sensor:'
+	                                        )
+	                                    ),
+	                                    pressure
+	                                )
+	                            )
+	                        )
+	                    ),
+	                    _react2.default.createElement(
+	                        _reactBootstrap.Col,
+	                        { xs: 7 },
+	                        _react2.default.createElement(
+	                            'dl',
+	                            null,
+	                            _react2.default.createElement(
+	                                'dt',
+	                                null,
+	                                _react2.default.createElement(
+	                                    'strong',
+	                                    null,
+	                                    'Compass Calibration - Heading Pitch Roll'
+	                                )
+	                            ),
+	                            _react2.default.createElement(
+	                                'dd',
+	                                null,
+	                                _react2.default.createElement(
+	                                    _reactBootstrap.Table,
+	                                    { bordered: true, condensed: true, style: noBottom },
+	                                    _react2.default.createElement(
+	                                        'thead',
+	                                        null,
+	                                        _react2.default.createElement(
+	                                            'tr',
+	                                            null,
+	                                            _react2.default.createElement(
+	                                                'th',
+	                                                null,
+	                                                _react2.default.createElement(
+	                                                    'h5',
+	                                                    null,
+	                                                    _react2.default.createElement(
+	                                                        'strong',
+	                                                        null,
+	                                                        'Heading'
+	                                                    )
+	                                                )
+	                                            ),
+	                                            _react2.default.createElement(
+	                                                'th',
+	                                                null,
+	                                                _react2.default.createElement(
+	                                                    'h5',
+	                                                    null,
+	                                                    _react2.default.createElement(
+	                                                        'strong',
+	                                                        null,
+	                                                        'Reading (°)'
+	                                                    )
+	                                                )
+	                                            ),
+	                                            _react2.default.createElement(
+	                                                'th',
+	                                                null,
+	                                                _react2.default.createElement(
+	                                                    'h5',
+	                                                    null,
+	                                                    _react2.default.createElement(
+	                                                        'strong',
+	                                                        null,
+	                                                        'Error (°)'
+	                                                    )
+	                                                )
+	                                            )
+	                                        )
+	                                    ),
+	                                    _react2.default.createElement(
+	                                        'tbody',
+	                                        null,
+	                                        compassCalData
+	                                    )
+	                                )
+	                            ),
+	                            _react2.default.createElement(
+	                                'dt',
+	                                null,
+	                                _react2.default.createElement(
+	                                    'strong',
+	                                    null,
+	                                    '* ±2° error acceptance criteria'
+	                                )
+	                            ),
+	                            _react2.default.createElement(
+	                                'dt',
+	                                null,
+	                                ' ',
+	                                _react2.default.createElement('br', null),
+	                                ' '
+	                            ),
+	                            _react2.default.createElement(
+	                                'dt',
+	                                null,
+	                                _react2.default.createElement(
+	                                    'strong',
+	                                    null,
+	                                    'Beam Check - Tank Test'
+	                                )
+	                            ),
+	                            _react2.default.createElement(
+	                                'dd',
+	                                null,
+	                                _react2.default.createElement(
+	                                    _reactBootstrap.Table,
+	                                    { bordered: true, condensed: true },
+	                                    _react2.default.createElement(
+	                                        'thead',
+	                                        null,
+	                                        _react2.default.createElement(
+	                                            'tr',
+	                                            null,
+	                                            _react2.default.createElement('th', null),
+	                                            _react2.default.createElement(
+	                                                'th',
+	                                                { 'class': 'text-center' },
+	                                                _react2.default.createElement(
+	                                                    'h5',
+	                                                    null,
+	                                                    _react2.default.createElement(
+	                                                        'strong',
+	                                                        null,
+	                                                        'Correct Order'
+	                                                    )
+	                                                )
+	                                            ),
+	                                            _react2.default.createElement(
+	                                                'th',
+	                                                { 'class': 'text-center' },
+	                                                _react2.default.createElement(
+	                                                    'h5',
+	                                                    null,
+	                                                    _react2.default.createElement(
+	                                                        'strong',
+	                                                        null,
+	                                                        'Noise Floor'
+	                                                    )
+	                                                )
+	                                            ),
+	                                            _react2.default.createElement(
+	                                                'th',
+	                                                { 'class': 'text-center' },
+	                                                _react2.default.createElement(
+	                                                    'h5',
+	                                                    null,
+	                                                    _react2.default.createElement(
+	                                                        'strong',
+	                                                        null,
+	                                                        'Amplitude Tank'
+	                                                    )
+	                                                )
+	                                            ),
+	                                            _react2.default.createElement(
+	                                                'th',
+	                                                { 'class': 'text-center' },
+	                                                _react2.default.createElement(
+	                                                    'h5',
+	                                                    null,
+	                                                    _react2.default.createElement(
+	                                                        'strong',
+	                                                        null,
+	                                                        'Range OK'
+	                                                    )
+	                                                )
+	                                            )
+	                                        )
+	                                    ),
+	                                    _react2.default.createElement(
+	                                        'tbody',
+	                                        null,
+	                                        tankTestData
+	                                    )
+	                                )
+	                            ),
+	                            _react2.default.createElement(
+	                                'dt',
+	                                null,
+	                                _react2.default.createElement(
+	                                    'strong',
+	                                    null,
+	                                    'Signal to Noise Ratio'
+	                                )
+	                            ),
+	                            _react2.default.createElement(
+	                                'dd',
+	                                null,
+	                                _react2.default.createElement(
+	                                    _reactBootstrap.Table,
+	                                    { bordered: true, condensed: true },
+	                                    _react2.default.createElement(
+	                                        'thead',
+	                                        null,
+	                                        _react2.default.createElement(
+	                                            'tr',
+	                                            null,
+	                                            _react2.default.createElement('th', null),
+	                                            _react2.default.createElement(
+	                                                'th',
+	                                                { 'class': 'text-center' },
+	                                                _react2.default.createElement(
+	                                                    'h5',
+	                                                    null,
+	                                                    _react2.default.createElement(
+	                                                        'strong',
+	                                                        null,
+	                                                        'Beam 0'
+	                                                    )
+	                                                )
+	                                            ),
+	                                            _react2.default.createElement(
+	                                                'th',
+	                                                { 'class': 'text-center' },
+	                                                _react2.default.createElement(
+	                                                    'h5',
+	                                                    null,
+	                                                    _react2.default.createElement(
+	                                                        'strong',
+	                                                        null,
+	                                                        'Beam 1'
+	                                                    )
+	                                                )
+	                                            ),
+	                                            _react2.default.createElement(
+	                                                'th',
+	                                                { 'class': 'text-center' },
+	                                                _react2.default.createElement(
+	                                                    'h5',
+	                                                    null,
+	                                                    _react2.default.createElement(
+	                                                        'strong',
+	                                                        null,
+	                                                        'Beam 2'
+	                                                    )
+	                                                )
+	                                            ),
+	                                            _react2.default.createElement(
+	                                                'th',
+	                                                { 'class': 'text-center' },
+	                                                _react2.default.createElement(
+	                                                    'h5',
+	                                                    null,
+	                                                    _react2.default.createElement(
+	                                                        'strong',
+	                                                        null,
+	                                                        'Beam 3'
+	                                                    )
+	                                                )
+	                                            )
+	                                        )
+	                                    ),
+	                                    _react2.default.createElement(
+	                                        'tbody',
+	                                        null,
+	                                        snrTestData
+	                                    )
+	                                )
+	                            )
+	                        )
+	                    )
+	                ),
+	                _react2.default.createElement(
+	                    _reactBootstrap.Row,
+	                    { fluid: true },
+	                    _react2.default.createElement('br', null),
+	                    _react2.default.createElement('br', null),
+	                    _react2.default.createElement('br', null),
+	                    _react2.default.createElement('br', null),
+	                    _react2.default.createElement('br', null)
+	                ),
+	                _react2.default.createElement(
+	                    _reactBootstrap.Row,
+	                    { fluid: true },
+	                    _react2.default.createElement(
+	                        _reactBootstrap.Col,
+	                        { xs: 10 },
+	                        _react2.default.createElement(
+	                            'dl',
+	                            null,
+	                            _react2.default.createElement(
+	                                'dt',
+	                                null,
+	                                _react2.default.createElement(
+	                                    'strong',
+	                                    null,
+	                                    'Distance Made Good'
+	                                )
+	                            ),
+	                            _react2.default.createElement(
+	                                'dd',
+	                                null,
+	                                _react2.default.createElement(
+	                                    _reactBootstrap.Table,
+	                                    { bordered: true, condensed: true, style: noBottom },
+	                                    _react2.default.createElement(
+	                                        'thead',
+	                                        null,
+	                                        _react2.default.createElement(
+	                                            'tr',
+	                                            null,
+	                                            _react2.default.createElement(
+	                                                'th',
+	                                                { 'class': 'text-center' },
+	                                                _react2.default.createElement(
+	                                                    'h5',
+	                                                    null,
+	                                                    _react2.default.createElement('strong', null)
+	                                                )
+	                                            ),
+	                                            _react2.default.createElement(
+	                                                'th',
+	                                                { 'class': 'text-center' },
+	                                                _react2.default.createElement(
+	                                                    'h5',
+	                                                    null,
+	                                                    _react2.default.createElement(
+	                                                        'strong',
+	                                                        null,
+	                                                        'Distance (m)'
+	                                                    )
+	                                                )
+	                                            ),
+	                                            _react2.default.createElement(
+	                                                'th',
+	                                                { 'class': 'text-center' },
+	                                                _react2.default.createElement(
+	                                                    'h5',
+	                                                    null,
+	                                                    _react2.default.createElement(
+	                                                        'strong',
+	                                                        null,
+	                                                        'Direction (°)'
+	                                                    )
+	                                                )
+	                                            ),
+	                                            _react2.default.createElement(
+	                                                'th',
+	                                                { 'class': 'text-center' },
+	                                                _react2.default.createElement(
+	                                                    'h5',
+	                                                    null,
+	                                                    _react2.default.createElement(
+	                                                        'strong',
+	                                                        null,
+	                                                        'Distance Error (%)'
+	                                                    )
+	                                                )
+	                                            ),
+	                                            _react2.default.createElement(
+	                                                'th',
+	                                                { 'class': 'text-center' },
+	                                                _react2.default.createElement(
+	                                                    'h5',
+	                                                    null,
+	                                                    _react2.default.createElement(
+	                                                        'strong',
+	                                                        null,
+	                                                        'Direction Error (%)'
+	                                                    )
+	                                                )
+	                                            )
+	                                        )
+	                                    ),
+	                                    _react2.default.createElement(
+	                                        'tbody',
+	                                        null,
+	                                        dmgTestData
+	                                    )
+	                                )
+	                            )
+	                        )
+	                    )
+	                ),
+	                _react2.default.createElement(
+	                    _reactBootstrap.Row,
+	                    { fluid: true, style: marginLeft },
+	                    _react2.default.createElement(
+	                        _reactBootstrap.Col,
+	                        { xs: 7, style: sigStyle },
+	                        _react2.default.createElement(
+	                            'h5',
+	                            null,
+	                            'Tech Signature:'
+	                        )
+	                    ),
+	                    _react2.default.createElement(
+	                        _reactBootstrap.Col,
+	                        { xs: 3, style: sigStyle },
+	                        _react2.default.createElement(
+	                            'h5',
+	                            null,
+	                            'Date:'
+	                        )
+	                    )
+	                ),
+	                _react2.default.createElement(
+	                    _reactBootstrap.Row,
+	                    { fluid: true, style: marginLeft },
+	                    _react2.default.createElement(
+	                        _reactBootstrap.Col,
+	                        { xs: 7, style: sigStyle },
+	                        _react2.default.createElement(
+	                            'h5',
+	                            null,
+	                            'QA/QC Signature:'
+	                        )
+	                    ),
+	                    _react2.default.createElement(
+	                        _reactBootstrap.Col,
+	                        { xs: 3, style: sigStyle },
+	                        _react2.default.createElement(
+	                            'h5',
+	                            null,
+	                            'Date:'
+	                        )
+	                    )
+	                ),
+	                _react2.default.createElement(
+	                    _reactBootstrap.Row,
+	                    { fluid: true, style: { margin: "5px" } },
+	                    _react2.default.createElement(
+	                        _reactBootstrap.Col,
+	                        { xs: 9 },
+	                        _react2.default.createElement(
+	                            'small',
+	                            null,
+	                            _react2.default.createElement(
+	                                'b',
+	                                null,
+	                                'Rowe Technology, Inc.'
+	                            ),
+	                            ' | 12655 Danielson Ct., Suite 306, Poway, California, USA',
+	                            _react2.default.createElement('br', null),
+	                            'http://www.rowetechinc.com | service@rowetechinc.com | +1 858 842 3020',
+	                            _react2.default.createElement('br', null)
+	                        )
+	                    )
+	                )
+	            );
+	        }
+	    }]);
+
+	    return AdcpCert;
 	}(_react2.default.Component);
 
-	exports.default = Layout;
+	exports.default = AdcpCert;
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(455)))
 
 /***/ },
-/* 675 */,
-/* 676 */
+/* 675 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function($) {'use strict';
@@ -70358,39 +71704,40 @@
 	  }
 	};
 
-	// List all the ADCP using the react-data-components.
+	// List all the Water Test using the react-data-components.
 
-	var AdcpList = function (_React$Component) {
-	  _inherits(AdcpList, _React$Component);
+	var WaterTestCompList = function (_React$Component) {
+	  _inherits(WaterTestCompList, _React$Component);
 
-	  function AdcpList(props) {
-	    _classCallCheck(this, AdcpList);
+	  function WaterTestCompList(props) {
+	    _classCallCheck(this, WaterTestCompList);
 
-	    var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(AdcpList).call(this, props));
+	    var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(WaterTestCompList).call(this, props));
 
 	    _this.state = {
-	      data: { Adcps: [] }
+	      data: { WaterTests: [] },
+	      isSelectedID: ""
 	    };
 	    return _this;
 	  }
 
-	  // At startup get all the ADCP data
+	  // At startup get all the Water Test data
 
 
-	  _createClass(AdcpList, [{
+	  _createClass(WaterTestCompList, [{
 	    key: 'componentDidMount',
 	    value: function componentDidMount() {
-	      this.loadFromServer();
+	      this.loadWaterTestFromServer();
 	      console.log("data length %i\n", this.state.data.length);
 	    }
 
-	    // Get the ADCP data from the database using AJAX
+	    // Get the Water Test data from the database using AJAX
 
 	  }, {
-	    key: 'loadFromServer',
-	    value: function loadFromServer() {
+	    key: 'loadWaterTestFromServer',
+	    value: function loadWaterTestFromServer() {
 	      $.ajax({
-	        url: "/vault/adcp",
+	        url: "/vault/wt",
 	        dataType: 'json',
 	        cache: false,
 	        success: function (data) {
@@ -70398,9 +71745,60 @@
 	          this.setState({ data: data });
 	        }.bind(this),
 	        error: function (xhr, status, err) {
-	          console.error("/vault/adcp", status, err.toString());
+	          console.error("/vault/wt", status, err.toString());
 	        }.bind(this)
 	      });
+	    }
+
+	    // Call API to set IsSelect selection
+
+	  }, {
+	    key: 'apiSetSelected',
+	    value: function apiSetSelected(selectedID) {
+	      var urlSelected = "/vault/wt/select/" + selectedID;
+	      $.ajax({
+	        url: urlSelected,
+	        dataType: 'json',
+	        cache: false,
+	        success: function (data) {
+	          console.log("%s %s\n", urlSelected, this.state.isSelectedID);
+	        }.bind(this),
+	        error: function (xhr, status, err) {
+	          console.error(urlSelected, status, err.toString());
+	        }.bind(this)
+	      });
+	    }
+
+	    // Convert to Bool
+
+	  }, {
+	    key: 'convertToBool',
+	    value: function convertToBool(val) {
+	      return val === 'true';
+	    }
+
+	    // Convert bool to checked
+
+	  }, {
+	    key: 'convertToChecked',
+	    value: function convertToChecked(val) {
+	      if (val == 'true') {
+	        return 'checked';
+	      }
+
+	      return '';
+	    }
+
+	    // Selection change for IsSelected Column
+
+	  }, {
+	    key: 'handleIsSelectedChange',
+	    value: function handleIsSelectedChange(id) {
+	      // Set state
+	      //this.setState({isSelectedID: id});
+
+	      // Call the API
+	      this.apiSetSelected(id);
 	    }
 
 	    // Render function
@@ -70408,6 +71806,7 @@
 	  }, {
 	    key: 'render',
 	    value: function render() {
+	      var _this2 = this;
 
 	      // Report Column
 	      var renderReport = function renderReport(val, row) {
@@ -70415,25 +71814,33 @@
 	          'div',
 	          null,
 	          _react2.default.createElement(
+	            'a',
+	            { href: '' + row['PlotReport'], target: '_blank' },
+	            ' Report '
+	          ),
+	          _react2.default.createElement(
 	            _reactRouter.Link,
-	            { to: "/adcps/" + ('' + row['id']) },
+	            { to: "/watertests/" + ('' + row['id']) },
 	            ' EDIT '
-	          ),
+	          )
+	        );
+	      };
+
+	      // IsSelected Column
+	      var renderIsSelected = function renderIsSelected(val, row) {
+	        return _react2.default.createElement(
+	          _MuiThemeProvider2.default,
+	          { muiTheme: muiTheme },
 	          _react2.default.createElement(
-	            _reactRouter.Link,
-	            { to: "/adcps/cert/" + ('' + row['id']) },
-	            ' CERT '
-	          ),
-	          _react2.default.createElement(
-	            _reactRouter.Link,
-	            { to: "/adcps/test/" + ('' + row['id']) },
-	            ' TEST '
+	            'div',
+	            { style: styles.block },
+	            _react2.default.createElement(_toggle2.default, { label: '', defaultToggled: _this2.convertToBool('' + row['IsSelected']), onToggle: _this2.handleIsSelectedChange.bind(_this2, '' + row['id']), style: styles.toggle })
 	          )
 	        );
 	      };
 
 	      // All Columns
-	      var columns = [{ title: 'SerialNumber', prop: 'SerialNumber' }, { title: 'Created', prop: 'Created' }, { title: 'Modified', prop: 'Modified' }, { title: 'Links', render: renderReport, className: 'text-center' }];
+	      var columns = [{ title: 'Selected', render: renderIsSelected }, { title: 'SerialNumber', prop: 'SerialNumber' }, { title: 'Subsys', prop: 'SubsystemDescStr' }, { title: 'Orientation', prop: 'TestOrientation' }, { title: 'GpsDistance', prop: 'GpsDistance' }, { title: 'BT Distance', prop: 'BtDistance' }, { title: 'Distance Err', prop: 'DistanceError' }, { title: 'GpsDirection', prop: 'GpsDirection' }, { title: 'BT Direction', prop: 'BtDirection' }, { title: 'Direction Err', prop: 'DirectionError' }, { title: 'Created', prop: 'Created' }, { title: 'Modified', prop: 'Modified' }, { title: 'Links', render: renderReport, className: 'text-center' }];
 
 	      return _react2.default.createElement(
 	        'div',
@@ -70442,7 +71849,7 @@
 	          className: 'container',
 	          keys: 'id',
 	          columns: columns,
-	          initialData: this.state.data.Adcps,
+	          initialData: this.state.data.WaterTests,
 	          initialPageLength: 20,
 	          initialSortBy: { prop: 'Created', order: 'descending' },
 	          pageLengthOptions: [5, 20, 50]
@@ -70451,7 +71858,7 @@
 	    }
 	  }]);
 
-	  return AdcpList;
+	  return WaterTestCompList;
 	}(_react2.default.Component);
 
 	// Set the table to compTable
@@ -70459,8 +71866,80 @@
 	//ReactDOM.render((<WaterTestCompList url="/vault/wt" selectedURL="/vault/wt/select/" editURL="watertests/" />), document.getElementById('compTable'));
 
 
-	exports.default = AdcpList;
+	exports.default = WaterTestCompList;
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(455)))
+
+/***/ },
+/* 676 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+	var _react = __webpack_require__(1);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	var _header = __webpack_require__(238);
+
+	var _header2 = _interopRequireDefault(_header);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+	var Layout = function (_React$Component) {
+	  _inherits(Layout, _React$Component);
+
+	  function Layout() {
+	    _classCallCheck(this, Layout);
+
+	    return _possibleConstructorReturn(this, Object.getPrototypeOf(Layout).apply(this, arguments));
+	  }
+
+	  _createClass(Layout, [{
+	    key: "render",
+	    value: function render() {
+	      var location = this.props.location;
+
+	      var containerStyle = {
+	        marginTop: "10px"
+	      };
+	      console.log("layout");
+	      return _react2.default.createElement(
+	        "div",
+	        null,
+	        _react2.default.createElement(_header2.default, null),
+	        _react2.default.createElement(
+	          "div",
+	          { "class": "container", style: containerStyle },
+	          _react2.default.createElement(
+	            "div",
+	            { "class": "row" },
+	            _react2.default.createElement(
+	              "div",
+	              { "class": "col-lg-12" },
+	              this.props.children
+	            )
+	          )
+	        )
+	      );
+	    }
+	  }]);
+
+	  return Layout;
+	}(_react2.default.Component);
+
+	exports.default = Layout;
 
 /***/ }
 /******/ ]);
