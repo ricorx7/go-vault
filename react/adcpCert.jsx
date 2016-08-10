@@ -7,7 +7,7 @@ import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import Toggle from 'material-ui/toggle';
 import { Checkbox } from 'react-bootstrap';
 import { Router, Route, Link, browserHistory } from 'react-router';
-import { Button, Row, Col, Table, Glyphicon } from 'react-bootstrap';
+import { Button, Row, Col, Table, Glyphicon, FormControl } from 'react-bootstrap';
 
 // Theme for material-ui toggle
 const muiTheme = getMuiTheme({
@@ -114,7 +114,6 @@ export default class AdcpCert extends React.Component {
       var rowHeaderStyle = {
           bgcolor: "lightgray"
       }
-
     
 
     if(this.state.data.Adcp != null) 
@@ -434,10 +433,10 @@ export default class AdcpCert extends React.Component {
 						<thead>
 							<tr>
 								<th></th>
-								<th class="text-center"><h5><strong>Correct Order</strong></h5></th>
-								<th class="text-center"><h5><strong>Noise Floor</strong></h5></th>
-								<th class="text-center"><h5><strong>Amplitude Tank</strong></h5></th>
-								<th class="text-center"><h5><strong>Range OK</strong></h5></th>
+								<th><h5><strong>Correct Order</strong></h5></th>
+								<th><h5><strong>Noise Floor</strong></h5></th>
+								<th><h5><strong>Amplitude Tank</strong></h5></th>
+								<th><h5><strong>Range OK</strong></h5></th>
 							</tr>
 						</thead>
 
@@ -453,10 +452,10 @@ export default class AdcpCert extends React.Component {
 						<thead>
 							<tr>
 								<th></th>
-								<th class="text-center"><h5><strong>Beam 0</strong></h5></th>
-								<th class="text-center"><h5><strong>Beam 1</strong></h5></th>
-								<th class="text-center"><h5><strong>Beam 2</strong></h5></th>
-								<th class="text-center"><h5><strong>Beam 3</strong></h5></th>
+								<th><h5><strong>Beam 0</strong></h5></th>
+								<th><h5><strong>Beam 1</strong></h5></th>
+								<th><h5><strong>Beam 2</strong></h5></th>
+								<th><h5><strong>Beam 3</strong></h5></th>
 							</tr>
 						</thead>
 
@@ -488,16 +487,11 @@ export default class AdcpCert extends React.Component {
             <Table bordered condensed style={noBottom}>
             <thead>
                 <tr>
-                <th class="text-center">
-                    <h5><strong></strong></h5></th>
-                <th class="text-center">
-                    <h5><strong>Distance (m)</strong></h5></th>
-                <th class="text-center">
-                    <h5><strong>Direction (°)</strong></h5></th>
-                <th class="text-center">
-                    <h5><strong>Distance Error (%)</strong></h5></th>
-                <th class="text-center">
-                    <h5><strong>Direction Error (%)</strong></h5></th>
+                <th><h5><strong></strong></h5></th>
+                <th><h5><strong>Distance (m)</strong></h5></th>
+                <th><h5><strong>Direction (°)</strong></h5></th>
+                <th><h5><strong>Distance Error (%)</strong></h5></th>
+                <th><h5><strong>Direction Error (%)</strong></h5></th>
                 </tr>
             </thead>
 
@@ -511,24 +505,35 @@ export default class AdcpCert extends React.Component {
     </Row>
 
 		<Row fluid style={marginLeft}>
-			<Col xs={7} style={sigStyle}>
-					<h5>Tech Signature:</h5>
-			</Col>
-
 			<Col xs={3} style={sigStyle}>
-					<h5>Date:</h5>
+			    <h5>Tech Signature:</h5>
 			</Col>
+            <Col xs={5}>
+            <FormControl type="text" />
+            </Col>
+
+			<Col xs={1} style={sigStyle}>
+			    <h5>Date:</h5>
+			</Col>
+            <Col xs={3}>
+                <FormControl type="text" />
+            </Col>
 
 		</Row>
 
 		<Row fluid style={marginLeft}>
-			<Col xs={7} style={sigStyle}>
-					<h5>QA/QC Signature:</h5>
-			</Col>
-
 			<Col xs={3} style={sigStyle}>
-					<h5>Date:</h5>
+			    <h5>QA/QC Signature:</h5>
 			</Col>
+            <Col xs={5}>
+            <FormControl type="text" />
+            </Col>
+			<Col xs={1}>
+			    <h5>Date:</h5>
+			</Col>
+            <Col xs={3}>
+                <FormControl type="text" />
+            </Col>
 
 		</Row>
 

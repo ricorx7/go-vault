@@ -71303,7 +71303,7 @@
 	                                            _react2.default.createElement('th', null),
 	                                            _react2.default.createElement(
 	                                                'th',
-	                                                { 'class': 'text-center' },
+	                                                null,
 	                                                _react2.default.createElement(
 	                                                    'h5',
 	                                                    null,
@@ -71316,7 +71316,7 @@
 	                                            ),
 	                                            _react2.default.createElement(
 	                                                'th',
-	                                                { 'class': 'text-center' },
+	                                                null,
 	                                                _react2.default.createElement(
 	                                                    'h5',
 	                                                    null,
@@ -71329,7 +71329,7 @@
 	                                            ),
 	                                            _react2.default.createElement(
 	                                                'th',
-	                                                { 'class': 'text-center' },
+	                                                null,
 	                                                _react2.default.createElement(
 	                                                    'h5',
 	                                                    null,
@@ -71342,7 +71342,7 @@
 	                                            ),
 	                                            _react2.default.createElement(
 	                                                'th',
-	                                                { 'class': 'text-center' },
+	                                                null,
 	                                                _react2.default.createElement(
 	                                                    'h5',
 	                                                    null,
@@ -71386,7 +71386,7 @@
 	                                            _react2.default.createElement('th', null),
 	                                            _react2.default.createElement(
 	                                                'th',
-	                                                { 'class': 'text-center' },
+	                                                null,
 	                                                _react2.default.createElement(
 	                                                    'h5',
 	                                                    null,
@@ -71399,7 +71399,7 @@
 	                                            ),
 	                                            _react2.default.createElement(
 	                                                'th',
-	                                                { 'class': 'text-center' },
+	                                                null,
 	                                                _react2.default.createElement(
 	                                                    'h5',
 	                                                    null,
@@ -71412,7 +71412,7 @@
 	                                            ),
 	                                            _react2.default.createElement(
 	                                                'th',
-	                                                { 'class': 'text-center' },
+	                                                null,
 	                                                _react2.default.createElement(
 	                                                    'h5',
 	                                                    null,
@@ -71425,7 +71425,7 @@
 	                                            ),
 	                                            _react2.default.createElement(
 	                                                'th',
-	                                                { 'class': 'text-center' },
+	                                                null,
 	                                                _react2.default.createElement(
 	                                                    'h5',
 	                                                    null,
@@ -71489,7 +71489,7 @@
 	                                            null,
 	                                            _react2.default.createElement(
 	                                                'th',
-	                                                { 'class': 'text-center' },
+	                                                null,
 	                                                _react2.default.createElement(
 	                                                    'h5',
 	                                                    null,
@@ -71498,7 +71498,7 @@
 	                                            ),
 	                                            _react2.default.createElement(
 	                                                'th',
-	                                                { 'class': 'text-center' },
+	                                                null,
 	                                                _react2.default.createElement(
 	                                                    'h5',
 	                                                    null,
@@ -71511,7 +71511,7 @@
 	                                            ),
 	                                            _react2.default.createElement(
 	                                                'th',
-	                                                { 'class': 'text-center' },
+	                                                null,
 	                                                _react2.default.createElement(
 	                                                    'h5',
 	                                                    null,
@@ -71524,7 +71524,7 @@
 	                                            ),
 	                                            _react2.default.createElement(
 	                                                'th',
-	                                                { 'class': 'text-center' },
+	                                                null,
 	                                                _react2.default.createElement(
 	                                                    'h5',
 	                                                    null,
@@ -71537,7 +71537,7 @@
 	                                            ),
 	                                            _react2.default.createElement(
 	                                                'th',
-	                                                { 'class': 'text-center' },
+	                                                null,
 	                                                _react2.default.createElement(
 	                                                    'h5',
 	                                                    null,
@@ -71565,7 +71565,7 @@
 	                    { fluid: true, style: marginLeft },
 	                    _react2.default.createElement(
 	                        _reactBootstrap.Col,
-	                        { xs: 7, style: sigStyle },
+	                        { xs: 3, style: sigStyle },
 	                        _react2.default.createElement(
 	                            'h5',
 	                            null,
@@ -71574,12 +71574,22 @@
 	                    ),
 	                    _react2.default.createElement(
 	                        _reactBootstrap.Col,
-	                        { xs: 3, style: sigStyle },
+	                        { xs: 5 },
+	                        _react2.default.createElement(_reactBootstrap.FormControl, { type: 'text' })
+	                    ),
+	                    _react2.default.createElement(
+	                        _reactBootstrap.Col,
+	                        { xs: 1, style: sigStyle },
 	                        _react2.default.createElement(
 	                            'h5',
 	                            null,
 	                            'Date:'
 	                        )
+	                    ),
+	                    _react2.default.createElement(
+	                        _reactBootstrap.Col,
+	                        { xs: 3 },
+	                        _react2.default.createElement(_reactBootstrap.FormControl, { type: 'text' })
 	                    )
 	                ),
 	                _react2.default.createElement(
@@ -71587,7 +71597,7 @@
 	                    { fluid: true, style: marginLeft },
 	                    _react2.default.createElement(
 	                        _reactBootstrap.Col,
-	                        { xs: 7, style: sigStyle },
+	                        { xs: 3, style: sigStyle },
 	                        _react2.default.createElement(
 	                            'h5',
 	                            null,
@@ -71596,12 +71606,22 @@
 	                    ),
 	                    _react2.default.createElement(
 	                        _reactBootstrap.Col,
-	                        { xs: 3, style: sigStyle },
+	                        { xs: 5 },
+	                        _react2.default.createElement(_reactBootstrap.FormControl, { type: 'text' })
+	                    ),
+	                    _react2.default.createElement(
+	                        _reactBootstrap.Col,
+	                        { xs: 1 },
 	                        _react2.default.createElement(
 	                            'h5',
 	                            null,
 	                            'Date:'
 	                        )
+	                    ),
+	                    _react2.default.createElement(
+	                        _reactBootstrap.Col,
+	                        { xs: 3 },
+	                        _react2.default.createElement(_reactBootstrap.FormControl, { type: 'text' })
 	                    )
 	                ),
 	                _react2.default.createElement(
