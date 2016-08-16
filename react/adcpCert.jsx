@@ -88,9 +88,10 @@ export default class AdcpCert extends React.Component {
   // Render function
   render() {
 
+      // Waiting for AJAX response
       if(this.state.data.Adcp == null)
       {
-          return(<div></div>);
+          return(<div>Loading...</div>);
       }
 
       var marginBottom = {

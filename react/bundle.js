@@ -70074,6 +70074,8 @@
 
 	var _toggle2 = _interopRequireDefault(_toggle);
 
+	var _reactBootstrap = __webpack_require__(239);
+
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -70137,8 +70139,9 @@
 	        cache: false,
 	        success: function (data) {
 	          console.log("Data gotten from %s\n", urlSelected);
-	          console.log("%v\n", data);
+	          console.log(data);
 	          this.setState({ data: data });
+	          //this.init();
 	        }.bind(this),
 	        error: function (xhr, status, err) {
 	          console.error(urlSelected, status, err.toString());
@@ -70146,18 +70149,951 @@
 	      });
 	    }
 
+	    // Call API to set IsSelect selection
+
+	  }, {
+	    key: 'apiPostWt',
+	    value: function apiPostWt(wtData) {
+	      var urlSelected = "/vault/wt/edit/" + this.state.data.id;
+	      $.ajax({
+	        url: urlSelected,
+	        dataType: 'json',
+	        type: 'POST',
+	        data: wtData,
+	        cache: false,
+	        success: function (data) {
+	          console.log("Data updated from %s\n", urlSelected);
+	        }.bind(this),
+	        error: function (xhr, status, err) {
+	          console.error(urlSelected, status, err.toString());
+	        }.bind(this)
+	      });
+	    }
+
+	    // Update the DB with the latest data
+
+	  }, {
+	    key: 'updateDB',
+	    value: function updateDB() {
+	      console.log(this.state.data);
+	      this.apiPostWt(JSON.stringify(this.state.data));
+	    }
+	  }, {
+	    key: 'getValidationState',
+	    value: function getValidationState() {
+	      var length = this.state.gpsDistance;
+	      if (length > 10) return 'success';else if (length > 5) return 'warning';else if (length > 0) return 'error';
+	    }
+
+	    // Update the distance
+
+	  }, {
+	    key: 'gpsDistanceChange',
+	    value: function gpsDistanceChange(e) {
+	      this.state.data.GpsDistance = e.target.value; // Update the object
+	      this.update(); // Update DB and display 
+	    }
+
+	    // Update Direction
+
+	  }, {
+	    key: 'gpsDirectionChange',
+	    value: function gpsDirectionChange(e) {
+	      this.state.data.GpsDirection = e.target.value; // Update the object
+	      this.update(); // Update DB and display 
+	    }
+
+	    // ADCP Distance
+
+	  }, {
+	    key: 'btDistanceChange',
+	    value: function btDistanceChange(e) {
+	      this.state.data.BtDistance = e.target.value; // Update the object
+	      this.update(); // Update DB and display 
+	    }
+
+	    // ADCP Distance Error.
+
+	  }, {
+	    key: 'distanceErrorChange',
+	    value: function distanceErrorChange(e) {
+	      this.state.data.DistanceError = e.target.value; // Update the object
+	      this.update(); // Update DB and display 
+	    }
+
+	    // ADCP Direction
+
+	  }, {
+	    key: 'btDirectionChange',
+	    value: function btDirectionChange(e) {
+	      this.state.data.BtDirection = e.target.value; // Update the object
+	      this.update(); // Update DB and display 
+	    }
+
+	    // ADCP Direction Error.
+
+	  }, {
+	    key: 'directionErrorChange',
+	    value: function directionErrorChange(e) {
+	      this.state.data.DirectionError = e.target.value; // Update the object
+	      this.update(); // Update DB and display               
+	    }
+
+	    // Set the test orientation.
+
+	  }, {
+	    key: 'orientationChange',
+	    value: function orientationChange(e) {
+	      this.state.data.TestOrientation = parseInt(e.target.value); // Update the object
+	      this.update(); // Update DB and display   
+	    }
+
+	    // Set the test orientation.
+
+	  }, {
+	    key: 'notesChange',
+	    value: function notesChange(e) {
+	      this.state.data.Notes = e.target.value; // Update the object
+	      this.update(); // Update DB and display   
+	    }
+	  }, {
+	    key: 'beam0SignalLakeChange',
+	    value: function beam0SignalLakeChange(e) {
+	      this.state.data.Beam0SignalLake = e.target.value; // Update the object
+	      this.update(); // Update DB and display   
+	    }
+	  }, {
+	    key: 'beam1SignalLakeChange',
+	    value: function beam1SignalLakeChange(e) {
+	      this.state.data.Beam1SignalLake = e.target.value; // Update the object
+	      this.update(); // Update DB and display   
+	    }
+	  }, {
+	    key: 'beam2SignalLakeChange',
+	    value: function beam2SignalLakeChange(e) {
+	      this.state.data.Beam2SignalLake = e.target.value; // Update the object
+	      this.update(); // Update DB and display   
+	    }
+	  }, {
+	    key: 'beam3SignalLakeChange',
+	    value: function beam3SignalLakeChange(e) {
+	      this.state.data.Beam3SignalLake = e.target.value; // Update the object
+	      this.update(); // Update DB and display   
+	    }
+	  }, {
+	    key: 'beam0SignalOceanChange',
+	    value: function beam0SignalOceanChange(e) {
+	      this.state.data.Beam0SignalOcean = e.target.value; // Update the object
+	      this.update(); // Update DB and display   
+	    }
+	  }, {
+	    key: 'beam1SignalOceanChange',
+	    value: function beam1SignalOceanChange(e) {
+	      this.state.data.Beam1SignalOcean = e.target.value; // Update the object
+	      this.update(); // Update DB and display   
+	    }
+	  }, {
+	    key: 'beam2SignalOceanChange',
+	    value: function beam2SignalOceanChange(e) {
+	      this.state.data.Beam2SignalOcean = e.target.value; // Update the object
+	      this.update(); // Update DB and display   
+	    }
+	  }, {
+	    key: 'beam3SignalOceanChange',
+	    value: function beam3SignalOceanChange(e) {
+	      this.state.data.Beam3SignalOcean = e.target.value; // Update the object
+	      this.update(); // Update DB and display   
+	    }
+	  }, {
+	    key: 'beam0NoiseFloorChange',
+	    value: function beam0NoiseFloorChange(e) {
+	      this.state.data.Beam0NoiseFloor = e.target.value; // Update the object
+	      this.update(); // Update DB and display   
+	    }
+	  }, {
+	    key: 'beam1NoiseFloorChange',
+	    value: function beam1NoiseFloorChange(e) {
+	      this.state.data.Beam1NoiseFloor = e.target.value; // Update the object
+	      this.update(); // Update DB and display   
+	    }
+	  }, {
+	    key: 'beam2NoiseFloorChange',
+	    value: function beam2NoiseFloorChange(e) {
+	      this.state.data.Beam2NoiseFloor = e.target.value; // Update the object
+	      this.update(); // Update DB and display   
+	    }
+	  }, {
+	    key: 'beam3NoiseFloorChange',
+	    value: function beam3NoiseFloorChange(e) {
+	      this.state.data.Beam3NoiseFloor = e.target.value; // Update the object
+	      this.update(); // Update DB and display   
+	    }
+	  }, {
+	    key: 'beam0SnrLakeChange',
+	    value: function beam0SnrLakeChange(e) {
+	      this.state.data.Beam0SnrLake = e.target.value; // Update the object
+	      this.update(); // Update DB and display   
+	    }
+	  }, {
+	    key: 'beam1SnrLakeChange',
+	    value: function beam1SnrLakeChange(e) {
+	      this.state.data.Beam1SnrLake = e.target.value; // Update the object
+	      this.update(); // Update DB and display   
+	    }
+	  }, {
+	    key: 'beam2SnrLakeChange',
+	    value: function beam2SnrLakeChange(e) {
+	      this.state.data.Beam2SnrLake = e.target.value; // Update the object
+	      this.update(); // Update DB and display   
+	    }
+	  }, {
+	    key: 'beam3SnrLakeChange',
+	    value: function beam3SnrLakeChange(e) {
+	      this.state.data.Beam3SnrLake = e.target.value; // Update the object
+	      this.update(); // Update DB and display   
+	    }
+	  }, {
+	    key: 'beam0SnrOceanChange',
+	    value: function beam0SnrOceanChange(e) {
+	      this.state.data.Beam0SnrOcean = e.target.value; // Update the object
+	      this.update(); // Update DB and display   
+	    }
+	  }, {
+	    key: 'beam1SnrOceanChange',
+	    value: function beam1SnrOceanChange(e) {
+	      this.state.data.Beam1SnrOcean = e.target.value; // Update the object
+	      this.update(); // Update DB and display   
+	    }
+	  }, {
+	    key: 'beam2SnrOceanChange',
+	    value: function beam2SnrOceanChange(e) {
+	      this.state.data.Beam2SnrOcean = e.target.value; // Update the object
+	      this.update(); // Update DB and display   
+	    }
+	  }, {
+	    key: 'beam3SnrOceanChange',
+	    value: function beam3SnrOceanChange(e) {
+	      this.state.data.Beam3SnrOcean = e.target.value; // Update the object
+	      this.update(); // Update DB and display   
+	    }
+	  }, {
+	    key: 'profileRangeBeam0Change',
+	    value: function profileRangeBeam0Change(e) {
+	      this.state.data.ProfileRangeBeam0 = e.target.value; // Update the object
+	      this.update(); // Update DB and display   
+	    }
+	  }, {
+	    key: 'profileRangeBeam1Change',
+	    value: function profileRangeBeam1Change(e) {
+	      this.state.data.ProfileRangeBeam1 = e.target.value; // Update the object
+	      this.update(); // Update DB and display   
+	    }
+	  }, {
+	    key: 'profileRangeBeam2Change',
+	    value: function profileRangeBeam2Change(e) {
+	      this.state.data.ProfileRangeBeam2 = e.target.value; // Update the object
+	      this.update(); // Update DB and display   
+	    }
+	  }, {
+	    key: 'profileRangeBeam3Change',
+	    value: function profileRangeBeam3Change(e) {
+	      this.state.data.ProfileRangeBeam3 = e.target.value; // Update the object
+	      this.update(); // Update DB and display   
+	    }
+	  }, {
+	    key: 'glitchCountBeam0Change',
+	    value: function glitchCountBeam0Change(e) {
+	      this.state.data.GlitchCountBeam0 = e.target.value; // Update the object
+	      this.update(); // Update DB and display   
+	    }
+	  }, {
+	    key: 'glitchCountBeam1Change',
+	    value: function glitchCountBeam1Change(e) {
+	      this.state.data.GlitchCountBeam1 = e.target.value; // Update the object
+	      this.update(); // Update DB and display   
+	    }
+	  }, {
+	    key: 'glitchCountBeam2Change',
+	    value: function glitchCountBeam2Change(e) {
+	      this.state.data.GlitchCountBeam2 = e.target.value; // Update the object
+	      this.update(); // Update DB and display   
+	    }
+	  }, {
+	    key: 'glitchCountBeam3Change',
+	    value: function glitchCountBeam3Change(e) {
+	      this.state.data.GlitchCountBeam3 = e.target.value; // Update the object
+	      this.update(); // Update DB and display   
+	    }
+	  }, {
+	    key: 'bottomTrackAmplitudeBeam0Change',
+	    value: function bottomTrackAmplitudeBeam0Change(e) {
+	      this.state.data.BottomTrackAmplitudeBeam0 = e.target.value; // Update the object
+	      this.update(); // Update DB and display   
+	    }
+	  }, {
+	    key: 'bottomTrackAmplitudeBeam1Change',
+	    value: function bottomTrackAmplitudeBeam1Change(e) {
+	      this.state.data.BottomTrackAmplitudeBeam1 = e.target.value; // Update the object
+	      this.update(); // Update DB and display   
+	    }
+	  }, {
+	    key: 'bottomTrackAmplitudeBeam2Change',
+	    value: function bottomTrackAmplitudeBeam2Change(e) {
+	      this.state.data.BottomTrackAmplitudeBeam2 = e.target.value; // Update the object
+	      this.update(); // Update DB and display   
+	    }
+	  }, {
+	    key: 'bottomTrackAmplitudeBeam3Change',
+	    value: function bottomTrackAmplitudeBeam3Change(e) {
+	      this.state.data.BottomTrackAmplitudeBeam3 = e.target.value; // Update the object
+	      this.update(); // Update DB and display   
+	    }
+
+	    // Set IsSelected.
+
+	  }, {
+	    key: 'isSelectedChange',
+	    value: function isSelectedChange(e) {
+	      if (e === true) {
+	        this.state.data.IsSelected = false; // Invert 
+	      } else {
+	        this.state.data.IsSelected = true;
+	      }
+
+	      this.update(); // Update DB and display
+	    }
+
+	    // Update the DB and display.
+
+	  }, {
+	    key: 'update',
+	    value: function update() {
+	      this.forceUpdate(); // Refresh display
+	      this.updateDB(); // Update the database
+	    }
+
+	    // Convert to Bool
+
+	  }, {
+	    key: 'convertToBool',
+	    value: function convertToBool(val) {
+	      return val === true;
+	    }
+
 	    // Render function
 
 	  }, {
 	    key: 'render',
 	    value: function render() {
+	      // Waiting for AJAX response
+	      if (this.state.data == null) {
+	        return _react2.default.createElement(
+	          'div',
+	          null,
+	          'Loading...'
+	        );
+	      }
+
 	      return _react2.default.createElement(
 	        'div',
 	        null,
 	        _react2.default.createElement(
-	          'h1',
+	          _reactBootstrap.Well,
 	          null,
-	          this.state.data.SerialNumber
+	          _react2.default.createElement(
+	            'h1',
+	            null,
+	            this.state.data.SerialNumber
+	          )
+	        ),
+	        _react2.default.createElement(
+	          _reactBootstrap.Row,
+	          null,
+	          _react2.default.createElement(
+	            _reactBootstrap.Col,
+	            { xs: 2 },
+	            _react2.default.createElement(
+	              _MuiThemeProvider2.default,
+	              { muiTheme: muiTheme },
+	              _react2.default.createElement(
+	                'div',
+	                { style: styles.block },
+	                _react2.default.createElement(_toggle2.default, { label: 'Is Selected:', defaultToggled: this.convertToBool(this.state.data.IsSelected), onToggle: this.isSelectedChange.bind(this, this.state.data.IsSelected), style: styles.toggle })
+	              )
+	            )
+	          )
+	        ),
+	        _react2.default.createElement(
+	          _reactBootstrap.Row,
+	          null,
+	          _react2.default.createElement(
+	            _reactBootstrap.Col,
+	            { xs: 2 },
+	            _react2.default.createElement(
+	              _reactBootstrap.FormGroup,
+	              { controlId: 'formControlsSelect' },
+	              _react2.default.createElement(
+	                _reactBootstrap.ControlLabel,
+	                null,
+	                'Orientation:'
+	              ),
+	              _react2.default.createElement(
+	                _reactBootstrap.FormControl,
+	                { componentClass: 'select', placeholder: 'Orientation', value: this.state.data.TestOrientation, onChange: this.orientationChange.bind(this) },
+	                _react2.default.createElement(
+	                  'option',
+	                  { value: '0' },
+	                  '0'
+	                ),
+	                _react2.default.createElement(
+	                  'option',
+	                  { value: '3' },
+	                  '3'
+	                )
+	              )
+	            )
+	          )
+	        ),
+	        _react2.default.createElement(
+	          _reactBootstrap.Row,
+	          null,
+	          _react2.default.createElement(
+	            _reactBootstrap.Col,
+	            { md: 5 },
+	            _react2.default.createElement(
+	              _reactBootstrap.Panel,
+	              { header: 'GPS' },
+	              _react2.default.createElement(
+	                _reactBootstrap.Col,
+	                { xs: 5 },
+	                _react2.default.createElement(
+	                  _reactBootstrap.FormGroup,
+	                  { controlId: 'formBasicText', validationState: this.getValidationState() },
+	                  _react2.default.createElement(
+	                    _reactBootstrap.ControlLabel,
+	                    null,
+	                    'GPS Distance:'
+	                  ),
+	                  _react2.default.createElement(_reactBootstrap.FormControl, { type: 'text', value: this.state.data.GpsDistance, placeholder: 'Enter text', onChange: this.gpsDistanceChange.bind(this) }),
+	                  _react2.default.createElement(_reactBootstrap.FormControl.Feedback, null)
+	                )
+	              ),
+	              _react2.default.createElement(
+	                _reactBootstrap.Col,
+	                { xs: 5 },
+	                _react2.default.createElement(
+	                  _reactBootstrap.FormGroup,
+	                  { controlId: 'formBasicText', validationState: this.getValidationState() },
+	                  _react2.default.createElement(
+	                    _reactBootstrap.ControlLabel,
+	                    null,
+	                    'GPS Direction:'
+	                  ),
+	                  _react2.default.createElement(_reactBootstrap.FormControl, { type: 'text', value: this.state.data.GpsDirection, placeholder: 'Enter text', onChange: this.gpsDirectionChange.bind(this) }),
+	                  _react2.default.createElement(_reactBootstrap.FormControl.Feedback, null)
+	                )
+	              )
+	            )
+	          ),
+	          _react2.default.createElement(
+	            _reactBootstrap.Col,
+	            { md: 5 },
+	            _react2.default.createElement(
+	              _reactBootstrap.Panel,
+	              { header: 'ADCP' },
+	              _react2.default.createElement(
+	                _reactBootstrap.Row,
+	                null,
+	                _react2.default.createElement(
+	                  _reactBootstrap.Col,
+	                  { xs: 5 },
+	                  _react2.default.createElement(
+	                    _reactBootstrap.FormGroup,
+	                    { controlId: 'formBasicText', validationState: this.getValidationState() },
+	                    _react2.default.createElement(
+	                      _reactBootstrap.ControlLabel,
+	                      null,
+	                      'Distance Traveled:'
+	                    ),
+	                    _react2.default.createElement(_reactBootstrap.FormControl, { type: 'text', value: this.state.data.BtDistance, placeholder: 'Enter text', onChange: this.btDistanceChange.bind(this) }),
+	                    _react2.default.createElement(_reactBootstrap.FormControl.Feedback, null)
+	                  )
+	                ),
+	                _react2.default.createElement(
+	                  _reactBootstrap.Col,
+	                  { xs: 5 },
+	                  _react2.default.createElement(
+	                    _reactBootstrap.FormGroup,
+	                    { controlId: 'formBasicText', validationState: this.getValidationState() },
+	                    _react2.default.createElement(
+	                      _reactBootstrap.ControlLabel,
+	                      null,
+	                      'Direction:'
+	                    ),
+	                    _react2.default.createElement(_reactBootstrap.FormControl, { type: 'text', value: this.state.data.BtDirection, placeholder: 'Enter text', onChange: this.btDirectionChange.bind(this) }),
+	                    _react2.default.createElement(_reactBootstrap.FormControl.Feedback, null)
+	                  )
+	                )
+	              ),
+	              _react2.default.createElement(
+	                _reactBootstrap.Row,
+	                null,
+	                _react2.default.createElement(
+	                  _reactBootstrap.Col,
+	                  { xs: 5 },
+	                  _react2.default.createElement(
+	                    _reactBootstrap.FormGroup,
+	                    { controlId: 'formBasicText', validationState: this.getValidationState() },
+	                    _react2.default.createElement(
+	                      _reactBootstrap.ControlLabel,
+	                      null,
+	                      'Distance Error:'
+	                    ),
+	                    _react2.default.createElement(_reactBootstrap.FormControl, { type: 'text', value: this.state.data.DistanceError, placeholder: 'Enter text', onChange: this.distanceErrorChange.bind(this) }),
+	                    _react2.default.createElement(_reactBootstrap.FormControl.Feedback, null)
+	                  )
+	                ),
+	                _react2.default.createElement(
+	                  _reactBootstrap.Col,
+	                  { xs: 5 },
+	                  _react2.default.createElement(
+	                    _reactBootstrap.FormGroup,
+	                    { controlId: 'formBasicText', validationState: this.getValidationState() },
+	                    _react2.default.createElement(
+	                      _reactBootstrap.ControlLabel,
+	                      null,
+	                      'Direction Error:'
+	                    ),
+	                    _react2.default.createElement(_reactBootstrap.FormControl, { type: 'text', value: this.state.data.DirectionError, placeholder: 'Enter text', onChange: this.directionErrorChange.bind(this) }),
+	                    _react2.default.createElement(_reactBootstrap.FormControl.Feedback, null)
+	                  )
+	                )
+	              )
+	            )
+	          )
+	        ),
+	        _react2.default.createElement(
+	          _reactBootstrap.Row,
+	          null,
+	          _react2.default.createElement(
+	            _reactBootstrap.Col,
+	            { xs: 10 },
+	            _react2.default.createElement(
+	              _reactBootstrap.Table,
+	              { striped: true, bordered: true, condensed: true, responsive: true, hover: true },
+	              _react2.default.createElement(
+	                'thead',
+	                null,
+	                _react2.default.createElement(
+	                  'tr',
+	                  null,
+	                  _react2.default.createElement('th', null),
+	                  _react2.default.createElement(
+	                    'th',
+	                    null,
+	                    'Beam 0'
+	                  ),
+	                  _react2.default.createElement(
+	                    'th',
+	                    null,
+	                    'Beam 1'
+	                  ),
+	                  _react2.default.createElement(
+	                    'th',
+	                    null,
+	                    'Beam 2'
+	                  ),
+	                  _react2.default.createElement(
+	                    'th',
+	                    null,
+	                    'Beam 3'
+	                  )
+	                )
+	              ),
+	              _react2.default.createElement(
+	                'tbody',
+	                null,
+	                _react2.default.createElement(
+	                  'tr',
+	                  null,
+	                  _react2.default.createElement(
+	                    'td',
+	                    null,
+	                    'Signal Lake'
+	                  ),
+	                  _react2.default.createElement(
+	                    'td',
+	                    null,
+	                    _react2.default.createElement(
+	                      _reactBootstrap.FormGroup,
+	                      { controlId: 'formBasicText', validationState: this.getValidationState() },
+	                      _react2.default.createElement(_reactBootstrap.FormControl, { type: 'text', value: this.state.data.Beam0SignalLake, placeholder: 'Enter text', onChange: this.beam0SignalLakeChange.bind(this) })
+	                    )
+	                  ),
+	                  _react2.default.createElement(
+	                    'td',
+	                    null,
+	                    _react2.default.createElement(
+	                      _reactBootstrap.FormGroup,
+	                      { controlId: 'formBasicText', validationState: this.getValidationState() },
+	                      _react2.default.createElement(_reactBootstrap.FormControl, { type: 'text', value: this.state.data.Beam1SignalLake, placeholder: 'Enter text', onChange: this.beam1SignalLakeChange.bind(this) })
+	                    )
+	                  ),
+	                  _react2.default.createElement(
+	                    'td',
+	                    null,
+	                    _react2.default.createElement(
+	                      _reactBootstrap.FormGroup,
+	                      { controlId: 'formBasicText', validationState: this.getValidationState() },
+	                      _react2.default.createElement(_reactBootstrap.FormControl, { type: 'text', value: this.state.data.Beam2SignalLake, placeholder: 'Enter text', onChange: this.beam2SignalLakeChange.bind(this) })
+	                    )
+	                  ),
+	                  _react2.default.createElement(
+	                    'td',
+	                    null,
+	                    _react2.default.createElement(
+	                      _reactBootstrap.FormGroup,
+	                      { controlId: 'formBasicText', validationState: this.getValidationState() },
+	                      _react2.default.createElement(_reactBootstrap.FormControl, { type: 'text', value: this.state.data.Beam3SignalLake, placeholder: 'Enter text', onChange: this.beam3SignalLakeChange.bind(this) })
+	                    )
+	                  )
+	                ),
+	                _react2.default.createElement(
+	                  'tr',
+	                  null,
+	                  _react2.default.createElement(
+	                    'td',
+	                    null,
+	                    'Signal Ocean'
+	                  ),
+	                  _react2.default.createElement(
+	                    'td',
+	                    null,
+	                    _react2.default.createElement(
+	                      _reactBootstrap.FormGroup,
+	                      { controlId: 'formBasicText', validationState: this.getValidationState() },
+	                      _react2.default.createElement(_reactBootstrap.FormControl, { type: 'text', value: this.state.data.Beam0SignalOcean, placeholder: 'Enter text', onChange: this.beam0SignalOceanChange.bind(this) })
+	                    )
+	                  ),
+	                  _react2.default.createElement(
+	                    'td',
+	                    null,
+	                    _react2.default.createElement(
+	                      _reactBootstrap.FormGroup,
+	                      { controlId: 'formBasicText', validationState: this.getValidationState() },
+	                      _react2.default.createElement(_reactBootstrap.FormControl, { type: 'text', value: this.state.data.Beam1SignalOcean, placeholder: 'Enter text', onChange: this.beam1SignalOceanChange.bind(this) })
+	                    )
+	                  ),
+	                  _react2.default.createElement(
+	                    'td',
+	                    null,
+	                    _react2.default.createElement(
+	                      _reactBootstrap.FormGroup,
+	                      { controlId: 'formBasicText', validationState: this.getValidationState() },
+	                      _react2.default.createElement(_reactBootstrap.FormControl, { type: 'text', value: this.state.data.Beam2SignalOcean, placeholder: 'Enter text', onChange: this.beam2SignalOceanChange.bind(this) })
+	                    )
+	                  ),
+	                  _react2.default.createElement(
+	                    'td',
+	                    null,
+	                    _react2.default.createElement(
+	                      _reactBootstrap.FormGroup,
+	                      { controlId: 'formBasicText', validationState: this.getValidationState() },
+	                      _react2.default.createElement(_reactBootstrap.FormControl, { type: 'text', value: this.state.data.Beam3SignalOcean, placeholder: 'Enter text', onChange: this.beam3SignalOceanChange.bind(this) })
+	                    )
+	                  )
+	                ),
+	                _react2.default.createElement(
+	                  'tr',
+	                  null,
+	                  _react2.default.createElement(
+	                    'td',
+	                    null,
+	                    'Noise Floor'
+	                  ),
+	                  _react2.default.createElement(
+	                    'td',
+	                    null,
+	                    _react2.default.createElement(
+	                      _reactBootstrap.FormGroup,
+	                      { controlId: 'formBasicText', validationState: this.getValidationState() },
+	                      _react2.default.createElement(_reactBootstrap.FormControl, { type: 'text', value: this.state.data.Beam0NoiseFloor, placeholder: 'Enter text', onChange: this.beam0NoiseFloorChange.bind(this) })
+	                    )
+	                  ),
+	                  _react2.default.createElement(
+	                    'td',
+	                    null,
+	                    _react2.default.createElement(
+	                      _reactBootstrap.FormGroup,
+	                      { controlId: 'formBasicText', validationState: this.getValidationState() },
+	                      _react2.default.createElement(_reactBootstrap.FormControl, { type: 'text', value: this.state.data.Beam1NoiseFloor, placeholder: 'Enter text', onChange: this.beam1NoiseFloorChange.bind(this) })
+	                    )
+	                  ),
+	                  _react2.default.createElement(
+	                    'td',
+	                    null,
+	                    _react2.default.createElement(
+	                      _reactBootstrap.FormGroup,
+	                      { controlId: 'formBasicText', validationState: this.getValidationState() },
+	                      _react2.default.createElement(_reactBootstrap.FormControl, { type: 'text', value: this.state.data.Beam2NoiseFloor, placeholder: 'Enter text', onChange: this.beam2NoiseFloorChange.bind(this) })
+	                    )
+	                  ),
+	                  _react2.default.createElement(
+	                    'td',
+	                    null,
+	                    _react2.default.createElement(
+	                      _reactBootstrap.FormGroup,
+	                      { controlId: 'formBasicText', validationState: this.getValidationState() },
+	                      _react2.default.createElement(_reactBootstrap.FormControl, { type: 'text', value: this.state.data.Beam3NoiseFloor, placeholder: 'Enter text', onChange: this.beam3NoiseFloorChange.bind(this) })
+	                    )
+	                  )
+	                ),
+	                _react2.default.createElement(
+	                  'tr',
+	                  null,
+	                  _react2.default.createElement(
+	                    'td',
+	                    null,
+	                    'SNR Lake'
+	                  ),
+	                  _react2.default.createElement(
+	                    'td',
+	                    null,
+	                    _react2.default.createElement(
+	                      _reactBootstrap.FormGroup,
+	                      { controlId: 'formBasicText', validationState: this.getValidationState() },
+	                      _react2.default.createElement(_reactBootstrap.FormControl, { type: 'text', value: this.state.data.Beam0SnrLake, placeholder: 'Enter text', onChange: this.beam0SnrLakeChange.bind(this) })
+	                    )
+	                  ),
+	                  _react2.default.createElement(
+	                    'td',
+	                    null,
+	                    _react2.default.createElement(
+	                      _reactBootstrap.FormGroup,
+	                      { controlId: 'formBasicText', validationState: this.getValidationState() },
+	                      _react2.default.createElement(_reactBootstrap.FormControl, { type: 'text', value: this.state.data.Beam1SnrLake, placeholder: 'Enter text', onChange: this.beam1SnrLakeChange.bind(this) })
+	                    )
+	                  ),
+	                  _react2.default.createElement(
+	                    'td',
+	                    null,
+	                    _react2.default.createElement(
+	                      _reactBootstrap.FormGroup,
+	                      { controlId: 'formBasicText', validationState: this.getValidationState() },
+	                      _react2.default.createElement(_reactBootstrap.FormControl, { type: 'text', value: this.state.data.Beam2SnrLake, placeholder: 'Enter text', onChange: this.beam2SnrLakeChange.bind(this) })
+	                    )
+	                  ),
+	                  _react2.default.createElement(
+	                    'td',
+	                    null,
+	                    _react2.default.createElement(
+	                      _reactBootstrap.FormGroup,
+	                      { controlId: 'formBasicText', validationState: this.getValidationState() },
+	                      _react2.default.createElement(_reactBootstrap.FormControl, { type: 'text', value: this.state.data.Beam3SnrLake, placeholder: 'Enter text', onChange: this.beam3SnrLakeChange.bind(this) })
+	                    )
+	                  )
+	                ),
+	                _react2.default.createElement(
+	                  'tr',
+	                  null,
+	                  _react2.default.createElement(
+	                    'td',
+	                    null,
+	                    'SNR Ocean'
+	                  ),
+	                  _react2.default.createElement(
+	                    'td',
+	                    null,
+	                    _react2.default.createElement(
+	                      _reactBootstrap.FormGroup,
+	                      { controlId: 'formBasicText', validationState: this.getValidationState() },
+	                      _react2.default.createElement(_reactBootstrap.FormControl, { type: 'text', value: this.state.data.Beam0SnrOcean, placeholder: 'Enter text', onChange: this.beam0SnrOceanChange.bind(this) })
+	                    )
+	                  ),
+	                  _react2.default.createElement(
+	                    'td',
+	                    null,
+	                    _react2.default.createElement(
+	                      _reactBootstrap.FormGroup,
+	                      { controlId: 'formBasicText', validationState: this.getValidationState() },
+	                      _react2.default.createElement(_reactBootstrap.FormControl, { type: 'text', value: this.state.data.Beam1SnrOcean, placeholder: 'Enter text', onChange: this.beam1SnrOceanChange.bind(this) })
+	                    )
+	                  ),
+	                  _react2.default.createElement(
+	                    'td',
+	                    null,
+	                    _react2.default.createElement(
+	                      _reactBootstrap.FormGroup,
+	                      { controlId: 'formBasicText', validationState: this.getValidationState() },
+	                      _react2.default.createElement(_reactBootstrap.FormControl, { type: 'text', value: this.state.data.Beam2SnrOcean, placeholder: 'Enter text', onChange: this.beam2SnrOceanChange.bind(this) })
+	                    )
+	                  ),
+	                  _react2.default.createElement(
+	                    'td',
+	                    null,
+	                    _react2.default.createElement(
+	                      _reactBootstrap.FormGroup,
+	                      { controlId: 'formBasicText', validationState: this.getValidationState() },
+	                      _react2.default.createElement(_reactBootstrap.FormControl, { type: 'text', value: this.state.data.Beam3SnrOcean, placeholder: 'Enter text', onChange: this.beam3SnrOceanChange.bind(this) })
+	                    )
+	                  )
+	                ),
+	                _react2.default.createElement(
+	                  'tr',
+	                  null,
+	                  _react2.default.createElement(
+	                    'td',
+	                    null,
+	                    'Profile Range'
+	                  ),
+	                  _react2.default.createElement(
+	                    'td',
+	                    null,
+	                    _react2.default.createElement(
+	                      _reactBootstrap.FormGroup,
+	                      { controlId: 'formBasicText', validationState: this.getValidationState() },
+	                      _react2.default.createElement(_reactBootstrap.FormControl, { type: 'text', value: this.state.data.ProfileRangeBeam0, placeholder: 'Enter text', onChange: this.profileRangeBeam0Change.bind(this) })
+	                    )
+	                  ),
+	                  _react2.default.createElement(
+	                    'td',
+	                    null,
+	                    _react2.default.createElement(
+	                      _reactBootstrap.FormGroup,
+	                      { controlId: 'formBasicText', validationState: this.getValidationState() },
+	                      _react2.default.createElement(_reactBootstrap.FormControl, { type: 'text', value: this.state.data.ProfileRangeBeam1, placeholder: 'Enter text', onChange: this.profileRangeBeam1Change.bind(this) })
+	                    )
+	                  ),
+	                  _react2.default.createElement(
+	                    'td',
+	                    null,
+	                    _react2.default.createElement(
+	                      _reactBootstrap.FormGroup,
+	                      { controlId: 'formBasicText', validationState: this.getValidationState() },
+	                      _react2.default.createElement(_reactBootstrap.FormControl, { type: 'text', value: this.state.data.ProfileRangeBeam2, placeholder: 'Enter text', onChange: this.profileRangeBeam2Change.bind(this) })
+	                    )
+	                  ),
+	                  _react2.default.createElement(
+	                    'td',
+	                    null,
+	                    _react2.default.createElement(
+	                      _reactBootstrap.FormGroup,
+	                      { controlId: 'formBasicText', validationState: this.getValidationState() },
+	                      _react2.default.createElement(_reactBootstrap.FormControl, { type: 'text', value: this.state.data.ProfileRangeBeam3, placeholder: 'Enter text', onChange: this.profileRangeBeam3Change.bind(this) })
+	                    )
+	                  )
+	                ),
+	                _react2.default.createElement(
+	                  'tr',
+	                  null,
+	                  _react2.default.createElement(
+	                    'td',
+	                    null,
+	                    'Glitch Count'
+	                  ),
+	                  _react2.default.createElement(
+	                    'td',
+	                    null,
+	                    _react2.default.createElement(
+	                      _reactBootstrap.FormGroup,
+	                      { controlId: 'formBasicText', validationState: this.getValidationState() },
+	                      _react2.default.createElement(_reactBootstrap.FormControl, { type: 'text', value: this.state.data.GlitchCountBeam0, placeholder: 'Enter text', onChange: this.glitchCountBeam0Change.bind(this) })
+	                    )
+	                  ),
+	                  _react2.default.createElement(
+	                    'td',
+	                    null,
+	                    _react2.default.createElement(
+	                      _reactBootstrap.FormGroup,
+	                      { controlId: 'formBasicText', validationState: this.getValidationState() },
+	                      _react2.default.createElement(_reactBootstrap.FormControl, { type: 'text', value: this.state.data.GlitchCountBeam1, placeholder: 'Enter text', onChange: this.glitchCountBeam1Change.bind(this) })
+	                    )
+	                  ),
+	                  _react2.default.createElement(
+	                    'td',
+	                    null,
+	                    _react2.default.createElement(
+	                      _reactBootstrap.FormGroup,
+	                      { controlId: 'formBasicText', validationState: this.getValidationState() },
+	                      _react2.default.createElement(_reactBootstrap.FormControl, { type: 'text', value: this.state.data.GlitchCountBeam2, placeholder: 'Enter text', onChange: this.glitchCountBeam2Change.bind(this) })
+	                    )
+	                  ),
+	                  _react2.default.createElement(
+	                    'td',
+	                    null,
+	                    _react2.default.createElement(
+	                      _reactBootstrap.FormGroup,
+	                      { controlId: 'formBasicText', validationState: this.getValidationState() },
+	                      _react2.default.createElement(_reactBootstrap.FormControl, { type: 'text', value: this.state.data.GlitchCountBeam3, placeholder: 'Enter text', onChange: this.glitchCountBeam3Change.bind(this) })
+	                    )
+	                  )
+	                ),
+	                _react2.default.createElement(
+	                  'tr',
+	                  null,
+	                  _react2.default.createElement(
+	                    'td',
+	                    null,
+	                    'BT Amp'
+	                  ),
+	                  _react2.default.createElement(
+	                    'td',
+	                    null,
+	                    _react2.default.createElement(
+	                      _reactBootstrap.FormGroup,
+	                      { controlId: 'formBasicText', validationState: this.getValidationState() },
+	                      _react2.default.createElement(_reactBootstrap.FormControl, { type: 'text', value: this.state.data.BottomTrackAmplitudeBeam0, placeholder: 'Enter text', onChange: this.bottomTrackAmplitudeBeam0Change.bind(this) })
+	                    )
+	                  ),
+	                  _react2.default.createElement(
+	                    'td',
+	                    null,
+	                    _react2.default.createElement(
+	                      _reactBootstrap.FormGroup,
+	                      { controlId: 'formBasicText', validationState: this.getValidationState() },
+	                      _react2.default.createElement(_reactBootstrap.FormControl, { type: 'text', value: this.state.data.BottomTrackAmplitudeBeam1, placeholder: 'Enter text', onChange: this.bottomTrackAmplitudeBeam1Change.bind(this) })
+	                    )
+	                  ),
+	                  _react2.default.createElement(
+	                    'td',
+	                    null,
+	                    _react2.default.createElement(
+	                      _reactBootstrap.FormGroup,
+	                      { controlId: 'formBasicText', validationState: this.getValidationState() },
+	                      _react2.default.createElement(_reactBootstrap.FormControl, { type: 'text', value: this.state.data.BottomTrackAmplitudeBeam2, placeholder: 'Enter text', onChange: this.bottomTrackAmplitudeBeam2Change.bind(this) })
+	                    )
+	                  ),
+	                  _react2.default.createElement(
+	                    'td',
+	                    null,
+	                    _react2.default.createElement(
+	                      _reactBootstrap.FormGroup,
+	                      { controlId: 'formBasicText', validationState: this.getValidationState() },
+	                      _react2.default.createElement(_reactBootstrap.FormControl, { type: 'text', value: this.state.data.BottomTrackAmplitudeBeam3, placeholder: 'Enter text', onChange: this.bottomTrackAmplitudeBeam3Change.bind(this) })
+	                    )
+	                  )
+	                )
+	              )
+	            )
+	          )
+	        ),
+	        _react2.default.createElement(
+	          _reactBootstrap.Row,
+	          null,
+	          _react2.default.createElement(
+	            _reactBootstrap.Col,
+	            { xs: 8 },
+	            _react2.default.createElement(
+	              _reactBootstrap.FormGroup,
+	              { controlId: 'formControlsTextarea' },
+	              _react2.default.createElement(
+	                _reactBootstrap.ControlLabel,
+	                null,
+	                'Notes:'
+	              ),
+	              _react2.default.createElement(_reactBootstrap.FormControl, { componentClass: 'textarea', placeholder: 'Notes', value: this.state.data.Notes, onChange: this.notesChange.bind(this) })
+	            )
+	          )
 	        )
 	      );
 	    }
@@ -70317,8 +71253,13 @@
 	        key: 'render',
 	        value: function render() {
 
+	            // Waiting for AJAX response
 	            if (this.state.data.Adcp == null) {
-	                return _react2.default.createElement('div', null);
+	                return _react2.default.createElement(
+	                    'div',
+	                    null,
+	                    'Loading...'
+	                );
 	            }
 
 	            var marginBottom = {
