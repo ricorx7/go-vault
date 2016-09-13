@@ -3,6 +3,7 @@ package main
 import (
 	"encoding/json"
 	"fmt"
+	"io/ioutil"
 	"net/http"
 	"strconv"
 
@@ -30,6 +31,107 @@ func vaultAPIAdcpGetHandler(w http.ResponseWriter, r *http.Request) {
 	}
 }
 
+// Get the ADCP from the given serial number value.
+func vaultAPIAdcpSerialGetHandler(w http.ResponseWriter, r *http.Request) {
+	// Get the value of the "id" parameters.
+	id := bone.GetValue(r, "id")
+
+	switch r.Method {
+	case "GET":
+		{
+			adcp := getAdcp(id)
+
+			fmt.Printf("Get ADCP from serial: %s  %v", id, adcp)
+
+			// Set data type and OK status
+			w.Header().Set("Content-Type", "application/json; charset=UTF-8")
+			w.WriteHeader(http.StatusOK)
+
+			if err := json.NewEncoder(w).Encode(adcp); err != nil {
+				panic(err)
+			}
+		}
+	case "POST":
+		{
+
+		}
+	default:
+		{
+
+		}
+
+	}
+}
+
+// Get the ADCP Cert info the given serial number value.
+func vaultAPIAdcpCertGetHandler(w http.ResponseWriter, r *http.Request) {
+	// Get the value of the "id" parameters.
+	serialNum := bone.GetValue(r, "id") // Get the value of the "id" parameters in the URL.
+
+	switch r.Method {
+	case "GET":
+		{
+			adcp := getAdcp(serialNum)                                 // Get the ADCP data from the DB
+			adcpCert := &AdcpCert{Adcp: *adcp}                         // Set the ADCP to struct
+			adcpCert.CompassCal = getCompassCalCertData(serialNum)     // Get Compass Cal from the DB
+			adcpCert.TankTest = getTankTestResultCertData(serialNum)   // Get Tank Test from the DB
+			adcpCert.SnrTest = getSnrTestResultCertData(serialNum)     // Get SNR Test from the DB
+			adcpCert.WaterTest = getWaterTestResultCertData(serialNum) // Get Water Test from the DB
+
+			fmt.Printf("Get ADCP from serial: %s  %v", serialNum, adcpCert)
+
+			// Set data type and OK status
+			w.Header().Set("Content-Type", "application/json; charset=UTF-8")
+			w.WriteHeader(http.StatusOK)
+
+			if err := json.NewEncoder(w).Encode(adcpCert); err != nil {
+				panic(err)
+			}
+		}
+	case "POST":
+		{
+
+		}
+	default:
+		{
+
+		}
+
+	}
+}
+
+// Get the compass cal from the given serial number value.
+func vaultAPICompassCalSerialGetHandler(w http.ResponseWriter, r *http.Request) {
+	// Get the value of the "id" parameters.
+	id := bone.GetValue(r, "id")
+
+	switch r.Method {
+	case "GET":
+		{
+			compasscal := getCompassCal(id)
+
+			fmt.Printf("Get CompassCal from serial: %s  %v", id, compasscal)
+
+			// Set data type and OK status
+			w.Header().Set("Content-Type", "application/json; charset=UTF-8")
+			w.WriteHeader(http.StatusOK)
+
+			if err := json.NewEncoder(w).Encode(compasscal); err != nil {
+				panic(err)
+			}
+		}
+	case "POST":
+		{
+
+		}
+	default:
+		{
+
+		}
+
+	}
+}
+
 // Get the Tank Test data from the Vault.
 func vaultAPITankHandler(w http.ResponseWriter, r *http.Request) {
 	// Init
@@ -38,7 +140,7 @@ func vaultAPITankHandler(w http.ResponseWriter, r *http.Request) {
 	// Get data form DB
 	err := Vault.Mongo.C("TankTestResults").Find(bson.M{}).Sort("-Created").All(&waterTestData)
 	CheckError(err)
-	fmt.Println("Number of WaterTests: ", len(waterTestData))
+	fmt.Println("Number of TankTests: ", len(waterTestData))
 
 	// Set data type and OK status
 	w.Header().Set("Content-Type", "application/json; charset=UTF-8")
@@ -204,6 +306,71 @@ func vaultAPIWaterTestSelectGetHandler(w http.ResponseWriter, r *http.Request) {
 	case "POST":
 		{
 
+		}
+	default:
+		{
+
+		}
+
+	}
+}
+
+// Edit the Water Test data from the vault.
+func vaultAPIWaterTestEditHandler(w http.ResponseWriter, r *http.Request) {
+	// Get the value of the "id" parameters.
+	id := bone.GetValue(r, "id")
+
+	switch r.Method {
+	case "GET":
+		{
+			// ID is the ADCP serial number
+
+			watertest := getWaterTestResultsID(id) // Get the data from the database
+
+			fmt.Printf("Edit waterest: %v\n", watertest)
+
+			// Set data type and OK status
+			w.Header().Set("Content-Type", "application/json; charset=UTF-8")
+			w.WriteHeader(http.StatusOK)
+
+			// Pass back as a JSON
+			if err := json.NewEncoder(w).Encode(watertest); err != nil {
+				panic(err)
+			}
+		}
+	case "POST":
+		{
+			// ID is the database ID
+
+			// Verify the data exist
+			if r.Body == nil {
+				http.Error(w, "Send a request body", 400)
+				fmt.Printf("Edit waterest 1: \n")
+				return
+			}
+
+			defer r.Body.Close()
+
+			// Read in the data
+			fmt.Println("response Headers:", r.Header)
+			body, _ := ioutil.ReadAll(r.Body)
+			fmt.Println("response Body:", string(body))
+
+			// Convert to JSON
+			var wt WaterTestResults
+			err := json.Unmarshal(body, &wt)
+			if err != nil {
+				fmt.Println("Error with unmarsharl: ", err)
+			}
+
+			fmt.Printf("POST Watertest: %v\n", wt)
+
+			// Store the new data to the database
+			updateWaterTest(&wt)
+
+			// Set data type and OK status
+			w.Header().Set("Content-Type", "application/json; charset=UTF-8")
+			w.WriteHeader(http.StatusOK)
 		}
 	default:
 		{

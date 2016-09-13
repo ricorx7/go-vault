@@ -46,10 +46,15 @@ func adcpCertHandler(w http.ResponseWriter, r *http.Request) {
 func getCompassCalCertData(serialNum string) []CompassCal {
 	cc := getCompassCalSelected(serialNum)
 	for i := 0; i < len(*cc); i++ {
-		(*cc)[i].CompasscalBeam1Error = 0.0 - (*cc)[i].Point1PostHdg
-		(*cc)[i].CompasscalBeam2Error = 90.0 - (*cc)[i].Point2PostHdg
-		(*cc)[i].CompasscalBeam3Error = 180.0 - (*cc)[i].Point3PostHdg
-		(*cc)[i].CompasscalBeam4Error = 270.0 - (*cc)[i].Point4PostHdg
+		if (*cc)[i].Point1PostHdg > 270 && (*cc)[i].Point1PostHdg <= 360 {
+			(*cc)[i].CompasscalBeam1Error = (*cc)[i].Point1PostHdg - 360.0
+		} else {
+			(*cc)[i].CompasscalBeam1Error = (*cc)[i].Point1PostHdg - 0.0
+		}
+		//(*cc)[i].CompasscalBeam1Error = 0.0 - (*cc)[i].Point1PostHdg
+		(*cc)[i].CompasscalBeam2Error = (*cc)[i].Point2PostHdg - 90.0
+		(*cc)[i].CompasscalBeam3Error = (*cc)[i].Point3PostHdg - 180.0
+		(*cc)[i].CompasscalBeam4Error = (*cc)[i].Point4PostHdg - 270.0
 	}
 
 	return *cc

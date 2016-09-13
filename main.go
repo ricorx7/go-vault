@@ -38,10 +38,10 @@ func main() {
 
 	// Router
 	mux := bone.New()
-	mux.Handle("/libs/", http.StripPrefix("/libs/", http.FileServer(http.Dir("libs"))))            // External libs
-	mux.Handle("/images/", http.StripPrefix("/images/", http.FileServer(http.Dir("images"))))      // Image folder
-	mux.Handle("/vault/", http.StripPrefix("/vault/", http.FileServer(http.Dir("//vault/vault")))) // Image folder
-	mux.Handle("/react/", http.StripPrefix("/react/", http.FileServer(http.Dir("react"))))         // React Frontend folder
+	mux.Handle("/libs/", http.StripPrefix("/libs/", http.FileServer(http.Dir("libs"))))          // External libs
+	mux.Handle("/images/", http.StripPrefix("/images/", http.FileServer(http.Dir("images"))))    // Image folder
+	mux.Handle("/vault/", http.StripPrefix("/vault/", http.FileServer(http.Dir("//RTI/vault")))) // Vault folder
+	mux.Handle("/react/", http.StripPrefix("/react/", http.FileServer(http.Dir("react"))))       // React Frontend folder
 	mux.HandleFunc("/", http.HandlerFunc(adcpListHandler))
 	mux.HandleFunc("/adcp", http.HandlerFunc(adcpListHandler))
 	mux.HandleFunc("/adcp/update/:id", http.HandlerFunc(adcpUpdateHandler))
@@ -70,8 +70,12 @@ func main() {
 	mux.HandleFunc("/vault/tank/selected/ringing/:id", http.HandlerFunc(vaultAPITankSelectedSerialRingingHandler))
 	mux.HandleFunc("/react1", http.HandlerFunc(reactHandler))
 	mux.HandleFunc("/vault/adcp", http.HandlerFunc(vaultAPIAdcpGetHandler))
+	mux.HandleFunc("/vault/adcp/:id", http.HandlerFunc(vaultAPIAdcpSerialGetHandler))
+	mux.HandleFunc("/vault/adcp/cert/:id", http.HandlerFunc(vaultAPIAdcpCertGetHandler))
+	mux.HandleFunc("/vault/compasscal/:id", http.HandlerFunc(vaultAPICompassCalSerialGetHandler))
 	mux.HandleFunc("/vault/wt", http.HandlerFunc(vaultAPIWaterTestGetHandler))
 	mux.HandleFunc("/vault/wt/select/:id", http.HandlerFunc(vaultAPIWaterTestSelectGetHandler))
+	mux.HandleFunc("/vault/wt/edit/:id", http.HandlerFunc(vaultAPIWaterTestEditHandler))
 	mux.HandleFunc("/vault/tt", http.HandlerFunc(vaultAPITankTestGetHandler))
 	mux.HandleFunc("/vault/tt/select/:id", http.HandlerFunc(vaultAPITankTestSelectGetHandler))
 
