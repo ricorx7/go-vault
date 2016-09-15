@@ -1,10 +1,13 @@
-const React = require('react');
-const ReactDOM = require('react-dom');
-var DataTable = require('react-data-components').DataTable;
+import React from 'react';
+import ReactDOM from 'react-dom';
+import {DataTable} from 'react-data-components';
 import {blueGrey500} from 'material-ui/styles/colors';
 import getMuiTheme from 'material-ui/styles/getMuiTheme';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import Toggle from 'material-ui/toggle';
+import { Checkbox } from 'react-bootstrap';
+import { Router, Route, Link, browserHistory } from 'react-router';
+import TankTestEdit from './tanktestEdit.jsx';
 
 // Theme for material-ui toggle
 const muiTheme = getMuiTheme({
@@ -25,28 +28,27 @@ const styles = {
 
 
 // List all the Tank Test using the react-data-components.
-var TankTestList = React.createClass({
+export default class TankTestList extends React.Component {
   
-  // Set the initial state
-  getInitialState: function() {
-
-    // Set the STATE
-    return {
+  constructor(props) {
+    super(props);
+    this.state = {
       data: {TankTests:[]},
       isSelectedID: "",
-    };
-  },
+    }
+  }
+
 
   // At startup get all the Water Test data
-  componentDidMount: function() {
+  componentDidMount() {
     this.loadTankTestFromServer();
     console.log("data length %i\n", this.state.data.length);
-  },
+  }
 
-  // Get the Tank Test data from the database using AJAX
-  loadTankTestFromServer: function() {
+  // Get the Water Test data from the database using AJAX
+  loadTankTestFromServer() {
     $.ajax({
-      url: this.props.url,
+      url: "/vault/tt",
       dataType: 'json',
       cache: false,
       success: function(data) {
@@ -54,14 +56,14 @@ var TankTestList = React.createClass({
         this.setState({data: data});
       }.bind(this),
       error: function(xhr, status, err) {
-        console.error(this.props.url, status, err.toString());
+        console.error("/vault/tt", status, err.toString());
       }.bind(this)
     });
-  },
+  }
 
     // Call API to set IsSelect selection
-    apiSetSelected: function(selectedID) {
-    var urlSelected = this.props.selectedURL + selectedID;
+    apiSetSelected(selectedID) {
+    var urlSelected = "/vault/tt/select/" + selectedID;
     $.ajax({
       url: urlSelected,
       dataType: 'json',
@@ -73,30 +75,41 @@ var TankTestList = React.createClass({
         console.error(urlSelected, status, err.toString());
       }.bind(this)
     });
-  },
+  }
 
   // Convert to Bool
-  convertToBool: function(val) {
+  convertToBool(val) {
     return (val === 'true');
-  },
+  }
+
+  // Convert bool to checked
+  convertToChecked(val) {
+    if(val == 'true') {
+      return 'checked';
+    }
+
+    return '';
+  }
 
   // Selection change for IsSelected Column
-  handleIsSelectedChange: function(id) {
+  handleIsSelectedChange(id) {
     // Set state
-    this.setState({isSelectedID: id});
+    //this.setState({isSelectedID: id});
 
     // Call the API
     this.apiSetSelected(id);
-  },
+  }
 
   // Render function
-  render: function() {
+  render() {
 
     // Report Column
     const renderReport =
       (val, row) =>
-        <a href={`${row['PlotReport']}`}> Report </a>;
-        
+        <div>
+          <a href={`${row['PlotReport']}`} target="_blank"> Report </a>
+          <Link to={"/tanktests/" + `${row['id']}`}> EDIT </Link>
+        </div>;
 
     // IsSelected Column
     const renderIsSelected =
@@ -111,14 +124,17 @@ var TankTestList = React.createClass({
     var columns = [
     { title: 'Selected', render: renderIsSelected},
     { title: 'SerialNumber', prop: 'SerialNumber'},
-    { title: 'Subsystem', prop: 'SubsystemDescStr'},
-    { title: 'Type', prop: 'TankTestType'},
+    { title: 'Subsys', prop: 'SubsystemDescStr'},
     { title: 'Orientation', prop: 'TestOrientation'},
+    { title: 'GpsDistance', prop: 'GpsDistance'},
     { title: 'BT Distance', prop: 'BtDistance'},
     { title: 'Distance Err', prop: 'DistanceError'},
+    { title: 'GpsDirection', prop: 'GpsDirection'},
     { title: 'BT Direction', prop: 'BtDirection'},
     { title: 'Direction Err', prop: 'DirectionError'},
-    { title: 'Report', render: renderReport, className: 'text-center' },
+    { title: 'Created', prop: 'Created'},
+    { title: 'Modified', prop: 'Modified'},
+    { title: 'Links', render: renderReport, className: 'text-center' },
   ];
 
     return (
@@ -135,9 +151,10 @@ var TankTestList = React.createClass({
       </div>
     );
   }
-});
+}
 
 // Set the table to compTable
 // Use the url PROP to get the Water Test data
-ReactDOM.render((<TankTestList url="/vault/tt" selectedURL="/vault/tt/select/" />), document.getElementById('tanktestList'));
+//ReactDOM.render((<WaterTestCompList url="/vault/wt" selectedURL="/vault/wt/select/" editURL="watertests/" />), document.getElementById('compTable'));
+
 

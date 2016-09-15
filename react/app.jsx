@@ -7,6 +7,8 @@ import AdcpList from "./adcpList.jsx";
 import AdcpCert from "./adcpCert.jsx";
 import WaterTestList from "./watertestList.jsx";
 import WaterTestEdit from "./watertestEdit.jsx";
+import TankTestList from "./tanktestList.jsx";
+import TankTestEdit from "./tanktestEdit.jsx";
 import Layout from "./Layout.jsx";
 
 const app = document.getElementById('app');
@@ -20,6 +22,8 @@ ReactDOM.render((
       <Route path="/adcps/cert/:id" component={AdcpCert} />
       <Route path="/watertests" component={WaterTestList} />
       <Route path="/watertests/:id" component={WaterTestEdit} />
+      <Route path="/tanktests" component={TankTestList} />
+      <Route path="/tanktests/:id" component={TankTestEdit} />
     </Route>
   </Router>
 ), document.getElementById('app'))

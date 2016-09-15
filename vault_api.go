@@ -473,3 +473,68 @@ func vaultAPITankTestSelectGetHandler(w http.ResponseWriter, r *http.Request) {
 
 	}
 }
+
+// Edit the Tank Test data from the vault.
+func vaultAPITankTestEditHandler(w http.ResponseWriter, r *http.Request) {
+	// Get the value of the "id" parameters.
+	id := bone.GetValue(r, "id")
+
+	switch r.Method {
+	case "GET":
+		{
+			// ID is the ADCP serial number
+
+			tanktest := getTankTestResultsID(id) // Get the data from the database
+
+			fmt.Printf("Edit tanktest: %v\n", tanktest)
+
+			// Set data type and OK status
+			w.Header().Set("Content-Type", "application/json; charset=UTF-8")
+			w.WriteHeader(http.StatusOK)
+
+			// Pass back as a JSON
+			if err := json.NewEncoder(w).Encode(tanktest); err != nil {
+				panic(err)
+			}
+		}
+	case "POST":
+		{
+			// ID is the database ID
+
+			// Verify the data exist
+			if r.Body == nil {
+				http.Error(w, "Send a request body", 400)
+				fmt.Printf("Edit tanktest 1: \n")
+				return
+			}
+
+			defer r.Body.Close()
+
+			// Read in the data
+			fmt.Println("response Headers:", r.Header)
+			body, _ := ioutil.ReadAll(r.Body)
+			fmt.Println("response Body:", string(body))
+
+			// Convert to JSON
+			var tt TankTestResults
+			err := json.Unmarshal(body, &tt)
+			if err != nil {
+				fmt.Println("Error with unmarsharl: ", err)
+			}
+
+			fmt.Printf("POST tanktest: %v\n", tt)
+
+			// Store the new data to the database
+			updateTankTest(&tt)
+
+			// Set data type and OK status
+			w.Header().Set("Content-Type", "application/json; charset=UTF-8")
+			w.WriteHeader(http.StatusOK)
+		}
+	default:
+		{
+
+		}
+
+	}
+}

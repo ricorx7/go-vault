@@ -506,7 +506,7 @@ export default class AdcpCert extends React.Component {
     </Row>
 
 		<Row fluid style={marginLeft}>
-			<Col xs={3} style={sigStyle}>
+			<Col xs={2} style={sigStyle}>
 			    <h5>Tech Signature:</h5>
 			</Col>
             <Col xs={5}>
@@ -523,7 +523,7 @@ export default class AdcpCert extends React.Component {
 		</Row>
 
 		<Row fluid style={marginLeft}>
-			<Col xs={3} style={sigStyle}>
+			<Col xs={2} style={sigStyle}>
 			    <h5>QA/QC Signature:</h5>
 			</Col>
             <Col xs={5}>

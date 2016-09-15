@@ -25,8 +25,8 @@ const styles = {
 };
 
 
-// Edit the water test data.
-export default class WaterTestEdit extends React.Component {
+// Edit the Tank test data.
+export default class TankTestEdit extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -34,15 +34,15 @@ export default class WaterTestEdit extends React.Component {
     }
   }
 
-    // At startup get all the Water Test data
+    // At startup get all the Tank Test data
   componentDidMount() {
-    this.apiGetWtSelected();
+    this.apiGetTtSelected();
     console.log("data length %i\n", this.state.data);
   }
 
     // Call API to set IsSelect selection
-    apiGetWtSelected() {
-      var urlSelected = "/vault/wt/edit/" + this.props.params.id;
+    apiGetTtSelected() {
+      var urlSelected = "/vault/tt/edit/" + this.props.params.id;
       $.ajax({
         url: urlSelected,
         dataType: 'json',
@@ -60,8 +60,8 @@ export default class WaterTestEdit extends React.Component {
     }
 
     // Call API to set IsSelect selection
-    apiPostWt(wtData) {
-      var urlSelected = "/vault/wt/edit/" + this.state.data.id;
+    apiPostTt(wtData) {
+      var urlSelected = "/vault/tt/edit/" + this.state.data.id;
       $.ajax({
         url: urlSelected,
         dataType: 'json',
@@ -81,7 +81,7 @@ export default class WaterTestEdit extends React.Component {
     updateDB()
     {
         console.log(this.state.data);
-        this.apiPostWt(JSON.stringify(this.state.data));
+        this.apiPostTt(JSON.stringify(this.state.data));
     }
 
     getValidationState() {
