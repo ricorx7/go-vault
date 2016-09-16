@@ -244,6 +244,7 @@ type SnrTestResults struct {
 	BottomTrackAmplitudeBeam2 float64       `bson:"BottomTrackAmplitudeBeam2" json:"BottomTrackAmplitudeBeam2"`
 	BottomTrackAmplitudeBeam3 float64       `bson:"BottomTrackAmplitudeBeam3" json:"BottomTrackAmplitudeBeam3"`
 	PlotReport                string        `bson:"PlotReport" json:"PlotReport"`
+	Notes                     string        `bson:"Notes" json:"Notes"`
 }
 
 // VaultDb holds the vault database.
@@ -451,5 +452,16 @@ func getSnrTestResultsSelected(serialNum string) *[]SnrTestResults {
 		fmt.Printf("Can't find SnrTest data %v\n", err)
 	}
 	fmt.Printf("getSnrTestResultsSelected: %s : Count[%d]\n", serialNum, len(data))
+	return &data
+}
+
+// Find the SnrTestResults from the database based off the ID
+func getSnrTestResultsID(id string) *SnrTestResults {
+	var data SnrTestResults
+
+	err := Vault.Mongo.C("SnrTestResults").Find(bson.M{"_id": bson.ObjectIdHex(id)}).One(&data)
+	if err != nil {
+		fmt.Printf("Can't find from ID SnrTest data %v\n", err)
+	}
 	return &data
 }

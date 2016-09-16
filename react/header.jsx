@@ -63,7 +63,7 @@ handleSelect(eventKey) {
                     <MenuItem eventKey={3.2}>Add</MenuItem>
                 </NavDropdown>
                 <NavDropdown eventKey={4} title="SNR Test" id="basic-nav-dropdown">
-                    <MenuItem eventKey={4.1} href="">List</MenuItem>
+                    <MenuItem eventKey={4.1} ><Link to="/snrtests">List</Link></MenuItem>
                     <MenuItem eventKey={4.2}>Add</MenuItem>
                 </NavDropdown>
                 <NavDropdown eventKey={8} title="Compass Cal" id="basic-nav-dropdown">

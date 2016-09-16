@@ -9,6 +9,8 @@ import WaterTestList from "./watertestList.jsx";
 import WaterTestEdit from "./watertestEdit.jsx";
 import TankTestList from "./tanktestList.jsx";
 import TankTestEdit from "./tanktestEdit.jsx";
+import SnrTestList from "./snrtestList.jsx";
+import SnrTestEdit from "./snrtestEdit.jsx";
 import Layout from "./Layout.jsx";
 
 const app = document.getElementById('app');
@@ -24,6 +26,8 @@ ReactDOM.render((
       <Route path="/watertests/:id" component={WaterTestEdit} />
       <Route path="/tanktests" component={TankTestList} />
       <Route path="/tanktests/:id" component={TankTestEdit} />
+      <Route path="/snrtests" component={SnrTestList} />
+      <Route path="/snrtests/:id" component={SnrTestEdit} />
     </Route>
   </Router>
 ), document.getElementById('app'))
