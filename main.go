@@ -42,7 +42,12 @@ func main() {
 	mux.Handle("/images/", http.StripPrefix("/images/", http.FileServer(http.Dir("images"))))    // Image folder
 	mux.Handle("/vault/", http.StripPrefix("/vault/", http.FileServer(http.Dir("//RTI/vault")))) // Vault folder
 	mux.Handle("/react/", http.StripPrefix("/react/", http.FileServer(http.Dir("react"))))       // React Frontend folder
-	mux.HandleFunc("/", http.HandlerFunc(adcpListHandler))
+
+	mux.Handle("/", http.HandlerFunc(func(response http.ResponseWriter, request *http.Request) { // Change to React Frontend
+		http.Redirect(response, request, "/react/#/adcps", 302)
+	}))
+
+	// API
 	mux.HandleFunc("/adcp", http.HandlerFunc(adcpListHandler))
 	mux.HandleFunc("/adcp/update/:id", http.HandlerFunc(adcpUpdateHandler))
 	mux.HandleFunc("/adcp/cert/:id", http.HandlerFunc(adcpCertHandler))
