@@ -11,6 +11,8 @@ import TankTestList from "./tanktestList.jsx";
 import TankTestEdit from "./tanktestEdit.jsx";
 import SnrTestList from "./snrtestList.jsx";
 import SnrTestEdit from "./snrtestEdit.jsx";
+import CompassCalList from "./compasscalList.jsx";
+import CompassCalEdit from "./compasscalEdit.jsx";
 import Layout from "./Layout.jsx";
 
 const app = document.getElementById('app');
@@ -28,6 +30,8 @@ ReactDOM.render((
       <Route path="/tanktests/:id" component={TankTestEdit} />
       <Route path="/snrtests" component={SnrTestList} />
       <Route path="/snrtests/:id" component={SnrTestEdit} />
+      <Route path="/compasscals" component={CompassCalList} />
+      <Route path="/compasscals/:id" component={CompassCalEdit} />
     </Route>
   </Router>
 ), document.getElementById('app'))

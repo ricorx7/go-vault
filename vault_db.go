@@ -75,6 +75,7 @@ type CompassCal struct {
 	Point4PostPtch         float64       `bson:"Point4_Post_Ptch" json:"Point4_Post_Ptch"`
 	Point4PostRoll         float64       `bson:"Point4_Post_Roll" json:"Point4_Post_Roll"`
 	LastModified           float64       `bson:"LastModified" json:"LastModified"`
+	Notes                  string        `bson:"Notes" json:"Notes"`
 	CompasscalBeam1Error   float64
 	CompasscalBeam2Error   float64
 	CompasscalBeam3Error   float64
@@ -341,6 +342,17 @@ func getCompassCalSelected(serialNum string) *[]CompassCal {
 		fmt.Printf("Can't find CompassCal data %v\n", err)
 	}
 	fmt.Printf("getCompassCalSelected: %s : Count[%d]\n", serialNum, len(data))
+	return &data
+}
+
+// Find the CompassCal data from the database based off the ID
+func getCompassCalResultsID(id string) *CompassCal {
+	var data CompassCal
+
+	err := Vault.Mongo.C("CompassCalResults").Find(bson.M{"_id": bson.ObjectIdHex(id)}).One(&data)
+	if err != nil {
+		fmt.Printf("Can't find from ID CompassCal data %v\n", err)
+	}
 	return &data
 }
 

@@ -697,3 +697,189 @@ func vaultAPISnrTestEditHandler(w http.ResponseWriter, r *http.Request) {
 
 	}
 }
+
+// Get the Compass Cal data from the vault.
+func vaultAPICompassCalGetHandler(w http.ResponseWriter, r *http.Request) {
+	// Init
+	compassCalData := &CompassCalData{}
+
+	// Get the limit
+	limit := 0
+	if len(r.URL.Query().Get("limit")) > 0 {
+		val, err := strconv.Atoi(r.URL.Query().Get("limit"))
+		if err == nil {
+			limit = val
+		}
+	}
+
+	// Get the offset
+	offset := 0
+	if len(r.URL.Query().Get("offset")) > 0 {
+		val, err := strconv.Atoi(r.URL.Query().Get("offset"))
+		if err == nil {
+			offset = val
+		}
+	}
+
+	// Get the filter
+	// Get the data from the database
+	filter := ""
+	if len(r.URL.Query().Get("filter")) > 0 {
+		filter = r.URL.Query().Get("filter")
+		err := Vault.Mongo.C("CompassCalResults").Find(bson.M{"SerialNumber": &bson.RegEx{Pattern: filter}}).Sort("-Created").All(&compassCalData.CompassCals)
+		CheckError(err)
+	} else {
+		err := Vault.Mongo.C("CompassCalResults").Find(bson.M{}).Skip(offset).Limit(limit).Sort("-Created").All(&compassCalData.CompassCals)
+		CheckError(err)
+	}
+
+	// Remove NaN from data
+	// for i := range compassCalData.CompassCals {
+	// 	if math.IsNaN(compassCalData.CompassCals[i].CalScoreAccelStdDevErr) {
+	// 		fmt.Printf("NaN found at CalScoreAccelStdDevErr: %s %s\n", i, compassCalData.CompassCals[i].SerialNumber)
+	// 	}
+	// 	if math.IsNaN(compassCalData.CompassCals[i].CalScoreStdDevErr) {
+	// 		fmt.Printf("NaN found at CalScoreStdDevErr: %s %s\n", i, compassCalData.CompassCals[i].SerialNumber)
+	// 	}
+	// 	if math.IsNaN(compassCalData.CompassCals[i].CalScoreXAccelCoverage) {
+	// 		fmt.Printf("NaN found at CalScoreXAccelCoverage: %s %s\n", i, compassCalData.CompassCals[i].SerialNumber)
+	// 	}
+	// 	if math.IsNaN(compassCalData.CompassCals[i].CalScoreXCoverage) {
+	// 		fmt.Printf("NaN found at CalScoreXCoverage: %s %s\n", i, compassCalData.CompassCals[i].SerialNumber)
+	// 	}
+	// 	if math.IsNaN(compassCalData.CompassCals[i].CalScoreYAccelCoverage) {
+	// 		fmt.Printf("NaN found at CalScoreYAccelCoverage: %s %s\n", i, compassCalData.CompassCals[i].SerialNumber)
+	// 	}
+	// 	if math.IsNaN(compassCalData.CompassCals[i].CalScoreYCoverage) {
+	// 		fmt.Printf("NaN found at CalScoreYCoverage: %s %s\n", i, compassCalData.CompassCals[i].SerialNumber)
+	// 	}
+	// 	if math.IsNaN(compassCalData.CompassCals[i].CalScoreZAccelCoverage) {
+	// 		fmt.Printf("NaN found at CalScoreZAccelCoverage: %s %s\n", i, compassCalData.CompassCals[i].SerialNumber)
+	// 	}
+	// 	if math.IsNaN(compassCalData.CompassCals[i].CalScoreZCoverage) {
+	// 		fmt.Printf("NaN found at CalScoreZCoverage: %s %s\n", i, compassCalData.CompassCals[i].SerialNumber)
+	// 	}
+	// 	if math.IsNaN(compassCalData.CompassCals[i].CompasscalBeam1Error) {
+	// 		fmt.Printf("NaN found at CompasscalBeam1Error: %s %s\n", i, compassCalData.CompassCals[i].SerialNumber)
+	// 	}
+	// }
+	//fmt.Printf("%v", compassCalData.CompassCal)
+	// b, err := json.Marshal(compassCalData.CompassCal)
+	// b = bytes.Replace(b, []byte(":nan"), []byte(":0"), -1)
+	// err = json.Unmarshal(b, &compassCalData.CompassCal)
+	// CheckError(err)
+
+	fmt.Println("Number of CompassCals: ", len(compassCalData.CompassCals))
+	fmt.Printf("limit: %s\n", r.URL.Query().Get("limit"))
+	fmt.Printf("offset: %s\n", r.URL.Query().Get("offset"))
+	fmt.Printf("filter: %s\n", r.URL.Query().Get("filter"))
+
+	// Set data type and OK status
+	w.Header().Set("Content-Type", "application/json; charset=UTF-8")
+	w.WriteHeader(http.StatusOK)
+
+	if err := json.NewEncoder(w).Encode(compassCalData); err != nil {
+		CheckError(err)
+		//panic(err)
+	}
+}
+
+// Set the Compass Cal Selected value.  This will invert the value that is in the database.
+func vaultAPICompassCalSelectGetHandler(w http.ResponseWriter, r *http.Request) {
+	// Get the value of the "id" parameters.
+	id := bone.GetValue(r, "id")
+
+	switch r.Method {
+	case "GET":
+		{
+			compassCal := getCompassCalResultsID(id)
+			compassCal.IsSelected = !compassCal.IsSelected // Invert the value
+
+			// Pass the data back to the database
+			updateCompassCal(compassCal)
+
+			fmt.Printf("given CompassCal: %v\n", compassCal)
+
+			// Set data type and OK status
+			w.Header().Set("Content-Type", "application/json; charset=UTF-8")
+			w.WriteHeader(http.StatusOK)
+
+			if err := json.NewEncoder(w).Encode(compassCal); err != nil {
+				panic(err)
+			}
+		}
+	case "POST":
+		{
+
+		}
+	default:
+		{
+
+		}
+
+	}
+}
+
+// Edit the Compass Cal data from the vault.
+func vaultAPICompassCalEditHandler(w http.ResponseWriter, r *http.Request) {
+	// Get the value of the "id" parameters.
+	id := bone.GetValue(r, "id")
+
+	switch r.Method {
+	case "GET":
+		{
+			// ID is the ADCP serial number
+
+			compassCal := getCompassCalResultsID(id) // Get the data from the database
+
+			fmt.Printf("Edit compassCal: %v\n", compassCal)
+
+			// Set data type and OK status
+			w.Header().Set("Content-Type", "application/json; charset=UTF-8")
+			w.WriteHeader(http.StatusOK)
+
+			// Pass back as a JSON
+			if err := json.NewEncoder(w).Encode(compassCal); err != nil {
+				panic(err)
+			}
+		}
+	case "POST":
+		{
+			// ID is the database ID
+
+			// Verify the data exist
+			if r.Body == nil {
+				http.Error(w, "Send a request body", 400)
+				return
+			}
+
+			defer r.Body.Close()
+
+			// Read in the data
+			fmt.Println("response Headers:", r.Header)
+			body, _ := ioutil.ReadAll(r.Body)
+			fmt.Println("response Body:", string(body))
+
+			// Convert to JSON
+			var compassCal CompassCal
+			err := json.Unmarshal(body, &compassCal)
+			if err != nil {
+				fmt.Println("Error with unmarsharl: ", err)
+			}
+
+			fmt.Printf("POST CompassCal: %v\n", compassCal)
+
+			// Store the new data to the database
+			updateCompassCal(&compassCal)
+
+			// Set data type and OK status
+			w.Header().Set("Content-Type", "application/json; charset=UTF-8")
+			w.WriteHeader(http.StatusOK)
+		}
+	default:
+		{
+
+		}
+
+	}
+}

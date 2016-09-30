@@ -72,7 +72,6 @@ func main() {
 	mux.HandleFunc("/vault/adcp", http.HandlerFunc(vaultAPIAdcpGetHandler))
 	mux.HandleFunc("/vault/adcp/:id", http.HandlerFunc(vaultAPIAdcpSerialGetHandler))
 	mux.HandleFunc("/vault/adcp/cert/:id", http.HandlerFunc(vaultAPIAdcpCertGetHandler))
-	mux.HandleFunc("/vault/compasscal/:id", http.HandlerFunc(vaultAPICompassCalSerialGetHandler))
 	mux.HandleFunc("/vault/wt", http.HandlerFunc(vaultAPIWaterTestGetHandler))
 	mux.HandleFunc("/vault/wt/select/:id", http.HandlerFunc(vaultAPIWaterTestSelectGetHandler))
 	mux.HandleFunc("/vault/wt/edit/:id", http.HandlerFunc(vaultAPIWaterTestEditHandler))
@@ -82,6 +81,10 @@ func main() {
 	mux.HandleFunc("/vault/snr", http.HandlerFunc(vaultAPISnrTestGetHandler))
 	mux.HandleFunc("/vault/snr/select/:id", http.HandlerFunc(vaultAPISnrTestSelectGetHandler))
 	mux.HandleFunc("/vault/snr/edit/:id", http.HandlerFunc(vaultAPISnrTestEditHandler))
+	mux.HandleFunc("/vault/compasscal/:id", http.HandlerFunc(vaultAPICompassCalSerialGetHandler))
+	mux.HandleFunc("/vault/compasscal", http.HandlerFunc(vaultAPICompassCalGetHandler))
+	mux.HandleFunc("/vault/compasscal/select/:id", http.HandlerFunc(vaultAPICompassCalSelectGetHandler))
+	mux.HandleFunc("/vault/compasscal/edit/:id", http.HandlerFunc(vaultAPICompassCalEditHandler))
 
 	// HTTP server
 	if err := http.ListenAndServe(*addr, mux); err != nil {

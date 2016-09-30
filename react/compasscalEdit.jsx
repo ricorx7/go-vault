@@ -25,8 +25,8 @@ const styles = {
 };
 
 
-// Edit the Tank test data.
-export default class SnrTestEdit extends React.Component {
+// Edit the Compass Cal data.
+export default class CompassCalEdit extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -34,15 +34,15 @@ export default class SnrTestEdit extends React.Component {
     }
   }
 
-    // At startup get all the Tank Test data
+    // At startup get all the Compass Cal data
   componentDidMount() {
-    this.apiGetSnrSelected();
+    this.apiGetCompassCalSelected();
     console.log("data length %i\n", this.state.data);
   }
 
     // Call API to set IsSelect selection
-    apiGetSnrSelected() {
-      var urlSelected = "/vault/snr/edit/" + this.props.params.id;
+    apiGetCompassCalSelected() {
+      var urlSelected = "/vault/compasscal/edit/" + this.props.params.id;
       $.ajax({
         url: urlSelected,
         dataType: 'json',
@@ -60,13 +60,13 @@ export default class SnrTestEdit extends React.Component {
     }
 
     // Call API to set IsSelect selection
-    apiPostSnr(wtData) {
-      var urlSelected = "/vault/snr/edit/" + this.state.data.id;
+    apiPostCompassCal(ccData) {
+      var urlSelected = "/vault/compasscal/edit/" + this.state.data.id;
       $.ajax({
         url: urlSelected,
         dataType: 'json',
         type: 'POST',
-        data: wtData,
+        data: ccData,
         cache: false,
         success: function(data) {
           console.log("Data updated from %s\n", urlSelected);
@@ -81,7 +81,7 @@ export default class SnrTestEdit extends React.Component {
     updateDB()
     {
         console.log(this.state.data);
-        this.apiPostSnr(JSON.stringify(this.state.data));
+        this.apiPostCompassCal(JSON.stringify(this.state.data));
     }
 
     getValidationState() {
@@ -109,143 +109,123 @@ export default class SnrTestEdit extends React.Component {
         this.update();                                             // Update DB and display   
     }
 
-    beam0SignalLakeChange(e) {
-        this.state.data.Beam0SignalLake = parseFloat(e.target.value);  // Update the object
+    point1PreHdgChange(e) {
+        this.state.data.Point1_Pre_Hdg = parseFloat(e.target.value);  // Update the object
         this.update();                                             // Update DB and display   
     }
 
-    beam1SignalLakeChange(e) {
-        this.state.data.Beam1SignalLake = parseFloat(e.target.value);  // Update the object
+    point2PreHdgChange(e) {
+        this.state.data.Point2_Pre_Hdg = parseFloat(e.target.value);  // Update the object
         this.update();                                             // Update DB and display   
     }
 
-    beam2SignalLakeChange(e) {
-        this.state.data.Beam2SignalLake = parseFloat(e.target.value);  // Update the object
+    point3PreHdgChange(e) {
+        this.state.data.Point3_Pre_Hdg = parseFloat(e.target.value);  // Update the object
         this.update();                                             // Update DB and display   
     }
 
-    beam3SignalLakeChange(e) {
-        this.state.data.Beam3SignalLake = parseFloat(e.target.value);  // Update the object
+    point4PreHdgChange(e) {
+        this.state.data.Point4_Pre_Hdg = parseFloat(e.target.value);  // Update the object
         this.update();                                             // Update DB and display   
     }
 
-    beam0SignalOceanChange(e) {
-        this.state.data.Beam0SignalOcean = parseFloat(e.target.value);  // Update the object
+    point1PrePtchChange(e) {
+        this.state.data.Point1_Pre_Ptch = parseFloat(e.target.value);  // Update the object
         this.update();                                              // Update DB and display   
     }
 
-    beam1SignalOceanChange(e) {
-        this.state.data.Beam1SignalOcean = parseFloat(e.target.value);  // Update the object
+    point2PrePtchChange(e) {
+        this.state.data.Point2_Pre_Ptch = parseFloat(e.target.value);  // Update the object
         this.update();                                              // Update DB and display   
     }
 
-    beam2SignalOceanChange(e) {
-        this.state.data.Beam2SignalOcean = parseFloat(e.target.value);  // Update the object
+    point3PrePtchChange(e) {
+        this.state.data.Point3_Pre_Ptch = parseFloat(e.target.value);  // Update the object
         this.update();                                              // Update DB and display   
     }
 
-    beam3SignalOceanChange(e) {
-        this.state.data.Beam3SignalOcean = parseFloat(e.target.value);  // Update the object
+    point4PrePtchChange(e) {
+        this.state.data.Point4_Pre_Ptch = parseFloat(e.target.value);  // Update the object
         this.update();                                              // Update DB and display   
     }
 
-    beam0NoiseFloorChange(e) {
-        this.state.data.Beam0NoiseFloor = parseFloat(e.target.value);  // Update the object
+    point1PreRollChange(e) {
+        this.state.data.Point1_Pre_Roll = parseFloat(e.target.value);  // Update the object
         this.update();                                              // Update DB and display   
     }
 
-    beam1NoiseFloorChange(e) {
-        this.state.data.Beam1NoiseFloor = parseFloat(e.target.value);  // Update the object
+    point2PreRollChange(e) {
+        this.state.data.Point2_Pre_Roll = parseFloat(e.target.value);  // Update the object
         this.update();                                              // Update DB and display   
     }
 
-    beam2NoiseFloorChange(e) {
-        this.state.data.Beam2NoiseFloor = parseFloat(e.target.value);  // Update the object
+    point3PreRollChange(e) {
+        this.state.data.Point3_Pre_Roll = parseFloat(e.target.value);  // Update the object
         this.update();                                              // Update DB and display   
     }
 
-    beam3NoiseFloorChange(e) {
-        this.state.data.Beam3NoiseFloor = parseFloat(e.target.value);  // Update the object
+    point4PreRollChange(e) {
+        this.state.data.Point4_Pre_Roll = parseFloat(e.target.value);  // Update the object
         this.update();                                              // Update DB and display   
     }
 
-    beam0SnrLakeChange(e) {
-        this.state.data.Beam0SnrLake = parseFloat(e.target.value);  // Update the object
+    point1PostHdgChange(e) {
+        this.state.data.Point1_Post_Hdg = parseFloat(e.target.value);  // Update the object
         this.update();                                              // Update DB and display   
     }
 
-    beam1SnrLakeChange(e) {
-        this.state.data.Beam1SnrLake = parseFloat(e.target.value);  // Update the object
+    point2PostHdgChange(e) {
+        this.state.data.Point2_Post_Hdg = parseFloat(e.target.value);  // Update the object
         this.update();                                              // Update DB and display   
     }
 
-    beam2SnrLakeChange(e) {
-        this.state.data.Beam2SnrLake = parseFloat(e.target.value);  // Update the object
+    point3PostHdgChange(e) {
+        this.state.data.Point3_Post_Hdg = parseFloat(e.target.value);  // Update the object
         this.update();                                              // Update DB and display   
     }
 
-    beam3SnrLakeChange(e) {
-        this.state.data.Beam3SnrLake = parseFloat(e.target.value);  // Update the object
+    point4PostHdgChange(e) {
+        this.state.data.Point4_Post_Hdg = parseFloat(e.target.value);  // Update the object
         this.update();                                              // Update DB and display   
     }
 
-    beam0SnrOceanChange(e) {
-        this.state.data.Beam0SnrOcean = parseFloat(e.target.value);  // Update the object
+    point1PostPtchChange(e) {
+        this.state.data.Point1_Post_Ptch = parseFloat(e.target.value);  // Update the object
         this.update();                                              // Update DB and display   
     }
 
-    beam1SnrOceanChange(e) {
-        this.state.data.Beam1SnrOcean = parseFloat(e.target.value);  // Update the object
+    point2PostPtchChange(e) {
+        this.state.data.Point2_Post_Ptch = parseFloat(e.target.value);  // Update the object
         this.update();                                              // Update DB and display   
     }
 
-    beam2SnrOceanChange(e) {
-        this.state.data.Beam2SnrOcean = parseFloat(e.target.value);  // Update the object
+    point3PostPtchChange(e) {
+        this.state.data.Point3_Post_Ptch = parseFloat(e.target.value);  // Update the object
         this.update();                                              // Update DB and display   
     }
 
-    beam3SnrOceanChange(e) {
-        this.state.data.Beam3SnrOcean = parseFloat(e.target.value);  // Update the object
+    point4PostPtchChange(e) {
+        this.state.data.Point4_Post_Ptch = parseFloat(e.target.value);  // Update the object
         this.update();                                              // Update DB and display   
     }
 
-    glitchCountBeam0Change(e) {
-        this.state.data.GlitchCountBeam0 = parseFloat(e.target.value);  // Update the object
+    point1PostRollChange(e) {
+        this.state.data.Point1_Post_Roll = parseFloat(e.target.value);  // Update the object
         this.update();                                              // Update DB and display   
     }
 
-    glitchCountBeam1Change(e) {
-        this.state.data.GlitchCountBeam1 = parseFloat(e.target.value);  // Update the object
+    point2PostRollChange(e) {
+        this.state.data.Point2_Post_Roll = parseFloat(e.target.value);  // Update the object
         this.update();                                              // Update DB and display   
     }
 
-    glitchCountBeam2Change(e) {
-        this.state.data.GlitchCountBeam2 = parseFloat(e.target.value);  // Update the object
+    point3PostRollChange(e) {
+        this.state.data.Point3_Post_Roll = parseFloat(e.target.value);  // Update the object
         this.update();                                              // Update DB and display   
     }
 
-    glitchCountBeam3Change(e) {
-        this.state.data.GlitchCountBeam3 = parseFloat(e.target.value);  // Update the object
-        this.update();                                              // Update DB and display   
-    }
-
-    bottomTrackAmplitudeBeam0Change(e) {
-        this.state.data.BottomTrackAmplitudeBeam0 = parseFloat(e.target.value);  // Update the object
-        this.update();                                              // Update DB and display   
-    }
-
-    bottomTrackAmplitudeBeam1Change(e) {
-        this.state.data.BottomTrackAmplitudeBeam1 = parseFloat(e.target.value);  // Update the object
-        this.update();                                              // Update DB and display   
-    }
-
-    bottomTrackAmplitudeBeam2Change(e) {
-        this.state.data.BottomTrackAmplitudeBeam2 = parseFloat(e.target.value);  // Update the object
-        this.update();                                              // Update DB and display   
-    }
-
-    bottomTrackAmplitudeBeam3Change(e) {
-        this.state.data.BottomTrackAmplitudeBeam3 = parseFloat(e.target.value);  // Update the object
+    point4PostRollChange(e) {
+        this.state.data.Point4_Post_Roll = parseFloat(e.target.value);  // Update the object
         this.update();                                              // Update DB and display   
     }
 
@@ -294,9 +274,8 @@ export default class SnrTestEdit extends React.Component {
             </Col>
           </Row>
 
-
           <Row>
-            <Col xs={2}>
+            <Col xs={3}>
               <MuiThemeProvider muiTheme={muiTheme}>
                 <div style={styles.block}>
                     <Toggle label="Is Selected:" defaultToggled={this.convertToBool(this.state.data.IsSelected)} onToggle={this.isSelectedChange.bind(this, this.state.data.IsSelected)} style={styles.toggle} />
@@ -306,21 +285,12 @@ export default class SnrTestEdit extends React.Component {
           </Row>
 
           <Row>
-            <Col xs={2}>
-              <FormGroup controlId="formControlsSelect">
-                <ControlLabel>Orientation:</ControlLabel>
-                <FormControl componentClass="select" placeholder="Orientation" value={this.state.data.TestOrientation} onChange={this.orientationChange.bind(this)}>
-                  <option value="0">0</option>
-                  <option value="3">3</option>
-                </FormControl>
-              </FormGroup>
-            </Col>
-          </Row>
-
-          <Row>
             <Col xs={10}>
               <Table striped bordered condensed responsive hover>
                 <thead>
+                  <tr>
+                    <th colSpan="5">Post Points</th>
+                  </tr>
                   <tr>
                     <th></th>
                     <th>Beam 0</th>
@@ -331,163 +301,161 @@ export default class SnrTestEdit extends React.Component {
                 </thead>
                 <tbody>
                   <tr>
-                    <td>Signal Lake</td>
+                    <td>Hdg</td>
                     <td>                  
                       <FormGroup controlId="formBasicText" validationState={this.getValidationState()} >
-                        <FormControl type="text" value={this.state.data.Beam0SignalLake} placeholder="Enter text" onChange={this.beam0SignalLakeChange.bind(this)} />
+                        <FormControl type="text" value={this.state.data.Point1_Post_Hdg} placeholder="Enter text" onChange={this.point1PostHdgChange.bind(this)} />
                       </FormGroup>
                     </td>
                     <td>
                       <FormGroup controlId="formBasicText" validationState={this.getValidationState()} >
-                        <FormControl type="text" value={this.state.data.Beam1SignalLake} placeholder="Enter text" onChange={this.beam1SignalLakeChange.bind(this)} />
+                        <FormControl type="text" value={this.state.data.Point2_Post_Hdg} placeholder="Enter text" onChange={this.point2PostHdgChange.bind(this)} />
                       </FormGroup>
                     </td>
                     <td>
                       <FormGroup controlId="formBasicText" validationState={this.getValidationState()} >
-                        <FormControl type="text" value={this.state.data.Beam2SignalLake} placeholder="Enter text" onChange={this.beam2SignalLakeChange.bind(this)} />
+                        <FormControl type="text" value={this.state.data.Point3_Post_Hdg} placeholder="Enter text" onChange={this.point3PostHdgChange.bind(this)} />
                       </FormGroup>
                     </td>
                     <td>
                       <FormGroup controlId="formBasicText" validationState={this.getValidationState()} >
-                        <FormControl type="text" value={this.state.data.Beam3SignalLake} placeholder="Enter text" onChange={this.beam3SignalLakeChange.bind(this)} />
+                        <FormControl type="text" value={this.state.data.Point4_Post_Hdg} placeholder="Enter text" onChange={this.point4PostHdgChange.bind(this)} />
                       </FormGroup>
                     </td>
                   </tr>
                   <tr>
-                    <td>Signal Ocean</td>
+                    <td>Pitch</td>
                     <td>                  
                       <FormGroup controlId="formBasicText" validationState={this.getValidationState()} >
-                        <FormControl type="text" value={this.state.data.Beam0SignalOcean} placeholder="Enter text" onChange={this.beam0SignalOceanChange.bind(this)} />
+                        <FormControl type="text" value={this.state.data.Point1_Post_Ptch} placeholder="Enter text" onChange={this.point1PostPtchChange.bind(this)} />
                       </FormGroup>
                     </td>
                     <td>
                       <FormGroup controlId="formBasicText" validationState={this.getValidationState()} >
-                        <FormControl type="text" value={this.state.data.Beam1SignalOcean} placeholder="Enter text" onChange={this.beam1SignalOceanChange.bind(this)} />
+                        <FormControl type="text" value={this.state.data.Point2_Post_Ptch} placeholder="Enter text" onChange={this.point2PostPtchChange.bind(this)} />
                       </FormGroup>
                     </td>
                     <td>
                       <FormGroup controlId="formBasicText" validationState={this.getValidationState()} >
-                        <FormControl type="text" value={this.state.data.Beam2SignalOcean} placeholder="Enter text" onChange={this.beam2SignalOceanChange.bind(this)} />
+                        <FormControl type="text" value={this.state.data.Point3_Post_Ptch} placeholder="Enter text" onChange={this.point3PostPtchChange.bind(this)} />
                       </FormGroup>
                     </td>
                     <td>
                       <FormGroup controlId="formBasicText" validationState={this.getValidationState()} >
-                        <FormControl type="text" value={this.state.data.Beam3SignalOcean} placeholder="Enter text" onChange={this.beam3SignalOceanChange.bind(this)} />
+                        <FormControl type="text" value={this.state.data.Point4_Post_Ptch} placeholder="Enter text" onChange={this.point4PostPtchChange.bind(this)} />
                       </FormGroup>
                     </td>
                   </tr>
                   <tr>
-                    <td>Noise Floor</td>
+                    <td>Roll</td>
                     <td>                  
                       <FormGroup controlId="formBasicText" validationState={this.getValidationState()} >
-                        <FormControl type="text" value={this.state.data.Beam0NoiseFloor} placeholder="Enter text" onChange={this.beam0NoiseFloorChange.bind(this)} />
+                        <FormControl type="text" value={this.state.data.Point1_Post_Roll} placeholder="Enter text" onChange={this.point1PostRollChange.bind(this)} />
                       </FormGroup>
                     </td>
                     <td>
                       <FormGroup controlId="formBasicText" validationState={this.getValidationState()} >
-                        <FormControl type="text" value={this.state.data.Beam1NoiseFloor} placeholder="Enter text" onChange={this.beam1NoiseFloorChange.bind(this)} />
+                        <FormControl type="text" value={this.state.data.Point2_Post_Roll} placeholder="Enter text" onChange={this.point2PostRollChange.bind(this)} />
                       </FormGroup>
                     </td>
                     <td>
                       <FormGroup controlId="formBasicText" validationState={this.getValidationState()} >
-                        <FormControl type="text" value={this.state.data.Beam2NoiseFloor} placeholder="Enter text" onChange={this.beam2NoiseFloorChange.bind(this)} />
+                        <FormControl type="text" value={this.state.data.Point3_Post_Roll} placeholder="Enter text" onChange={this.point3PostRollChange.bind(this)} />
                       </FormGroup>
                     </td>
                     <td>
                       <FormGroup controlId="formBasicText" validationState={this.getValidationState()} >
-                        <FormControl type="text" value={this.state.data.Beam3NoiseFloor} placeholder="Enter text" onChange={this.beam3NoiseFloorChange.bind(this)} />
+                        <FormControl type="text" value={this.state.data.Point4_Post_Roll} placeholder="Enter text" onChange={this.point4PostRollChange.bind(this)} />
+                      </FormGroup>
+                    </td>
+                  </tr>
+                </tbody>
+              </Table>
+            </Col>
+          </Row>
+
+          <Row>
+            <Col xs={10}>
+              <Table striped bordered condensed responsive hover>
+                <thead>
+                  <tr>
+                    <th colSpan="5">Pre Points</th>
+                  </tr>
+                  <tr>
+                    <th></th>
+                    <th>Beam 0</th>
+                    <th>Beam 1</th>
+                    <th>Beam 2</th>
+                    <th>Beam 3</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>Hdg</td>
+                    <td>                  
+                      <FormGroup controlId="formBasicText" validationState={this.getValidationState()} >
+                        <FormControl type="text" value={this.state.data.Point1_Pre_Hdg} placeholder="Enter text" onChange={this.point1PreHdgChange.bind(this)} />
+                      </FormGroup>
+                    </td>
+                    <td>
+                      <FormGroup controlId="formBasicText" validationState={this.getValidationState()} >
+                        <FormControl type="text" value={this.state.data.Point2_Pre_Hdg} placeholder="Enter text" onChange={this.point2PreHdgChange.bind(this)} />
+                      </FormGroup>
+                    </td>
+                    <td>
+                      <FormGroup controlId="formBasicText" validationState={this.getValidationState()} >
+                        <FormControl type="text" value={this.state.data.Point3_Pre_Hdg} placeholder="Enter text" onChange={this.point3PreHdgChange.bind(this)} />
+                      </FormGroup>
+                    </td>
+                    <td>
+                      <FormGroup controlId="formBasicText" validationState={this.getValidationState()} >
+                        <FormControl type="text" value={this.state.data.Point4_Pre_Hdg} placeholder="Enter text" onChange={this.point4PreHdgChange.bind(this)} />
                       </FormGroup>
                     </td>
                   </tr>
                   <tr>
-                    <td>SNR Lake</td>
+                    <td>Pitch</td>
                     <td>                  
                       <FormGroup controlId="formBasicText" validationState={this.getValidationState()} >
-                        <FormControl type="text" value={this.state.data.Beam0SnrLake} placeholder="Enter text" onChange={this.beam0SnrLakeChange.bind(this)} />
+                        <FormControl type="text" value={this.state.data.Point1_Pre_Ptch} placeholder="Enter text" onChange={this.point1PrePtchChange.bind(this)} />
                       </FormGroup>
                     </td>
                     <td>
                       <FormGroup controlId="formBasicText" validationState={this.getValidationState()} >
-                        <FormControl type="text" value={this.state.data.Beam1SnrLake} placeholder="Enter text" onChange={this.beam1SnrLakeChange.bind(this)} />
+                        <FormControl type="text" value={this.state.data.Point2_Pre_Ptch} placeholder="Enter text" onChange={this.point2PrePtchChange.bind(this)} />
                       </FormGroup>
                     </td>
                     <td>
                       <FormGroup controlId="formBasicText" validationState={this.getValidationState()} >
-                        <FormControl type="text" value={this.state.data.Beam2SnrLake} placeholder="Enter text" onChange={this.beam2SnrLakeChange.bind(this)} />
+                        <FormControl type="text" value={this.state.data.Point3_Pre_Ptch} placeholder="Enter text" onChange={this.point3PrePtchChange.bind(this)} />
                       </FormGroup>
                     </td>
                     <td>
                       <FormGroup controlId="formBasicText" validationState={this.getValidationState()} >
-                        <FormControl type="text" value={this.state.data.Beam3SnrLake} placeholder="Enter text" onChange={this.beam3SnrLakeChange.bind(this)} />
+                        <FormControl type="text" value={this.state.data.Point4_Pre_Ptch} placeholder="Enter text" onChange={this.point4PrePtchChange.bind(this)} />
                       </FormGroup>
                     </td>
                   </tr>
                   <tr>
-                    <td>SNR Ocean</td>
+                    <td>Roll</td>
                     <td>                  
                       <FormGroup controlId="formBasicText" validationState={this.getValidationState()} >
-                        <FormControl type="text" value={this.state.data.Beam0SnrOcean} placeholder="Enter text" onChange={this.beam0SnrOceanChange.bind(this)} />
+                        <FormControl type="text" value={this.state.data.Point1_Pre_Roll} placeholder="Enter text" onChange={this.point1PreRollChange.bind(this)} />
                       </FormGroup>
                     </td>
                     <td>
                       <FormGroup controlId="formBasicText" validationState={this.getValidationState()} >
-                        <FormControl type="text" value={this.state.data.Beam1SnrOcean} placeholder="Enter text" onChange={this.beam1SnrOceanChange.bind(this)} />
+                        <FormControl type="text" value={this.state.data.Point2_Pre_Roll} placeholder="Enter text" onChange={this.point2PreRollChange.bind(this)} />
                       </FormGroup>
                     </td>
                     <td>
                       <FormGroup controlId="formBasicText" validationState={this.getValidationState()} >
-                        <FormControl type="text" value={this.state.data.Beam2SnrOcean} placeholder="Enter text" onChange={this.beam2SnrOceanChange.bind(this)} />
+                        <FormControl type="text" value={this.state.data.Point3_Pre_Roll} placeholder="Enter text" onChange={this.point3PreRollChange.bind(this)} />
                       </FormGroup>
                     </td>
                     <td>
                       <FormGroup controlId="formBasicText" validationState={this.getValidationState()} >
-                        <FormControl type="text" value={this.state.data.Beam3SnrOcean} placeholder="Enter text" onChange={this.beam3SnrOceanChange.bind(this)} />
-                      </FormGroup>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>Glitch Count</td>
-                    <td>                  
-                      <FormGroup controlId="formBasicText" validationState={this.getValidationState()} >
-                        <FormControl type="text" value={this.state.data.GlitchCountBeam0} placeholder="Enter text" onChange={this.glitchCountBeam0Change.bind(this)} />
-                      </FormGroup>
-                    </td>
-                    <td>
-                      <FormGroup controlId="formBasicText" validationState={this.getValidationState()} >
-                        <FormControl type="text" value={this.state.data.GlitchCountBeam1} placeholder="Enter text" onChange={this.glitchCountBeam1Change.bind(this)} />
-                      </FormGroup>
-                    </td>
-                    <td>
-                      <FormGroup controlId="formBasicText" validationState={this.getValidationState()} >
-                        <FormControl type="text" value={this.state.data.GlitchCountBeam2} placeholder="Enter text" onChange={this.glitchCountBeam2Change.bind(this)} />
-                      </FormGroup>
-                    </td>
-                    <td>
-                      <FormGroup controlId="formBasicText" validationState={this.getValidationState()} >
-                        <FormControl type="text" value={this.state.data.GlitchCountBeam3} placeholder="Enter text" onChange={this.glitchCountBeam3Change.bind(this)} />
-                      </FormGroup>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>BT Amp</td>
-                    <td>                  
-                      <FormGroup controlId="formBasicText" validationState={this.getValidationState()} >
-                        <FormControl type="text" value={this.state.data.BottomTrackAmplitudeBeam0} placeholder="Enter text" onChange={this.bottomTrackAmplitudeBeam0Change.bind(this)} />
-                      </FormGroup>
-                    </td>
-                    <td>
-                      <FormGroup controlId="formBasicText" validationState={this.getValidationState()} >
-                        <FormControl type="text" value={this.state.data.BottomTrackAmplitudeBeam1} placeholder="Enter text" onChange={this.bottomTrackAmplitudeBeam1Change.bind(this)} />
-                      </FormGroup>
-                    </td>
-                    <td>
-                      <FormGroup controlId="formBasicText" validationState={this.getValidationState()} >
-                        <FormControl type="text" value={this.state.data.BottomTrackAmplitudeBeam2} placeholder="Enter text" onChange={this.bottomTrackAmplitudeBeam2Change.bind(this)} />
-                      </FormGroup>
-                    </td>
-                    <td>
-                      <FormGroup controlId="formBasicText" validationState={this.getValidationState()} >
-                        <FormControl type="text" value={this.state.data.BottomTrackAmplitudeBeam3} placeholder="Enter text" onChange={this.bottomTrackAmplitudeBeam3Change.bind(this)} />
+                        <FormControl type="text" value={this.state.data.Point4_Pre_Roll} placeholder="Enter text" onChange={this.point4PreRollChange.bind(this)} />
                       </FormGroup>
                     </td>
                   </tr>

@@ -146,162 +146,162 @@ export default class TankTestEdit extends React.Component {
     }
 
     beam0SignalLakeChange(e) {
-        this.state.data.Beam0SignalLake = e.target.value;          // Update the object
+        this.state.data.Beam0SignalLake = parseFloat(e.target.value);  // Update the object
         this.update();                                             // Update DB and display   
     }
 
     beam1SignalLakeChange(e) {
-        this.state.data.Beam1SignalLake = e.target.value;          // Update the object
+        this.state.data.Beam1SignalLake = parseFloat(e.target.value);  // Update the object
         this.update();                                             // Update DB and display   
     }
 
     beam2SignalLakeChange(e) {
-        this.state.data.Beam2SignalLake = e.target.value;          // Update the object
+        this.state.data.Beam2SignalLake = parseFloat(e.target.value);  // Update the object
         this.update();                                             // Update DB and display   
     }
 
     beam3SignalLakeChange(e) {
-        this.state.data.Beam3SignalLake = e.target.value;          // Update the object
+        this.state.data.Beam3SignalLake = parseFloat(e.target.value);  // Update the object
         this.update();                                             // Update DB and display   
     }
 
     beam0SignalOceanChange(e) {
-        this.state.data.Beam0SignalOcean = e.target.value;          // Update the object
+        this.state.data.Beam0SignalOcean = parseFloat(e.target.value);  // Update the object
         this.update();                                              // Update DB and display   
     }
 
     beam1SignalOceanChange(e) {
-        this.state.data.Beam1SignalOcean = e.target.value;          // Update the object
+        this.state.data.Beam1SignalOcean = parseFloat(e.target.value);  // Update the object
         this.update();                                              // Update DB and display   
     }
 
     beam2SignalOceanChange(e) {
-        this.state.data.Beam2SignalOcean = e.target.value;          // Update the object
+        this.state.data.Beam2SignalOcean = parseFloat(e.target.value);  // Update the object
         this.update();                                              // Update DB and display   
     }
 
     beam3SignalOceanChange(e) {
-        this.state.data.Beam3SignalOcean = e.target.value;          // Update the object
+        this.state.data.Beam3SignalOcean = parseFloat(e.target.value);  // Update the object
         this.update();                                              // Update DB and display   
     }
 
     beam0NoiseFloorChange(e) {
-        this.state.data.Beam0NoiseFloor = e.target.value;           // Update the object
+        this.state.data.Beam0NoiseFloor = parseFloat(e.target.value);  // Update the object
         this.update();                                              // Update DB and display   
     }
 
     beam1NoiseFloorChange(e) {
-        this.state.data.Beam1NoiseFloor = e.target.value;           // Update the object
+        this.state.data.Beam1NoiseFloor = parseFloat(e.target.value);  // Update the object
         this.update();                                              // Update DB and display   
     }
 
     beam2NoiseFloorChange(e) {
-        this.state.data.Beam2NoiseFloor = e.target.value;           // Update the object
+        this.state.data.Beam2NoiseFloor = parseFloat(e.target.value);  // Update the object
         this.update();                                              // Update DB and display   
     }
 
     beam3NoiseFloorChange(e) {
-        this.state.data.Beam3NoiseFloor = e.target.value;           // Update the object
+        this.state.data.Beam3NoiseFloor = parseFloat(e.target.value);  // Update the object
         this.update();                                              // Update DB and display   
     }
 
     beam0SnrLakeChange(e) {
-        this.state.data.Beam0SnrLake = e.target.value;              // Update the object
+        this.state.data.Beam0SnrLake = parseFloat(e.target.value);  // Update the object
         this.update();                                              // Update DB and display   
     }
 
     beam1SnrLakeChange(e) {
-        this.state.data.Beam1SnrLake = e.target.value;              // Update the object
+        this.state.data.Beam1SnrLake = parseFloat(e.target.value);  // Update the object
         this.update();                                              // Update DB and display   
     }
 
     beam2SnrLakeChange(e) {
-        this.state.data.Beam2SnrLake = e.target.value;              // Update the object
+        this.state.data.Beam2SnrLake = parseFloat(e.target.value);  // Update the object
         this.update();                                              // Update DB and display   
     }
 
     beam3SnrLakeChange(e) {
-        this.state.data.Beam3SnrLake = e.target.value;              // Update the object
+        this.state.data.Beam3SnrLake = parseFloat(e.target.value);  // Update the object
         this.update();                                              // Update DB and display   
     }
 
     beam0SnrOceanChange(e) {
-        this.state.data.Beam0SnrOcean = e.target.value;             // Update the object
+        this.state.data.Beam0SnrOcean = parseFloat(e.target.value);  // Update the object
         this.update();                                              // Update DB and display   
     }
 
     beam1SnrOceanChange(e) {
-        this.state.data.Beam1SnrOcean = e.target.value;             // Update the object
+        this.state.data.Beam1SnrOcean = parseFloat(e.target.value);  // Update the object
         this.update();                                              // Update DB and display   
     }
 
     beam2SnrOceanChange(e) {
-        this.state.data.Beam2SnrOcean = e.target.value;             // Update the object
+        this.state.data.Beam2SnrOcean = parseFloat(e.target.value);  // Update the object
         this.update();                                              // Update DB and display   
     }
 
     beam3SnrOceanChange(e) {
-        this.state.data.Beam3SnrOcean = e.target.value;             // Update the object
+        this.state.data.Beam3SnrOcean = parseFloat(e.target.value);  // Update the object
         this.update();                                              // Update DB and display   
     }
 
     profileRangeBeam0Change(e) {
-        this.state.data.ProfileRangeBeam0 = e.target.value;         // Update the object
+        this.state.data.ProfileRangeBeam0 = parseFloat(e.target.value);  // Update the object
         this.update();                                              // Update DB and display   
     }
 
     profileRangeBeam1Change(e) {
-        this.state.data.ProfileRangeBeam1 = e.target.value;         // Update the object
+        this.state.data.ProfileRangeBeam1 = parseFloat(e.target.value);  // Update the object
         this.update();                                              // Update DB and display   
     }
 
     profileRangeBeam2Change(e) {
-        this.state.data.ProfileRangeBeam2 = e.target.value;         // Update the object
+        this.state.data.ProfileRangeBeam2 = parseFloat(e.target.value);  // Update the object
         this.update();                                              // Update DB and display   
     }
 
     profileRangeBeam3Change(e) {
-        this.state.data.ProfileRangeBeam3 = e.target.value;         // Update the object
+        this.state.data.ProfileRangeBeam3 = parseFloat(e.target.value);  // Update the object
         this.update();                                              // Update DB and display   
     }
 
     glitchCountBeam0Change(e) {
-        this.state.data.GlitchCountBeam0 = e.target.value;          // Update the object
+        this.state.data.GlitchCountBeam0 = parseFloat(e.target.value);  // Update the object
         this.update();                                              // Update DB and display   
     }
 
     glitchCountBeam1Change(e) {
-        this.state.data.GlitchCountBeam1 = e.target.value;          // Update the object
+        this.state.data.GlitchCountBeam1 = parseFloat(e.target.value);  // Update the object
         this.update();                                              // Update DB and display   
     }
 
     glitchCountBeam2Change(e) {
-        this.state.data.GlitchCountBeam2 = e.target.value;          // Update the object
+        this.state.data.GlitchCountBeam2 = parseFloat(e.target.value);  // Update the object
         this.update();                                              // Update DB and display   
     }
 
     glitchCountBeam3Change(e) {
-        this.state.data.GlitchCountBeam3 = e.target.value;          // Update the object
+        this.state.data.GlitchCountBeam3 = parseFloat(e.target.value);  // Update the object
         this.update();                                              // Update DB and display   
     }
 
     bottomTrackAmplitudeBeam0Change(e) {
-        this.state.data.BottomTrackAmplitudeBeam0 = e.target.value; // Update the object
+        this.state.data.BottomTrackAmplitudeBeam0 = parseFloat(e.target.value);  // Update the object
         this.update();                                              // Update DB and display   
     }
 
     bottomTrackAmplitudeBeam1Change(e) {
-        this.state.data.BottomTrackAmplitudeBeam1 = e.target.value; // Update the object
+        this.state.data.BottomTrackAmplitudeBeam1 = parseFloat(e.target.value);  // Update the object
         this.update();                                              // Update DB and display   
     }
 
     bottomTrackAmplitudeBeam2Change(e) {
-        this.state.data.BottomTrackAmplitudeBeam2 = e.target.value; // Update the object
+        this.state.data.BottomTrackAmplitudeBeam2 = parseFloat(e.target.value);  // Update the object
         this.update();                                              // Update DB and display   
     }
 
     bottomTrackAmplitudeBeam3Change(e) {
-        this.state.data.BottomTrackAmplitudeBeam3 = e.target.value; // Update the object
+        this.state.data.BottomTrackAmplitudeBeam3 = parseFloat(e.target.value);  // Update the object
         this.update();                                              // Update DB and display   
     }
 
