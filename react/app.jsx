@@ -13,6 +13,8 @@ import SnrTestList from "./snrtestList.jsx";
 import SnrTestEdit from "./snrtestEdit.jsx";
 import CompassCalList from "./compasscalList.jsx";
 import CompassCalEdit from "./compasscalEdit.jsx";
+import RmaList from "./rmaList.jsx";
+import RmaEdit from "./rmaEdit.jsx";
 import Layout from "./Layout.jsx";
 
 const app = document.getElementById('app');
@@ -32,6 +34,8 @@ ReactDOM.render((
       <Route path="/snrtests/:id" component={SnrTestEdit} />
       <Route path="/compasscals" component={CompassCalList} />
       <Route path="/compasscals/:id" component={CompassCalEdit} />
+      <Route path="/rma" component={RmaList} />
+      <Route path="/rma/:id" component={RmaEdit} />
     </Route>
   </Router>
 ), document.getElementById('app'))

@@ -11,10 +11,10 @@ import (
 )
 
 // RmaData holds the ADCP data.
-type RmaData struct {
-	RMA    []RMA  // RMAs
-	Filter string // Filter
-}
+// type RmaData struct {
+// 	RMA    []RMA  // RMAs
+// 	Filter string // Filter
+// }
 
 // List all the RMAs.
 func rmaHandler(w http.ResponseWriter, r *http.Request) {

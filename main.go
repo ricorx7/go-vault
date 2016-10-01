@@ -90,6 +90,8 @@ func main() {
 	mux.HandleFunc("/vault/compasscal", http.HandlerFunc(vaultAPICompassCalGetHandler))
 	mux.HandleFunc("/vault/compasscal/select/:id", http.HandlerFunc(vaultAPICompassCalSelectGetHandler))
 	mux.HandleFunc("/vault/compasscal/edit/:id", http.HandlerFunc(vaultAPICompassCalEditHandler))
+	mux.HandleFunc("/vault/rma", http.HandlerFunc(vaultAPIRmaGetHandler))
+	mux.HandleFunc("/vault/rma/edit/:id", http.HandlerFunc(vaultAPIRmaEditHandler))
 
 	// HTTP server
 	if err := http.ListenAndServe(*addr, mux); err != nil {

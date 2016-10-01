@@ -13,11 +13,11 @@ import (
 )
 
 // RmaProduct will store a product for RMA.
-type RmaProduct struct {
-	PartNumber   string `bson:"PartNumber" json:"PartNumber"`
-	Qty          int    `bson:"Qty" json:"Qty"`
-	SerialNumber string `bson:"SerialNumber" json:"SerialNumber"`
-}
+// type RmaProduct struct {
+// 	PartNumber   string `bson:"PartNumber" json:"PartNumber"`
+// 	Qty          int    `bson:"Qty" json:"Qty"`
+// 	SerialNumber string `bson:"SerialNumber" json:"SerialNumber"`
+// }
 
 // RMA will keep track of the sales order information.
 // RMA Type is the first 3 digits
@@ -26,55 +26,55 @@ type RmaProduct struct {
 // 29 = Warrenty
 // 28 = Billable
 // 259 = Demo Repair
-type RMA struct {
-	ID                         bson.ObjectId   `bson:"_id,omitempty" json:"id"`
-	OrigSalesOrder             string          `bson:"OrigSalesOrder,omitempty" json:"OrigSalesOrder"`
-	RmaDate                    string          `bson:"RmaDate" json:"RmaDate"`
-	RmaType                    string          `bson:"RmaType" json:"RmaType"`
-	RmaNumber                  string          `bson:"RmaNumber" json:"RmaNumber"`
-	Company                    string          `bson:"Company" json:"Company"`
-	ContactName                string          `bson:"ContactName" json:"ContactName"`
-	ContactAddress             string          `bson:"ContactAddress" json:"ContactAddress"`
-	ContactAddress2            string          `bson:"ContactAddress2" json:"ContactAddress2"`
-	ContactAddressCityStateZip string          `bson:"ContactAddressCityStateZip" json:"ContactAddressCityStateZip"`
-	ContactAddressCountry      string          `bson:"ContactAddressCountry" json:"ContactAddressCountry"`
-	ContactEmail               string          `bson:"ContactEmail" json:"ContactEmail"`
-	ContactPhone               string          `bson:"ContactPhone" json:"ContactPhone"`
-	ProductDesc                string          `bson:"ProductDesc" json:"ProductDesc"`
-	ProductID                  bson.ObjectId   `bson:"ProductID,omitempty" json:"ProductID"`
-	Products                   []RmaProduct    `bson:"Products" json:"Products"`
-	SerialNumber               string          `bson:"SerialNumber" json:"SerialNumber"`
-	ReasonReturn               string          `bson:"ReasonReturn" json:"ReasonReturn"`
-	ReturnCompany              string          `bson:"ReturnCompany" json:"ReturnCompany"`
-	ReturnContact              string          `bson:"ReturnContact" json:"ReturnContact"`
-	ReturnAddress              string          `bson:"ReturnAddress" json:"ReturnAddress"`
-	ReturnAddressCont          string          `bson:"ReturnAddressCont" json:"ReturnAddressCont"`
-	ReturnAddressCityStateZip  string          `bson:"ReturnAddressCityStateZip" json:"ReturnAddressCityStateZip"`
-	ReturnAddressCountry       string          `bson:"ReturnAddressCountry" json:"ReturnAddressCountry"`
-	ReturnPhone                string          `bson:"ReturnPhone" json:"ReturnPhone"`
-	ReturnEmail                string          `bson:"ReturnEmail" json:"ReturnEmail"`
-	ReceiveDate                string          `bson:"ReceiveDate" json:"ReceiveDate"`
-	ReceiveInfo                string          `bson:"ReceiveInfo" json:"ReceiveInfo"`
-	ReceiveUser                string          `bson:"ReceiveUser" json:"ReceiveUser"`
-	InspectionDate             string          `bson:"InspectionDate" json:"InspectionDate"`
-	InspectionInfo             string          `bson:"InspectionInfo" json:"InspectionInfo"`
-	InspectionUser             string          `bson:"InspectionUser" json:"InspectionUser"`
-	RepairDate                 string          `bson:"RepairDate" json:"RepairDate"`
-	RepairInfo                 string          `bson:"RepairInfo" json:"RepairInfo"`
-	RepairUser                 string          `bson:"RepairUser" json:"RepairUser"`
-	RepairEstHours             int             `bson:"RepairEstHours" json:"RepairEstHours"`
-	RepairMaterial             []string        `bson:"RepairMaterial" json:"RepairMaterial"`
-	RepairMaterialID           []bson.ObjectId `bson:"RepairMaterialID,omitempty" json:"RepairMaterialID"`
-	RepairProducts             []RmaProduct    `bson:"RepairProducts" json:"RepairProducts"`
-	Billable                   string          `bson:"Billable" json:"Billable"`
-	QuoteNum                   string          `bson:"QuoteNum" json:"QuoteNum"`
-	OriginalRmaNum             string          `bson:"OriginalRmaNum" json:"OriginalRmaNum"`
-	Notes                      string          `bson:"Notes" json:"Notes"`
-	Status                     string          `bson:"Status" json:"Status"`
-	ShipDate                   string          `bson:"ShipDate" json:"ShipDate"`
-	Created                    time.Time       `bson:"Created" json:"Created"`
-	Modified                   time.Time       `bson:"Modified" json:"Modified"`
-}
+// type RMA struct {
+// 	ID                         bson.ObjectId   `bson:"_id,omitempty" json:"id"`
+// 	OrigSalesOrder             string          `bson:"OrigSalesOrder,omitempty" json:"OrigSalesOrder"`
+// 	RmaDate                    string          `bson:"RmaDate" json:"RmaDate"`
+// 	RmaType                    string          `bson:"RmaType" json:"RmaType"`
+// 	RmaNumber                  string          `bson:"RmaNumber" json:"RmaNumber"`
+// 	Company                    string          `bson:"Company" json:"Company"`
+// 	ContactName                string          `bson:"ContactName" json:"ContactName"`
+// 	ContactAddress             string          `bson:"ContactAddress" json:"ContactAddress"`
+// 	ContactAddress2            string          `bson:"ContactAddress2" json:"ContactAddress2"`
+// 	ContactAddressCityStateZip string          `bson:"ContactAddressCityStateZip" json:"ContactAddressCityStateZip"`
+// 	ContactAddressCountry      string          `bson:"ContactAddressCountry" json:"ContactAddressCountry"`
+// 	ContactEmail               string          `bson:"ContactEmail" json:"ContactEmail"`
+// 	ContactPhone               string          `bson:"ContactPhone" json:"ContactPhone"`
+// 	ProductDesc                string          `bson:"ProductDesc" json:"ProductDesc"`
+// 	ProductID                  bson.ObjectId   `bson:"ProductID,omitempty" json:"ProductID"`
+// 	Products                   []RmaProduct    `bson:"Products" json:"Products"`
+// 	SerialNumber               string          `bson:"SerialNumber" json:"SerialNumber"`
+// 	ReasonReturn               string          `bson:"ReasonReturn" json:"ReasonReturn"`
+// 	ReturnCompany              string          `bson:"ReturnCompany" json:"ReturnCompany"`
+// 	ReturnContact              string          `bson:"ReturnContact" json:"ReturnContact"`
+// 	ReturnAddress              string          `bson:"ReturnAddress" json:"ReturnAddress"`
+// 	ReturnAddressCont          string          `bson:"ReturnAddressCont" json:"ReturnAddressCont"`
+// 	ReturnAddressCityStateZip  string          `bson:"ReturnAddressCityStateZip" json:"ReturnAddressCityStateZip"`
+// 	ReturnAddressCountry       string          `bson:"ReturnAddressCountry" json:"ReturnAddressCountry"`
+// 	ReturnPhone                string          `bson:"ReturnPhone" json:"ReturnPhone"`
+// 	ReturnEmail                string          `bson:"ReturnEmail" json:"ReturnEmail"`
+// 	ReceiveDate                string          `bson:"ReceiveDate" json:"ReceiveDate"`
+// 	ReceiveInfo                string          `bson:"ReceiveInfo" json:"ReceiveInfo"`
+// 	ReceiveUser                string          `bson:"ReceiveUser" json:"ReceiveUser"`
+// 	InspectionDate             string          `bson:"InspectionDate" json:"InspectionDate"`
+// 	InspectionInfo             string          `bson:"InspectionInfo" json:"InspectionInfo"`
+// 	InspectionUser             string          `bson:"InspectionUser" json:"InspectionUser"`
+// 	RepairDate                 string          `bson:"RepairDate" json:"RepairDate"`
+// 	RepairInfo                 string          `bson:"RepairInfo" json:"RepairInfo"`
+// 	RepairUser                 string          `bson:"RepairUser" json:"RepairUser"`
+// 	RepairEstHours             int             `bson:"RepairEstHours" json:"RepairEstHours"`
+// 	RepairMaterial             []string        `bson:"RepairMaterial" json:"RepairMaterial"`
+// 	RepairMaterialID           []bson.ObjectId `bson:"RepairMaterialID,omitempty" json:"RepairMaterialID"`
+// 	RepairProducts             []RmaProduct    `bson:"RepairProducts" json:"RepairProducts"`
+// 	Billable                   string          `bson:"Billable" json:"Billable"`
+// 	QuoteNum                   string          `bson:"QuoteNum" json:"QuoteNum"`
+// 	OriginalRmaNum             string          `bson:"OriginalRmaNum" json:"OriginalRmaNum"`
+// 	Notes                      string          `bson:"Notes" json:"Notes"`
+// 	Status                     string          `bson:"Status" json:"Status"`
+// 	ShipDate                   string          `bson:"ShipDate" json:"ShipDate"`
+// 	Created                    time.Time       `bson:"Created" json:"Created"`
+// 	Modified                   time.Time       `bson:"Modified" json:"Modified"`
+// }
 
 // RmaUpdate will contain the RMA data.
 type RmaUpdate struct {
