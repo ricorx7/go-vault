@@ -7,6 +7,8 @@ import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import Toggle from 'material-ui/toggle';
 import { Button, Row, Col, Table, Glyphicon, Form, FormControl, FormGroup, ControlLabel, HelpBlock, Well, Checkbox, Panel  } from 'react-bootstrap';
 import DatePicker from 'react-datepicker';
+import CSS from 'css!react-datepicker/dist/react-datepicker.css';
+import moment from 'moment';
 
 // Theme for material-ui toggle
 const muiTheme = getMuiTheme({
@@ -32,6 +34,7 @@ export default class RmaEdit extends React.Component {
     super(props);
     this.state = {
         data: {},
+        startDate: moment(),
     }
   }
 
@@ -52,6 +55,9 @@ export default class RmaEdit extends React.Component {
           console.log("Data gotten from %s\n", urlSelected);
           console.log(data);
           this.setState({data: data});
+          console.log("Rma Date: ", this.state.data.RmaDate);
+          this.setState({startDate: moment(this.state.data.RmaDate, "MM/DD/YYYY")});
+          console.log("start Date: ", this.state.startDate);
         }.bind(this),
         error: function(xhr, status, err) {
           console.error(urlSelected, status, err.toString());
@@ -113,6 +119,14 @@ export default class RmaEdit extends React.Component {
     rmaDateChange(e) {
         this.state.data.RmaDate = e.target.value;               // Update the object
         this.update();                                              // Update DB and display   
+    }
+
+    dateChange(date) {
+      this.setState({startDate: date});
+      console.log(date);
+      console.log(moment(date).format('MM/DD/YYYY'));
+      this.state.data.RmaDate = moment(date).format("MM/DD/YYYY");
+      this.update();
     }
 
     // Set the test orientation.
@@ -192,7 +206,7 @@ export default class RmaEdit extends React.Component {
                 <Col sm={10}>
                     <FormControl type="text" value={this.state.data.RmaDate} placeholder="Enter text" onChange={this.rmaDateChange.bind(this)} />
                     <FormControl.Feedback />
-                    <DatePicker selected={this.state.data.RmaDate}  onChange={this.rmaDateChange.bind(this)} />
+                    <DatePicker dateFormat="MM/DD/YYYY" selected={this.state.startDate}  onChange={this.dateChange.bind(this)} />
                 </Col> 
               </FormGroup>
 
