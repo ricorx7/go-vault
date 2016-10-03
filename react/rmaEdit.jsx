@@ -6,9 +6,7 @@ import getMuiTheme from 'material-ui/styles/getMuiTheme';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import Toggle from 'material-ui/toggle';
 import { Button, Row, Col, Table, Glyphicon, Form, FormControl, FormGroup, ControlLabel, HelpBlock, Well, Checkbox, Panel  } from 'react-bootstrap';
-import DatePicker from 'react-datepicker';
-import CSS from 'css!react-datepicker/dist/react-datepicker.css';
-import moment from 'moment';
+import DatePicker from 'material-ui/DatePicker';
 
 // Theme for material-ui toggle
 const muiTheme = getMuiTheme({
@@ -28,13 +26,22 @@ const styles = {
 };
 
 
+    //Use this method - it does handle double digits correctly
+    Date.prototype.yyyymmdd = function() {
+      var mm = (this.getMonth() + 1).toString(); // getMonth() is zero-based
+      var dd = this.getDate().toString();
+
+      return [ mm.length===2 ? '' : '0', mm, '/', dd.length===2 ? '' : '0', dd, '/', this.getFullYear(),].join(''); // padding
+    };
+
+
 // Edit the Tank test data.
 export default class RmaEdit extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
         data: {},
-        startDate: moment(),
+        startDate: new Date(),
     }
   }
 
@@ -56,8 +63,7 @@ export default class RmaEdit extends React.Component {
           console.log(data);
           this.setState({data: data});
           console.log("Rma Date: ", this.state.data.RmaDate);
-          this.setState({startDate: moment(this.state.data.RmaDate, "MM/DD/YYYY")});
-          console.log("start Date: ", this.state.startDate);
+          this.setState({startDate: new Date(this.state.data.RmaDate)});
         }.bind(this),
         error: function(xhr, status, err) {
           console.error(urlSelected, status, err.toString());
@@ -82,6 +88,7 @@ export default class RmaEdit extends React.Component {
         }.bind(this)
       });
     }
+
 
     // Update the DB with the latest data
     updateDB()
@@ -115,17 +122,9 @@ export default class RmaEdit extends React.Component {
         this.update();                                              // Update DB and display   
     }
 
-    // Set the Customer.
-    rmaDateChange(e) {
-        this.state.data.RmaDate = e.target.value;               // Update the object
-        this.update();                                              // Update DB and display   
-    }
-
-    dateChange(date) {
+    startDateChange(event, date) {
       this.setState({startDate: date});
-      console.log(date);
-      console.log(moment(date).format('MM/DD/YYYY'));
-      this.state.data.RmaDate = moment(date).format("MM/DD/YYYY");
+      this.state.data.RmaDate = date.yyyymmdd();
       this.update();
     }
 
@@ -204,9 +203,10 @@ export default class RmaEdit extends React.Component {
                     <ControlLabel>Date:</ControlLabel>
                 </Col>
                 <Col sm={10}>
-                    <FormControl type="text" value={this.state.data.RmaDate} placeholder="Enter text" onChange={this.rmaDateChange.bind(this)} />
+                    <MuiThemeProvider muiTheme={muiTheme}>
+                      <DatePicker hintText="Set RMA date created" value={this.state.startDate} autoOk={true} locale="en-US" onChange={this.startDateChange.bind(this)} />
+                    </MuiThemeProvider>
                     <FormControl.Feedback />
-                    <DatePicker dateFormat="MM/DD/YYYY" selected={this.state.startDate}  onChange={this.dateChange.bind(this)} />
                 </Col> 
               </FormGroup>
 

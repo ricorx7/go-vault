@@ -47,6 +47,5 @@
     "webpack-dev-server": "^1.14.0"
   },
   "dependencies": {
-    "react-datepicker": "^0.29.0"
   }
 }

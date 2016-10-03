@@ -1,6 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { Router, Route, Link, hashHistory } from 'react-router';
+import injectTapEventPlugin from 'react-tap-event-plugin';
 
 import Navigation from "./header.jsx";
 import AdcpList from "./adcpList.jsx";
@@ -18,6 +19,7 @@ import RmaEdit from "./rmaEdit.jsx";
 import Layout from "./Layout.jsx";
 
 const app = document.getElementById('app');
+injectTapEventPlugin();
 
 // Finally, we render a <Router> with some <Route>s.
 // It does all the fancy routing stuff for us.
