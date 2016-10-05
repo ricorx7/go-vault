@@ -209,3 +209,67 @@ func getRmaResultsID(id string) *RMA {
 	}
 	return &data
 }
+
+// Add the RMA from the database based off the ID
+func vaultAPIRmaAddHandler(w http.ResponseWriter, r *http.Request) {
+
+	switch r.Method {
+	case "GET":
+		{
+			// Create RMA with new RMA number
+			rma := &RMA{}
+			rma.RmaNumber = getNextRmaNumber()
+			rma.Created = time.Now().Local()
+			rma.Modified = time.Now().Local()
+			rma.RmaDate = time.Now().Local().String()
+			rma.ReceiveDate = time.Now().Local().String()
+			rma.InspectionDate = time.Now().Local().String()
+			rma.RepairDate = time.Now().Local().String()
+			rma.ShipDate = time.Now().Local().String()
+			rma.Status = "Reported"
+
+			// Add the RMAs to the DB
+			err := Vault.Mongo.C("RMAs").Insert(rma)
+			CheckError(err)
+
+			// Get the RMA back with the ID Set
+			err = Vault.Mongo.C("RMAs").Find(bson.M{"RmaNumber": rma.RmaNumber}).One(&rma)
+			CheckError(err)
+
+			fmt.Printf("New RMA: %v\n", rma)
+
+			// Set data type and OK status
+			w.Header().Set("Content-Type", "application/json; charset=UTF-8")
+			w.WriteHeader(http.StatusOK)
+
+			// Pass back as a JSON
+			if err := json.NewEncoder(w).Encode(rma); err != nil {
+				panic(err)
+			}
+		}
+
+	default:
+		{
+
+		}
+	}
+}
+
+// Get the next RMA number.  Find the last RMA number
+// and return it plus 1.
+func getNextRmaNumber() string {
+
+	// Init
+	var rma RMA
+
+	// Get data form DB
+	err := Vault.Mongo.C("RMAs").Find(bson.M{}).Sort("-RmaNumber").One(&rma)
+	CheckError(err)
+	fmt.Println("RMA: ", rma.Company)
+	fmt.Println("RMA Number: ", rma.RmaNumber)
+	fmt.Println("RMA Orig Sales Order: ", rma.OrigSalesOrder)
+
+	num, err := strconv.Atoi(rma.RmaNumber)
+
+	return strconv.Itoa(num + 1)
+}

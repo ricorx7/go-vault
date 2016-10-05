@@ -27730,7 +27730,11 @@
 	                            _react2.default.createElement(
 	                                _reactBootstrap.MenuItem,
 	                                { eventKey: 5.2 },
-	                                'Add'
+	                                _react2.default.createElement(
+	                                    _reactRouter.Link,
+	                                    { to: '/rma/add' },
+	                                    'Add'
+	                                )
 	                            )
 	                        ),
 	                        _react2.default.createElement(
@@ -90907,6 +90911,10 @@
 
 	var _Table = __webpack_require__(795);
 
+	var _Paper = __webpack_require__(671);
+
+	var _Paper2 = _interopRequireDefault(_Paper);
+
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -90939,7 +90947,7 @@
 	    //color: 'red',
 	    //borderStyle: 'solid',
 	    //borderColor: 'yellowgreen'
-	    boxShadow: 'rgba(255, 0, 0, 0.117647) 0px 1px 6px, rgba(255, 0, 0, 0.117647) 0px 1px 4px',
+	    boxShadow: 'rgba(255, 0, 0, 0.117647) 0px 1px 16px, rgba(255, 0, 0, 0.117647) 0px 1px 14px',
 	    margin: '10px'
 	  },
 	  menu: {
@@ -90975,10 +90983,17 @@
 	      data: {},
 	      startDate: new Date(),
 	      receiveDate: new Date(),
+	      inspectionDate: new Date(),
+	      repairDate: new Date(),
+	      shipmentDate: new Date(),
 	      Products: [],
 	      ReceiveQty: "",
 	      ReceivePartNumber: "",
-	      ReceiveSerialNumber: ""
+	      ReceiveSerialNumber: "",
+	      RepairProducts: [],
+	      RepairQty: "",
+	      RepairPartNumber: "",
+	      RepairSerialNumber: ""
 	    };
 	    return _this;
 	  }
@@ -90989,8 +91004,17 @@
 	  _createClass(RmaEdit, [{
 	    key: 'componentDidMount',
 	    value: function componentDidMount() {
-	      this.apiGetRmaSelected();
-	      console.log("data length %i\n", this.state.data);
+	      console.log(this.props.params.id);
+
+	      if (this.props.params.id == "add") {
+	        console.log("Add new RMA");
+
+	        // Find new RMA number
+	        this.apiAddRmaSelected();
+	      } else {
+	        console.log("Edit RMA");
+	        this.apiGetRmaSelected();
+	      }
 	    }
 
 	    // Call API to set IsSelect selection
@@ -91009,7 +91033,39 @@
 	          this.setState({ data: data });
 	          this.setState({ startDate: new Date(this.state.data.RmaDate) });
 	          this.setState({ receiveDate: new Date(this.state.data.ReceiveDate) });
+	          this.setState({ inspectionDate: new Date(this.state.data.InspectionDate) });
+	          this.setState({ repairDate: new Date(this.state.data.RepairDate) });
+	          this.setState({ shipmentDate: new Date(this.state.data.ShipDate) });
 	          this.setState({ Products: this.state.data.Products });
+	          this.setState({ RepairProducts: this.state.data.RepairProducts });
+	        }.bind(this),
+	        error: function (xhr, status, err) {
+	          console.error(urlSelected, status, err.toString());
+	        }.bind(this)
+	      });
+	    }
+
+	    // Call API to set IsSelect selection
+
+	  }, {
+	    key: 'apiAddRmaSelected',
+	    value: function apiAddRmaSelected() {
+	      var urlSelected = "/vault/rma/add";
+	      $.ajax({
+	        url: urlSelected,
+	        dataType: 'json',
+	        cache: false,
+	        success: function (data) {
+	          console.log("Data gotten from %s\n", urlSelected);
+	          console.log(data);
+	          this.setState({ data: data });
+	          this.setState({ startDate: new Date(this.state.data.RmaDate) });
+	          this.setState({ receiveDate: new Date(this.state.data.ReceiveDate) });
+	          this.setState({ inspectionDate: new Date(this.state.data.InspectionDate) });
+	          this.setState({ repairDate: new Date(this.state.data.RepairDate) });
+	          this.setState({ shipmentDate: new Date(this.state.data.ShipDate) });
+	          this.setState({ Products: this.state.data.Products });
+	          this.setState({ RepairProducts: this.state.data.RepairProducts });
 	        }.bind(this),
 	        error: function (xhr, status, err) {
 	          console.error(urlSelected, status, err.toString());
@@ -91067,8 +91123,6 @@
 	  }, {
 	    key: 'rmaTypeChange',
 	    value: function rmaTypeChange(event, index, value) {
-	      //this.state.data.RmaType = e.target.value;               // Update the object
-	      console.log("Rma Type value: ", value);
 	      this.state.data.RmaType = value.toString();
 	      this.update(); // Update DB and display   
 	    }
@@ -91266,6 +91320,114 @@
 	      this.setState({ ReceiveSerialNumber: "" });
 	      this.setState({ ReceiveQty: "" });
 	    }
+	  }, {
+	    key: 'inspectionDateChange',
+	    value: function inspectionDateChange(event, date) {
+	      this.setState({ inspectionDate: date });
+	      this.state.data.InspectionDate = date.yyyymmdd();
+	      this.state.data.Status = "Inspected";
+	      this.update();
+	    }
+	  }, {
+	    key: 'inspectionUserChange',
+	    value: function inspectionUserChange(e) {
+	      this.state.data.InspectionUser = e.target.value;
+	      this.update();
+	    }
+	  }, {
+	    key: 'inspectionInfoChange',
+	    value: function inspectionInfoChange(e) {
+	      this.state.data.InspectionInfo = e.target.value;
+	      this.update();
+	    }
+	  }, {
+	    key: 'repairDateChange',
+	    value: function repairDateChange(event, date) {
+	      this.setState({ repairDate: date });
+	      this.state.data.RepairDate = date.yyyymmdd();
+	      this.state.data.Status = "Repaired";
+	      this.update();
+	    }
+	  }, {
+	    key: 'repairUserChange',
+	    value: function repairUserChange(e) {
+	      this.state.data.RepairUser = e.target.value;
+	      this.update();
+	    }
+	  }, {
+	    key: 'repairInfoChange',
+	    value: function repairInfoChange(e) {
+	      this.state.data.RepairInfo = e.target.value;
+	      this.update();
+	    }
+	  }, {
+	    key: 'repairQtyChange',
+	    value: function repairQtyChange(e) {
+	      this.setState({ RepairQty: e.target.value });
+	    }
+	  }, {
+	    key: 'repairPartNumberChange',
+	    value: function repairPartNumberChange(e) {
+	      this.setState({ RepairPartNumber: e.target.value });
+	    }
+	  }, {
+	    key: 'repairSerialNumberChange',
+	    value: function repairSerialNumberChange(e) {
+	      this.setState({ RepairSerialNumber: e.target.value });
+	    }
+	  }, {
+	    key: 'addRepairProductChange',
+	    value: function addRepairProductChange(event) {
+
+	      var product = { "PartNumber": this.state.RepairPartNumber,
+	        "SerialNumber": this.state.RepairSerialNumber,
+	        "Qty": parseInt(this.state.RepairQty)
+	      };
+
+	      var newArray = this.state.RepairProducts.slice();
+	      newArray.push(product);
+	      this.setState({ RepairProducts: newArray });
+
+	      this.state.data.RepairProducts.push(product);
+	      this.update();
+
+	      // Clear the entries
+	      this.setState({ RepairPartNumber: "" });
+	      this.setState({ RepairSerialNumber: "" });
+	      this.setState({ RepairQty: "" });
+	    }
+	  }, {
+	    key: 'estRepairHoursChange',
+	    value: function estRepairHoursChange(e) {
+	      var hr = parseInt(e.target.value);
+	      if (isNaN(hr)) {
+	        this.state.data.RepairEstHours = 0;
+	        console.log("NaN");
+	      } else {
+	        this.state.data.RepairEstHours = hr; // Update the object
+	      }
+	      this.update();
+	    }
+	  }, {
+	    key: 'billableChange',
+	    value: function billableChange(event, index, value) {
+	      this.state.data.Billable = value.toString(); // Update the object
+	      this.update();
+	    }
+	  }, {
+	    key: 'quoteNumChange',
+	    value: function quoteNumChange(e) {
+	      this.state.data.QuoteNum = e.target.value; // Update the object
+	      this.update();
+	    }
+	  }, {
+	    key: 'shipmentDateChange',
+	    value: function shipmentDateChange(event, date) {
+	      this.setState({ shipmentDate: date });
+	      this.state.data.ShipDate = date.yyyymmdd();
+	      this.state.data.Status = "Returned";
+	      this.update();
+	    }
 
 	    // Set the test orientation.
 
@@ -91311,19 +91473,32 @@
 	        margin: "10px"
 	      };
 
+	      var paperStyle = {
+	        height: 80,
+	        width: 600,
+	        margin: 10,
+	        textIndent: 20,
+	        textAlign: 'left',
+	        display: 'inline-block'
+	      };
+
 	      return _react2.default.createElement(
 	        'div',
 	        { style: containerStyle },
 	        _react2.default.createElement(
-	          _reactBootstrap.Well,
-	          null,
+	          _MuiThemeProvider2.default,
+	          { muiTheme: muiTheme },
 	          _react2.default.createElement(
-	            'h1',
-	            null,
-	            this.state.data.RmaType,
-	            this.state.data.RmaNumber,
-	            ' - ',
-	            this.state.data.Company
+	            _Paper2.default,
+	            { style: paperStyle, zDepth: 5 },
+	            _react2.default.createElement(
+	              'h1',
+	              null,
+	              this.state.data.RmaType,
+	              this.state.data.RmaNumber,
+	              ' - ',
+	              this.state.data.Company
+	            )
 	          )
 	        ),
 	        _react2.default.createElement(
@@ -91573,6 +91748,205 @@
 	                    _react2.default.createElement(_TextField2.default, { hintText: 'Serial Number', floatingLabelText: 'Serial Number', value: this.state.ReceiveSerialNumber, onChange: this.receiveSerialNumberChange.bind(this), style: containerStyle }),
 	                    _react2.default.createElement(_TextField2.default, { hintText: 'Part Number', floatingLabelText: 'Part Number', value: this.state.ReceivePartNumber, onChange: this.receivePartNumberChange.bind(this), style: containerStyle }),
 	                    _react2.default.createElement(_RaisedButton2.default, { label: 'ADD', primary: true, type: 'submit', style: containerStyle })
+	                  )
+	                )
+	              )
+	            )
+	          )
+	        ),
+	        _react2.default.createElement(
+	          _reactBootstrap.Row,
+	          null,
+	          _react2.default.createElement(
+	            _reactBootstrap.Col,
+	            { sm: 12 },
+	            _react2.default.createElement(
+	              _MuiThemeProvider2.default,
+	              { muiTheme: muiTheme },
+	              _react2.default.createElement(
+	                _Card.Card,
+	                { initiallyExpanded: true, style: styles1.card },
+	                _react2.default.createElement(_Card.CardHeader, { title: 'Inspection Information', subtitle: '', actAsExpander: true, showExpandableButton: true }),
+	                _react2.default.createElement(
+	                  _Card.CardText,
+	                  { expandable: true },
+	                  _react2.default.createElement(
+	                    _reactBootstrap.Row,
+	                    null,
+	                    _react2.default.createElement(
+	                      _reactBootstrap.Col,
+	                      { sm: 5 },
+	                      _react2.default.createElement(_DatePicker2.default, { hintText: 'Date Inspected', floatingLabelText: 'Date Inspected', value: this.state.inspectionDate, autoOk: true, locale: 'en-US', onChange: this.inspectionDateChange.bind(this) }),
+	                      _react2.default.createElement('br', null),
+	                      _react2.default.createElement(_TextField2.default, { hintText: 'Inspected By', floatingLabelText: 'Inspected By', value: this.state.data.InspectionUser, onChange: this.inspectionUserChange.bind(this) })
+	                    ),
+	                    _react2.default.createElement(
+	                      _reactBootstrap.Col,
+	                      { sm: 5 },
+	                      _react2.default.createElement(_TextField2.default, { hintText: 'Inspection Information', floatingLabelText: 'Inspection Information', fullWidth: true, multiLine: true, rows: 5, rowsMax: 10, value: this.state.data.InspectionInfo, onChange: this.inspectionInfoChange.bind(this) })
+	                    )
+	                  )
+	                )
+	              )
+	            )
+	          )
+	        ),
+	        _react2.default.createElement(
+	          _reactBootstrap.Row,
+	          null,
+	          _react2.default.createElement(
+	            _reactBootstrap.Col,
+	            { sm: 12 },
+	            _react2.default.createElement(
+	              _MuiThemeProvider2.default,
+	              { muiTheme: muiTheme },
+	              _react2.default.createElement(
+	                _Card.Card,
+	                { initiallyExpanded: true, style: styles1.card },
+	                _react2.default.createElement(_Card.CardHeader, { title: 'Repair Information', subtitle: '', actAsExpander: true, showExpandableButton: true }),
+	                _react2.default.createElement(
+	                  _Card.CardText,
+	                  { expandable: true },
+	                  _react2.default.createElement(
+	                    _reactBootstrap.Row,
+	                    null,
+	                    _react2.default.createElement(
+	                      _reactBootstrap.Col,
+	                      { sm: 5 },
+	                      _react2.default.createElement(_DatePicker2.default, { hintText: 'Date Repaired', floatingLabelText: 'Date Repaired', value: this.state.repairDate, autoOk: true, locale: 'en-US', onChange: this.repairDateChange.bind(this) }),
+	                      _react2.default.createElement('br', null),
+	                      _react2.default.createElement(_TextField2.default, { hintText: 'Repaired By', floatingLabelText: 'Repaired By', value: this.state.data.RepairUser, onChange: this.repairUserChange.bind(this) }),
+	                      _react2.default.createElement('br', null),
+	                      _react2.default.createElement(_TextField2.default, { hintText: 'Ext. Repair Hours', floatingLabelText: 'Est. Repair Hours', value: this.state.data.RepairEstHours, onChange: this.estRepairHoursChange.bind(this) }),
+	                      _react2.default.createElement('br', null),
+	                      _react2.default.createElement(
+	                        _SelectField2.default,
+	                        { floatingLabelText: 'Billable', value: this.state.data.Billable, onChange: this.billableChange.bind(this) },
+	                        _react2.default.createElement(_MenuItem2.default, { value: "Warranty", primaryText: 'Warranty' }),
+	                        _react2.default.createElement(_MenuItem2.default, { value: "Billable", primaryText: 'Billable' }),
+	                        _react2.default.createElement(_MenuItem2.default, { value: "N/A", primaryText: 'N/A' })
+	                      ),
+	                      _react2.default.createElement('br', null),
+	                      _react2.default.createElement(_TextField2.default, { hintText: 'Quote Number', floatingLabelText: 'Quote Number', value: this.state.data.QuoteNum, onChange: this.quoteNumChange.bind(this) })
+	                    ),
+	                    _react2.default.createElement(
+	                      _reactBootstrap.Col,
+	                      { sm: 5 },
+	                      _react2.default.createElement(_TextField2.default, { hintText: 'Repair Information', floatingLabelText: 'Repair Information', fullWidth: true, multiLine: true, rows: 10, rowsMax: 10, value: this.state.data.RepairInfo, onChange: this.repairInfoChange.bind(this) })
+	                    )
+	                  ),
+	                  _react2.default.createElement(
+	                    _reactBootstrap.Row,
+	                    null,
+	                    _react2.default.createElement(
+	                      _Table.Table,
+	                      { height: '200px', fixedHeader: true, fixedFooter: false, selectable: false, multiSelectable: true },
+	                      _react2.default.createElement(
+	                        _Table.TableHeader,
+	                        { displaySelectAll: false, adjustForCheckbox: false, enableSelectAll: true },
+	                        _react2.default.createElement(
+	                          _Table.TableRow,
+	                          null,
+	                          _react2.default.createElement(
+	                            _Table.TableHeaderColumn,
+	                            { colSpan: '4', tooltip: 'Repaired Products', style: { textAlign: 'center' } },
+	                            'Repaired Products'
+	                          )
+	                        ),
+	                        _react2.default.createElement(
+	                          _Table.TableRow,
+	                          null,
+	                          _react2.default.createElement(
+	                            _Table.TableHeaderColumn,
+	                            { tooltip: 'ID' },
+	                            'ID'
+	                          ),
+	                          _react2.default.createElement(
+	                            _Table.TableHeaderColumn,
+	                            { tooltip: 'Qty' },
+	                            'Qty'
+	                          ),
+	                          _react2.default.createElement(
+	                            _Table.TableHeaderColumn,
+	                            { tooltip: 'Serial Number' },
+	                            'Serial Number'
+	                          ),
+	                          _react2.default.createElement(
+	                            _Table.TableHeaderColumn,
+	                            { tooltip: 'Part Number' },
+	                            'Part Number'
+	                          )
+	                        )
+	                      ),
+	                      _react2.default.createElement(
+	                        _Table.TableBody,
+	                        { displayRowCheckbox: false, deselectOnClickaway: true, showRowHover: true, stripedRows: false },
+	                        this.state.RepairProducts.map(function (row, index) {
+	                          return _react2.default.createElement(
+	                            _Table.TableRow,
+	                            { key: index, selected: row.selected },
+	                            _react2.default.createElement(
+	                              _Table.TableRowColumn,
+	                              null,
+	                              index
+	                            ),
+	                            _react2.default.createElement(
+	                              _Table.TableRowColumn,
+	                              null,
+	                              row.Qty
+	                            ),
+	                            _react2.default.createElement(
+	                              _Table.TableRowColumn,
+	                              null,
+	                              row.SerialNumber
+	                            ),
+	                            _react2.default.createElement(
+	                              _Table.TableRowColumn,
+	                              null,
+	                              row.PartNumber
+	                            )
+	                          );
+	                        })
+	                      )
+	                    )
+	                  ),
+	                  _react2.default.createElement(
+	                    'form',
+	                    { onSubmit: this.addRepairProductChange.bind(this) },
+	                    _react2.default.createElement(_TextField2.default, { hintText: 'Qty', floatingLabelText: 'Qty', value: this.state.RepairQty, onChange: this.repairQtyChange.bind(this), style: containerStyle }),
+	                    _react2.default.createElement(_TextField2.default, { hintText: 'Serial Number', floatingLabelText: 'Serial Number', value: this.state.RepairSerialNumber, onChange: this.repairSerialNumberChange.bind(this), style: containerStyle }),
+	                    _react2.default.createElement(_TextField2.default, { hintText: 'Part Number', floatingLabelText: 'Part Number', value: this.state.RepairPartNumber, onChange: this.repairPartNumberChange.bind(this), style: containerStyle }),
+	                    _react2.default.createElement(_RaisedButton2.default, { label: 'ADD', primary: true, type: 'submit', style: containerStyle })
+	                  )
+	                )
+	              )
+	            )
+	          )
+	        ),
+	        _react2.default.createElement(
+	          _reactBootstrap.Row,
+	          null,
+	          _react2.default.createElement(
+	            _reactBootstrap.Col,
+	            { sm: 12 },
+	            _react2.default.createElement(
+	              _MuiThemeProvider2.default,
+	              { muiTheme: muiTheme },
+	              _react2.default.createElement(
+	                _Card.Card,
+	                { initiallyExpanded: true, style: styles1.card },
+	                _react2.default.createElement(_Card.CardHeader, { title: 'Shipment Information', subtitle: '', actAsExpander: true, showExpandableButton: true }),
+	                _react2.default.createElement(
+	                  _Card.CardText,
+	                  { expandable: true },
+	                  _react2.default.createElement(
+	                    _reactBootstrap.Row,
+	                    null,
+	                    _react2.default.createElement(
+	                      _reactBootstrap.Col,
+	                      { sm: 5 },
+	                      _react2.default.createElement(_DatePicker2.default, { hintText: 'Date Shipped Back', floatingLabelText: 'Date Shipped Back', value: this.state.shipmentDate, autoOk: true, locale: 'en-US', onChange: this.shipmentDateChange.bind(this) })
+	                    )
 	                  )
 	                )
 	              )
