@@ -91031,11 +91031,37 @@
 	          console.log("Data gotten from %s\n", urlSelected);
 	          console.log(data);
 	          this.setState({ data: data });
-	          this.setState({ startDate: new Date(this.state.data.RmaDate) });
-	          this.setState({ receiveDate: new Date(this.state.data.ReceiveDate) });
-	          this.setState({ inspectionDate: new Date(this.state.data.InspectionDate) });
-	          this.setState({ repairDate: new Date(this.state.data.RepairDate) });
-	          this.setState({ shipmentDate: new Date(this.state.data.ShipDate) });
+
+	          if (this.state.data.RmaDate) {
+	            this.setState({ startDate: new Date(this.state.data.RmaDate) });
+	          } else {
+	            this.setState({ startDate: new Date() });
+	          }
+
+	          if (this.state.data.ReceiveDate) {
+	            this.setState({ receiveDate: new Date(this.state.data.ReceiveDate) });
+	          } else {
+	            this.setState({ receiveDate: new Date() });
+	          }
+
+	          if (this.state.data.InspectionDate) {
+	            this.setState({ inspectionDate: new Date(this.state.data.InspectionDate) });
+	          } else {
+	            this.setState({ inspectionDate: new Date() });
+	          }
+
+	          if (this.state.data.RepairDate) {
+	            this.setState({ repairDate: new Date(this.state.data.RepairDate) });
+	          } else {
+	            this.setState({ repairDate: new Date() });
+	          }
+
+	          if (this.state.data.ShipDate) {
+	            this.setState({ shipmentDate: new Date(this.state.data.ShipDate) });
+	          } else {
+	            this.setState({ shipmentDate: new Date() });
+	          }
+
 	          this.setState({ Products: this.state.data.Products });
 	          this.setState({ RepairProducts: this.state.data.RepairProducts });
 	        }.bind(this),
@@ -91475,7 +91501,7 @@
 
 	      var paperStyle = {
 	        height: 80,
-	        width: 600,
+	        width: 1000,
 	        margin: 10,
 	        textIndent: 20,
 	        textAlign: 'left',
