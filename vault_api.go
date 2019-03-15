@@ -592,14 +592,9 @@ func vaultAPISnrTestGetHandler(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Content-Type", "application/json; charset=UTF-8")
 	w.WriteHeader(http.StatusOK)
 
-	// Replace all NaN with Null
-	fmt.Println("SNR Contains NaN", snrTestData)
-	snrTestData = strings.Replace(&snrTestData, "NaN", "null", -1) 
-	fmt.Println("SNR Contains NaN", snrTestData)
-
 	if err := json.NewEncoder(w).Encode(snrTestData); err != nil {
 		CheckError(err)
-		panic(err)
+		//panic(err)
 	}
 }
 
