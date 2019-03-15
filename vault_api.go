@@ -6,6 +6,7 @@ import (
 	"io/ioutil"
 	"net/http"
 	"strconv"
+	"strings"
 
 	"github.com/go-zoo/bone"
 
@@ -590,6 +591,9 @@ func vaultAPISnrTestGetHandler(w http.ResponseWriter, r *http.Request) {
 	// Set data type and OK status
 	w.Header().Set("Content-Type", "application/json; charset=UTF-8")
 	w.WriteHeader(http.StatusOK)
+
+	// Replace all NaN with Null
+	snrTestData = strings.Replace(snrTestData, "NaN", "null") 
 
 	if err := json.NewEncoder(w).Encode(snrTestData); err != nil {
 		CheckError(err)
