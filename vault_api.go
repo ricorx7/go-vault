@@ -592,9 +592,9 @@ func vaultAPISnrTestGetHandler(w http.ResponseWriter, r *http.Request) {
 	w.WriteHeader(http.StatusOK)
 
 	if err := json.NewEncoder(w).Encode(snrTestData); err != nil {
+		fmt.Printf("JSON: %s\n", snrTestData)
 		CheckError(err)
 		panic(err)
-		fmt.Printf("JSON: %s\n", snrTestData)
 	}
 }
 
