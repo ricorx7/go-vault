@@ -275,7 +275,7 @@ func vaultAPIWaterTestGetHandler(w http.ResponseWriter, r *http.Request) {
 
 	if err := json.NewEncoder(w).Encode(waterTestData); err != nil {
 		CheckError(err)
-		panic(err)
+		//panic(err)
 	}
 }
 
